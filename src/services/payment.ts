@@ -1,4 +1,5 @@
 import { toast } from "react-toastify";
+import { TOAST_DURATION } from "../constants/toast";
 
 export const handleBuyCoins = async (
     setIsProcessingPayment: (val: boolean) => void,
@@ -28,7 +29,7 @@ export const handleBuyCoins = async (
 
             if (!paymentWindow) {
                 if (canShowToast()) {
-                    toast('Popup blocked. Please allow popups and try again.', { autoClose: 4500 });
+                    toast('Popup blocked. Please allow popups and try again.', { autoClose: TOAST_DURATION });
                     triggerToastCooldown();
                 }
                 return;
@@ -39,25 +40,25 @@ export const handleBuyCoins = async (
                 paymentWindow,
                 () => {
                     if (canShowToast()) {
-                        toast('✅ Payment successful! 100 coins added to your account.', { autoClose: 4500 });
+                        toast('✅ Payment successful! 100 coins added to your account.', { autoClose: TOAST_DURATION });
                         triggerToastCooldown();
                     }
                     setCoins(Coins + 100);
                 },
                 (reason) => {
                     if (canShowToast()) {
-                        toast(`❌ ${reason}`, { autoClose: 4500 });
+                        toast(`❌ ${reason}`, { autoClose: TOAST_DURATION });
                         triggerToastCooldown();
                     }
                 }
             );
         } else if (canShowToast()) {
-            toast("Payment failed: Could not initiate payment", { autoClose: 4500 });
+            toast("Payment failed: Could not initiate payment", { autoClose: TOAST_DURATION });
             triggerToastCooldown();
         }
     } catch (error) {
         if (canShowToast()) {
-            toast("Payment processing failed", { autoClose: 4500 });
+            toast("Payment processing failed", { autoClose: TOAST_DURATION });
             triggerToastCooldown();
         }
     } finally {

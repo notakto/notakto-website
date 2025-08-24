@@ -16,6 +16,7 @@ import { useToastCooldown } from "@/components/hooks/useToastCooldown";
 import { handleBuyCoins } from '@/services/payment';
 import { SettingButton } from '@/components/ui/SettingButton';
 import { createGame, makeMove, resetGame, updateConfig, undoMove, skipMove } from '@/services/game-apis';
+import { TOAST_DURATION } from '@/constants/toast';
 
 const Game = () => {
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
@@ -40,7 +41,7 @@ const Game = () => {
     const XP = useXP((state) => state.XP);
     const setXP = useXP((state) => state.setXP);
     const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
-    const { canShowToast, triggerToastCooldown } = useToastCooldown(4000);
+    const { canShowToast, triggerToastCooldown } = useToastCooldown(TOAST_DURATION);
     const router = useRouter();
 
     const initGame = async (num: BoardNumber, size: BoardSize, diff: DifficultyLevel) => {

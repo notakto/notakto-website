@@ -45,7 +45,8 @@ const Menu = () => {
     if ((mode === 'liveMatch' || mode === 'vsComputer') && !user) {
       if (canShowToast()) {
         toast("Please sign in!", {
-          autoClose: TOAST_DURATION
+          autoClose: TOAST_DURATION,
+          onClose: resetCooldown // reset cooldown immediately when closed
         });
         triggerToastCooldown();
       }
