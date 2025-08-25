@@ -40,8 +40,8 @@
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^14.6.1",
     "@types/jest": "^29.5.14",
-    "@types/node": "^20",
-    "@types/react": "^19",
+    "@types/node": "^20.19.11",
+    "@types/react": "^19.1.11",
     "@types/react-dom": "^19",
     "concurrently": "^8.2.2",
     "eslint": "^9.28.0",
@@ -50,7 +50,7 @@
     "jest-environment-jsdom": "^30.0.0-beta.3",
     "ts-jest": "^29.3.4",
     "ts-node": "^10.9.2",
-    "typescript": "^5"
+    "typescript": "^5.9.2"
   },
   "nextConfigOutput": "standalone",
   "packageManager": "pnpm@10.12.1+sha512.f0dda8580f0ee9481c5c79a1d927b9164f2c478e90992ad268bbb2465a736984391d6333d2c327913578b2804af33474ca554ba29c04a8b13060a717675ae3ac"

@@ -17,7 +17,7 @@ export function SettingButton({
         <button
             disabled={disabled || loading}
             className={clsx(
-                "w-full sm:w-[45%] py-4 text-white text-[30px] rounded transition-colors",
+                "w-full sm:w-[45%] py-4 text-white text-[30px] rounded transition-colors cursor-pointer",
                 disabled || loading
                     ? "bg-gray-600 cursor-not-allowed"
                     : "bg-blue-600 hover:bg-blue-700",

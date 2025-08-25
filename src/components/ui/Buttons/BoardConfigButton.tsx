@@ -10,7 +10,7 @@ export const BoardConfigButton = ({ label, isActive, onClick }: BoardConfigButto
         <button
             onClick={onClick}
             className={clsx(
-                "min-w-[60px] px-4 py-2 text-white text-xl",
+                "min-w-[60px] px-4 py-2 text-white text-xl cursor-pointer",
                 isActive ? "bg-red-600" : "bg-blue-600"
             )}
         >
