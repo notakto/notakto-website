@@ -3,7 +3,6 @@
 import { useRouter } from 'next/navigation';
 import { signInWithGoogle, signOutUser } from '@/services/firebase';
 import { useCoins, useXP, useUser, useMute, useTut } from '@/services/store';
-import TutorialModal from '../modals/TutorialModal';
 import { toast } from "react-toastify";
 import { useToastCooldown } from "@/components/hooks/useToastCooldown";
 import { MenuButton } from '@/components/ui/Buttons/MenuButton';
@@ -64,7 +63,6 @@ const Menu = () => {
         <MenuButton onClick={() => setShowTut(true)}> Tutorial </MenuButton>
         <MenuButton onClick={(user)?handleSignOut:handleSignIn}> {(user)?"Sign Out":"Sign in"} </MenuButton>
         <MenuButton onClick={() => setMute(!mute)}>Sound: {mute ? 'Off' : 'On'}</MenuButton>
-        {showTut && <TutorialModal />}
       </div>
     </div>
   );
