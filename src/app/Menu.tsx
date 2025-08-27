@@ -7,7 +7,8 @@ import TutorialModal from '../modals/TutorialModal';
 import { toast } from "react-toastify";
 import { useToastCooldown } from "@/components/hooks/useToastCooldown";
 import { MenuButton } from '@/components/ui/Buttons/MenuButton';
-
+import MenuContainer from '@/components/ui/Containers/Menu/MenuContainer';
+import MenuButtonContainer from '@/components/ui/Containers/Menu/MenuButtonContainer';
 const Menu = () => {
   const setCoins = useCoins((state) => state.setCoins);
   const setXP = useXP((state) => state.setXP);
@@ -55,18 +56,22 @@ const Menu = () => {
   };
 
   return (
-    <div className="min-h-screen bg-black flex items-center justify-center">
-      <div className="flex flex-col items-center gap-4 w-full max-w-md px-4">
-        <h1 className="text-red-600 text-[180px] -mb-10">Notakto</h1>
+    <MenuContainer>
+      {/* Title */}
+      <h1 className="text-red-600 text-[165px] -mb-9">Notakto</h1> 
+      <MenuButtonContainer>
         <MenuButton onClick={() => startGame('vsPlayer')}> Play vs Player </MenuButton>
         <MenuButton onClick={() => startGame('vsComputer')}> Play vs Computer </MenuButton>
         <MenuButton onClick={() => startGame('liveMatch')}> Live Match </MenuButton>
         <MenuButton onClick={() => setShowTut(true)}> Tutorial </MenuButton>
-        <MenuButton onClick={(user)?handleSignOut:handleSignIn}> {(user)?"Sign Out":"Sign in"} </MenuButton>
+        <MenuButton onClick={(user) ? handleSignOut : handleSignIn}>
+          {(user) ? "Sign Out" : "Sign in"}
+        </MenuButton>
         <MenuButton onClick={() => setMute(!mute)}>Sound: {mute ? 'Off' : 'On'}</MenuButton>
         {showTut && <TutorialModal />}
-      </div>
-    </div>
+      </MenuButtonContainer>
+    </MenuContainer>
+
   );
 };
 

@@ -68,7 +68,7 @@ export default function Home() {
   }, [coins, XP, user]);
 
   return (
-    <div className="flex-1 bg-gray-100">
+    <div className="flex-1 min-h-screen bg-black flex items-center justify-center">
       <Menu />
     </div>
   );
