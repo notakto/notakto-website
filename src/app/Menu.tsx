@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import { signInWithGoogle, signOutUser } from '@/services/firebase';
-import { useCoins, useXP, useUser, useMute } from '@/services/store';
+import { useCoins, useXP, useUser, useMute,useTut } from '@/services/store';
 import { toast } from "react-toastify";
 import { useToastCooldown } from "@/components/hooks/useToastCooldown";
 import { MenuButton } from '@/components/ui/Buttons/MenuButton';
@@ -15,6 +15,7 @@ const Menu = () => {
   const setUser = useUser((state) => state.setUser);
   const mute = useMute((state) => state.mute);
   const setMute = useMute((state) => state.setMute);
+  const showTut = useTut((state) => state.showTut);
 
   const router = useRouter();
   const { canShowToast, triggerToastCooldown, resetCooldown } = useToastCooldown(4000);
@@ -60,6 +61,7 @@ const Menu = () => {
         <MenuButton onClick={() => startGame('vsPlayer')}> Play vs Player </MenuButton>
         <MenuButton onClick={() => startGame('vsComputer')}> Play vs Computer </MenuButton>
         <MenuButton onClick={() => startGame('liveMatch')}> Live Match </MenuButton>
+        <MenuButton onClick={() => setShowTut(true)}> Tutorial </MenuButton>
         <MenuButton onClick={(user) ? handleSignOut : handleSignIn}>
           {(user) ? "Sign Out" : "Sign in"}
         </MenuButton>
