@@ -15,8 +15,8 @@ const Menu = () => {
   const setUser = useUser((state) => state.setUser);
   const mute = useMute((state) => state.mute);
   const setMute = useMute((state) => state.setMute);
-  const showTut = useTut((state) => state.showTut);
-
+  const setShowTut = useTut((state) => state.setShowTut);
+  
   const router = useRouter();
   const { canShowToast, triggerToastCooldown, resetCooldown } = useToastCooldown(4000);
 
