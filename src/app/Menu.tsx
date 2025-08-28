@@ -2,8 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import { signInWithGoogle, signOutUser } from '@/services/firebase';
-import { useCoins, useXP, useUser, useMute, useTut } from '@/services/store';
-import TutorialModal from '../modals/TutorialModal';
+import { useCoins, useXP, useUser, useMute } from '@/services/store';
 import { toast } from "react-toastify";
 import { useToastCooldown } from "@/components/hooks/useToastCooldown";
 import { MenuButton } from '@/components/ui/Buttons/MenuButton';
@@ -16,8 +15,6 @@ const Menu = () => {
   const setUser = useUser((state) => state.setUser);
   const mute = useMute((state) => state.mute);
   const setMute = useMute((state) => state.setMute);
-  const showTut = useTut((state) => state.showTut);
-  const setShowTut = useTut((state) => state.setShowTut);
 
   const router = useRouter();
   const { canShowToast, triggerToastCooldown, resetCooldown } = useToastCooldown(4000);
@@ -68,10 +65,8 @@ const Menu = () => {
           {(user) ? "Sign Out" : "Sign in"}
         </MenuButton>
         <MenuButton onClick={() => setMute(!mute)}>Sound: {mute ? 'Off' : 'On'}</MenuButton>
-        {showTut && <TutorialModal />}
       </MenuButtonContainer>
     </MenuContainer>
-
   );
 };
 

@@ -78,7 +78,9 @@ const Game = () => {
         <div className="flex flex-col min-h-screen bg-black relative">
             <div className="flex-1">
                 <div className="flex flex-col items-center px-6 py-4 -mb-8">
-                    <h2 className="text-red-600 text-[80px] mb-5 text-center">{currentPlayer === 1 ? player1Name : player2Name}</h2>
+                    <h2 className="text-red-600 text-[80px] mb-5 text-center">
+  {currentPlayer === 1 ? `${player1Name}'s turn` : `${player2Name}'s turn`}
+</h2>
                 </div>
 
                 <div className="flex flex-wrap justify-center gap-4 p-4 w-full mb-20">

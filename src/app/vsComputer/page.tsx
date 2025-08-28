@@ -249,7 +249,10 @@ const Game = () => {
                         <span className="text-red-600 text-[35px] ">Coins: {Coins}</span>
                         <span className="text-red-600 text-[35px] "> | XP: {XP}</span>
                     </div>
-                    <h2 className="text-red-600 text-[80px] mb-5 text-center">{currentPlayer == 1 ? "You" : "Computer"}</h2>
+                    <h2 className="text-red-600 text-[80px] mb-5 text-center">
+  {currentPlayer === 1 ? "Your Turn" : "Computer's Turn"}
+</h2>
+
                 </div>
 
                 <div className="flex flex-wrap justify-center gap-4 p-4 w-full mb-20">
