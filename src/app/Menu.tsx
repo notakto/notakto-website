@@ -60,7 +60,6 @@ const Menu = () => {
         <MenuButton onClick={() => startGame('vsPlayer')}> Play vs Player </MenuButton>
         <MenuButton onClick={() => startGame('vsComputer')}> Play vs Computer </MenuButton>
         <MenuButton onClick={() => startGame('liveMatch')}> Live Match </MenuButton>
-        <MenuButton onClick={() => setShowTut(true)}> Tutorial </MenuButton>
         <MenuButton onClick={(user) ? handleSignOut : handleSignIn}>
           {(user) ? "Sign Out" : "Sign in"}
         </MenuButton>
