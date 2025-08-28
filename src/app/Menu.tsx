@@ -7,7 +7,7 @@ import TutorialModal from '../modals/TutorialModal';
 import { toast } from "react-toastify";
 import { useToastCooldown } from "@/components/hooks/useToastCooldown";
 import { MenuButton } from '@/components/ui/MenuButton';
-import { TOAST_DURATION } from "../constants/toast";
+import { TOAST_DURATION,TOAST_ID } from "../constants/toast";
 
 const Menu = () => {
   const setCoins = useCoins((state) => state.setCoins);
@@ -45,10 +45,10 @@ const Menu = () => {
     if ((mode === 'liveMatch' || mode === 'vsComputer') && !user) {
       if (canShowToast()) {
         toast("Please sign in!", {
+          toastId: TOAST_ID,
           autoClose: TOAST_DURATION,
           onClose: resetCooldown // reset cooldown immediately when closed
         });
-        triggerToastCooldown();
       }
       return;
     }
