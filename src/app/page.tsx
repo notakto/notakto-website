@@ -10,6 +10,7 @@ import { initBackgroundMusic, toggleBackgroundMusic, stopBackgroundMusic } from 
 
 // Firebase module
 import { onAuthStateChangedListener, saveEconomyToFirestore, loadEconomyFromFirestore } from '@/services/firebase';
+import { MenuLayout } from '@/components/ui/Containers/MenuLayout';
 
 export default function Home() {
   const mute = useMute((state) => state.mute);
@@ -70,9 +71,9 @@ export default function Home() {
   }, [coins, XP, user]);
 
   return (
-    <div className="flex-1 bg-gray-100">
+    <MenuLayout>
       <Menu />
       {showTut && <TutorialModal />}
-    </div>
+    </MenuLayout>
   );
 }
