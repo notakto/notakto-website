@@ -8,6 +8,8 @@ import { useToastCooldown } from "@/components/hooks/useToastCooldown";
 import { MenuButton } from '@/components/ui/Buttons/MenuButton';
 import MenuContainer from '@/components/ui/Containers/Menu/MenuContainer';
 import MenuButtonContainer from '@/components/ui/Containers/Menu/MenuButtonContainer';
+import { MenuTitle } from '@/components/ui/Title/MenuTitle';
+
 const Menu = () => {
   const setCoins = useCoins((state) => state.setCoins);
   const setXP = useXP((state) => state.setXP);
@@ -56,7 +58,7 @@ const Menu = () => {
   return (
     <MenuContainer>
       {/* Title */}
-      <h1 className="text-red-600 text-[165px] -mb-10">Notakto</h1> 
+      <MenuTitle text='Notakto'></MenuTitle> 
       <MenuButtonContainer>
         <MenuButton onClick={() => startGame('vsPlayer')}> Play vs Player </MenuButton>
         <MenuButton onClick={() => startGame('vsComputer')}> Play vs Computer </MenuButton>
