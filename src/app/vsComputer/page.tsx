@@ -242,22 +242,22 @@ const Game = () => {
     }, []);
 
     return (
-        <div className="flex flex-col min-h-screen bg-black relative">
-            <div className="flex-1">
-                <div className="flex flex-col items-center px-6 py-4 -mb-8">
+        <main className="flex flex-col min-h-screen bg-black relative">
+            <section className="flex-1">
+                <header className="flex flex-col items-center px-6 py-4 -mb-8">
                     <div className="flex flex-row justify-center items-center -mt-2">
                         <span className="text-red-600 text-[35px] ">Coins: {Coins}</span>
                         <span className="text-red-600 text-[35px] "> | XP: {XP}</span>
                     </div>
-                    <h2 className="text-red-600 text-[80px] mb-5 text-center">
+                    <h1 className="text-red-600 text-[80px] mb-5 text-center">
   {currentPlayer === 1 ? "Your Turn" : "Computer's Turn"}
-</h2>
+</h1>
 
-                </div>
+                </header>
 
-                <div className="flex flex-wrap justify-center gap-4 p-4 w-full mb-20">
+                <section className="flex flex-wrap justify-center gap-4 p-4 w-full mb-20">
                     {boards.map((board, index) => (
-                        <div key={index} className="w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.3%-1.5rem)]" style={{ maxWidth: '400px' }}>
+                        <article key={index} className="w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.3%-1.5rem)]" style={{ maxWidth: '400px' }}>
                             <Board
                                 boardIndex={index}
                                 boardState={board}
@@ -265,18 +265,18 @@ const Game = () => {
                                 isDead={isBoardDead(board, boardSize)}
                                 boardSize={boardSize}
                             />
-                        </div>
+                        </article>
                     ))}
-                </div>
+                </section>
 
-                <div className="absolute bottom-0 left-0 right-0 flex justify-center items-center bg-blue-600 px-6 py-2 mt-2">
+                <nav className="absolute bottom-0 left-0 right-0 flex justify-center items-center bg-blue-600 px-6 py-2 mt-2">
                     <button onClick={toggleMenu} className="text-white text-[35px]">Settings</button>
-                </div>
-            </div>
+                </nav>
+            </section>
 
             {isMenuOpen && (
-                <div className="fixed top-0 left-0 w-screen h-screen bg-black bg-opacity-60 z-[9999] flex items-center justify-center px-4 overflow-y-auto">
-                    <div className="flex flex-wrap justify-center gap-4 max-w-4xl py-8">
+                <aside className="fixed top-0 left-0 w-screen h-screen bg-black bg-opacity-60 z-[9999] flex items-center justify-center px-4 overflow-y-auto">
+                    <nav className="flex flex-wrap justify-center gap-4 max-w-4xl py-8">
                         <SettingButton onClick={() => { handleReset(); setIsMenuOpen(false); }}>Reset</SettingButton>
                         <SettingButton onClick={() => { setShowBoardConfig(true); setIsMenuOpen(false); }}>Game Configuration</SettingButton>
                         <SettingButton onClick={() => { handleUndo(); setIsMenuOpen(false); }} disabled={Coins < 100}>Undo (100 coins)</SettingButton>
@@ -286,8 +286,8 @@ const Game = () => {
                         <SettingButton onClick={() => setMute(!mute)}>Sound: {mute ? 'Off' : 'On'}</SettingButton>
                         <SettingButton onClick={() => router.push('/')}>Main Menu</SettingButton>
                         <SettingButton onClick={toggleMenu}>Return to Game</SettingButton>
-                    </div>
-                </div>
+                    </nav>
+                </aside>
             )}
 
             <WinnerModal
@@ -313,7 +313,7 @@ const Game = () => {
                 }}
                 onClose={() => setShowDifficultyModal(false)}
             />
-        </div>
+        </main>
     );
 };
 
