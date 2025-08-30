@@ -4,3 +4,20 @@
 html, body{
     font-family: 'VT323', monospace;
 } */
+
+.home-container {
+  /* Set the background image */
+  background-image: url('/background.png'); /* The '/' points to the public folder */
+
+  /* Make the background cover the whole screen */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  
+  /* Ensure the container takes up the full screen height and centers content */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
