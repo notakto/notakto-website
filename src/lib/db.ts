@@ -9,7 +9,7 @@ export async function db(idToken: string, coins: number, xp: number) {
         await adminDb.collection("users").doc(uid).set(
             {
                 coins: FieldValue.increment(coins),
-                xp: FieldValue.increment(xp),
+                XP: FieldValue.increment(xp),
                 // updatedAt: Date.now(),
             },
             { merge: true } // ensures we don’t overwrite the whole doc

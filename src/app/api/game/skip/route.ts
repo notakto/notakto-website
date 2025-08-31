@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { isBoardDead, updateBoards, findBestMove } from '@/services/ai';
 import { calculateRewards } from '@/services/economyUtils';
 import { gameSessions } from '@/lib/game-sessions';
+import { db } from '@/lib/db';
 
 export async function POST(request: NextRequest) {
   try {
@@ -11,6 +12,11 @@ export async function POST(request: NextRequest) {
     if (!gameState) {
       return NextResponse.json({ error: 'Session not found' }, { status: 404 });
     }
+    const authHeader = request.headers.get("authorization");
+    if (!authHeader?.startsWith("Bearer ")) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+    const idToken = authHeader.split("Bearer ")[1];
     
     // Skip the player's turn - let AI move immediately
     gameState.currentPlayer = 2;
@@ -37,7 +43,11 @@ export async function POST(request: NextRequest) {
           gameState.numberOfBoards, gameState.boardSize);
         
         gameState.winner = winner === 1 ? "You" : "Computer";
-        
+        if (isHumanWinner && idToken) { 
+          await db(idToken, rewards.coins-200, rewards.xp);
+        }else if (!isHumanWinner && idToken) {
+          await db(idToken, -200, 0);
+        }
         gameSessions.set(sessionId, gameState);
         return NextResponse.json({ 
           success: true, 
@@ -50,6 +60,7 @@ export async function POST(request: NextRequest) {
     }
     
     gameSessions.set(sessionId, gameState);
+    await db(idToken, -200, 0);
     return NextResponse.json({ success: true, gameState });
   } catch (error) {
     console.error('Skip move error:', error);

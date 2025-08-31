@@ -4,6 +4,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { VT323 } from "next/font/google";
 import { CustomToastContainer } from "@/components/ui/Toasts/CustomToastContainer";
+import ClientSideInit from "@/app/ClientSideInit";
 
 export const metadata: Metadata = {
   title: "Notakto",
@@ -46,9 +47,10 @@ export default function RootLayout({
       </head>
       <body>
         {children}
-        <CustomToastContainer/>
+        <CustomToastContainer />
         <Analytics />
         <SpeedInsights />
+        <ClientSideInit />
       </body>
     </html>
   );

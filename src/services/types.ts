@@ -134,6 +134,7 @@ export interface undoMoveResponse {
 export interface skipMoveResponse {
   sessionId: string;
   gameState: GameState;
+  gameOver?: boolean;
   success: boolean;
 }
 

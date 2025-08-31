@@ -1,8 +1,8 @@
 import { gameSessions } from '@/lib/game-sessions';
 import { isValidMove } from './validators';
-import { applyMove, isGameOver, switchPlayer } from './state';
-import { makeAIMove } from './ai';
-import { handleRewards } from './rewards';
+import { applyMove, isGameOver, switchPlayer } from '@/lib/game/state';
+import { makeAIMove } from '@/lib/game/makeAImove';
+import { handleRewards } from '@/lib/game/rewards';
 
 export async function handlePlayerMove(sessionId: string, boardIndex: number, cellIndex: number, idToken: string) {
   const gameState = gameSessions.get(sessionId);

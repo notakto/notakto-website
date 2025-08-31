@@ -1,4 +1,4 @@
-import { updateBoards, findBestMove, isBoardDead } from '@/services/ai';
+import { updateBoards, findBestMove } from '@/services/ai';
 
 export function makeAIMove(gameState: any) {
   const move = findBestMove(
