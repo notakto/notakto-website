@@ -24,7 +24,13 @@ const ClientSideInit = (): null => {
 
     // Load user
     useEffect((): () => void => {
-        const unsubscribe = onAuthStateChangedListener(async function (usr): Promise<void> { setUser(usr); });
+        const unsubscribe = onAuthStateChangedListener(async function (usr): Promise<void> {
+            setUser(usr);
+            if (!usr) {
+                setCoins(1000);
+                setXP(0);
+            }
+        });
         return (): void => unsubscribe();
     }, []);
     useEffect((): (() => void) | undefined => {
@@ -38,9 +44,14 @@ const ClientSideInit = (): null => {
         const unsubscribe = onSnapshot(userRef, (docSnap): void => { //websocket that monitors db and pushes changes to client
             if (docSnap.exists()) {
                 const data = docSnap.data();
-                setCoins(data.coins ?? 0);
+                setCoins(data.coins ?? 1000);
                 setXP(data.XP ?? 0);
+            } else {
+                setCoins(1000);
+                setXP(0);   
             }
+        },(err) => {
+            console.error("Firestore user listener error:", err);
         });
 
         return (): void => unsubscribe();

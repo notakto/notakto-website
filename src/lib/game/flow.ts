@@ -7,6 +7,13 @@ import { handleRewards } from '@/lib/game/rewards';
 export async function handlePlayerMove(sessionId: string, boardIndex: number, cellIndex: number, idToken: string) {
   const gameState = gameSessions.get(sessionId);
   if (!gameState) return { error: 'Session not found', status: 404 };
+  
+  // Bounds checks to avoid OOB access in validators/state helpers
+  const board = gameState.boards[boardIndex];
+  if (!board || cellIndex < 0 || cellIndex >= board.length) {
+    return { error: 'Invalid move', status: 400 };
+  }
+
 
   if (!isValidMove(gameState, boardIndex, cellIndex)) {
     return { error: 'Invalid move', status: 400 };
@@ -15,17 +22,18 @@ export async function handlePlayerMove(sessionId: string, boardIndex: number, ce
   applyMove(gameState, { boardIndex, cellIndex });
 
   if (isGameOver(gameState)) {
-    return handleRewards(gameState, idToken);
+    const rewardsResult = await handleRewards(gameState, idToken);
+    return { ...rewardsResult, status: rewardsResult.status ?? 200 };
   }
 
   switchPlayer(gameState);
 
   if (gameState.currentPlayer === 2) {
     makeAIMove(gameState);
-    if (isGameOver(gameState)) return handleRewards(gameState,idToken);
+    if (isGameOver(gameState)) return handleRewards(gameState, idToken);
     switchPlayer(gameState); // back to human
   }
 
   gameSessions.set(sessionId, gameState);
-  return { success: true, gameState };
+  return { success: true, gameState, status: 200 };
 }

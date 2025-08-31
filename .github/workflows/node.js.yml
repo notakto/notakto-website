@@ -13,19 +13,19 @@ jobs:
     strategy:
       matrix:
         node-version: [18.x]
-
-    env: # ✅ make env available in all steps
-      FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
-      FIREBASE_CLIENT_EMAIL: ${{ secrets.FIREBASE_CLIENT_EMAIL }}
-      FIREBASE_PRIVATE_KEY: ${{ secrets.FIREBASE_PRIVATE_KEY }}
-      COINBASE_API_KEY: ${{ secrets.COINBASE_API_KEY }}
-      # also safe to add non-secret vars
-      NODE_ENV: production
-      NEXT_PUBLIC_FIREBASE_PROJECT_ID: ${{ vars.NEXT_PUBLIC_FIREBASE_PROJECT_ID }}
-      NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET: ${{ vars.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET }}
-
     steps:
       - uses: actions/checkout@v4
+      
+      - name: Debug Firebase secrets (safe check)
+        env:
+          FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
+          FIREBASE_CLIENT_EMAIL: ${{ secrets.FIREBASE_CLIENT_EMAIL }}
+          FIREBASE_PRIVATE_KEY: ${{ secrets.FIREBASE_PRIVATE_KEY }}
+        run: |
+           [ -z "$FIREBASE_PROJECT_ID" ] && echo "❌ PROJECT_ID missing" || echo "✅ PROJECT_ID present"
+           [ -z "$FIREBASE_CLIENT_EMAIL" ] && echo "❌ CLIENT_EMAIL missing" || echo "✅ CLIENT_EMAIL present"
+           [ -z "$FIREBASE_PRIVATE_KEY" ] && echo "❌ PRIVATE_KEY missing" || echo "✅ PRIVATE_KEY present"
+
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -48,11 +48,13 @@ jobs:
       - name: Run tests
         run: pnpm test
 
-      - name: Debug Firebase secrets (safe check)
-        run: |
-          [ -z "$FIREBASE_PROJECT_ID" ] && echo "❌ PROJECT_ID missing" || echo "✅ PROJECT_ID present"
-          [ -z "$FIREBASE_CLIENT_EMAIL" ] && echo "❌ CLIENT_EMAIL missing" || echo "✅ CLIENT_EMAIL present"
-          [ -z "$FIREBASE_PRIVATE_KEY" ] && echo "❌ PRIVATE_KEY missing" || echo "✅ PRIVATE_KEY present"
-
       - name: Build application
+        env:
+          FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
+          FIREBASE_CLIENT_EMAIL: ${{ secrets.FIREBASE_CLIENT_EMAIL }}
+          FIREBASE_PRIVATE_KEY: ${{ secrets.FIREBASE_PRIVATE_KEY }}
+          NEXT_PUBLIC_FIREBASE_PROJECT_ID: ${{ vars.NEXT_PUBLIC_FIREBASE_PROJECT_ID }}
+          NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET: ${{ vars.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET }}
+          NEXT_PUBLIC_FIREBASE_API_KEY: ${{ vars.NEXT_PUBLIC_FIREBASE_API_KEY }}
+          NODE_ENV: production
         run: pnpm build

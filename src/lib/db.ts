@@ -1,3 +1,5 @@
+'use server';
+
 import { adminAuth, adminDb } from "@/lib/firebaseAdmin";
 import { FieldValue } from "firebase-admin/firestore";
 
@@ -10,7 +12,7 @@ export async function db(idToken: string, coins: number, xp: number) {
             {
                 coins: FieldValue.increment(coins),
                 XP: FieldValue.increment(xp),
-                // updatedAt: Date.now(),
+                lastUpdatedAt: FieldValue.serverTimestamp(), // better than Date.now() since prevents clock skew issues (server time vs db time)
             },
             { merge: true } // ensures we don’t overwrite the whole doc
         );
