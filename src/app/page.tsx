@@ -1,76 +1,76 @@
 'use client'
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
+import type { User } from 'firebase/auth';
 
 // Components
 import Menu from '@/app/Menu';
 import TutorialModal from '@/modals/TutorialModal';
 
-import { useCoins, useUser, useXP, useMute, useTut } from '@/services/store';
+import { useUser, useMute, useTut, useCoins, useXP } from '@/services/store';
 import { initBackgroundMusic, toggleBackgroundMusic, stopBackgroundMusic } from '@/services/sounds';
 
 // Firebase module
-import { onAuthStateChangedListener, saveEconomyToFirestore, loadEconomyFromFirestore } from '@/services/firebase';
+import { onAuthStateChangedListener } from '@/services/firebase';
 
 import { MenuLayout } from '@/components/ui/Containers/Menu/MenuLayout';
+import { doc, onSnapshot } from 'firebase/firestore';
+import { firestore } from '@/services/firebase';
 
 export default function Home() {
-  const mute = useMute((state) => state.mute);
-
-  const coins = useCoins((state) => state.coins);
-  const setCoins = useCoins((state) => state.setCoins);
-
-  const XP = useXP((state) => state.XP);
-  const setXP = useXP((state) => state.setXP);
-
+  const mute = useMute((state): boolean => state.mute)
   const user = useUser((state) => state.user);
-  const setUser = useUser((state) => state.setUser);
-  const dataLoadedRef = useRef(false); // avoid triggering saveEconomy on every render
-  const showTut = useTut((state) => state.showTut);
+  const setUser = useUser((state): (newUser: User | null) => void => state.setUser);
+  const showTut = useTut((state): boolean => state.showTut);
+  const setCoins = useCoins((state): (newCoins: number) => void => (state.setCoins));
+  const setXP = useXP((state): (newXP: number) => void => (state.setXP));
+
+  useCoins((state): number => state.coins);
+  useXP((state): number => state.XP);
 
   // Init music
-  useEffect(() => {
+  useEffect((): () => void => {
     initBackgroundMusic(mute);
-    return () => {
+    return (): void => {
       stopBackgroundMusic();
     };
   }, []);
 
   // Toggle mute state
-  useEffect(() => {
+  useEffect((): void => {
     toggleBackgroundMusic(mute);
   }, [mute]);
 
-  // Load user and economy data
-  useEffect(() => {
-    const unsubscribe = onAuthStateChangedListener(async (usr) => {
-      setUser(usr);
-      if (usr) {
-        const cloudData = await loadEconomyFromFirestore(usr.uid) as { coins?: number; XP?: number };
-        if (cloudData) {
-          console.log(1);
-          setCoins(cloudData.coins ?? 1000);
-          setXP(cloudData.XP ?? 0);
-        } else {
-          console.log(2);
-          setCoins(1000);
-          setXP(0);
-        }
-        dataLoadedRef.current = true;
-      } else {
-        dataLoadedRef.current = false;
+  // Load user
+  useEffect((): () => void => {
+    const unsubscribe = onAuthStateChangedListener(async function (usr): Promise<void> { setUser(usr); });
+    return (): void => unsubscribe();
+  }, []);
+
+  useEffect((): (() => void) | undefined => {
+    if (!user) {
+      console.log("No user, skipping Firestore listener setup.");
+      return;
+    }
+
+    console.log("Setting up Firestore listener for user:", user.uid);
+    const userRef = doc(firestore, "users", user.uid);
+    console.log("User data:", userRef);
+    const unsubscribe = onSnapshot(userRef, (docSnap): void => { //websocket that monitors db and pushes changes to client
+      console.log("Received user document snapshot:", docSnap);
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        console.log("User document data:", data);
+        setCoins(data.coins ?? 0);
+        setXP(data.XP ?? 0);
       }
     });
 
-    return () => unsubscribe();
-  }, []);
-
-  // Save to Firestore only after data is loaded and user exists
-  useEffect(() => {
-    if (user && dataLoadedRef.current) {
-      saveEconomyToFirestore(user.uid, coins, XP);
+    return (): void => {
+      unsubscribe();
+      console.log("Unsubscribed from Firestore listener for user:", user.uid);
     }
-  }, [coins, XP, user]);
-
+  }, [user]);
+  
   return (
     <MenuLayout>
       <Menu />

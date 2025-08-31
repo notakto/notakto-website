@@ -37,8 +37,6 @@ export async function POST(request: NextRequest) {
           gameState.numberOfBoards, gameState.boardSize);
         
         gameState.winner = winner === 1 ? "You" : "Computer";
-        gameState.coins = rewards.coins;
-        gameState.xp = rewards.xp;
         
         gameSessions.set(sessionId, gameState);
         return NextResponse.json({ 

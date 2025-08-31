@@ -100,9 +100,7 @@ export interface GameState {
   numberOfBoards: BoardNumber;
   difficulty: DifficultyLevel;
   gameHistory: BoardState[][];
-  coins?: number;
-  xp?: number;
-  sessionId?: string;
+  sessionId: string;
   gameOver?: boolean;
 }
 

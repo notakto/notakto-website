@@ -38,7 +38,6 @@ const Game = () => {
     const Coins = useCoins((state) => state.coins);
     const setCoins = useCoins((state) => state.setCoins);
     const XP = useXP((state) => state.XP);
-    const setXP = useXP((state) => state.setXP);
     const user = useUser((state) => state.user);
     const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
     const { canShowToast, triggerToastCooldown } = useToastCooldown(4000);
@@ -85,8 +84,6 @@ const Game = () => {
                     playMoveSound(mute);
 
                     if (data.gameOver) {
-                        if (data.gameState.coins) setCoins(Coins + data.gameState.coins);
-                        if (data.gameState.xp) setXP(XP + data.gameState.xp);
                         setWinner(data.gameState.winner);
                         setShowWinnerModal(true);
                         playWinSound(mute);
@@ -144,7 +141,6 @@ const Game = () => {
                     setBoards(data.gameState.boards);
                     setCurrentPlayer(data.gameState.currentPlayer);
                     setGameHistory(data.gameState.gameHistory);
-                    setCoins(Coins - 100);
                 } else if ('error' in data) {
                     toast.error(data.error || 'Failed to undo move');
                 } else {
@@ -172,7 +168,6 @@ const Game = () => {
                     setBoards(data.gameState.boards);
                     setCurrentPlayer(data.gameState.currentPlayer);
                     setGameHistory(data.gameState.gameHistory);
-                    setCoins(Coins - 200);
                 } else if ('error' in data) {
                     toast.error(data.error || 'Failed to skip move');
                 } else {

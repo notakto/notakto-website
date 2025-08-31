@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import { signInWithGoogle, signOutUser } from '@/services/firebase';
-import { useCoins, useXP, useUser, useMute,useTut } from '@/services/store';
+import { useUser, useMute,useTut } from '@/services/store';
 import { toast } from "react-toastify";
 import { useToastCooldown } from "@/components/hooks/useToastCooldown";
 import { MenuButton } from '@/components/ui/Buttons/MenuButton';
@@ -11,8 +11,6 @@ import MenuButtonContainer from '@/components/ui/Containers/Menu/MenuButtonConta
 import { MenuTitle } from '@/components/ui/Title/MenuTitle';
 
 const Menu = () => {
-  const setCoins = useCoins((state) => state.setCoins);
-  const setXP = useXP((state) => state.setXP);
   const user = useUser((state) => state.user);
   const setUser = useUser((state) => state.setUser);
   const mute = useMute((state) => state.mute);
@@ -33,8 +31,6 @@ const Menu = () => {
   const handleSignOut = async () => {
     try {
       await signOutUser();
-      setCoins(1000);
-      setXP(0);
       setUser(null);
     } catch (error) {
       console.error('Sign out error:', error);
@@ -64,9 +60,7 @@ const Menu = () => {
         <MenuButton onClick={() => startGame('vsComputer')}> Play vs Computer </MenuButton>
         <MenuButton onClick={() => startGame('liveMatch')}> Live Match </MenuButton>
         <MenuButton onClick={() => setShowTut(true)}> Tutorial </MenuButton>
-        <MenuButton onClick={(user) ? handleSignOut : handleSignIn}>
-          {(user) ? "Sign Out" : "Sign in"}
-        </MenuButton>
+        <MenuButton onClick={(user) ? handleSignOut : handleSignIn}>{(user) ? "Sign Out" : "Sign in"}</MenuButton>
         <MenuButton onClick={() => setMute(!mute)}>Sound: {mute ? 'Off' : 'On'}</MenuButton>
       </MenuButtonContainer>
     </MenuContainer>
