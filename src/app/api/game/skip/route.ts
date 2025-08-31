@@ -1,5 +1,3 @@
-export const runtime = 'nodejs'; //By adding export const runtime = 'nodejs'; at the top of each API route file, we ensure that the routes are executed using the Node.js runtime, which is required for using Firebase Admin SDK in Next.js API routes. This prevents runtime errors and ensures the proper functioning of Firebase Admin SDK functionalities within your Next.js application.
-
 import { NextRequest, NextResponse } from 'next/server';
 import { isBoardDead, updateBoards, findBestMove } from '@/services/ai';
 import { calculateRewards } from '@/services/economyUtils';
@@ -8,17 +6,16 @@ import { db } from '@/lib/db';
 
 export async function POST(request: NextRequest) {
   try {
+    const uid = request.headers.get("x-user-uid");
+    if (!uid) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
+    }
     const { sessionId } = await request.json();
     const gameState = gameSessions.get(sessionId);
 
     if (!gameState) {
       return NextResponse.json({ error: 'Session not found' }, { status: 404 });
     }
-    const authHeader = request.headers.get("authorization");
-    if (!authHeader?.startsWith("Bearer ")) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
-    const idToken = authHeader.split("Bearer ")[1];
 
     // Skip the player's turn - let AI move immediately
     gameState.currentPlayer = 2;
@@ -45,7 +42,7 @@ export async function POST(request: NextRequest) {
           gameState.numberOfBoards, gameState.boardSize);
 
         gameState.winner = winner === 1 ? "You" : "Computer";
-        const r = await db(idToken, rewards.coins - 200, rewards.xp);
+        const r = await db(uid, rewards.coins - 200, rewards.xp);
         if (!r?.success) return NextResponse.json({ error: 'Unauthorized' }, { status: r?.status ?? 403 }); 
         gameSessions.set(sessionId, gameState);
         return NextResponse.json({
@@ -59,7 +56,7 @@ export async function POST(request: NextRequest) {
     }
 
     gameSessions.set(sessionId, gameState);
-    const charge = await db(idToken, -200, 0);
+    const charge = await db(uid, -200, 0);
     if (!charge?.success) return NextResponse.json({ error: 'Unauthorized' }, { status: charge?.status ?? 403 });
     return NextResponse.json({ success: true, gameState, gameOver: false, status: 200 });
   } catch (error) {

@@ -1,11 +1,9 @@
-import { adminAuth, adminDb } from "@/lib/firebaseAdmin";
+import { adminDb } from "@/lib/firebaseAdmin";
 import { FieldValue } from "firebase-admin/firestore";
 
-export async function db(idToken: string, coins: number, xp: number) {
+export async function db(uid: string, coins: number, xp: number) {
 
     try {
-        const decoded = await adminAuth.verifyIdToken(idToken);
-        const uid = decoded.uid;
         await adminDb.collection("users").doc(uid).set(
             {
                 coins: FieldValue.increment(coins),
@@ -16,7 +14,7 @@ export async function db(idToken: string, coins: number, xp: number) {
         );
         return { success: true, status: 200 };
     } catch (error) {
-        console.error("Token verification failed:", error);
-        return { error: error, status: 403 };
+        console.error("Database operation failed:", error);
+        return { error: error, status: 500 };
     }
 }

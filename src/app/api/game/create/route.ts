@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { gameSessions } from '@/lib/game-sessions';
 
-export const runtime = 'nodejs';
 export async function POST(request: NextRequest) {
   try {
     const { numberOfBoards, boardSize, difficulty } = await request.json();
