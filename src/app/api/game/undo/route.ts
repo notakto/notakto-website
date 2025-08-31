@@ -1,3 +1,5 @@
+export const runtime = 'nodejs'; //By adding export const runtime = 'nodejs'; at the top of each API route file, we ensure that the routes are executed using the Node.js runtime, which is required for using Firebase Admin SDK in Next.js API routes. This prevents runtime errors and ensures the proper functioning of Firebase Admin SDK functionalities within your Next.js application.
+
 import { NextRequest, NextResponse } from 'next/server';
 import { gameSessions } from '@/lib/game-sessions';
 import { db } from '@/lib/db';
