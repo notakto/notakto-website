@@ -6,17 +6,15 @@
 import { useEffect } from "react";
 import { doc, onSnapshot } from 'firebase/firestore';
 import { firestore } from '@/services/firebase';
-import { useUser, useMute, useCoins, useXP } from '@/services/store';
+import { useUser, useCoins, useXP } from '@/services/store';
 import { User } from "firebase/auth";
 
-import { initBackgroundMusic, toggleBackgroundMusic, stopBackgroundMusic } from '@/services/sounds';
 
 // Firebase module
 import { onAuthStateChangedListener } from '@/services/firebase';
 
 
 const ClientSideInit = (): null => {
-    const mute = useMute((state): boolean => state.mute)
     const user = useUser((state) => state.user);
     const setCoins = useCoins((state): (newCoins: number) => void => (state.setCoins));
     const setXP = useXP((state): (newXP: number) => void => (state.setXP));
@@ -24,18 +22,6 @@ const ClientSideInit = (): null => {
     useCoins((state): number => state.coins);
     useXP((state): number => state.XP);
 
-    // Init music
-    useEffect((): () => void => {
-        initBackgroundMusic(mute);
-        return (): void => {
-            stopBackgroundMusic();
-        };
-    }, []);
-
-    // Toggle mute state
-    useEffect((): void => {
-        toggleBackgroundMusic(mute);
-    }, [mute]);
     // Load user
     useEffect((): () => void => {
         const unsubscribe = onAuthStateChangedListener(async function (usr): Promise<void> { setUser(usr); });
