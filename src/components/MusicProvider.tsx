@@ -2,21 +2,20 @@
 
 import { useEffect } from "react";
 import { useMute } from "@/services/store";
-import { initBackgroundMusic, toggleBackgroundMusic } from "@/services/sounds";
+import { initBackgroundMusic, stopBackgroundMusic, toggleBackgroundMusic } from "@/services/sounds";
 
 export default function MusicProvider() {
   const mute = useMute((state) => state.mute);
 
-  // Run once on app load
   useEffect(() => {
-    console.log("MusicProvider mounted, mute =", mute);
     initBackgroundMusic(mute);
+    return () => stopBackgroundMusic()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Toggle music whenever mute changes
   useEffect(() => {
     toggleBackgroundMusic(mute);
   }, [mute]);
 
-  return null; // no UI, just handles side effects
+  return null;
 }
