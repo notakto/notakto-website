@@ -4,6 +4,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { VT323 } from "next/font/google";
 import { CustomToastContainer } from "@/components/ui/Toasts/CustomToastContainer";
+import MusicProvider from "@/components/MusicProvider";
 
 export const metadata: Metadata = {
   title: "Notakto",
@@ -45,6 +46,7 @@ export default function RootLayout({
         <meta name="monetag" content="31cbc3974b21341db36f756db33d15d6"></meta>
       </head>
       <body>
+        <MusicProvider/>
         {children}
         <CustomToastContainer/>
         <Analytics />
