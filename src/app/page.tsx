@@ -27,18 +27,6 @@ export default function Home() {
   const dataLoadedRef = useRef(false); // avoid triggering saveEconomy on every render
   const showTut = useTut((state) => state.showTut);
 
-  // // Init music
-  // useEffect(() => {
-  //   initBackgroundMusic(mute);
-  //   return () => {
-  //     stopBackgroundMusic();
-  //   };
-  // }, []);
-
-  // // Toggle mute state
-  // useEffect(() => {
-  //   toggleBackgroundMusic(mute);
-  // }, [mute]);
 
   // Load user and economy data
   useEffect(() => {
