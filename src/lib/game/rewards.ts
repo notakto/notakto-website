@@ -1,8 +1,8 @@
+export const runtime = 'nodejs';
 import { calculateRewards } from '@/services/economyUtils';
 import { gameSessions } from '@/lib/game-sessions';
 import { GameState } from '@/services/types';
 import { db } from '@/lib/db';
-
 export async function handleRewards(gameState: GameState, uid: string) {
   const loser = gameState.currentPlayer as 1 | 2;
   const winner = loser === 1 ? 2 : 1;

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { gameSessions } from '@/lib/game-sessions';
 import { db } from '@/lib/db';
+export const runtime = 'nodejs';
 
 export async function POST(request: NextRequest) {
   try {

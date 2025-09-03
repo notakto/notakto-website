@@ -3,7 +3,7 @@ import { isBoardDead, updateBoards, findBestMove } from '@/services/ai';
 import { calculateRewards } from '@/services/economyUtils';
 import { gameSessions } from '@/lib/game-sessions';
 import { db } from '@/lib/db';
-
+export const runtime = 'nodejs';
 export async function POST(request: NextRequest) {
   try {
     const uid = request.headers.get("x-user-uid");

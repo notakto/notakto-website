@@ -1,5 +1,6 @@
 import { adminDb } from "@/lib/firebaseAdmin";
 import { FieldValue } from "firebase-admin/firestore";
+export const runtime = 'nodejs';
 
 export async function db(uid: string, coins: number, xp: number) {
 
