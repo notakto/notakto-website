@@ -1,3 +1,6 @@
+//TODO: recheck all types and interfaces for any possible improvements/strictness
+//TODO: abstract common fields into base interfaces and inheriting with Omit/Pick as needed
+
 export type BoardState = Array<string>;
 export type GameMode = 'vsComputer' | 'vsPlayer' | 'liveMatch' | null;
 export type DifficultyLevel = 1 | 2 | 3 | 4 | 5;

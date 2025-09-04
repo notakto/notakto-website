@@ -1,8 +1,9 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+import { User } from 'firebase/auth';
 
 type userStore = {
-  user: any;
+  user: User | null;
   setUser: (newUser: any) => void;
 };
 type muteStore = {

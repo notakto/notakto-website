@@ -4,7 +4,7 @@ import { PlayerNamesModalProps } from '../services/types';
 import { toast } from "react-toastify";
 import { useToastCooldown } from "@/components/hooks/useToastCooldown";
 import { TOAST_DURATION, TOAST_ID } from "../constants/toast";
-
+import { PlayerInput } from '@/components/ui/Inputs/PlayerInput';
 
 const PlayerNamesModal = ({ visible, onSubmit, initialNames = ['Player 1', 'Player 2'] }: PlayerNamesModalProps) => {
   const [player1, setPlayer1] = useState(initialNames[0] || 'Player 1');
@@ -38,22 +38,20 @@ const PlayerNamesModal = ({ visible, onSubmit, initialNames = ['Player 1', 'Play
     <div className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center">
       <div className="bg-black w-[80%] max-w-md p-6 text-center shadow-lg">
         <h2 className="text-red-500 text-3xl mb-6">Enter Player Names</h2>
+        <div className='mb-6 gap-4 flex flex-col'>
 
-        <input
-          className="w-full mb-4 p-3 text-red-500 text-xl border border-gray-300 bg-white outline-none"
-          type="text"
-          placeholder="Player 1 Name"
-          value={player1}
-          onChange={(e) => setPlayer1(e.target.value)}
-        />
+          <PlayerInput
+            value={player1}
+            onChange={(e) => setPlayer1(e.target.value)}
+            placeholder="Player 1 Name"
+          />
 
-        <input
-          className="w-full mb-6 p-3 text-red-500 text-xl border border-gray-300 bg-white outline-none"
-          type="text"
-          placeholder="Player 2 Name"
-          value={player2}
-          onChange={(e) => setPlayer2(e.target.value)}
-        />
+          <PlayerInput
+            value={player2}
+            onChange={(e) => setPlayer2(e.target.value)}
+            placeholder="Player 2 Name"
+          />
+        </div>
 
         <button
           onClick={handleSubmit}

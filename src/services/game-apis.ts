@@ -5,12 +5,16 @@ const API_BASE = '/api/game';
 export async function createGame(
   numberOfBoards: number, 
   boardSize: BoardSize, 
-  difficulty: DifficultyLevel
+  difficulty: DifficultyLevel,
+  idToken: string
 ): Promise<newGame | errorResponse> {
   try {
     const response = await fetch(`${API_BASE}/create`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${idToken}`,
+      },
       body: JSON.stringify({ numberOfBoards, boardSize, difficulty })
     });
     return await response.json();
@@ -23,12 +27,16 @@ export async function createGame(
 export async function makeMove(
   sessionId: string, 
   boardIndex: number, 
-  cellIndex: number
+  cellIndex: number,
+  idToken: string
 ): Promise<makeMoveResponse | errorResponse> {
   try {
     const response = await fetch(`${API_BASE}/move`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${idToken}`,
+      },
       body: JSON.stringify({ sessionId, boardIndex, cellIndex })
     });
     return await response.json();
@@ -38,11 +46,17 @@ export async function makeMove(
   }
 }
 
-export async function resetGame(sessionId: string): Promise<resetGameResponse | errorResponse> {
+export async function resetGame(
+  sessionId: string,
+  idToken: string
+): Promise<resetGameResponse | errorResponse> {
   try {
     const response = await fetch(`${API_BASE}/reset`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${idToken}`,
+      },
       body: JSON.stringify({ sessionId })
     });
     return await response.json();
@@ -56,12 +70,16 @@ export async function updateConfig(
   sessionId: string,
   numberOfBoards: number,
   boardSize: BoardSize,
-  difficulty: DifficultyLevel
+  difficulty: DifficultyLevel,
+  idToken: string
 ): Promise<updateConfigResponse | errorResponse> {
   try {
     const response = await fetch(`${API_BASE}/config`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${idToken}`,
+      },
       body: JSON.stringify({ sessionId, numberOfBoards, boardSize, difficulty })
     });
     return await response.json();
@@ -71,11 +89,17 @@ export async function updateConfig(
   }
 }
 
-export async function undoMove(sessionId: string): Promise<undoMoveResponse | errorResponse> {
+export async function undoMove(
+  sessionId: string, 
+  idToken: string
+): Promise<undoMoveResponse | errorResponse> {
   try {
     const response = await fetch(`${API_BASE}/undo`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${idToken}`,
+      },
       body: JSON.stringify({ sessionId })
     });
     return await response.json();
@@ -85,11 +109,17 @@ export async function undoMove(sessionId: string): Promise<undoMoveResponse | er
   }
 }
 
-export async function skipMove(sessionId: string): Promise<skipMoveResponse | errorResponse> {
+export async function skipMove(
+  sessionId: string, 
+  idToken: string
+): Promise<skipMoveResponse | errorResponse> {
   try {
     const response = await fetch(`${API_BASE}/skip`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${idToken}`,
+      },
       body: JSON.stringify({ sessionId })
     });
     return await response.json();

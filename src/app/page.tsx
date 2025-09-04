@@ -2,13 +2,16 @@
 import { useEffect, useRef } from 'react';
 
 // Components
-import Menu from './Menu';
+import Menu from '@/app/Menu';
+import TutorialModal from '@/modals/TutorialModal';
 
-import { useCoins, useUser, useXP, useMute } from '../services/store';
-import { initBackgroundMusic, toggleBackgroundMusic, stopBackgroundMusic } from '../services/sounds';
+import { useCoins, useUser, useXP, useMute, useTut } from '@/services/store';
+import { initBackgroundMusic, toggleBackgroundMusic, stopBackgroundMusic } from '@/services/sounds';
 
 // Firebase module
-import { onAuthStateChangedListener, saveEconomyToFirestore, loadEconomyFromFirestore } from '../services/firebase';
+import { onAuthStateChangedListener, saveEconomyToFirestore, loadEconomyFromFirestore } from '@/services/firebase';
+
+import { MenuLayout } from '@/components/ui/Containers/Menu/MenuLayout';
 
 export default function Home() {
   const mute = useMute((state) => state.mute);
@@ -22,19 +25,8 @@ export default function Home() {
   const user = useUser((state) => state.user);
   const setUser = useUser((state) => state.setUser);
   const dataLoadedRef = useRef(false); // avoid triggering saveEconomy on every render
+  const showTut = useTut((state) => state.showTut);
 
-  // Init music
-  useEffect(() => {
-    initBackgroundMusic(mute);
-    return () => {
-      stopBackgroundMusic();
-    };
-  }, []);
-
-  // Toggle mute state
-  useEffect(() => {
-    toggleBackgroundMusic(mute);
-  }, [mute]);
 
   // Load user and economy data
   useEffect(() => {
@@ -68,8 +60,9 @@ export default function Home() {
   }, [coins, XP, user]);
 
   return (
-    <div className="flex-1 bg-gray-100">
+    <MenuLayout>
       <Menu />
-    </div>
+      {showTut && <TutorialModal />}
+    </MenuLayout>
   );
 }

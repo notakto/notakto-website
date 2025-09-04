@@ -30,9 +30,6 @@ const auth = getAuth(app);
 const firestore = getFirestore(app);
 const provider = new GoogleAuthProvider();
 
-// -------------------
-// Google Sign-In
-// -------------------
 export const signInWithGoogle = async (): Promise<User> => {
   try {
     const result = await signInWithPopup(auth, provider);
@@ -43,9 +40,6 @@ export const signInWithGoogle = async (): Promise<User> => {
   }
 };
 
-// -------------------
-// Sign Out
-// -------------------
 export const signOutUser = async () => {
   try {
     await signOut(auth);
@@ -55,16 +49,10 @@ export const signOutUser = async () => {
   }
 };
 
-// -------------------
-// Auth State Listener
-// -------------------
 export const onAuthStateChangedListener = (callback: (user: User | null) => void): (() => void) => {
   return onAuthStateChanged(auth, callback);
 };
 
-// -------------------
-// Save Economy Data
-// -------------------
 export const saveEconomyToFirestore = async (
   userId: string,
   coins: number,
@@ -74,9 +62,6 @@ export const saveEconomyToFirestore = async (
   await setDoc(userRef, { coins, XP }, { merge: true });
 };
 
-// -------------------
-// Load Economy Data
-// -------------------
 export const loadEconomyFromFirestore = async (
   userId: string
 ) => {
