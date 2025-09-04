@@ -5,7 +5,7 @@ import Board from './Board';
 import { BoardSize, BoardState } from '@/services/types';
 import { isBoardDead } from '@/services/logic';
 import { playMoveSound, playWinSound } from '@/services/sounds';
-import { useMute } from '@/services/store';
+import { useSound } from '@/services/store';
 import { useRouter } from 'next/navigation';
 import PlayerNamesModal from '@/modals/PlayerNamesModal';
 import WinnerModal from '@/modals/WinnerModal';
@@ -27,8 +27,7 @@ const Game = () => {
     const [showBoardConfig, setShowBoardConfig] = useState<boolean>(false);
     const [showSoundConfig, setShowSoundConfig] = useState<boolean>(false);
 
-    const mute = useMute((state) => state.mute);
-    const setMute = useMute((state) => state.setMute);
+    const { sfxMute } = useSound();
     const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
     const router = useRouter();
 
@@ -42,7 +41,7 @@ const Game = () => {
                 ...board.slice(cellIndex + 1)
             ] : [...board]
         );
-        playMoveSound(mute);
+        playMoveSound(sfxMute);
         setBoards(newBoards);
 
         if (newBoards.every(board => isBoardDead(board, boardSize))) {
@@ -51,7 +50,7 @@ const Game = () => {
             const winnerName = winnerNum === 1 ? player1Name : player2Name;
             setWinner(winnerName);
             setShowWinnerModal(true);
-            playWinSound(mute);
+            playWinSound(sfxMute);
             return;
         }
 
@@ -110,7 +109,7 @@ const Game = () => {
                         <SettingButton onClick={() => { resetGame(numberOfBoards, boardSize); setIsMenuOpen(false); }}>Reset</SettingButton>
                         <SettingButton onClick={() => { setShowBoardConfig(!showBoardConfig); setIsMenuOpen(false); }}>Game Configuration</SettingButton>
                         <SettingButton onClick={() => { setShowNameModal(!showSoundConfig); setIsMenuOpen(false); }}>Reset Names</SettingButton>
-                        <SettingButton onClick={() => { setShowSoundConfig(true); setIsMenuOpen(false)}}>Adjust Sound</SettingButton>
+                        <SettingButton onClick={() => { setShowSoundConfig(true); setIsMenuOpen(false) }}>Adjust Sound</SettingButton>
                         <SettingButton onClick={exitToMenu}>Main Menu</SettingButton>
                         <SettingButton onClick={toggleMenu}>Return to Game</SettingButton>
                     </div>
@@ -145,7 +144,7 @@ const Game = () => {
                 currentSize={boardSize}
                 onConfirm={handleBoardConfigChange}
                 onCancel={() => setShowBoardConfig(false)}
-                />
+            />
             <SoundConfigModal
                 visible={showSoundConfig}
                 onClose={() => setShowSoundConfig(false)}

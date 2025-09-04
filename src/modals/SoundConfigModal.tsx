@@ -1,4 +1,5 @@
 'use client'
+import { useSound } from "@/services/store";
 import React, { useState, ChangeEvent } from "react";
 
 type SoundConfigModalProps = {
@@ -8,28 +9,20 @@ type SoundConfigModalProps = {
 
 export default function SoundConfigModal({ visible, onClose }: SoundConfigModalProps) {
     console.log("SoundConfig got Rendered");
-
-    const [backgroundVolume, setBackgroundVolume] = useState<number>(70);
-    const [playerVolume, setPlayerVolume] = useState<number>(70);
-
-    const [backgroundMuted, setBackgroundMuted] = useState<boolean>(false);
-    const [playerMuted, setPlayerMuted] = useState<boolean>(false);
+    const {
+        bgMute, bgVolume, setBgMute, setBgVolume,
+        sfxMute, sfxVolume, setSfxMute, setSfxVolume
+    } = useSound();
 
     const resetSounds = () => {
-        setBackgroundVolume(70);
-        setPlayerVolume(70);
-        setBackgroundMuted(false);
-        setPlayerMuted(false);
+        setBgVolume(0.3);
+        setSfxVolume(0.3);
+        // setBgMute(true); // incase reset sound is supposed to make it mute also
+        // setSfxMute(true);
     };
 
-    const handleVolumeChange =
-        (setter: React.Dispatch<React.SetStateAction<number>>) =>
-            (e: ChangeEvent<HTMLInputElement>) => {
-                setter(Number(e.target.value));
-            };
 
     if (!visible) return null;
-
     return (
         <div className="fixed inset-0 bg-black/80 flex justify-center items-center z-50">
             <div className="bg-black p-6 w-[90%] max-w-xl space-y-6  text-center text-white shadow-[0_0_10px_#0055ff]">
@@ -44,15 +37,15 @@ export default function SoundConfigModal({ visible, onClose }: SoundConfigModalP
                         type="range"
                         min="0"
                         max="100"
-                        value={backgroundMuted ? 0 : backgroundVolume}
-                        onChange={handleVolumeChange(setBackgroundVolume)}
+                        value={Math.round(bgVolume * 100)}
+                        onChange={(e) => setBgVolume(Number(e.target.value) / 100)}
                         className="flex-2 mx-2 accent-[#0055ff]"
                     />
                     <button
-                        onClick={() => setBackgroundMuted(!backgroundMuted)}
+                        onClick={() => setBgMute(!bgMute)}
                         className="bg-[#0055ff] hover:bg-[#0033aa] text-white px-3 py-2 text-lg"
                     >
-                        {backgroundMuted ? "Unmute" : "Mute"}
+                        {bgMute ? "Unmute" : "Mute"}
                     </button>
                 </div>
 
@@ -65,15 +58,15 @@ export default function SoundConfigModal({ visible, onClose }: SoundConfigModalP
                         type="range"
                         min="0"
                         max="100"
-                        value={playerMuted ? 0 : playerVolume}
-                        onChange={handleVolumeChange(setPlayerVolume)}
+                        value={Math.round(sfxVolume * 100)}
+                        onChange={(e) => setSfxVolume(Number(e.target.value) / 100)}
                         className="flex-2 mx-2 accent-[#0055ff]"
                     />
                     <button
-                        onClick={() => setPlayerMuted(!playerMuted)}
+                        onClick={() => setSfxMute(!sfxMute)}
                         className="bg-[#0055ff] hover:bg-[#0033aa] text-white px-3 py-2 text-lg"
                     >
-                        {playerMuted ? "Unmute" : "Mute"}
+                        {sfxMute ? "Unmute" : "Mute"}
                     </button>
                 </div>
 
