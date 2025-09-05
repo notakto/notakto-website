@@ -8,7 +8,6 @@ type SoundConfigModalProps = {
 };
 
 export default function SoundConfigModal({ visible, onClose }: SoundConfigModalProps) {
-    console.log("SoundConfig got Rendered");
     const {
         bgMute, bgVolume, setBgMute, setBgVolume,
         sfxMute, sfxVolume, setSfxMute, setSfxVolume
@@ -16,7 +15,7 @@ export default function SoundConfigModal({ visible, onClose }: SoundConfigModalP
 
     const resetSounds = () => {
         setBgVolume(0.3);
-        setSfxVolume(0.3);
+        setSfxVolume(0.5);
         // setBgMute(true); // incase reset sound is supposed to make it mute also
         // setSfxMute(true);
     };

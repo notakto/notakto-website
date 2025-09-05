@@ -16,10 +16,7 @@ type userStore = {
   user: User | null;
   setUser: (newUser: any) => void;
 };
-type muteStore = {
-  mute: boolean;
-  setMute: (newMute: boolean) => void;
-};
+
 type tutStore = {
   showTut: boolean;
   setShowTut: (newShowTut: boolean) => void;
@@ -39,7 +36,7 @@ export const useSound = create<SoundStore>()(
       bgMute: true, // start muted
       bgVolume: 0.3,
       sfxMute: false,
-      sfxVolume: 0.8,
+      sfxVolume: 0.5,
       setBgMute: (mute) => set({ bgMute: mute }),
       setBgVolume: (vol) =>
         set({ bgVolume: Math.max(0, Math.min(1, vol)) }),
@@ -77,10 +74,7 @@ export const useUser = create<userStore>((set) => ({
   user: null,
   setUser: (newUser) => set({ user: newUser }),
 }));
-export const useMute = create<muteStore>((set) => ({
-  mute: true,
-  setMute: (newMute) => set({ mute: newMute }),
-}));
+
 export const useTut = create<tutStore>((set) => ({
   showTut: false,
   setShowTut: (newShowTut) => set({ showTut: newShowTut }),

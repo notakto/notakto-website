@@ -5,7 +5,7 @@ import { useEffect, useRef } from 'react';
 import Menu from '@/app/Menu';
 import TutorialModal from '@/modals/TutorialModal';
 
-import { useCoins, useUser, useXP, useMute, useTut } from '@/services/store';
+import { useCoins, useUser, useXP, useTut } from '@/services/store';
 
 // Firebase module
 import { onAuthStateChangedListener, saveEconomyToFirestore, loadEconomyFromFirestore } from '@/services/firebase';
@@ -13,8 +13,6 @@ import { onAuthStateChangedListener, saveEconomyToFirestore, loadEconomyFromFire
 import { MenuLayout } from '@/components/ui/Containers/Menu/MenuLayout';
 
 export default function Home() {
-  const mute = useMute((state) => state.mute);
-
   const coins = useCoins((state) => state.coins);
   const setCoins = useCoins((state) => state.setCoins);
 
