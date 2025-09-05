@@ -1,6 +1,6 @@
 'use client'
 import { useSound } from "@/services/store";
-import React, { useState, ChangeEvent } from "react";
+import React from "react";
 
 type SoundConfigModalProps = {
     visible: boolean;

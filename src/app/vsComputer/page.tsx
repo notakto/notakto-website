@@ -5,7 +5,7 @@ import Board from './Board';
 import { BoardSize, BoardState, DifficultyLevel, BoardNumber } from '@/services/types';
 import { isBoardDead } from '@/services/logic';
 import { playMoveSound, playWinSound } from '@/services/sounds';
-import { useMute, useUser } from '@/services/store';
+import {  useUser } from '@/services/store';
 import { useRouter } from 'next/navigation';
 import WinnerModal from '@/modals/WinnerModal';
 import BoardConfigModal from '@/modals/BoardConfigModal';
@@ -15,8 +15,9 @@ import { toast } from "react-toastify";
 import { useToastCooldown } from "@/components/hooks/useToastCooldown";
 import { handleBuyCoins } from '@/services/payment';
 import { SettingButton } from '@/components/ui/Buttons/SettingButton';
+import SoundConfigModal from '@/modals/SoundConfigModal';
 import { createGame, makeMove, resetGame, updateConfig, undoMove, skipMove } from '@/services/game-apis';
-
+import { useSound } from '@/services/store';
 const Game = () => {
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
     const [boards, setBoards] = useState<BoardState[]>([]);
@@ -27,14 +28,14 @@ const Game = () => {
     const [showWinnerModal, setShowWinnerModal] = useState<boolean>(false);
     const [numberOfBoards, setNumberOfBoards] = useState<BoardNumber>(3);
     const [showBoardConfig, setShowBoardConfig] = useState<boolean>(false);
+    const [showSoundConfig, setShowSoundConfig] = useState<boolean>(false);
     const [isProcessingPayment, setIsProcessingPayment] = useState<boolean>(false);
     const [showDifficultyModal, setShowDifficultyModal] = useState<boolean>(false);
     const [difficulty, setDifficulty] = useState<DifficultyLevel>(1);
     const [sessionId, setSessionId] = useState<string>('');
     const [isProcessing, setIsProcessing] = useState<boolean>(false);
 
-    const mute = useMute((state) => state.mute);
-    const setMute = useMute((state) => state.setMute);
+    const { sfxMute } = useSound();
     const Coins = useCoins((state) => state.coins);
     const setCoins = useCoins((state) => state.setCoins);
     const XP = useXP((state) => state.XP);
@@ -82,14 +83,14 @@ const Game = () => {
                     setBoards(data.gameState.boards);
                     setCurrentPlayer(data.gameState.currentPlayer);
                     setGameHistory(data.gameState.gameHistory);
-                    playMoveSound(mute);
+                    playMoveSound(sfxMute);
 
                     if (data.gameOver) {
                         if (data.gameState.coins) setCoins(Coins + data.gameState.coins);
                         if (data.gameState.xp) setXP(XP + data.gameState.xp);
                         setWinner(data.gameState.winner);
                         setShowWinnerModal(true);
-                        playWinSound(mute);
+                        playWinSound(sfxMute);
                     }
                 } else if ('error' in data) {
                     toast.error(data.error || 'Invalid move');
@@ -250,8 +251,8 @@ const Game = () => {
                         <span className="text-red-600 text-[35px] "> | XP: {XP}</span>
                     </div>
                     <h2 className="text-red-600 text-[80px] mb-5 text-center">
-  {currentPlayer === 1 ? "Your Turn" : "Computer's Turn"}
-</h2>
+                        {currentPlayer === 1 ? "Your Turn" : "Computer's Turn"}
+                    </h2>
 
                 </div>
 
@@ -283,7 +284,7 @@ const Game = () => {
                         <SettingButton onClick={() => { handleSkip(); setIsMenuOpen(false); }} disabled={Coins < 200}>Skip a Move (200 coins)</SettingButton>
                         <SettingButton onClick={() => handleBuyCoins(setIsProcessingPayment, canShowToast, triggerToastCooldown, setCoins, Coins)} disabled={isProcessingPayment} loading={isProcessingPayment}>Buy Coins (100)</SettingButton>
                         <SettingButton onClick={() => { setShowDifficultyModal(true); setIsMenuOpen(false); }}>AI Level: {difficulty}</SettingButton>
-                        <SettingButton onClick={() => setMute(!mute)}>Sound: {mute ? 'Off' : 'On'}</SettingButton>
+                        <SettingButton onClick={() => { setShowSoundConfig(true); setIsMenuOpen(false) }}>Adjust Sound</SettingButton>
                         <SettingButton onClick={() => router.push('/')}>Main Menu</SettingButton>
                         <SettingButton onClick={toggleMenu}>Return to Game</SettingButton>
                     </div>
@@ -312,6 +313,10 @@ const Game = () => {
                     setShowDifficultyModal(false);
                 }}
                 onClose={() => setShowDifficultyModal(false)}
+            />
+            <SoundConfigModal
+                visible={showSoundConfig}
+                onClose={() => setShowSoundConfig(false)}
             />
         </div>
     );
