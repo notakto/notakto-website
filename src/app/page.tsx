@@ -6,7 +6,6 @@ import Menu from '@/app/Menu';
 import TutorialModal from '@/modals/TutorialModal';
 
 import { useCoins, useUser, useXP, useMute, useTut } from '@/services/store';
-import { initBackgroundMusic, toggleBackgroundMusic, stopBackgroundMusic } from '@/services/sounds';
 
 // Firebase module
 import { onAuthStateChangedListener, saveEconomyToFirestore, loadEconomyFromFirestore } from '@/services/firebase';
