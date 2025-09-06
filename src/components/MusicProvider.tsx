@@ -42,9 +42,6 @@ export default function MusicProvider() {
     return () => document.removeEventListener("visibilitychange", handleVisibility);
   }, []);
 
-  useEffect(() => {
-    setBackgroundVolume(bgVolume);
-  }, [bgVolume]);
 
   useEffect(() => {
     setMoveVolume(sfxVolume)
