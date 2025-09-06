@@ -24,11 +24,23 @@ export default function MusicProvider() {
 
   useEffect(() => {
     if (bgMute) {
-      pauseBackgroundMusic();
+      // mute is setting the volume down
+      setBackgroundVolume(0)
     } else {
       playBackgroundMusic();
+      setBackgroundVolume(bgVolume);
     }
-  }, [bgMute]);
+  }, [bgMute,bgVolume]);
+
+  // Any tabs switch will `pause` the music
+  useEffect(() => {
+    const handleVisibility = () => {
+      if (document.hidden) pauseBackgroundMusic();
+      else playBackgroundMusic();
+    };
+    document.addEventListener("visibilitychange", handleVisibility);
+    return () => document.removeEventListener("visibilitychange", handleVisibility);
+  }, []);
 
   useEffect(() => {
     setBackgroundVolume(bgVolume);
