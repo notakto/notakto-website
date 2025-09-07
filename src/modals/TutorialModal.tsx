@@ -17,14 +17,14 @@ const TutorialModal = () => {
           How&nbsp;&nbsp;&nbsp;to&nbsp;&nbsp;&nbsp;Play Notakto
         </h1>
       </header>
-      <section className="text-white text-lg leading-6 mb-6">
-        <ul>
-          <li>• Both players use X marks</li>
-          <li>• Game is played on three 3x3 boards</li>
-          <li>• Players alternate placing Xs</li>
-          <li>• Any board with 3 Xs in a row becomes dead</li>
-          <li>• Last player to make a valid move loses</li>
-          <li>• Strategy: Force opponent to make final move!</li>
+      <section id="tutorial-points" className="text-white text-lg leading-6 mb-6">
+        <ul className="list-disc pl-6 space-y-2">
+          <li>Both players use X marks</li>
+          <li>Game is played on three 3x3 boards</li>
+          <li>Players alternate placing Xs</li>
+          <li>Any board with 3 Xs in a row becomes dead</li>
+          <li>Last player to make a valid move loses</li>
+          <li>Strategy: Force opponent to make final move!</li>
         </ul>
       </section>
       <button

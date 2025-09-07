@@ -249,7 +249,7 @@ const Game = () => {
                         <span className="text-red-600 text-[35px] ">Coins: {Coins}</span>
                         <span className="text-red-600 text-[35px] "> | XP: {XP}</span>
                     </div>
-                    <h1 className="text-red-600 text-[80px] mb-5 text-center" aria-live="polite> {currentPlayer === 1 ? "Your Turn " : " Computer Turn "} </h1>
+                    <h1 className="text-red-600 text-[80px] mb-5 text-center" aria-live="polite"> {currentPlayer === 1 ? "Your Turn " : " Computer Turn "} </h1>
                 </header>
 
                 <section className="flex flex-wrap justify-center gap-4 p-4 w-full mb-20">
@@ -264,7 +264,7 @@ const Game = () => {
                             />
                         </article>
                     ))}
-                < /section >
+                </section>
 
                 <nav className="absolute bottom-0 left-0 right-0 flex justify-center items-center bg-blue-600 px-6 py-2 mt-2">
                     <button onClick={toggleMenu} className="text-white text-[35px]">Settings</button>
