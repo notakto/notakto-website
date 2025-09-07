@@ -7,3 +7,16 @@ Disallow: /api/
 
 # Point crawlers to your sitemap for better indexing
 Sitemap: https://notakto-website.vercel.app/sitemap.ts
+
+
+
+query:
+
+select a.aname from
+aircraft a
+where aid in (
+select c.aid 
+from certified c join employee e
+on c.eid = e.eid
+where a.aid = c.aid & e.salary > 80000
+)
