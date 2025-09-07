@@ -14,7 +14,7 @@ const TutorialModal = () => {
     tabIndex={-1}>
       <header>
         <h1 className="text-3xl text-red-600 text-center mb-4">
-          How&nbsp;&nbsp;&nbsp;to&nbsp;&nbsp;&nbsp;Play Notakto
+          Howto Play Notakto
         </h1>
       </header>
       <section id="tutorial-points" className="text-white text-lg leading-6 mb-6">
