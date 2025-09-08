@@ -5,7 +5,6 @@ import { useSound } from "@/services/store";
 import {
   initBackgroundMusic,
   playBackgroundMusic,
-  pauseBackgroundMusic,
   setBackgroundVolume,
   stopBackgroundMusic,
   setMoveVolume,
@@ -16,6 +15,8 @@ export default function MusicProvider() {
   const bgMute = useSound((state) => state.bgMute);
   const bgVolume = useSound((state) => state.bgVolume);
   const sfxVolume = useSound((state) => state.sfxVolume);
+  const sfxMute = useSound((state) => state.sfxMute);
+  
 
   useEffect(() => {
     initBackgroundMusic(); // prepare but don’t autoplay
@@ -30,12 +31,13 @@ export default function MusicProvider() {
       playBackgroundMusic();
       setBackgroundVolume(bgVolume);
     }
-  }, [bgMute,bgVolume]);
+  }, [bgMute, bgVolume]);
 
   useEffect(() => {
-    setMoveVolume(sfxVolume)
-    setWinVolume(sfxVolume)
-  }, [sfxVolume]);
+    const volume = sfxMute ? 0 : Math.max(0, Math.min(1, sfxVolume));
+    setMoveVolume(volume)
+    setWinVolume(volume)
+  }, [sfxMute, sfxVolume]);
 
   return null;
 }
