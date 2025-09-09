@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
+const rate_limiter: Record<string, number[]> = {};
+
 export async function middleware(req: NextRequest) {
   console.log("Request headers:", req.headers);
   const { pathname } = req.nextUrl;
@@ -35,6 +37,26 @@ export async function middleware(req: NextRequest) {
         return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
       }
       const requestHeaders = new Headers(req.headers);
+      // ---- Rate limiting ----
+      const now = Date.now();
+      const windowMs = 10 * 1000; // 10 seconds
+      const limit = 5; // max 5 requests per window
+
+      if (!rate_limiter[user.localId]) {
+        rate_limiter[user.localId] = [];
+      }
+
+      // remove old timestamps
+      rate_limiter[user.localId] = rate_limiter[user.localId].filter(
+        (ts) => now - ts < windowMs
+      );
+
+      if (rate_limiter[user.localId].length >= limit) {
+        return NextResponse.json({ error: "Too Many Requests" }, { status: 429 });
+      }
+
+      rate_limiter[user.localId].push(now);
+      // --------Add user ID to request headers ----
       requestHeaders.set("x-user-uid", user.localId);
 
       return NextResponse.next({
