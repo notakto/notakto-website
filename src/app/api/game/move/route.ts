@@ -1,8 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { handlePlayerMove } from '@/lib/game/flow';
-export const runtime = 'nodejs';
+
 export async function POST(request: NextRequest) {
   try {
+    const authHeader = request.headers.get("authorization");
+    if (!authHeader?.startsWith("Bearer ")) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const idToken = authHeader.split("Bearer ")[1];
+    
     const uid = request.headers.get("x-user-uid");
     if (!uid) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
@@ -13,7 +20,7 @@ export async function POST(request: NextRequest) {
     }
     const { sessionId, boardIndex, cellIndex } = body as { sessionId: string; boardIndex: number; cellIndex: number; };
     
-    const result = await handlePlayerMove(sessionId, boardIndex, cellIndex, uid);
+    const result = await handlePlayerMove(sessionId, boardIndex, cellIndex, uid, idToken);
     const { status = 200, ...payload } = result as { status?: number };
     return NextResponse.json(payload, { status });
   } catch (error) {

@@ -4,7 +4,7 @@ import { applyMove, isGameOver, switchPlayer } from '@/lib/game/state';
 import { makeAIMove } from '@/lib/game/makeAImove';
 import { handleRewards } from '@/lib/game/rewards';
 
-export async function handlePlayerMove(sessionId: string, boardIndex: number, cellIndex: number, uid: string) {
+export async function handlePlayerMove(sessionId: string, boardIndex: number, cellIndex: number, uid: string, idToken: string) {
   const gameState = gameSessions.get(sessionId);
   if (!gameState) return { error: 'Session not found', status: 404 };
   
@@ -22,7 +22,7 @@ export async function handlePlayerMove(sessionId: string, boardIndex: number, ce
   applyMove(gameState, { boardIndex, cellIndex });
 
   if (isGameOver(gameState)) {
-    const rewardsResult = await handleRewards(gameState, uid);
+    const rewardsResult = await handleRewards(gameState, uid, idToken);
     return { ...rewardsResult, status: rewardsResult.status ?? 200 };
   }
 
@@ -30,7 +30,7 @@ export async function handlePlayerMove(sessionId: string, boardIndex: number, ce
 
   if (gameState.currentPlayer === 2) {
     makeAIMove(gameState);
-    if (isGameOver(gameState)) return handleRewards(gameState, uid);
+    if (isGameOver(gameState)) return handleRewards(gameState, uid, idToken);
     switchPlayer(gameState); // back to human
   }
 

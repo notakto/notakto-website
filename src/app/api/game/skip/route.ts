@@ -3,9 +3,16 @@ import { isBoardDead, updateBoards, findBestMove } from '@/services/ai';
 import { calculateRewards } from '@/services/economyUtils';
 import { gameSessions } from '@/lib/game-sessions';
 import { db } from '@/lib/db';
-export const runtime = 'nodejs';
+
 export async function POST(request: NextRequest) {
   try {
+    const authHeader = request.headers.get("authorization");
+    if (!authHeader?.startsWith("Bearer ")) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const idToken = authHeader.split("Bearer ")[1];
+    
     const uid = request.headers.get("x-user-uid");
     if (!uid) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
@@ -42,7 +49,7 @@ export async function POST(request: NextRequest) {
           gameState.numberOfBoards, gameState.boardSize);
 
         gameState.winner = winner === 1 ? "You" : "Computer";
-        const r = await db(uid, rewards.coins - 200, rewards.xp);
+        const r = await db(uid, rewards.coins - 200, rewards.xp, idToken);
         if (!r?.success) return NextResponse.json({ error: 'Unauthorized' }, { status: r?.status ?? 403 }); 
         gameSessions.set(sessionId, gameState);
         return NextResponse.json({
@@ -56,7 +63,7 @@ export async function POST(request: NextRequest) {
     }
 
     gameSessions.set(sessionId, gameState);
-    const charge = await db(uid, -200, 0);
+    const charge = await db(uid, -200, 0, idToken);
     if (!charge?.success) return NextResponse.json({ error: 'Unauthorized' }, { status: charge?.status ?? 403 });
     return NextResponse.json({ success: true, gameState, gameOver: false, status: 200 });
   } catch (error) {

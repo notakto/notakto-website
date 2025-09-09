@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { gameSessions } from '@/lib/game-sessions';
-export const runtime = "nodejs"; // inside your route.ts
+
 
 export async function POST(request: NextRequest) {
   try {

@@ -1,10 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { gameSessions } from '@/lib/game-sessions';
 import { db } from '@/lib/db';
-export const runtime = 'nodejs';
 
 export async function POST(request: NextRequest) {
   try {
+    const authHeader = request.headers.get("authorization");
+    if (!authHeader?.startsWith("Bearer ")) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const idToken = authHeader.split("Bearer ")[1];
+    
     const uid = request.headers.get("x-user-uid");
     if (!uid) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
@@ -26,7 +32,7 @@ export async function POST(request: NextRequest) {
     gameState.currentPlayer = 1;
     gameState.winner = '';
     gameState.gameOver = false;
-    const r = await db(uid, -100, 0);
+    const r = await db(uid, -100, 0, idToken);
     if (!r?.success) return NextResponse.json({ error: 'Database operation failed' }, { status: r?.status ?? 500 });
     gameSessions.set(sessionId, gameState);
     return NextResponse.json({ success: true, gameState });
