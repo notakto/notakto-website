@@ -1,5 +1,6 @@
 'use client'
 import { SoundMuteButton } from "@/components/ui/Buttons/SoundMuteButton";
+import { SoundConfigButton } from "@/components/ui/Buttons/SoundConfigButton";
 import { useSound } from "@/services/store";
 
 type SoundConfigModalProps = {
@@ -69,18 +70,16 @@ export default function SoundConfigModal({ visible, onClose }: SoundConfigModalP
 
                 {/* Controls */}
                 <div className="mt-6 flex flex-wrap gap-3 justify-center">
-                    <button
+                    <SoundConfigButton
                         onClick={resetSounds}
-                        className="bg-blue-600 hover:bg-blue-700 text-white py-3 text-xl flex-1"
                     >
                         Reset Sounds
-                    </button>
-                    <button
+                    </SoundConfigButton>
+                    <SoundConfigButton
                         onClick={onClose}
-                        className=""
                     >
                         Return
-                    </button>
+                    </SoundConfigButton>
                 </div>
             </div>
         </div>
