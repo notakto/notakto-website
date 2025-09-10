@@ -5,10 +5,11 @@ import Board from './Board';
 import { BoardSize, BoardState } from '@/services/types';
 import { isBoardDead } from '@/services/logic';
 import { playMoveSound, playWinSound } from '@/services/sounds';
-import { useMute } from '@/services/store';
+import { useSound } from '@/services/store';
 import { useRouter } from 'next/navigation';
 import PlayerNamesModal from '@/modals/PlayerNamesModal';
 import WinnerModal from '@/modals/WinnerModal';
+import SoundConfigModal from '@/modals/SoundConfigModal';
 import BoardConfigModal from '@/modals/BoardConfigModal';
 import { SettingButton } from '@/components/ui/Buttons/SettingButton';
 
@@ -24,9 +25,9 @@ const Game = () => {
     const [showWinnerModal, setShowWinnerModal] = useState<boolean>(false);
     const [numberOfBoards, setNumberOfBoards] = useState<number>(3);
     const [showBoardConfig, setShowBoardConfig] = useState<boolean>(false);
+    const [showSoundConfig, setShowSoundConfig] = useState<boolean>(false);
 
-    const mute = useMute((state) => state.mute);
-    const setMute = useMute((state) => state.setMute);
+    const { sfxMute } = useSound();
     const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
     const router = useRouter();
 
@@ -40,7 +41,7 @@ const Game = () => {
                 ...board.slice(cellIndex + 1)
             ] : [...board]
         );
-        playMoveSound(mute);
+        playMoveSound(sfxMute);
         setBoards(newBoards);
 
         if (newBoards.every(board => isBoardDead(board, boardSize))) {
@@ -49,7 +50,7 @@ const Game = () => {
             const winnerName = winnerNum === 1 ? player1Name : player2Name;
             setWinner(winnerName);
             setShowWinnerModal(true);
-            playWinSound(mute);
+            playWinSound(sfxMute);
             return;
         }
 
@@ -79,8 +80,8 @@ const Game = () => {
             <div className="flex-1">
                 <div className="flex flex-col items-center px-6 py-4 -mb-8">
                     <h2 className="text-red-600 text-[80px] mb-5 text-center">
-  {currentPlayer === 1 ? `${player1Name}'s turn` : `${player2Name}'s turn`}
-</h2>
+                        {currentPlayer === 1 ? `${player1Name}'s turn` : `${player2Name}'s turn`}
+                    </h2>
                 </div>
 
                 <div className="flex flex-wrap justify-center gap-4 p-4 w-full mb-20">
@@ -108,7 +109,7 @@ const Game = () => {
                         <SettingButton onClick={() => { resetGame(numberOfBoards, boardSize); setIsMenuOpen(false); }}>Reset</SettingButton>
                         <SettingButton onClick={() => { setShowBoardConfig(!showBoardConfig); setIsMenuOpen(false); }}>Game Configuration</SettingButton>
                         <SettingButton onClick={() => { setShowNameModal(true); setIsMenuOpen(false); }}>Reset Names</SettingButton>
-                        <SettingButton onClick={() => setMute(!mute)}>Sound: {mute ? 'Off' : 'On'}</SettingButton>
+                        <SettingButton onClick={() => { setShowSoundConfig(true); setIsMenuOpen(false) }}>Adjust Sound</SettingButton>
                         <SettingButton onClick={exitToMenu}>Main Menu</SettingButton>
                         <SettingButton onClick={toggleMenu}>Return to Game</SettingButton>
                     </div>
@@ -143,6 +144,10 @@ const Game = () => {
                 currentSize={boardSize}
                 onConfirm={handleBoardConfigChange}
                 onCancel={() => setShowBoardConfig(false)}
+            />
+            <SoundConfigModal
+                visible={showSoundConfig}
+                onClose={() => setShowSoundConfig(false)}
             />
         </div>
     );
