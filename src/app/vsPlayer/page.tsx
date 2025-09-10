@@ -108,7 +108,7 @@ const Game = () => {
                     <div className="flex flex-wrap justify-center gap-4 max-w-4xl py-8">
                         <SettingButton onClick={() => { resetGame(numberOfBoards, boardSize); setIsMenuOpen(false); }}>Reset</SettingButton>
                         <SettingButton onClick={() => { setShowBoardConfig(!showBoardConfig); setIsMenuOpen(false); }}>Game Configuration</SettingButton>
-                        <SettingButton onClick={() => { setShowNameModal(!showSoundConfig); setIsMenuOpen(false); }}>Reset Names</SettingButton>
+                        <SettingButton onClick={() => { setShowNameModal(true); setIsMenuOpen(false); }}>Reset Names</SettingButton>
                         <SettingButton onClick={() => { setShowSoundConfig(true); setIsMenuOpen(false) }}>Adjust Sound</SettingButton>
                         <SettingButton onClick={exitToMenu}>Main Menu</SettingButton>
                         <SettingButton onClick={toggleMenu}>Return to Game</SettingButton>

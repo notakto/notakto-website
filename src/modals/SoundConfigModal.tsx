@@ -1,6 +1,5 @@
 'use client'
 import { useSound } from "@/services/store";
-import React from "react";
 
 type SoundConfigModalProps = {
     visible: boolean;
@@ -24,12 +23,12 @@ export default function SoundConfigModal({ visible, onClose }: SoundConfigModalP
     if (!visible) return null;
     return (
         <div className="fixed inset-0 bg-black/80 flex justify-center items-center z-50">
-            <div className="bg-black p-6 w-[90%] max-w-xl space-y-6  text-center text-white shadow-[0_0_10px_#0055ff]">
-                <h2 className="text-red-600 text-[35px]">Sound Configuration</h2>
+            <div className="bg-black p-6 w-[90%] max-w-xl space-y-6  text-center text-white">
+                <h2 className="text-red-500 text-[35px]">Sound Configuration</h2>
 
                 {/* Background Music */}
                 <div className="my-4 flex items-center justify-between">
-                    <label className="text-red-600 text-2xl flex-1 text-left">
+                    <label className="text-red-500 text-2xl flex-1 text-left">
                         Background Music
                     </label>
                     <input
@@ -42,7 +41,7 @@ export default function SoundConfigModal({ visible, onClose }: SoundConfigModalP
                     />
                     <button
                         onClick={() => setBgMute(!bgMute)}
-                        className="bg-[#0055ff] hover:bg-[#0033aa] text-white px-3 py-2 text-lg"
+                        className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 text-lg"
                     >
                         {bgMute ? "Unmute" : "Mute"}
                     </button>
@@ -63,7 +62,7 @@ export default function SoundConfigModal({ visible, onClose }: SoundConfigModalP
                     />
                     <button
                         onClick={() => setSfxMute(!sfxMute)}
-                        className="bg-[#0055ff] hover:bg-[#0033aa] text-white px-3 py-2 text-lg"
+                        className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 text-lg"
                     >
                         {sfxMute ? "Unmute" : "Mute"}
                     </button>
@@ -73,13 +72,13 @@ export default function SoundConfigModal({ visible, onClose }: SoundConfigModalP
                 <div className="mt-6 flex flex-wrap gap-3 justify-center">
                     <button
                         onClick={resetSounds}
-                        className="bg-[#0055ff] hover:bg-[#0033aa] text-white py-3 text-xl flex-1"
+                        className="bg-blue-600 hover:bg-blue-700 text-white py-3 text-xl flex-1"
                     >
                         Reset Sounds
                     </button>
                     <button
                         onClick={onClose}
-                        className="bg-[#0055ff] hover:bg-[#0033aa] text-white  py-3 text-xl flex-1"
+                        className="bg-blue-600 hover:bg-blue-700 text-white  py-3 text-xl flex-1"
                     >
                         Return
                     </button>

@@ -7,12 +7,7 @@ import {
   onAuthStateChanged,
   User,
 } from 'firebase/auth';
-import {
-  getFirestore,
-  doc,
-  setDoc,
-  getDoc,
-} from 'firebase/firestore';
+import { getFirestore } from 'firebase/firestore';
 
 // Initialize Firebase
 const firebaseConfig = {
@@ -27,7 +22,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-const firestore = getFirestore(app);
+export const firestore = getFirestore(app);
 const provider = new GoogleAuthProvider();
 
 export const signInWithGoogle = async (): Promise<User> => {
@@ -51,24 +46,4 @@ export const signOutUser = async () => {
 
 export const onAuthStateChangedListener = (callback: (user: User | null) => void): (() => void) => {
   return onAuthStateChanged(auth, callback);
-};
-
-export const saveEconomyToFirestore = async (
-  userId: string,
-  coins: number,
-  XP: number
-) => {
-  const userRef = doc(firestore, 'users', userId);
-  await setDoc(userRef, { coins, XP }, { merge: true });
-};
-
-export const loadEconomyFromFirestore = async (
-  userId: string
-) => {
-  const userRef = doc(firestore, 'users', userId);
-  const docSnap = await getDoc(userRef);
-  if (docSnap.exists()) {
-    return docSnap.data() || null;
-  }
-  return null;
 };

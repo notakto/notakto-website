@@ -16,13 +16,13 @@ export default function MusicProvider() {
   const bgVolume = useSound((state) => state.bgVolume);
   const sfxVolume = useSound((state) => state.sfxVolume);
   const sfxMute = useSound((state) => state.sfxMute);
-  
+
 
   useEffect(() => {
     initBackgroundMusic(); // prepare but don’t autoplay
     return () => stopBackgroundMusic();
   }, []);
-
+  
   useEffect(() => {
     if (bgMute) {
       // mute is setting the volume down

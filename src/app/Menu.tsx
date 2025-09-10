@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import { signInWithGoogle, signOutUser } from '@/services/firebase';
-import { useCoins, useXP, useUser, useTut } from '@/services/store';
+import { useUser, useTut } from '@/services/store';
 import { toast } from "react-toastify";
 import { useToastCooldown } from "@/components/hooks/useToastCooldown";
 import { MenuButton } from '@/components/ui/Buttons/MenuButton';
@@ -12,9 +12,6 @@ import { MenuTitle } from '@/components/ui/Title/MenuTitle';
 import SoundConfigModal from '@/modals/SoundConfigModal';
 import { useState } from 'react';
 const Menu = () => {
-
-  const setCoins = useCoins((state) => state.setCoins);
-  const setXP = useXP((state) => state.setXP);
   const user = useUser((state) => state.user);
   const setUser = useUser((state) => state.setUser);
   const setShowTut = useTut((state) => state.setShowTut);
@@ -34,8 +31,6 @@ const Menu = () => {
   const handleSignOut = async () => {
     try {
       await signOutUser();
-      setCoins(1000);
-      setXP(0);
       setUser(null);
     } catch (error) {
       console.error('Sign out error:', error);
@@ -58,20 +53,17 @@ const Menu = () => {
 
   return (
     <MenuContainer>
-      {/* Title */}
       <MenuTitle text='Notakto'></MenuTitle>
       <MenuButtonContainer>
         <MenuButton onClick={() => startGame('vsPlayer')}> Play vs Player </MenuButton>
         <MenuButton onClick={() => startGame('vsComputer')}> Play vs Computer </MenuButton>
         <MenuButton onClick={() => startGame('liveMatch')}> Live Match </MenuButton>
         <MenuButton onClick={() => setShowTut(true)}> Tutorial </MenuButton>
-        <MenuButton onClick={(user) ? handleSignOut : handleSignIn}>
-          {(user) ? "Sign Out" : "Sign in"}
-        </MenuButton>
-        <MenuButton onClick={() => setShowSoundConfig(true)}>Adjust Sound</MenuButton>
-      </MenuButtonContainer>
+        <MenuButton onClick={(user) ? handleSignOut : handleSignIn}>{(user) ? "Sign Out" : "Sign in"}</MenuButton>
+        <MenuButton onClick={() => setShowSoundConfig(!showSoundConfig)}>Adjust Sound</MenuButton>
+      </MenuButtonContainer >
       <SoundConfigModal visible={showSoundConfig} onClose={() => setShowSoundConfig(false)} />
-    </MenuContainer>
+    </MenuContainer >
   );
 };
 
