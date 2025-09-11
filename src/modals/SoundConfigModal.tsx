@@ -1,4 +1,6 @@
 'use client'
+import { SoundMuteButton } from "@/components/ui/Buttons/SoundMuteButton";
+import { SoundConfigButton } from "@/components/ui/Buttons/SoundConfigButton";
 import { useSound } from "@/services/store";
 
 type SoundConfigModalProps = {
@@ -39,12 +41,11 @@ export default function SoundConfigModal({ visible, onClose }: SoundConfigModalP
                         onChange={(e) => setBgVolume(Number(e.target.value) / 100)}
                         className="flex-2 mx-2 accent-[#0055ff]"
                     />
-                    <button
+                    <SoundMuteButton
                         onClick={() => setBgMute(!bgMute)}
-                        className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 text-lg"
                     >
                         {bgMute ? "Unmute" : "Mute"}
-                    </button>
+                    </SoundMuteButton>
                 </div>
 
                 {/* Player Move */}
@@ -60,28 +61,25 @@ export default function SoundConfigModal({ visible, onClose }: SoundConfigModalP
                         onChange={(e) => setSfxVolume(Number(e.target.value) / 100)}
                         className="flex-2 mx-2 accent-[#0055ff]"
                     />
-                    <button
+                    <SoundMuteButton
                         onClick={() => setSfxMute(!sfxMute)}
-                        className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 text-lg"
                     >
                         {sfxMute ? "Unmute" : "Mute"}
-                    </button>
+                    </SoundMuteButton>
                 </div>
 
                 {/* Controls */}
                 <div className="mt-6 flex flex-wrap gap-3 justify-center">
-                    <button
+                    <SoundConfigButton
                         onClick={resetSounds}
-                        className="bg-blue-600 hover:bg-blue-700 text-white py-3 text-xl flex-1"
                     >
                         Reset Sounds
-                    </button>
-                    <button
+                    </SoundConfigButton>
+                    <SoundConfigButton
                         onClick={onClose}
-                        className="bg-blue-600 hover:bg-blue-700 text-white  py-3 text-xl flex-1"
                     >
                         Return
-                    </button>
+                    </SoundConfigButton>
                 </div>
             </div>
         </div>
