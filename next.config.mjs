@@ -13,20 +13,6 @@ const nextConfig = {
   },
   compress: true,
   webpack: (config, { isServer, dev }) => {
-    if (!process.env.TURBOPACK) {
-      config.optimization.splitChunks = {
-        chunks: 'all',
-        cacheGroups: {
-          vendor: {
-            test: /[\\/]node_modules[\\/]/,
-            name: 'vendors',
-            chunks: 'all',
-          },
-        },
-      };
-    } else {
-      console.log('Using Turbopack, skipping custom webpack config.');
-    }
     return config;
   },
 };
