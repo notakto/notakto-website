@@ -4,6 +4,7 @@ import { io } from "socket.io-client";
 import { useRouter } from "next/navigation";
 import clsx from "clsx";
 import { toast } from "react-toastify";
+import { useGameShortcuts } from '@/components/hooks/useKeyboardShortcuts';
 
 const SERVER_URL = "https://notakto-websocket.onrender.com";
 const socket = io(SERVER_URL);
@@ -66,6 +67,12 @@ const LiveMode = () => {
     setGameState("searching");
     socket.emit("joinGame");
   };
+
+  // Keyboard shortcuts
+  useGameShortcuts({
+    onEscape: onClose, // ESC to leave the game
+    onMainMenu: onClose, // M to go to main menu
+  });
 
   return (
     <div className="flex flex-col h-screen bg-black">

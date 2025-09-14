@@ -18,6 +18,7 @@ import { SettingButton } from '@/components/ui/Buttons/SettingButton';
 import SoundConfigModal from '@/modals/SoundConfigModal';
 import { createGame, makeMove, resetGame, updateConfig, undoMove, skipMove } from '@/services/game-apis';
 import { useSound } from '@/services/store';
+import { useGameShortcuts } from '@/components/hooks/useKeyboardShortcuts';
 const Game = () => {
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
     const [boards, setBoards] = useState<BoardState[]>([]);
@@ -276,6 +277,53 @@ const Game = () => {
     useEffect(() => {
         initGame(numberOfBoards, boardSize, difficulty);
     }, []);
+
+    // Keyboard shortcuts
+    useGameShortcuts({
+        onEscape: () => {
+            if (showWinnerModal || showBoardConfig || showSoundConfig || showDifficultyModal) {
+                // Close any open modal
+                setShowWinnerModal(false);
+                setShowBoardConfig(false);
+                setShowSoundConfig(false);
+                setShowDifficultyModal(false);
+            } else if (isMenuOpen) {
+                // Close settings menu
+                setIsMenuOpen(false);
+            } else {
+                // Open settings menu
+                setIsMenuOpen(true);
+            }
+        },
+        onReset: () => {
+            if (!showWinnerModal && !showBoardConfig && !showSoundConfig && !showDifficultyModal && !isResetting) {
+                handleReset();
+                setIsMenuOpen(false);
+            }
+        },
+        onMainMenu: () => {
+            if (!showWinnerModal && !showBoardConfig && !showSoundConfig && !showDifficultyModal) {
+                router.push('/');
+            }
+        },
+        onSoundConfig: () => {
+            if (!showWinnerModal && !showBoardConfig && !showDifficultyModal) {
+                setShowSoundConfig(!showSoundConfig);
+                setIsMenuOpen(false);
+            }
+        },
+        onGameConfig: () => {
+            if (!showWinnerModal && !showSoundConfig && !showDifficultyModal && !isUpdatingConfig) {
+                setShowBoardConfig(!showBoardConfig);
+                setIsMenuOpen(false);
+            }
+        },
+        onReturnToGame: () => {
+            if (isMenuOpen) {
+                setIsMenuOpen(false);
+            }
+        },
+    });
 
     return (
         <div className="flex flex-col min-h-screen bg-black relative">

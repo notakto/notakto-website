@@ -9,13 +9,16 @@ export default function ShortcutModal({ visible, onClose }: ShortcutModalProps) 
     if (!visible) return null;
 
     const shortcuts = [
-        { key: 'Esc', action: 'Close the modal / pause menu' },
+        { key: 'Esc', action: 'Close modal / toggle settings menu' },
         { key: 'R', action: 'Reset the game' },
-        { key: 'N', action: 'Reset player names' },
+        { key: 'N', action: 'Reset player names (vs Player mode)' },
         { key: 'C', action: 'Open game configuration' },
         { key: 'M', action: 'Go to main menu' },
-        { key: 'S', action: 'Adjust sound' },
+        { key: 'S', action: 'Adjust sound settings' },
         { key: 'Enter', action: 'Return to game' },
+        { key: '1-3', action: 'Quick game mode selection (main menu)' },
+        { key: 'T', action: 'Open tutorial (main menu)' },
+        { key: 'K', action: 'Show keyboard shortcuts (main menu)' },
     ];
 
     return (
@@ -23,10 +26,9 @@ export default function ShortcutModal({ visible, onClose }: ShortcutModalProps) 
             <div className="bg-black p-6 w-[90%] max-w-md space-y-6 text-white rounded-xl shadow-lg">
                 <h2 className="text-red-500 text-4xl mb-2">Keyboard Shortcuts</h2>
 
-                {/* Pending notice */}
-                <div className="bg-yellow-500/20 border border-yellow-500 text-yellow-400 p-3 rounded-lg text-md">
-                    ⚠️ NOTE : These shortcuts are for reference only. Implementation is pending, so they
-                    won’t work right now.
+                {/* Success notice */}
+                <div className="bg-green-500/20 border border-green-500 text-green-400 p-3 rounded-lg text-md">
+                    ✅ Keyboard shortcuts are now active! Use them to navigate quickly through the game.
                 </div>
 
                 <div className="grid grid-cols-2 gap-4 text-left">

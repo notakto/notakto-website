@@ -12,6 +12,7 @@ import { MenuTitle } from '@/components/ui/Title/MenuTitle';
 import SoundConfigModal from '@/modals/SoundConfigModal';
 import ShortcutModal from '@/modals/ShortcutModal';
 import { useState } from 'react';
+import { useKeyboardShortcuts } from '@/components/hooks/useKeyboardShortcuts';
 const Menu = () => {
   const user = useUser((state) => state.user);
   const setUser = useUser((state) => state.setUser);
@@ -52,6 +53,65 @@ const Menu = () => {
     }
     router.push(`/${mode}`);
   };
+
+  // Keyboard shortcuts for main menu
+  useKeyboardShortcuts([
+    {
+      key: 'Escape',
+      action: () => {
+        if (showSoundConfig || showShortcutConfig) {
+          setShowSoundConfig(false);
+          setshowShortcutConfig(false);
+        }
+      },
+      enabled: showSoundConfig || showShortcutConfig,
+    },
+    {
+      key: '1',
+      action: () => startGame('vsPlayer'),
+      enabled: !showSoundConfig && !showShortcutConfig,
+    },
+    {
+      key: '2', 
+      action: () => startGame('vsComputer'),
+      enabled: !showSoundConfig && !showShortcutConfig,
+    },
+    {
+      key: '3',
+      action: () => startGame('liveMatch'),
+      enabled: !showSoundConfig && !showShortcutConfig,
+    },
+    {
+      key: 't',
+      action: () => setShowTut(true),
+      enabled: !showSoundConfig && !showShortcutConfig,
+    },
+    {
+      key: 'T',
+      action: () => setShowTut(true),
+      enabled: !showSoundConfig && !showShortcutConfig,
+    },
+    {
+      key: 's',
+      action: () => setShowSoundConfig(!showSoundConfig),
+      enabled: !showShortcutConfig,
+    },
+    {
+      key: 'S',
+      action: () => setShowSoundConfig(!showSoundConfig),
+      enabled: !showShortcutConfig,
+    },
+    {
+      key: 'k',
+      action: () => setshowShortcutConfig(!showShortcutConfig),
+      enabled: !showSoundConfig,
+    },
+    {
+      key: 'K',
+      action: () => setshowShortcutConfig(!showShortcutConfig),
+      enabled: !showSoundConfig,
+    },
+  ]);
 
   return (
     <MenuContainer>

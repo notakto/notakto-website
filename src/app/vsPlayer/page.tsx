@@ -12,6 +12,7 @@ import WinnerModal from '@/modals/WinnerModal';
 import SoundConfigModal from '@/modals/SoundConfigModal';
 import BoardConfigModal from '@/modals/BoardConfigModal';
 import { SettingButton } from '@/components/ui/Buttons/SettingButton';
+import { useGameShortcuts } from '@/components/hooks/useKeyboardShortcuts';
 
 const Game = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -74,6 +75,59 @@ const Game = () => {
     const exitToMenu = () => {
         router.push('/');
     };
+
+    // Keyboard shortcuts
+    useGameShortcuts({
+        onEscape: () => {
+            if (showWinnerModal || showNameModal || showBoardConfig || showSoundConfig) {
+                // Close any open modal
+                setShowWinnerModal(false);
+                setShowNameModal(false);
+                setShowBoardConfig(false);
+                setShowSoundConfig(false);
+            } else if (isMenuOpen) {
+                // Close settings menu
+                setIsMenuOpen(false);
+            } else {
+                // Open settings menu
+                setIsMenuOpen(true);
+            }
+        },
+        onReset: () => {
+            if (!showWinnerModal && !showNameModal && !showBoardConfig && !showSoundConfig) {
+                resetGame(numberOfBoards, boardSize);
+                setIsMenuOpen(false);
+            }
+        },
+        onMainMenu: () => {
+            if (!showWinnerModal && !showNameModal && !showBoardConfig && !showSoundConfig) {
+                exitToMenu();
+            }
+        },
+        onSoundConfig: () => {
+            if (!showWinnerModal && !showNameModal && !showBoardConfig) {
+                setShowSoundConfig(!showSoundConfig);
+                setIsMenuOpen(false);
+            }
+        },
+        onGameConfig: () => {
+            if (!showWinnerModal && !showNameModal && !showSoundConfig) {
+                setShowBoardConfig(!showBoardConfig);
+                setIsMenuOpen(false);
+            }
+        },
+        onResetNames: () => {
+            if (!showWinnerModal && !showBoardConfig && !showSoundConfig) {
+                setShowNameModal(true);
+                setIsMenuOpen(false);
+            }
+        },
+        onReturnToGame: () => {
+            if (isMenuOpen) {
+                setIsMenuOpen(false);
+            }
+        },
+    });
 
     return (
         <div className="flex flex-col min-h-screen bg-black relative">
