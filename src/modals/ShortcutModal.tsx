@@ -20,8 +20,8 @@ export default function ShortcutModal({ visible, onClose }: ShortcutModalProps) 
 
     return (
         <div className="fixed inset-0 bg-black/80 flex justify-center items-center z-50">
-            <div className="bg-black p-6 w-[90%] max-w-xl space-y-6 text-center text-white">
-                <h2 className="text-red-500 text-[35px] mb-4">Keyboard Shortcuts</h2>
+            <div className="bg-black p-6 w-[90%] max-w-md space-y-6  text-white">
+                <h2 className="text-red-500 text-4xl mb-6">Keyboard Shortcuts</h2>
 
                 <div className="grid grid-cols-2 gap-4 text-left">
                     {shortcuts.map((shortcut) => (
