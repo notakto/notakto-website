@@ -12,6 +12,7 @@ import WinnerModal from '@/modals/WinnerModal';
 import SoundConfigModal from '@/modals/SoundConfigModal';
 import BoardConfigModal from '@/modals/BoardConfigModal';
 import { SettingButton } from '@/components/ui/Buttons/SettingButton';
+import { useShortcut } from '@/components/hooks/useShortcut';
 
 const Game = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -30,6 +31,21 @@ const Game = () => {
     const { sfxMute } = useSound();
     const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
     const router = useRouter();
+
+
+    useShortcut((e) => {
+        if (e.key === 'Escape') setIsMenuOpen(false);
+
+        if (e.key.toLowerCase() === 'r') resetGame(numberOfBoards, boardSize);
+
+        if (e.key.toLowerCase() === 'n') setShowNameModal(prev => !prev);
+
+        if (e.key.toLowerCase() === 'm') router.push('/')
+
+        if (e.key.toLowerCase() === 'c') setShowBoardConfig(prev => !prev);
+
+        if (e.key.toLowerCase() === 's') setShowSoundConfig(prev => !prev);
+    });
 
     const makeMove = (boardIndex: number, cellIndex: number) => {
         if (boards[boardIndex][cellIndex] !== '' || isBoardDead(boards[boardIndex], boardSize)) return;

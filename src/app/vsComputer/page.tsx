@@ -18,6 +18,7 @@ import { SettingButton } from '@/components/ui/Buttons/SettingButton';
 import SoundConfigModal from '@/modals/SoundConfigModal';
 import { createGame, makeMove, resetGame, updateConfig, undoMove, skipMove } from '@/services/game-apis';
 import { useSound } from '@/services/store';
+import { useShortcut } from '@/components/hooks/useShortcut';
 const Game = () => {
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
     const [boards, setBoards] = useState<BoardState[]>([]);
@@ -50,6 +51,18 @@ const Game = () => {
     const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
     const { canShowToast, triggerToastCooldown } = useToastCooldown(4000);
     const router = useRouter();
+    useShortcut((e) => {
+        if (e.key === 'Escape') setIsMenuOpen(false);
+
+        if (e.key.toLowerCase() === 'r') handleReset();
+
+        if (e.key.toLowerCase() === 'm') router.push('/')
+
+        if (e.key.toLowerCase() === 'c') setShowBoardConfig(prev => !prev);
+
+        if (e.key.toLowerCase() === 's') setShowSoundConfig(prev => !prev);
+
+    });
 
     const initGame = async (num: BoardNumber, size: BoardSize, diff: DifficultyLevel) => {
         if (isInitializing) return;
