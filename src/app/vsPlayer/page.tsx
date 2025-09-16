@@ -34,18 +34,32 @@ const Game = () => {
 
 
     useShortcut((e) => {
-        if (e.key === 'Escape') setIsMenuOpen(false);
+        const el = e.target as HTMLElement | null;
+        const tag = el?.tagName?.toLowerCase();
 
-        if (e.key.toLowerCase() === 'r') resetGame(numberOfBoards, boardSize);
+        //  Guard: ignore when typing or using modifiers
+        if (e.isComposing || e.repeat || e.ctrlKey || e.metaKey || e.altKey) return;
+        if (tag === 'input' || tag === 'textarea' || el?.isContentEditable) {
+            return;
+        }
 
-        if (e.key.toLowerCase() === 'n') setShowNameModal(prev => !prev);
+        const k = e.key.toLowerCase();
 
-        if (e.key.toLowerCase() === 'm') router.push('/')
+        if (e.key === 'Escape') {
+            // Close modals in order of priority
+            if (showBoardConfig) return setShowBoardConfig(false);
+            if (showSoundConfig) return setShowSoundConfig(false);
+            if (showNameModal) return setShowNameModal(false);
+            return setIsMenuOpen(false); // fallback
+        }
 
-        if (e.key.toLowerCase() === 'c') setShowBoardConfig(prev => !prev);
-
-        if (e.key.toLowerCase() === 's') setShowSoundConfig(prev => !prev);
+        if (k === 'r') resetGame(numberOfBoards, boardSize);
+        if (k === 'n') setShowNameModal(prev => !prev);
+        if (k === 'm') router.push('/');
+        if (k === 'c') setShowBoardConfig(prev => !prev);
+        if (k === 's') setShowSoundConfig(prev => !prev);
     });
+
 
     const makeMove = (boardIndex: number, cellIndex: number) => {
         if (boards[boardIndex][cellIndex] !== '' || isBoardDead(boards[boardIndex], boardSize)) return;

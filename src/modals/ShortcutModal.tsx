@@ -14,7 +14,10 @@ export default function ShortcutModal({ visible, onClose }: ShortcutModalProps) 
         { key: 'N', action: 'Reset player names' },
         { key: 'C', action: 'Open game configuration' },
         { key: 'M', action: 'Go to main menu' },
+        { key: 'D', action: 'Open difficulty level' },
         { key: 'S', action: 'Adjust sound' },
+        { key: 'Q', action: 'Open keyboard shortcuts' },
+        { key: 'T', action: 'Open tutorial' },
         { key: 'Enter', action: 'Return to game' },
     ];
 
@@ -22,12 +25,6 @@ export default function ShortcutModal({ visible, onClose }: ShortcutModalProps) 
         <div className="fixed inset-0 bg-black/80 flex justify-center items-center z-50">
             <div className="bg-black p-6 w-[90%] max-w-md space-y-6 text-white rounded-xl shadow-lg">
                 <h2 className="text-red-500 text-4xl mb-2">Keyboard Shortcuts</h2>
-
-                {/* Pending notice */}
-                <div className="bg-yellow-500/20 border border-yellow-500 text-yellow-400 p-3 rounded-lg text-md">
-                    ⚠️ NOTE : These shortcuts are for reference only. Implementation is pending, so they
-                    won’t work right now.
-                </div>
 
                 <div className="grid grid-cols-2 gap-4 text-left">
                     {shortcuts.map((shortcut) => (

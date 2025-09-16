@@ -52,17 +52,36 @@ const Game = () => {
     const { canShowToast, triggerToastCooldown } = useToastCooldown(4000);
     const router = useRouter();
     useShortcut((e) => {
-        if (e.key === 'Escape') setIsMenuOpen(false);
+            const el = e.target as HTMLElement | null;
+            const tag = el?.tagName?.toLowerCase();
 
-        if (e.key.toLowerCase() === 'r') handleReset();
+            //  Guard: ignore when typing or using modifiers
+            if (e.isComposing || e.repeat || e.ctrlKey || e.metaKey || e.altKey) return;
+            if (tag === 'input' || tag === 'textarea' || el?.isContentEditable) {
+                return;
+            }
 
-        if (e.key.toLowerCase() === 'm') router.push('/')
+            const k = e.key.toLowerCase();
 
-        if (e.key.toLowerCase() === 'c') setShowBoardConfig(prev => !prev);
+            if (e.key === 'Escape') {
+                // Close modals in order of priority
+                if (showBoardConfig) return setShowBoardConfig(false);
+                if (showSoundConfig) return setShowSoundConfig(false);
+                if (showDifficultyModal) return setShowDifficultyModal(false);
+                return setIsMenuOpen(false); // fallback
+            }
 
-        if (e.key.toLowerCase() === 's') setShowSoundConfig(prev => !prev);
 
-    });
+    if (k === "r") handleReset();
+
+    if (k === "m") router.push("/");
+
+    if (k === "c") setShowBoardConfig((prev) => !prev);
+
+    if (k === "s") setShowSoundConfig((prev) => !prev);
+
+    if (k === "d") setShowDifficultyModal((prev) => !prev);
+});
 
     const initGame = async (num: BoardNumber, size: BoardSize, diff: DifficultyLevel) => {
         if (isInitializing) return;

@@ -11,6 +11,7 @@ import MenuButtonContainer from '@/components/ui/Containers/Menu/MenuButtonConta
 import { MenuTitle } from '@/components/ui/Title/MenuTitle';
 import SoundConfigModal from '@/modals/SoundConfigModal';
 import ShortcutModal from '@/modals/ShortcutModal';
+import { useShortcut } from '@/components/hooks/useShortcut';
 import { useState } from 'react';
 const Menu = () => {
   const user = useUser((state) => state.user);
@@ -21,6 +22,36 @@ const Menu = () => {
   const { canShowToast, triggerToastCooldown, resetCooldown } = useToastCooldown(4000);
   const [showSoundConfig, setShowSoundConfig] = useState<boolean>(false);
   const [showShortcutConfig, setshowShortcutConfig] = useState<boolean>(false);
+
+  useShortcut((e) => {
+    const el = e.target as HTMLElement | null;
+    const tag = el?.tagName?.toLowerCase();
+
+    //  Guard: ignore when typing or using modifiers
+    if (e.isComposing || e.repeat || e.ctrlKey || e.metaKey || e.altKey) return;
+    if (tag === 'input' || tag === 'textarea' || el?.isContentEditable) {
+      return;
+    }
+
+    const k = e.key.toLowerCase();
+
+    if (e.key === 'Escape') {
+      // Close modals in order of priority
+      if (showSoundConfig) return setShowSoundConfig(false);
+      if (showShortcutConfig) return setshowShortcutConfig(false);
+      setShowTut(false); 
+
+    }
+
+    if (k === "m") router.push("/");
+
+    if (k === "s") setShowSoundConfig((prev) => !prev);
+
+    if (k === "q") setshowShortcutConfig((prev) => !prev);
+
+    if (k === "t") setShowTut(true);
+  });
+
 
   const handleSignIn = async () => {
     try {
