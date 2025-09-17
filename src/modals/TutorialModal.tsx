@@ -22,7 +22,7 @@ const TutorialModal = () => {
 
         <button
           onClick={()=>setShowTut(false)}
-          className="bg-red-600 text-white text-xl px-6 py-3 rounded text-center w-full"
+          className="bg-red-600 text-white text-xl px-6 py-3 text-center w-full"
         >
           Close&nbsp;&nbsp;&nbsp;Tutorial
         </button>
