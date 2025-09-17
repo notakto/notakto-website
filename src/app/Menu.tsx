@@ -2,7 +2,8 @@
 
 import { useRouter } from 'next/navigation';
 import { signInWithGoogle, signOutUser } from '@/services/firebase';
-import { useUser, useTut } from '@/services/store';
+// import { useUser, useTut } from '@/services/store';
+import { useUser } from '@/services/store';
 import { toast } from "react-toastify";
 import { useToastCooldown } from "@/components/hooks/useToastCooldown";
 import { MenuButton } from '@/components/ui/Buttons/MenuButton';
@@ -13,15 +14,18 @@ import SoundConfigModal from '@/modals/SoundConfigModal';
 import ShortcutModal from '@/modals/ShortcutModal';
 import { useShortcut } from '@/components/hooks/useShortcut';
 import { useState } from 'react';
+import TutorialModal from '@/modals/TutorialModal';
+
 const Menu = () => {
   const user = useUser((state) => state.user);
   const setUser = useUser((state) => state.setUser);
-  const setShowTut = useTut((state) => state.setShowTut);
+  // const setShowTut = useTut((state) => state.setShowTut);
 
   const router = useRouter();
   const { canShowToast, triggerToastCooldown, resetCooldown } = useToastCooldown(4000);
   const [showSoundConfig, setShowSoundConfig] = useState<boolean>(false);
   const [showShortcutConfig, setshowShortcutConfig] = useState<boolean>(false);
+  const [showTut, setShowTut] = useState<boolean>(false);
 
   useShortcut((e) => {
     const el = e.target as HTMLElement | null;
@@ -39,7 +43,7 @@ const Menu = () => {
       // Close modals in order of priority
       if (showSoundConfig) return setShowSoundConfig(false);
       if (showShortcutConfig) return setshowShortcutConfig(false);
-      setShowTut(false); 
+      setShowTut(false);
 
     }
 
@@ -49,7 +53,7 @@ const Menu = () => {
 
     if (k === "q") setshowShortcutConfig((prev) => !prev);
 
-    if (k === "t") setShowTut(true);
+    if (k === "t") setShowTut((prev) => !prev);
   });
 
 
@@ -98,6 +102,7 @@ const Menu = () => {
       </MenuButtonContainer >
       <SoundConfigModal visible={showSoundConfig} onClose={() => setShowSoundConfig(false)} />
       <ShortcutModal visible={showShortcutConfig} onClose={() => setshowShortcutConfig(false)} />
+      <TutorialModal visible={showTut} onClose={() => setShowTut(false)} />
     </MenuContainer >
   );
 };

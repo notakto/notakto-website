@@ -1,8 +1,11 @@
-import { useTut } from "@/services/store";
 
-const TutorialModal = () => {
-  const { showTut, setShowTut } = useTut();
-  if (!showTut) return null;
+interface TutorialProps {
+  visible: boolean;
+  onClose: () => void;
+}
+const TutorialModal = ({ visible, onClose }: TutorialProps) => {
+
+  if (!visible) return null;
 
   return (
     <div className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center">
@@ -21,13 +24,13 @@ const TutorialModal = () => {
         </p>
 
         <button
-          onClick={()=>setShowTut(false)}
+          onClick={onClose}
           className="bg-red-600 text-white text-xl px-6 py-3 text-center w-full"
         >
           Close&nbsp;&nbsp;&nbsp;Tutorial
         </button>
       </div>
-    </div>
+    </div >
   );
 };
 
