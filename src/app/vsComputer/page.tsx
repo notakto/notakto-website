@@ -19,6 +19,7 @@ import SoundConfigModal from '@/modals/SoundConfigModal';
 import { createGame, makeMove, resetGame, updateConfig, undoMove, skipMove } from '@/services/game-apis';
 import { useSound } from '@/services/store';
 import { useShortcut } from '@/components/hooks/useShortcut';
+import ShortcutModal from '@/modals/ShortcutModal';
 const Game = () => {
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
     const [boards, setBoards] = useState<BoardState[]>([]);
@@ -42,6 +43,7 @@ const Game = () => {
     const [isSkipping, setIsSkipping] = useState<boolean>(false);
     const [isUpdatingConfig, setIsUpdatingConfig] = useState<boolean>(false);
     const [isUpdatingDifficulty, setIsUpdatingDifficulty] = useState<boolean>(false);
+    const [showShortcutConfig, setshowShortcutConfig] = useState<boolean>(false)
 
     const { sfxMute } = useSound();
     const Coins = useCoins((state) => state.coins);
@@ -52,36 +54,39 @@ const Game = () => {
     const { canShowToast, triggerToastCooldown } = useToastCooldown(4000);
     const router = useRouter();
     useShortcut((e) => {
-            const el = e.target as HTMLElement | null;
-            const tag = el?.tagName?.toLowerCase();
+        const el = e.target as HTMLElement | null;
+        const tag = el?.tagName?.toLowerCase();
 
-            //  Guard: ignore when typing or using modifiers
-            if (e.isComposing || e.repeat || e.ctrlKey || e.metaKey || e.altKey) return;
-            if (tag === 'input' || tag === 'textarea' || el?.isContentEditable) {
-                return;
-            }
+        //  Guard: ignore when typing or using modifiers
+        if (e.isComposing || e.repeat || e.ctrlKey || e.metaKey || e.altKey) return;
+        if (tag === 'input' || tag === 'textarea' || el?.isContentEditable) {
+            return;
+        }
 
-            const k = e.key.toLowerCase();
+        const k = e.key.toLowerCase();
 
-            if (e.key === 'Escape') {
-                // Close modals in order of priority
-                if (showBoardConfig) return setShowBoardConfig(false);
-                if (showSoundConfig) return setShowSoundConfig(false);
-                if (showDifficultyModal) return setShowDifficultyModal(false);
-                return setIsMenuOpen(false); // fallback
-            }
+        if (e.key === 'Escape') {
+            // Close modals in order of priority
+            if (showBoardConfig) return setShowBoardConfig(false);
+            if (showSoundConfig) return setShowSoundConfig(false);
+            if (showDifficultyModal) return setShowDifficultyModal(false);
+            if (showShortcutConfig) return setshowShortcutConfig(false);
+            return setIsMenuOpen(false); // fallback
+        }
 
 
-    if (k === "r") handleReset();
+        if (k === "r") handleReset();
 
-    if (k === "m") router.push("/");
+        if (k === "m") router.push("/");
 
-    if (k === "c") setShowBoardConfig((prev) => !prev);
+        if (k === "c") setShowBoardConfig((prev) => !prev);
 
-    if (k === "s") setShowSoundConfig((prev) => !prev);
+        if (k === "s") setShowSoundConfig((prev) => !prev);
 
-    if (k === "d") setShowDifficultyModal((prev) => !prev);
-});
+        if (k === "d") setShowDifficultyModal((prev) => !prev);
+
+        if (k === "q") setshowShortcutConfig((prev) => !prev);
+    });
 
     const initGame = async (num: BoardNumber, size: BoardSize, diff: DifficultyLevel) => {
         if (isInitializing) return;
@@ -352,11 +357,14 @@ const Game = () => {
                         <SettingButton onClick={() => handleBuyCoins(setIsProcessingPayment, canShowToast, triggerToastCooldown, setCoins, Coins)} disabled={isProcessingPayment} loading={isProcessingPayment}>Buy Coins (100)</SettingButton>
                         <SettingButton onClick={() => { setShowDifficultyModal(true); setIsMenuOpen(false); }}>AI Level: {difficulty}</SettingButton>
                         <SettingButton onClick={() => { setShowSoundConfig(true); setIsMenuOpen(false) }}>Adjust Sound</SettingButton>
+                        <SettingButton onClick={() => setshowShortcutConfig(!showShortcutConfig)}>Keyboard Shortcuts</SettingButton>
+
                         <SettingButton onClick={() => router.push('/')}>Main Menu</SettingButton>
                         <SettingButton onClick={toggleMenu}>Return to Game</SettingButton>
                     </div>
                 </div>
             )}
+
 
             <WinnerModal
                 visible={showWinnerModal}
@@ -381,6 +389,7 @@ const Game = () => {
                 }}
                 onClose={() => setShowDifficultyModal(false)}
             />
+            <ShortcutModal visible={showShortcutConfig} onClose={() => setshowShortcutConfig(false)} />
             <SoundConfigModal
                 visible={showSoundConfig}
                 onClose={() => setShowSoundConfig(false)}
