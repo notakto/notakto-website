@@ -18,46 +18,57 @@ const BoardConfigModal = ({
   if (!visible) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50">
-      <div className="bg-black p-6 w-[90%] max-w-xl text-center space-y-6">
-        <h2 className="text-red-600 text-[35px] ">Number of Boards</h2>
-        <div className="flex flex-wrap gap-2 justify-center">
-          {[1, 2, 3, 4, 5].map(num => (
-            <BoardConfigButton
-              key={num}
-              label={num}
-              isActive={selectedBoards === num}
-              onClick={() => setSelectedBoards(num)}
-            />
-          ))}
-        </div>
+    <dialog open className="fixed inset-0 bg-black/80 flex items-center justify-center z-50">
+      <section className="bg-black p-6 w-[90%] max-w-xl text-center space-y-6" role="dialog" aria-modal="true">
+        
+        <header>
+          <h2 className="text-red-600 text-[35px]">Number of Boards</h2>
+        </header>
+        
+        <nav aria-label="Select number of boards">
+          <ul className="flex flex-wrap gap-2 justify-center">
+            {[1, 2, 3, 4, 5].map(num => (
+              <li key={num}>
+                <BoardConfigButton
+                  label={num}
+                  isActive={selectedBoards === num}
+                  onClick={() => setSelectedBoards(num)}
+                />
+              </li>
+            ))}
+          </ul>
+        </nav>
 
-        <h2 className="text-red-600 text-[35px]">Board Size</h2>
-        <div className="flex flex-wrap gap-2 justify-center">
-          {[2, 3, 4, 5].map(size => (
-            <BoardConfigButton
-              key={size}
-              label={`${size}x${size}`}
-              isActive={selectedSize === size}
-              onClick={() => setSelectedSize(size)}
-            />
-          ))}
-        </div>
+        <header>
+          <h2 className="text-red-600 text-[35px]">Board Size</h2>
+        </header>
 
-        <div className="flex gap-4 pt-2">
-          
+        <nav aria-label="Select board size">
+          <ul className="flex flex-wrap gap-2 justify-center">
+            {[2, 3, 4, 5].map(size => (
+              <li key={size}>
+                <BoardConfigButton
+                  label={`${size}x${size}`}
+                  isActive={selectedSize === size}
+                  onClick={() => setSelectedSize(size)}
+                />
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        <footer className="flex gap-4 pt-2 justify-center">
           <BoardActionButton onClick={onCancel}>
             Cancel
           </BoardActionButton>
-          
+
           <BoardActionButton onClick={() => onConfirm(selectedBoards, selectedSize)}>
             Apply
           </BoardActionButton>
-        </div>
-      </div>
-    </div>
+        </footer>
+      </section>
+    </dialog>
   );
 };
 
 export default BoardConfigModal;
-
