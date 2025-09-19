@@ -1,3 +1,4 @@
+"use client";
 import { useRouter } from "next/navigation";
 import { WinnerModalProps } from "@/services/types";
 import { WinnerButton } from "@/components/ui/Buttons/WinnerButton";

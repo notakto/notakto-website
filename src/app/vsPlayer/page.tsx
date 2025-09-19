@@ -125,7 +125,6 @@ const Game = () => {
                     resetGame(numberOfBoards, boardSize);
                 }}
                 initialNames={[player1Name, player2Name]}
-                key={player1Name + player2Name}
             />
             <WinnerModal
                 visible={showWinnerModal}
