@@ -134,9 +134,7 @@ const Game = () => {
                     setShowWinnerModal(false);
                     resetGame(numberOfBoards, boardSize);
                 }}
-                onMenu={() => {
-                    setShowWinnerModal(false);
-                }}
+                onMenu={exitToMenu}
             />
             <BoardConfigModal
                 visible={showBoardConfig}
