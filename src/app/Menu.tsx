@@ -2,7 +2,6 @@
 
 import { useRouter } from 'next/navigation';
 import { signInWithGoogle, signOutUser } from '@/services/firebase';
-// import { useUser, useTut } from '@/services/store';
 import { useUser } from '@/services/store';
 import { toast } from "react-toastify";
 import { useToastCooldown } from "@/components/hooks/useToastCooldown";
@@ -16,46 +15,33 @@ import { useShortcut } from '@/components/hooks/useShortcut';
 import { useState } from 'react';
 import TutorialModal from '@/modals/TutorialModal';
 
+type ModalType = 'soundConfig' | 'shortcut' | 'tutorial' | null;
+
 const Menu = () => {
   const user = useUser((state) => state.user);
   const setUser = useUser((state) => state.setUser);
-  // const setShowTut = useTut((state) => state.setShowTut);
 
   const router = useRouter();
   const { canShowToast, triggerToastCooldown, resetCooldown } = useToastCooldown(4000);
-  const [showSoundConfig, setShowSoundConfig] = useState<boolean>(false);
-  const [showShortcutConfig, setshowShortcutConfig] = useState<boolean>(false);
-  const [showTut, setShowTut] = useState<boolean>(false);
+  const [activeModal, setActiveModal] = useState<ModalType>(null);
 
   useShortcut((e) => {
     const el = e.target as HTMLElement | null;
     const tag = el?.tagName?.toLowerCase();
 
-    //  Guard: ignore when typing or using modifiers
     if (e.isComposing || e.repeat || e.ctrlKey || e.metaKey || e.altKey) return;
-    if (tag === 'input' || tag === 'textarea' || el?.isContentEditable) {
-      return;
-    }
+    if (tag === 'input' || tag === 'textarea' || el?.isContentEditable) return;
 
     const k = e.key.toLowerCase();
 
     if (e.key === 'Escape') {
-      // Close modals in order of priority
-      if (showSoundConfig) return setShowSoundConfig(false);
-      if (showShortcutConfig) return setshowShortcutConfig(false);
-      setShowTut(false);
-
+      setActiveModal(null); // close any open modal
     }
 
-    if (k === "m") router.push("/");
-
-    if (k === "s") setShowSoundConfig((prev) => !prev);
-
-    if (k === "q") setshowShortcutConfig((prev) => !prev);
-
-    if (k === "t") setShowTut((prev) => !prev);
+    if (k === "s") setActiveModal(prev => prev === 'soundConfig' ? null : 'soundConfig');
+    if (k === "q") setActiveModal(prev => prev === 'shortcut' ? null : 'shortcut');
+    if (k === "t") setActiveModal(prev => prev === 'tutorial' ? null : 'tutorial');
   });
-
 
   const handleSignIn = async () => {
     try {
@@ -79,7 +65,7 @@ const Menu = () => {
       if (canShowToast()) {
         toast("Please sign in!", {
           autoClose: 10000,
-          onClose: resetCooldown // reset cooldown immediately when closed
+          onClose: resetCooldown
         });
         triggerToastCooldown();
       }
@@ -95,15 +81,16 @@ const Menu = () => {
         <MenuButton onClick={() => startGame('vsPlayer')}> Play vs Player </MenuButton>
         <MenuButton onClick={() => startGame('vsComputer')}> Play vs Computer </MenuButton>
         <MenuButton onClick={() => startGame('liveMatch')}> Live Match </MenuButton>
-        <MenuButton onClick={() => setShowTut(true)}> Tutorial </MenuButton>
-        <MenuButton onClick={(user) ? handleSignOut : handleSignIn}>{(user) ? "Sign Out" : "Sign in"}</MenuButton>
-        <MenuButton onClick={() => setShowSoundConfig(!showSoundConfig)}>Adjust Sound</MenuButton>
-        <MenuButton onClick={() => setshowShortcutConfig(!showShortcutConfig)}>Keyboard Shortcuts</MenuButton>
-      </MenuButtonContainer >
-      <SoundConfigModal visible={showSoundConfig} onClose={() => setShowSoundConfig(false)} />
-      <ShortcutModal visible={showShortcutConfig} onClose={() => setshowShortcutConfig(false)} />
-      <TutorialModal visible={showTut} onClose={() => setShowTut(false)} />
-    </MenuContainer >
+        <MenuButton onClick={() => setActiveModal('tutorial')}> Tutorial </MenuButton>
+        <MenuButton onClick={user ? handleSignOut : handleSignIn}>{user ? "Sign Out" : "Sign in"}</MenuButton>
+        <MenuButton onClick={() => setActiveModal('soundConfig')}>Adjust Sound</MenuButton>
+        <MenuButton onClick={() => setActiveModal('shortcut')}>Keyboard Shortcuts</MenuButton>
+      </MenuButtonContainer>
+
+      <SoundConfigModal visible={activeModal === 'soundConfig'} onClose={() => setActiveModal(null)} />
+      <ShortcutModal visible={activeModal === 'shortcut'} onClose={() => setActiveModal(null)} />
+      <TutorialModal visible={activeModal === 'tutorial'} onClose={() => setActiveModal(null)} />
+    </MenuContainer>
   );
 };
 

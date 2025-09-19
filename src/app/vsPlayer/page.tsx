@@ -15,6 +15,8 @@ import { SettingButton } from '@/components/ui/Buttons/SettingButton';
 import { useShortcut } from '@/components/hooks/useShortcut';
 import ShortcutModal from '@/modals/ShortcutModal';
 
+type ModalType = 'names' | 'winner' | 'boardConfig' | 'soundConfig' | 'shortcut' | null;
+
 const Game = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [boards, setBoards] = useState<BoardState[]>([]);
@@ -22,16 +24,11 @@ const Game = () => {
     const [currentPlayer, setCurrentPlayer] = useState<1 | 2>(1);
     const [player1Name, setPlayer1Name] = useState<string>('Player 1');
     const [player2Name, setPlayer2Name] = useState<string>('Player 2');
-    const [showNameModal, setShowNameModal] = useState<boolean>(true);
     const [winner, setWinner] = useState<string>('');
-    const [showWinnerModal, setShowWinnerModal] = useState<boolean>(false);
     const [numberOfBoards, setNumberOfBoards] = useState<number>(3);
-    const [showBoardConfig, setShowBoardConfig] = useState<boolean>(false);
-    const [showSoundConfig, setShowSoundConfig] = useState<boolean>(false);
     const [gameStarted, setGameStarted] = useState<boolean>(false);
     const [initialSetupDone, setInitialSetupDone] = useState<boolean>(false);
-    const [showShortcutConfig, setshowShortcutConfig] = useState<boolean>(false)
-
+    const [activeModal, setActiveModal] = useState<ModalType>('names');
 
     const { sfxMute } = useSound();
     const router = useRouter();
@@ -43,24 +40,24 @@ const Game = () => {
         const tag = el?.tagName?.toLowerCase();
 
         if (e.isComposing || e.repeat || e.ctrlKey || e.metaKey || e.altKey) return;
-        if (tag === 'input' || tag === 'textarea' || el?.isContentEditable) return;
+        if (tag === 'input' || el?.isContentEditable) return;
 
         const k = e.key.toLowerCase();
 
         if (e.key === 'Escape') {
-            if (showBoardConfig) return setShowBoardConfig(false);
-            if (showSoundConfig) return setShowSoundConfig(false);
-            if (showNameModal) return setShowNameModal(false);
-            if (showShortcutConfig) return setshowShortcutConfig(false);
+            if (activeModal) return setActiveModal(null);
             return setIsMenuOpen(false);
         }
 
         if (k === 'r') resetGame(numberOfBoards, boardSize);
-        if (k === 'n') setShowNameModal(true);
         if (k === 'm') router.push('/');
-        if (k === 'c') setShowBoardConfig(prev => !prev);
-        if (k === 's') setShowSoundConfig(prev => !prev);
-        if (k === 'q') setshowShortcutConfig(prev => !prev);
+        
+        
+        
+        if (k === "n") setActiveModal(prev => prev === 'names' ? null : 'names');
+        if (k === "c") setActiveModal(prev => prev === 'boardConfig' ? null : 'boardConfig');
+        if (k === "s") setActiveModal(prev => prev === 'soundConfig' ? null : 'soundConfig');
+        if (k === "q") setActiveModal(prev => prev === 'shortcut' ? null : 'shortcut');
     });
 
     const makeMove = (boardIndex: number, cellIndex: number) => {
@@ -79,7 +76,7 @@ const Game = () => {
             const winnerNum = loser === 1 ? 2 : 1;
             const winnerName = winnerNum === 1 ? player1Name : player2Name;
             setWinner(winnerName);
-            setShowWinnerModal(true);
+            setActiveModal('winner');
             playWinSound(sfxMute);
             return;
         }
@@ -91,13 +88,13 @@ const Game = () => {
         const initialBoards = Array(num).fill(null).map(() => Array(size * size).fill(''));
         setBoards(initialBoards);
         setCurrentPlayer(1);
-        setShowWinnerModal(false);
+        setActiveModal(null);
     };
 
     const handleBoardConfigChange = (num: number, size: number) => {
         setNumberOfBoards(Math.min(5, Math.max(1, num)));
         setBoardSize(size as BoardSize);
-        setShowBoardConfig(false);
+        setActiveModal(null);
         resetGame(num, size as BoardSize);
     };
 
@@ -137,10 +134,10 @@ const Game = () => {
                 <div className="fixed top-0 left-0 w-screen h-screen bg-black bg-opacity-60 z-[9999] flex items-center justify-center px-4 overflow-y-auto">
                     <div className="flex flex-wrap justify-center gap-4 max-w-4xl py-8">
                         <SettingButton onClick={() => { resetGame(numberOfBoards, boardSize); setIsMenuOpen(false); }}>Reset</SettingButton>
-                        <SettingButton onClick={() => { setShowBoardConfig(true); setIsMenuOpen(false); }}>Game Configuration</SettingButton>
-                        <SettingButton onClick={() => { setShowNameModal(true); setIsMenuOpen(false); }}>Reset Names</SettingButton>
-                        <SettingButton onClick={() => { setShowSoundConfig(true); setIsMenuOpen(false) }}>Adjust Sound</SettingButton>
-                        <SettingButton onClick={() => setshowShortcutConfig(!showShortcutConfig)}>Keyboard Shortcuts</SettingButton>
+                        <SettingButton onClick={() => { setActiveModal('boardConfig'); setIsMenuOpen(false); }}>Game Configuration</SettingButton>
+                        <SettingButton onClick={() => { setActiveModal('names'); setIsMenuOpen(false); }}>Reset Names</SettingButton>
+                        <SettingButton onClick={() => { setActiveModal('soundConfig'); setIsMenuOpen(false) }}>Adjust Sound</SettingButton>
+                        <SettingButton onClick={() => setActiveModal('shortcut')}>Keyboard Shortcuts</SettingButton>
                         <SettingButton onClick={exitToMenu}>Main Menu</SettingButton>
                         <SettingButton onClick={toggleMenu}>Return to Game</SettingButton>
                     </div>
@@ -148,13 +145,13 @@ const Game = () => {
             )}
 
             <PlayerNamesModal
-                visible={showNameModal || (!initialSetupDone && !gameStarted)}
+                visible={activeModal === 'names' || (!initialSetupDone && !gameStarted)}
                 onSubmit={(name1: string, name2: string) => {
                     setPlayer1Name(name1 || 'Player 1');
                     setPlayer2Name(name2 || 'Player 2');
                     setGameStarted(true);
                     setInitialSetupDone(true);
-                    setShowNameModal(false);
+                    setActiveModal(null);
                     resetGame(numberOfBoards, boardSize);
                 }}
                 initialNames={[player1Name, player2Name]}
@@ -162,31 +159,32 @@ const Game = () => {
             />
 
             <WinnerModal
-                visible={showWinnerModal}
+                visible={activeModal === 'winner'}
                 winner={winner}
                 onPlayAgain={() => {
-                    setShowWinnerModal(false);
+                    setActiveModal(null);
                     resetGame(numberOfBoards, boardSize);
                 }}
-                onMenu={() => {
-                    setShowWinnerModal(false);
-                }}
+                onMenu={() => setActiveModal(null)}
             />
 
             <BoardConfigModal
-                visible={showBoardConfig}
+                visible={activeModal === 'boardConfig'}
                 currentBoards={numberOfBoards}
                 currentSize={boardSize}
                 onConfirm={handleBoardConfigChange}
-                onCancel={() => setShowBoardConfig(false)}
+                onCancel={() => setActiveModal(null)}
             />
+
             <SoundConfigModal
-                visible={showSoundConfig}
-                onClose={() => setShowSoundConfig(false)}
+                visible={activeModal === 'soundConfig'}
+                onClose={() => setActiveModal(null)}
             />
 
-            <ShortcutModal visible={showShortcutConfig} onClose={() => setshowShortcutConfig(false)} />
-
+            <ShortcutModal
+                visible={activeModal === 'shortcut'}
+                onClose={() => setActiveModal(null)}
+            />
         </div>
     );
 };
