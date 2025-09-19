@@ -1,12 +1,14 @@
-import { useRouter } from "next/navigation";
+"use client";
+import { memo } from "react";
 import { WinnerModalProps } from "@/services/types";
 import { WinnerButton } from "@/components/ui/Buttons/WinnerButton";
 import Confetti from "react-confetti";
 import { useWindowSize } from "react-use";
 
-const WinnerModal = ({ visible, winner, onPlayAgain, onMenu }: WinnerModalProps) => {
-  if (!visible) return null;
+const WinnerModalComponent = ({ winner, onPlayAgain, onMenu }: Omit<WinnerModalProps, 'visible'>) => {
   const { width, height } = useWindowSize();
+  
+  
   return (
     <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center">
       <Confetti width={width} height={height} numberOfPieces={300} recycle={false} />
@@ -28,5 +30,8 @@ const WinnerModal = ({ visible, winner, onPlayAgain, onMenu }: WinnerModalProps)
     </div>
   );
 };
+
+const WinnerModal = memo(WinnerModalComponent);
+WinnerModal.displayName = 'WinnerModal';
 
 export default WinnerModal;

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import Board from './Board';
 import { BoardSize, BoardState } from '@/services/types';
 import { isBoardDead } from '@/services/logic';
@@ -28,18 +28,15 @@ const Game = () => {
     const [showSoundConfig, setShowSoundConfig] = useState<boolean>(false);
 
     const { sfxMute } = useSound();
-    const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
     const router = useRouter();
 
-    const makeMove = (boardIndex: number, cellIndex: number) => {
+    const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+
+    const makeMove = useCallback((boardIndex: number, cellIndex: number) => {
         if (boards[boardIndex][cellIndex] !== '' || isBoardDead(boards[boardIndex], boardSize)) return;
 
         const newBoards = boards.map((board, idx) =>
-            idx === boardIndex ? [
-                ...board.slice(0, cellIndex),
-                'X',
-                ...board.slice(cellIndex + 1)
-            ] : [...board]
+            idx === boardIndex ? [...board.slice(0, cellIndex), 'X', ...board.slice(cellIndex + 1)] : [...board]
         );
         playMoveSound(sfxMute);
         setBoards(newBoards);
@@ -55,25 +52,27 @@ const Game = () => {
         }
 
         setCurrentPlayer(prev => prev === 1 ? 2 : 1);
-    };
+    }, [boards, boardSize, currentPlayer, player1Name, player2Name, sfxMute]);
 
-    const resetGame = (num: number, size: BoardSize) => {
+    const resetGame = useCallback((num: number, size: BoardSize) => {
         const initialBoards = Array(num).fill(null).map(() => Array(size * size).fill(''));
         setBoards(initialBoards);
         setCurrentPlayer(1);
         setShowWinnerModal(false);
-    };
+    }, []);
 
-    const handleBoardConfigChange = (num: number, size: number) => {
-        setNumberOfBoards(Math.min(5, Math.max(1, num)));
-        setBoardSize(size as BoardSize);
+    const handleBoardConfigChange = useCallback((num: number, size: number) => {
+        const newNum = Math.min(5, Math.max(1, num));
+        const newSize = size as BoardSize;
+        setNumberOfBoards(newNum);
+        setBoardSize(newSize);
         setShowBoardConfig(false);
-        resetGame(num, size as BoardSize);
-    };
+        resetGame(newNum, newSize);
+    }, [resetGame]);
 
-    const exitToMenu = () => {
+    const exitToMenu = useCallback(() => {
         router.push('/');
-    };
+    }, [router]);
 
     return (
         <div className="flex flex-col min-h-screen bg-black relative">
@@ -83,7 +82,6 @@ const Game = () => {
                         {currentPlayer === 1 ? `${player1Name}'s turn` : `${player2Name}'s turn`}
                     </h2>
                 </div>
-
                 <div className="flex flex-wrap justify-center gap-4 p-4 w-full mb-20">
                     {boards.map((board, index) => (
                         <div key={index} className="w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.3%-1.5rem)]" style={{ maxWidth: '400px' }}>
@@ -97,12 +95,12 @@ const Game = () => {
                         </div>
                     ))}
                 </div>
-
                 <div className="absolute bottom-0 left-0 right-0 flex justify-center items-center bg-blue-600 px-6 py-2 mt-2">
                     <button onClick={toggleMenu} className="text-white text-[35px]">Settings</button>
                 </div>
             </div>
 
+           
             {isMenuOpen && (
                 <div className="fixed top-0 left-0 w-screen h-screen bg-black bg-opacity-60 z-[9999] flex items-center justify-center px-4 overflow-y-auto">
                     <div className="flex flex-wrap justify-center gap-4 max-w-4xl py-8">
@@ -118,24 +116,27 @@ const Game = () => {
 
             <PlayerNamesModal
                 visible={showNameModal}
-                onSubmit={(name1: string, name2: string) => {
+                onSubmit={(name1, name2) => {
                     setPlayer1Name(name1 || 'Player 1');
                     setPlayer2Name(name2 || 'Player 2');
                     setShowNameModal(false);
                     resetGame(numberOfBoards, boardSize);
                 }}
                 initialNames={[player1Name, player2Name]}
-                key={player1Name + player2Name}
             />
-            <WinnerModal
-                visible={showWinnerModal}
-                winner={winner}
-                onPlayAgain={() => {
-                    setShowWinnerModal(false);
-                    resetGame(numberOfBoards, boardSize);
-                }}
-                onMenu={exitToMenu}
-            />
+
+            
+            {showWinnerModal && (
+                <WinnerModal
+                    winner={winner}
+                    onPlayAgain={() => {
+                        setShowWinnerModal(false);
+                        resetGame(numberOfBoards, boardSize);
+                    }}
+                    onMenu={exitToMenu}
+                />
+            )}
+
             <BoardConfigModal
                 visible={showBoardConfig}
                 currentBoards={numberOfBoards}
