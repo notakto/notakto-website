@@ -42,7 +42,7 @@ const Game = () => {
     const setXP = useXP((state) => state.setXP);
     const user = useUser((state) => state.user);
     const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
-    const { canShowToast, triggerToastCooldown } = useToastCooldown(TOAST_DURATION);
+    const { canShowToast, triggerToastCooldown, resetCooldown } = useToastCooldown(TOAST_DURATION);
     const router = useRouter();
 
     const initGame = async (num: BoardNumber, size: BoardSize, diff: DifficultyLevel) => {
@@ -282,7 +282,7 @@ const Game = () => {
                         <SettingButton onClick={() => { setShowBoardConfig(true); setIsMenuOpen(false); }}>Game Configuration</SettingButton>
                         <SettingButton onClick={() => { handleUndo(); setIsMenuOpen(false); }} disabled={Coins < 100}>Undo (100 coins)</SettingButton>
                         <SettingButton onClick={() => { handleSkip(); setIsMenuOpen(false); }} disabled={Coins < 200}>Skip a Move (200 coins)</SettingButton>
-                        <SettingButton onClick={() => handleBuyCoins(setIsProcessingPayment, canShowToast, triggerToastCooldown, setCoins, Coins)} disabled={isProcessingPayment} loading={isProcessingPayment}>Buy Coins (100)</SettingButton>
+                        <SettingButton onClick={() => handleBuyCoins(setIsProcessingPayment, canShowToast, triggerToastCooldown, resetCooldown, setCoins, Coins)} disabled={isProcessingPayment} loading={isProcessingPayment}>Buy Coins (100)</SettingButton>
                         <SettingButton onClick={() => { setShowDifficultyModal(true); setIsMenuOpen(false); }}>AI Level: {difficulty}</SettingButton>
                         <SettingButton onClick={() => setMute(!mute)}>Sound: {mute ? 'Off' : 'On'}</SettingButton>
                         <SettingButton onClick={() => router.push('/')}>Main Menu</SettingButton>
