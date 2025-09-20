@@ -7,12 +7,12 @@ export type DifficultyLevel = 1 | 2 | 3 | 4 | 5;
 export type BoardSize = 2 | 3 | 4 | 5;
 export type BoardNumber = 1 | 2 | 3 | 4 | 5;
 export type MenuProps = {
-  startGame: (mode: 'vsPlayer' | 'vsComputer'| 'liveMatch') => void;
+  startGame: (mode: 'vsPlayer' | 'vsComputer' | 'liveMatch') => void;
   showTutorial: () => void;
   signed: boolean;
   signIn: () => void;
   signOut: () => void;
-  toggleMute: ()=> void;
+  toggleMute: () => void;
   isMuted: boolean;
 };
 export type LiveProps = {
@@ -46,7 +46,7 @@ export type GameProps = {
   canUndo: boolean;
   canSkip: boolean;
   gameHistoryLength: number;
-  toggleMute: ()=> void;
+  toggleMute: () => void;
   isMuted: boolean;
   onAddCoins?: (amount: number) => void;
 };
@@ -92,6 +92,11 @@ export type BoardConfigModalProps = {
   onConfirm: (num: BoardNumber, size: BoardSize) => void;
   onCancel: () => void;
 };
+
+export type PlayerButtonModalType = 'names' | 'winner' | 'boardConfig' | 'soundConfig' | 'shortcut' | null;
+
+export type ComputerButtonModalType = 'winner' | 'boardConfig' | 'soundConfig' | 'difficulty' | 'shortcut' | null;
+
 export interface GameState {
   boards: BoardState[];
   currentPlayer: 1 | 2;
@@ -104,7 +109,7 @@ export interface GameState {
   gameOver?: boolean;
 }
 
-export interface newGame{
+export interface newGame {
   sessionId: string;
   gameState: GameState;
   success: boolean;

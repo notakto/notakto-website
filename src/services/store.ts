@@ -55,10 +55,6 @@ export const useUser = create<userStore>((set) => ({
   setUser: (newUser) => set({ user: newUser }),
 }));
 
-// export const useTut = create<tutStore>((set) => ({
-//   showTut: false,
-//   setShowTut: (newShowTut) => set({ showTut: newShowTut }),
-// }));
 export const useCoins = create<CoinStore>((set, get) => ({
   coins: 0,
   setCoins: (newCoins: number) => set({ coins: newCoins }),

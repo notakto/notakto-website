@@ -18,7 +18,6 @@ export default function ShortcutModal({ visible, onClose }: ShortcutModalProps) 
         { key: 'S', action: 'Adjust sound' },
         { key: 'Q', action: 'Open keyboard shortcuts' },
         { key: 'T', action: 'Open tutorial' },
-        { key: 'Enter', action: 'Return to game' },
     ];
 
     return (
@@ -36,7 +35,7 @@ export default function ShortcutModal({ visible, onClose }: ShortcutModalProps) 
                 </div>
 
                 <button
-                    className="bg-blue-600 hover:bg-blue-700 text-white px-12 py-3 text-xl w-full mt-4 rounded-lg"
+                    className="bg-blue-600 hover:bg-blue-700 text-white px-12 py-3 text-xl w-full mt-4"
                     onClick={onClose}
                 >
                     Return

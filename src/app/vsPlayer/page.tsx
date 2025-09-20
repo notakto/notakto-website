@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Board from './Board';
-import { BoardSize, BoardState } from '@/services/types';
+import { BoardSize, BoardState, PlayerButtonModalType } from '@/services/types';
 import { isBoardDead } from '@/services/logic';
 import { playMoveSound, playWinSound } from '@/services/sounds';
 import { useSound } from '@/services/store';
@@ -15,8 +15,6 @@ import { SettingButton } from '@/components/ui/Buttons/SettingButton';
 import { useShortcut } from '@/components/hooks/useShortcut';
 import ShortcutModal from '@/modals/ShortcutModal';
 
-type ModalType = 'names' | 'winner' | 'boardConfig' | 'soundConfig' | 'shortcut' | null;
-
 const Game = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [boards, setBoards] = useState<BoardState[]>([]);
@@ -28,7 +26,7 @@ const Game = () => {
     const [numberOfBoards, setNumberOfBoards] = useState<number>(3);
     const [gameStarted, setGameStarted] = useState<boolean>(false);
     const [initialSetupDone, setInitialSetupDone] = useState<boolean>(false);
-    const [activeModal, setActiveModal] = useState<ModalType>('names');
+    const [activeModal, setActiveModal] = useState<PlayerButtonModalType>('names');
 
     const { sfxMute } = useSound();
     const router = useRouter();
@@ -45,20 +43,29 @@ const Game = () => {
         const k = e.key.toLowerCase();
 
         if (e.key === 'Escape') {
+            // prevent escape before setup
+            if (!initialSetupDone && !gameStarted) return;
             if (activeModal) return setActiveModal(null);
             return setIsMenuOpen(false);
         }
 
         if (k === 'r') resetGame(numberOfBoards, boardSize);
         if (k === 'm') router.push('/');
-        
-        
-        
+
+        if (!initialSetupDone) {
+            // only allow sound + shortcut modals
+            if (k === "s") setActiveModal(prev => prev === 'soundConfig' ? null : 'soundConfig');
+            if (k === "q") setActiveModal(prev => prev === 'shortcut' ? null : 'shortcut');
+            return;
+        }
+
+        // once setup is done --> allow all
         if (k === "n") setActiveModal(prev => prev === 'names' ? null : 'names');
         if (k === "c") setActiveModal(prev => prev === 'boardConfig' ? null : 'boardConfig');
         if (k === "s") setActiveModal(prev => prev === 'soundConfig' ? null : 'soundConfig');
         if (k === "q") setActiveModal(prev => prev === 'shortcut' ? null : 'shortcut');
     });
+
 
     const makeMove = (boardIndex: number, cellIndex: number) => {
         if (boards[boardIndex][cellIndex] !== '' || isBoardDead(boards[boardIndex], boardSize)) return;
@@ -133,11 +140,45 @@ const Game = () => {
             {isMenuOpen && (
                 <div className="fixed top-0 left-0 w-screen h-screen bg-black bg-opacity-60 z-[9999] flex items-center justify-center px-4 overflow-y-auto">
                     <div className="flex flex-wrap justify-center gap-4 max-w-4xl py-8">
-                        <SettingButton onClick={() => { resetGame(numberOfBoards, boardSize); setIsMenuOpen(false); }}>Reset</SettingButton>
-                        <SettingButton onClick={() => { setActiveModal('boardConfig'); setIsMenuOpen(false); }}>Game Configuration</SettingButton>
-                        <SettingButton onClick={() => { setActiveModal('names'); setIsMenuOpen(false); }}>Reset Names</SettingButton>
-                        <SettingButton onClick={() => { setActiveModal('soundConfig'); setIsMenuOpen(false) }}>Adjust Sound</SettingButton>
-                        <SettingButton onClick={() => setActiveModal('shortcut')}>Keyboard Shortcuts</SettingButton>
+                        <SettingButton
+                            onClick={() => {
+                                resetGame(numberOfBoards, boardSize);
+                                setIsMenuOpen(false);
+                            }}>
+                            Reset
+                        </SettingButton>
+
+                        <SettingButton
+                            onClick={() => {
+                                setActiveModal('boardConfig');
+                                setIsMenuOpen(false);
+                            }}>
+                            Game Configuration
+                        </SettingButton>
+
+                        <SettingButton onClick={() => {
+                            setActiveModal('names');
+                            setIsMenuOpen(false);
+                        }}>
+                            Reset Names
+                        </SettingButton>
+
+                        <SettingButton
+                            onClick={() => {
+                                setActiveModal('soundConfig');
+                                setIsMenuOpen(false)
+                            }}>
+                            Adjust Sound
+                        </SettingButton>
+
+                        <SettingButton
+                            onClick={() => {
+                                setActiveModal('shortcut');
+                                setIsMenuOpen(false);
+                            }}>
+                            Keyboard Shortcuts
+                        </SettingButton>
+
                         <SettingButton onClick={exitToMenu}>Main Menu</SettingButton>
                         <SettingButton onClick={toggleMenu}>Return to Game</SettingButton>
                     </div>

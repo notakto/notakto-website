@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Board from './Board';
-import { BoardSize, BoardState, DifficultyLevel, BoardNumber } from '@/services/types';
+import { BoardSize, BoardState, DifficultyLevel, BoardNumber, ComputerButtonModalType } from '@/services/types';
 import { isBoardDead } from '@/services/logic';
 import { playMoveSound, playWinSound } from '@/services/sounds';
 import { useUser } from '@/services/store';
@@ -21,7 +21,6 @@ import { useSound } from '@/services/store';
 import { useShortcut } from '@/components/hooks/useShortcut';
 import ShortcutModal from '@/modals/ShortcutModal';
 
-type ModalType = 'winner' | 'boardConfig' | 'soundConfig' | 'difficulty' | 'shortcut' | null;
 
 const Game = () => {
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
@@ -43,7 +42,7 @@ const Game = () => {
     const [isUpdatingDifficulty, setIsUpdatingDifficulty] = useState<boolean>(false);
     const [isProcessingPayment, setIsProcessingPayment] = useState<boolean>(false);
 
-    const [activeModal, setActiveModal] = useState<ModalType>(null);
+    const [activeModal, setActiveModal] = useState<ComputerButtonModalType>(null);
 
     const { sfxMute } = useSound();
     const Coins = useCoins((state) => state.coins);
@@ -54,27 +53,27 @@ const Game = () => {
     const { canShowToast, triggerToastCooldown } = useToastCooldown(4000);
     const router = useRouter();
 
-useShortcut((e) => {
-    const el = e.target as HTMLElement | null;
-    const tag = el?.tagName?.toLowerCase();
-    if (e.isComposing || e.repeat || e.ctrlKey || e.metaKey || e.altKey) return;
-    if (tag === 'input' || el?.isContentEditable) return;
+    useShortcut((e) => {
+        const el = e.target as HTMLElement | null;
+        const tag = el?.tagName?.toLowerCase();
+        if (e.isComposing || e.repeat || e.ctrlKey || e.metaKey || e.altKey) return;
+        if (tag === 'input' || el?.isContentEditable) return;
 
-    const k = e.key.toLowerCase();
+        const k = e.key.toLowerCase();
 
-    if (e.key === 'Escape') {
-        if (activeModal) return setActiveModal(null);
-        return setIsMenuOpen(false);
-    }
+        if (e.key === 'Escape') {
+            if (activeModal) return setActiveModal(null);
+            return setIsMenuOpen(false);
+        }
 
-    if (k === "r") handleReset();
-    if (k === "m") router.push("/");
+        if (k === "r") handleReset();
+        if (k === "m") router.push("/");
 
-    if (k === "c") setActiveModal(prev => prev === 'boardConfig' ? null : 'boardConfig');
-    if (k === "s") setActiveModal(prev => prev === 'soundConfig' ? null : 'soundConfig');
-    if (k === "d") setActiveModal(prev => prev === 'difficulty' ? null : 'difficulty');
-    if (k === "q") setActiveModal(prev => prev === 'shortcut' ? null : 'shortcut');
-});
+        if (k === "c") setActiveModal(prev => prev === 'boardConfig' ? null : 'boardConfig');
+        if (k === "s") setActiveModal(prev => prev === 'soundConfig' ? null : 'soundConfig');
+        if (k === "d") setActiveModal(prev => prev === 'difficulty' ? null : 'difficulty');
+        if (k === "q") setActiveModal(prev => prev === 'shortcut' ? null : 'shortcut');
+    });
 
 
     const initGame = async (num: BoardNumber, size: BoardSize, diff: DifficultyLevel) => {
@@ -339,7 +338,7 @@ useShortcut((e) => {
                         <SettingButton onClick={() => handleBuyCoins(setIsProcessingPayment, canShowToast, triggerToastCooldown, setCoins, Coins)} disabled={isProcessingPayment} loading={isProcessingPayment}>Buy Coins (100)</SettingButton>
                         <SettingButton onClick={() => { setActiveModal('difficulty'); setIsMenuOpen(false); }}>AI Level: {difficulty}</SettingButton>
                         <SettingButton onClick={() => { setActiveModal('soundConfig'); setIsMenuOpen(false) }}>Adjust Sound</SettingButton>
-                        <SettingButton onClick={() => setActiveModal('shortcut')}>Keyboard Shortcuts</SettingButton>
+                        <SettingButton onClick={() => {setActiveModal('shortcut'); setIsMenuOpen(false)}}>Keyboard Shortcuts</SettingButton>
                         <SettingButton onClick={() => router.push('/')}>Main Menu</SettingButton>
                         <SettingButton onClick={toggleMenu}>Return to Game</SettingButton>
                     </div>
