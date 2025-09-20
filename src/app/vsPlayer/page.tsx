@@ -206,7 +206,7 @@ const Game = () => {
                     setActiveModal(null);
                     resetGame(numberOfBoards, boardSize);
                 }}
-                onMenu={() => setActiveModal(null)}
+                onMenu={() => { setActiveModal(null); exitToMenu(); } }
             />
 
             <BoardConfigModal
