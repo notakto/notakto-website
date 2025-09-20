@@ -9,4 +9,4 @@ reviews:
     enabled: true # Enables automatic reviews
     drafts: false # Skips reviews for draft PRs
 ignored_branch: "dependabot/*, renovate/*" # Ignores branches like dependency updates
-ignored_titles: "docs, documentation" # Skips PRs with these title snippets
+ignored_titles: "docs, documentation" # Skips PRs with these title snippets 
