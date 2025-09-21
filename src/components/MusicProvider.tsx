@@ -8,7 +8,8 @@ import {
   setBackgroundVolume,
   stopBackgroundMusic,
   setMoveVolume,
-  setWinVolume
+  setWinVolume,
+  isAudioUnlocked
 } from "@/services/sounds";
 
 export default function MusicProvider() {
@@ -28,7 +29,10 @@ export default function MusicProvider() {
       // mute is setting the volume down
       setBackgroundVolume(0)
     } else {
-      playBackgroundMusic();
+      // Only try to play if audio is unlocked by a user gesture
+      if (isAudioUnlocked()) {
+        playBackgroundMusic();
+      }
       setBackgroundVolume(bgVolume);
     }
   }, [bgMute, bgVolume]);
