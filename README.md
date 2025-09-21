@@ -45,7 +45,7 @@ You can play the game in three modes:
 |:-----|:------------|
 | **Play vs Computer** | Play against AI with five difficulty levels. |
 | **Play vs Player** | Play with a friend on the same device. |
-| **Live Match** | Play against other in real-time matches over the internet. |
+| **Live Match** | Play against other players in real-time matches over the internet. |
 
 ## :robot: AI Engine
 
