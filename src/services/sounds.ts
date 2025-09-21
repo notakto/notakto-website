@@ -3,6 +3,28 @@ let backgroundAudio: HTMLAudioElement | null = null;
 let moveAudio: HTMLAudioElement | null = null;
 let winAudio: HTMLAudioElement | null = null;
 
+// Simple user-gesture unlock tracking so we can gate background music
+let audioUnlocked = false;
+let unlockListenersInitialized = false;
+
+const setupAudioUnlockListeners = () => {
+  if (unlockListenersInitialized || typeof window === 'undefined') return;
+  unlockListenersInitialized = true;
+
+  const handleFirstInteraction = () => {
+    audioUnlocked = true;
+    document.removeEventListener('click', handleFirstInteraction);
+    document.removeEventListener('touchstart', handleFirstInteraction);
+    document.removeEventListener('keydown', handleFirstInteraction);
+  };
+
+  document.addEventListener('click', handleFirstInteraction);
+  document.addEventListener('touchstart', handleFirstInteraction);
+  document.addEventListener('keydown', handleFirstInteraction);
+};
+
+export const isAudioUnlocked = () => audioUnlocked;
+
 export const playMoveSound = (mute: boolean) => {
   if (mute) return;
   if (!moveAudio) {
@@ -42,6 +64,8 @@ export const initBackgroundMusic = () => {
   backgroundAudio.volume = 0.3;
 
   // This doesnt autoplay .. jus intialises itself
+  // Also prepare unlock listeners so MusicProvider can check isAudioUnlocked()
+  setupAudioUnlockListeners();
 };
 
 export const playBackgroundMusic = () => {
