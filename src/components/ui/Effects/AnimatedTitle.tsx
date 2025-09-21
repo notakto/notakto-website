@@ -5,11 +5,13 @@ import React from "react";
 interface AnimatedTitleProps {
   text: string;
   className?: string;
+  // Optional class for the foreground text span to override color/size
+  textClassName?: string;
 }
 
 // Simple, self-contained animated title with Tailwind-friendly classes.
 // No global CSS or side effects to keep this PR atomic and easy to revert.
-export function AnimatedTitle({ text, className = "" }: AnimatedTitleProps) {
+export function AnimatedTitle({ text, className = "", textClassName = "" }: AnimatedTitleProps) {
   return (
     <h1
       aria-label={text}
@@ -23,7 +25,7 @@ export function AnimatedTitle({ text, className = "" }: AnimatedTitleProps) {
       ].join(" ")}
     >
       {/* Foreground text */}
-      <span className="relative z-10">{text}</span>
+      <span className={["relative z-10", textClassName].join(" ")}>{text}</span>
       {/* Soft glow layers (pure CSS, no images) */}
       <span
         aria-hidden
