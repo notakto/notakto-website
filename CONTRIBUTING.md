@@ -14,6 +14,18 @@ Assuming you have cloned the repository, follow these steps to set up your devel
 - [pnpm](https://pnpm.io/installation)
 
 ### Quick Start
+### 🔧 Firebase Setup for Local Development
+
+To run Notakto locally with full functionality (Authentication, Firestore, and in-game coins/XP), you need to configure Firebase.
+
+1. Follow our Firebase setup guide: [Firebase Setup Guide](./docs/firebase-setup.md)
+2. Ensure you have `.env.local` with your Firebase configuration.
+3. Enable Authentication methods:
+   - Email/Password
+   - Email Link (passwordless)
+   - Google Sign-In
+4. Firestore should be in **Test Mode** and located in `asia-south1 (Mumbai)` for local development.
+
 
 **Install the Dependencies**
 
