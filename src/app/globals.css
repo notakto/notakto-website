@@ -1,1 +1,143 @@
 @import "tailwindcss";
+
+/* Custom animations for the retro gaming menu */
+@keyframes float-up {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes glow-pulse {
+  0%, 100% {
+    box-shadow: 0 0 5px theme('colors.cyan.400'), 0 0 10px theme('colors.cyan.400'), 0 0 15px theme('colors.cyan.400');
+  }
+  50% {
+    box-shadow: 0 0 10px theme('colors.cyan.400'), 0 0 20px theme('colors.cyan.400'), 0 0 30px theme('colors.cyan.400');
+  }
+}
+
+@keyframes text-flicker {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; }
+}
+
+@keyframes scan-line {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100vw); }
+}
+
+@keyframes retro-blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+@keyframes gradient-x {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Custom utility classes */
+.animate-float-up {
+  animation: float-up 0.6s ease-out;
+}
+
+.animate-glow-pulse {
+  animation: glow-pulse 2s ease-in-out infinite;
+}
+
+.animate-text-flicker {
+  animation: text-flicker 0.15s ease-in-out;
+}
+
+.animate-retro-blink {
+  animation: retro-blink 1s step-end infinite;
+}
+
+.animate-gradient-x {
+  animation: gradient-x 3s ease infinite;
+  background-size: 400% 400%;
+}
+
+/* Retro CRT effect */
+.retro-screen::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    linear-gradient(90deg, transparent 50%, rgba(0, 255, 255, 0.03) 50%),
+    linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+  background-size: 4px 4px, 100% 2px;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+/* Enhanced button hover states */
+.menu-button-primary:hover {
+  transform: translateY(-2px) scale(1.02);
+  filter: brightness(1.1);
+}
+
+.menu-button-secondary:hover {
+  transform: translateY(-1px) scale(1.01);
+}
+
+.menu-button-utility:hover {
+  transform: translateY(-1px);
+}
+
+/* Particle system optimizations */
+.particle-canvas {
+  opacity: 0.6;
+  mix-blend-mode: screen;
+}
+
+/* Loading states and micro-interactions */
+.loading-dots::after {
+  content: '';
+  animation: retro-blink 1.5s infinite;
+}
+
+/* Enhanced focus states for accessibility */
+.retro-focus:focus {
+  outline: 2px solid theme('colors.cyan.400');
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px theme('colors.cyan.400/20');
+}
+
+/* Enhanced text contrast and shadows */
+.text-shadow-lg {
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.8), 0 0 20px rgba(6, 182, 212, 0.3);
+}
+
+.text-shadow-glow {
+  text-shadow: 
+    0 0 10px currentColor,
+    0 0 20px currentColor,
+    0 0 40px currentColor;
+}
+
+/* Button text enhancements */
+button {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Enhanced button hover states */
+.menu-button-primary:hover,
+.menu-button-secondary:hover,
+.menu-button-utility:hover {
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
+}

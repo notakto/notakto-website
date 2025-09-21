@@ -8,7 +8,7 @@ import { doc, onSnapshot } from 'firebase/firestore';
 import { firestore } from '@/services/firebase';
 import { useUser, useCoins, useXP } from '@/services/store';
 import { User } from "firebase/auth";
-
+import { initGlobalAudio } from '@/services/sounds';
 
 // Firebase module
 import { onAuthStateChangedListener } from '@/services/firebase';
@@ -21,6 +21,11 @@ const ClientSideInit = (): null => {
     const setUser = useUser((state): (newUser: User | null) => void => state.setUser);
     useCoins((state): number => state.coins);
     useXP((state): number => state.XP);
+
+    // Initialize global audio system
+    useEffect(() => {
+        initGlobalAudio();
+    }, []);
 
     // Load user
     useEffect((): () => void => {
