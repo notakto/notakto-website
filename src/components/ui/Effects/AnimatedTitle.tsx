@@ -1,13 +1,7 @@
 "use client";
 
 import React from "react";
-
-interface AnimatedTitleProps {
-  text: string;
-  className?: string;
-  // Optional class for the foreground text span to override color/size
-  textClassName?: string;
-}
+import type { AnimatedTitleProps } from "@/services/types";
 
 // Simple, self-contained animated title with Tailwind-friendly classes.
 // No global CSS or side effects to keep this PR atomic and easy to revert.
@@ -37,8 +31,9 @@ export function AnimatedTitle({ text, className = "", textClassName = "" }: Anim
       />
       <style jsx>{`
         @keyframes titleGlow {
-          0%, 100% { filter: drop-shadow(0 0 4px rgba(255,255,255,0.4)); }
-          50% { filter: drop-shadow(0 0 10px rgba(255,255,255,0.85)); }
+          0%,
+          100% { filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.4)); }
+          50% { filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.85)); }
         }
       `}</style>
     </h1>
