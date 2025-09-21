@@ -79,7 +79,7 @@ const LiveMode = () => {
   };
 
   return (
-    <div className="flex flex-col h-screen bg-black">
+    <div className="flex flex-col min-h-screen bg-black bg-[url('/background.png')] bg-no-repeat bg-cover bg-center">
       <div className="flex-1 flex flex-col justify-center items-center px-4">
         {gameState === "playing" ? (
           <>
