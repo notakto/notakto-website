@@ -49,17 +49,15 @@ const Game = () => {
             return setIsMenuOpen(false);
         }
 
-        if (k === 'r') resetGame(numberOfBoards, boardSize);
-        if (k === 'm') router.push('/');
 
         if (!initialSetupDone) {
-            // only allow sound + shortcut modals
-            if (k === "s") setActiveModal(prev => prev === 'soundConfig' ? null : 'soundConfig');
-            if (k === "q") setActiveModal(prev => prev === 'shortcut' ? null : 'shortcut');
+            if (k === 'm') router.push('/');
             return;
         }
-
+        
         // once setup is done --> allow all
+        if (k === 'm') router.push('/');
+        if (k === 'r') resetGame(numberOfBoards, boardSize);
         if (k === "n") setActiveModal(prev => prev === 'names' ? null : 'names');
         if (k === "c") setActiveModal(prev => prev === 'boardConfig' ? null : 'boardConfig');
         if (k === "s") setActiveModal(prev => prev === 'soundConfig' ? null : 'soundConfig');
@@ -206,7 +204,7 @@ const Game = () => {
                     setActiveModal(null);
                     resetGame(numberOfBoards, boardSize);
                 }}
-                onMenu={() => { setActiveModal(null); exitToMenu(); } }
+                onMenu={() => { setActiveModal(null); exitToMenu(); }}
             />
 
             <BoardConfigModal
