@@ -7,7 +7,7 @@
 [![Unlicense License][license-shield]][license-url]
 
 
-Thanks to these amazing people for contributing to **Notakto**:
+Thanks to these amazing people for contributing to **Notakto** :
 
 <a href="https://github.com/Rakshitg600/notakto-website/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=Rakshitg600/notakto-website" />
