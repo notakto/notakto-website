@@ -1,5 +1,5 @@
 import { toast } from "react-toastify";
-import { TOAST_DURATION,TOAST_IDS } from "../constants/toast";
+import { TOAST_DURATION,TOAST_IDS } from "@/constants/toast";
 
 export const handleBuyCoins = async (
     setIsProcessingPayment: (val: boolean) => void,
