@@ -3,6 +3,7 @@
 import { ToastContainer, ToastContainerProps, CloseButton } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { VT323 } from "next/font/google";
+import { TOAST_DURATION } from '@/constants/toast';
 
 const vt323 = VT323({
     weight: "400",
@@ -15,7 +16,7 @@ type CustomToastContainerProps = Omit<ToastContainerProps, 'toastClassName'> & {
 
 export function CustomToastContainer({
     position = "top-center",
-    autoClose = 4000,
+    autoClose = TOAST_DURATION,
     hideProgressBar = false,
     newestOnTop = false,
     closeOnClick = false,
