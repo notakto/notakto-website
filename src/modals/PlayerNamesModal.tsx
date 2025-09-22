@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { PlayerNamesModalProps } from '../services/types';
 import { toast } from "react-toastify";
 import { useToastCooldown } from "@/components/hooks/useToastCooldown";
-import { TOAST_DURATION, TOAST_IDS } from "../constants/toast";
+import { TOAST_DURATION, TOAST_IDS } from "@/constants/toast";
 import { PlayerInput } from '@/components/ui/Inputs/PlayerInput';
 
 const PlayerNamesModal = ({ visible, onSubmit, initialNames = ['Player 1', 'Player 2'] }: PlayerNamesModalProps) => {
