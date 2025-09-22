@@ -4,7 +4,7 @@ import { io } from "socket.io-client";
 import { useRouter } from "next/navigation";
 import clsx from "clsx";
 import { toast } from "react-toastify";
-import { TOAST_DURATION,TOAST_IDS } from "../../constants/toast";
+import { TOAST_DURATION,TOAST_IDS } from "@/constants/toast";
 import { useToastCooldown } from "@/components/hooks/useToastCooldown";
 
 const SERVER_URL = "https://notakto-websocket.onrender.com";
