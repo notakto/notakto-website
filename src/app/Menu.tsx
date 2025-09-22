@@ -5,7 +5,7 @@ import { signInWithGoogle, signOutUser } from '@/services/firebase';
 import { useUser, useTut } from '@/services/store';
 import { toast } from "react-toastify";
 import { useToastCooldown } from "@/components/hooks/useToastCooldown";
-import { TOAST_DURATION,TOAST_IDS } from "../constants/toast";
+import { TOAST_DURATION,TOAST_IDS } from "@/constants/toast";
 import { MenuButton } from '@/components/ui/Buttons/MenuButton';
 import MenuContainer from '@/components/ui/Containers/Menu/MenuContainer';
 import MenuButtonContainer from '@/components/ui/Containers/Menu/MenuButtonContainer';
