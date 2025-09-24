@@ -4,12 +4,15 @@ import { io } from "socket.io-client";
 import { useRouter } from "next/navigation";
 import clsx from "clsx";
 import { toast } from "react-toastify";
+import { TOAST_DURATION,TOAST_IDS } from "@/constants/toast";
+import { useToastCooldown } from "@/components/hooks/useToastCooldown";
 
 const SERVER_URL = "https://notakto-websocket.onrender.com";
 const socket = io(SERVER_URL);
 
 const LiveMode = () => {
   const router = useRouter();
+  const { canShowToast, resetCooldown } = useToastCooldown(TOAST_DURATION);
   const onClose = () => {
     router.push('/');
   }
@@ -38,12 +41,20 @@ const LiveMode = () => {
     });
 
     socket.on("gameOver", (data: { loser: string }) => {
-      toast(data.loser === socket.id ? "You Lost!" : "You Won!",{autoClose:4500}); 
+      toast(data.loser === socket.id ? "You Lost!" : "You Won!",{
+        toastId: TOAST_IDS.LiveMatch.GameOver,
+        autoClose: TOAST_DURATION,
+        onClose: resetCooldown
+      });
       resetGame();
     });
 
     socket.on("opponentDisconnected", () => {
-      toast("Opponent Disconnected! Searching for new match...", {autoClose: 4500});
+      toast("Opponent Disconnected! Searching for new match...", {
+        toastId: TOAST_IDS.LiveMatch.OpponentDisconnected,
+        autoClose: TOAST_DURATION,
+        onClose: resetCooldown
+      });
       resetGame();
     });
 

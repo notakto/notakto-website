@@ -3,13 +3,14 @@ import { useState, useEffect } from 'react';
 import { PlayerNamesModalProps } from '../services/types';
 import { toast } from "react-toastify";
 import { useToastCooldown } from "@/components/hooks/useToastCooldown";
+import { TOAST_DURATION, TOAST_IDS } from "@/constants/toast";
 import { PlayerInput } from '@/components/ui/Inputs/PlayerInput';
 
 const PlayerNamesModal = ({ visible, onSubmit, initialNames = ['Player 1', 'Player 2'] }: PlayerNamesModalProps) => {
   const [player1, setPlayer1] = useState(initialNames[0] || 'Player 1');
   const [player2, setPlayer2] = useState(initialNames[1] || 'Player 2');
 
-  const { canShowToast, triggerToastCooldown, resetCooldown } = useToastCooldown(4500);
+  const { canShowToast, triggerToastCooldown, resetCooldown } = useToastCooldown(TOAST_DURATION);
 
   useEffect(() => {
     setPlayer1(initialNames[0] || 'Player 1');
@@ -21,10 +22,11 @@ const PlayerNamesModal = ({ visible, onSubmit, initialNames = ['Player 1', 'Play
 
     if (player1.trim().toLowerCase() === player2.trim().toLowerCase()) {
       toast("Player 1 and Player 2 cannot have the same name.", {
-        autoClose: 4500,
+        toastId:TOAST_IDS.PlayerNames.Duplicate,
+        autoClose: TOAST_DURATION,
         onClose: resetCooldown // reset cooldown if closed early
       });
-      triggerToastCooldown();
+      
       return;
     }
     onSubmit(player1 || 'Player 1', player2 || 'Player 2');
