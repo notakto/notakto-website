@@ -147,3 +147,11 @@ export interface errorResponse {
   success: false;
   error: string;
 }
+
+// UI component props
+export interface AnimatedTitleProps {
+  text: string;
+  className?: string;
+  // Optional class for inner text element (color/size overrides)
+  textClassName?: string;
+}

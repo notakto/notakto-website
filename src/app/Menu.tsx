@@ -5,6 +5,7 @@ import { signInWithGoogle, signOutUser } from '@/services/firebase';
 import { useUser } from '@/services/store';
 import { toast } from "react-toastify";
 import { useToastCooldown } from "@/components/hooks/useToastCooldown";
+import { TOAST_DURATION,TOAST_IDS } from "@/constants/toast";
 import { MenuButton } from '@/components/ui/Buttons/MenuButton';
 import MenuContainer from '@/components/ui/Containers/Menu/MenuContainer';
 import MenuButtonContainer from '@/components/ui/Containers/Menu/MenuButtonContainer';
@@ -64,10 +65,10 @@ const Menu = () => {
     if ((mode === 'liveMatch' || mode === 'vsComputer') && !user) {
       if (canShowToast()) {
         toast("Please sign in!", {
-          autoClose: 10000,
-          onClose: resetCooldown
+          toastId: TOAST_IDS.User.SignInError,
+          autoClose: TOAST_DURATION,
+          onClose: resetCooldown // reset cooldown immediately when closed
         });
-        triggerToastCooldown();
       }
       return;
     }

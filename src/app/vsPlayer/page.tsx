@@ -108,7 +108,7 @@ const Game = () => {
     };
 
     return (
-        <div className="flex flex-col min-h-screen bg-black relative">
+        <div className="flex flex-col min-h-screen bg-black bg-[url('/background.png')] bg-no-repeat bg-cover bg-center relative">
             <div className="flex-1">
                 <div className="flex flex-col items-center px-6 py-4 -mb-8">
                     <h2 className="text-red-600 text-[80px] mb-5 text-center">
