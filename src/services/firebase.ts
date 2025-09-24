@@ -9,9 +9,6 @@ import {
 } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 
-const firebaseConfig = {
-// src/services/firebase.ts
-
 const {
   NEXT_PUBLIC_FIREBASE_API_KEY,
   NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
@@ -41,9 +38,6 @@ const firebaseConfig = {
   messagingSenderId: NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
   appId: NEXT_PUBLIC_FIREBASE_APP_ID,
   measurementId: NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
-};
-
-// …then initializeApp(firebaseConfig) as before
 };
 
 const app = initializeApp(firebaseConfig);
