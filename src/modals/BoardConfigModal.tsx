@@ -7,7 +7,6 @@ import { BoardActionButton } from '@/components/ui/Buttons/BoardActionButton';
 import BoardConfigContainer from '@/components/ui/Containers/BoardConfig/BoardConfigContainer';
 import BoardConfigTitle from '@/components/ui/Title/BoardConfigTitle';
 import BoardConfigOptions from '@/components/ui/Containers/BoardConfig/BoardConfigOptions';
-import ModalOverlay from '@/components/ui/overlay/ModalOverlay';
 import BoardConfigAction from '@/components/ui/Containers/BoardConfig/BoardConfigAction';
 const BoardConfigModal = ({
   visible,
@@ -22,7 +21,7 @@ const BoardConfigModal = ({
   if (!visible) return null;
 
   return (
-    <ModalOverlay>
+    
       <BoardConfigContainer>
         <BoardConfigTitle text='Number of Boards' />
         <BoardConfigOptions>
@@ -61,7 +60,7 @@ const BoardConfigModal = ({
 
         </BoardConfigAction>
       </BoardConfigContainer>
-    </ModalOverlay>
+    
   );
 };
 
