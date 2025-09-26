@@ -17,7 +17,9 @@ import { handleBuyCoins } from '@/services/payment';
 import { SettingButton } from '@/components/ui/Buttons/SettingButton';
 import SoundConfigModal from '@/modals/SoundConfigModal';
 import { createGame, makeMove, resetGame, updateConfig, undoMove, skipMove } from '@/services/game-apis';
+import { TOAST_DURATION } from '@/constants/toast';
 import { useSound } from '@/services/store';
+
 const Game = () => {
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
     const [boards, setBoards] = useState<BoardState[]>([]);
@@ -48,7 +50,7 @@ const Game = () => {
     const XP = useXP((state) => state.XP);
     const user = useUser((state) => state.user);
     const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
-    const { canShowToast, triggerToastCooldown } = useToastCooldown(4000);
+    const { canShowToast, triggerToastCooldown, resetCooldown } = useToastCooldown(TOAST_DURATION);
     const router = useRouter();
 
     const initGame = async (num: BoardNumber, size: BoardSize, diff: DifficultyLevel) => {
@@ -317,7 +319,7 @@ const Game = () => {
                         <SettingButton onClick={() => { setShowBoardConfig(true); setIsMenuOpen(false); }} disabled={isUpdatingConfig}>Game Configuration</SettingButton>
                         <SettingButton onClick={() => { handleUndo(); setIsMenuOpen(false); }} disabled={Coins < 100 || isUndoing} loading={isUndoing}>Undo (100 coins)</SettingButton>
                         <SettingButton onClick={() => { handleSkip(); setIsMenuOpen(false); }} disabled={Coins < 200 || isSkipping} loading={isSkipping}>Skip a Move (200 coins)</SettingButton>
-                        <SettingButton onClick={() => handleBuyCoins(setIsProcessingPayment, canShowToast, triggerToastCooldown, setCoins, Coins)} disabled={isProcessingPayment} loading={isProcessingPayment}>Buy Coins (100)</SettingButton>
+                        <SettingButton onClick={() => handleBuyCoins(setIsProcessingPayment, canShowToast, triggerToastCooldown, resetCooldown, setCoins, Coins)} disabled={isProcessingPayment} loading={isProcessingPayment}>Buy Coins (100)</SettingButton>
                         <SettingButton onClick={() => { setShowDifficultyModal(true); setIsMenuOpen(false); }}>AI Level: {difficulty}</SettingButton>
                         <SettingButton onClick={() => { setShowSoundConfig(true); setIsMenuOpen(false) }}>Adjust Sound</SettingButton>
                         <SettingButton onClick={() => router.push('/')}>Main Menu</SettingButton>
