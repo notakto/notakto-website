@@ -5,7 +5,7 @@ import { signInWithGoogle, signOutUser } from '@/services/firebase';
 import { useUser } from '@/services/store';
 import { toast } from "react-toastify";
 import { useToastCooldown } from "@/components/hooks/useToastCooldown";
-import { TOAST_DURATION,TOAST_IDS } from "@/constants/toast";
+import { TOAST_DURATION, TOAST_IDS } from "@/constants/toast";
 import { MenuButton } from '@/components/ui/Buttons/MenuButton';
 import MenuContainer from '@/components/ui/Containers/Menu/MenuContainer';
 import MenuButtonContainer from '@/components/ui/Containers/Menu/MenuButtonContainer';
@@ -23,26 +23,16 @@ const Menu = () => {
   const setUser = useUser((state) => state.setUser);
 
   const router = useRouter();
-  const { canShowToast, triggerToastCooldown, resetCooldown } = useToastCooldown(4000);
+  const { canShowToast, triggerToastCooldown, resetCooldown } = useToastCooldown(TOAST_DURATION);
   const [activeModal, setActiveModal] = useState<ModalType>(null);
 
-  useShortcut((e) => {
-    const el = e.target as HTMLElement | null;
-    const tag = el?.tagName?.toLowerCase();
-
-    if (e.isComposing || e.repeat || e.ctrlKey || e.metaKey || e.altKey) return;
-    if (tag === 'input' || tag === 'textarea' || el?.isContentEditable) return;
-
-    const k = e.key.toLowerCase();
-
-    if (e.key === 'Escape') {
-      setActiveModal(null); // close any open modal
-    }
-
-    if (k === "s") setActiveModal(prev => prev === 'soundConfig' ? null : 'soundConfig');
-    if (k === "q") setActiveModal(prev => prev === 'shortcut' ? null : 'shortcut');
-    if (k === "t") setActiveModal(prev => prev === 'tutorial' ? null : 'tutorial');
+  useShortcut({
+    escape: () => setActiveModal(null),
+    s: () => setActiveModal(prev => prev === 'soundConfig' ? null : 'soundConfig'),
+    q: () => setActiveModal(prev => prev === 'shortcut' ? null : 'shortcut'),
+    t: () => setActiveModal(prev => prev === 'tutorial' ? null : 'tutorial'),
   });
+
 
   const handleSignIn = async () => {
     try {

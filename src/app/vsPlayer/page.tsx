@@ -33,36 +33,34 @@ const Game = () => {
 
     const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
-    useShortcut((e) => {
-        const el = e.target as HTMLElement | null;
-        const tag = el?.tagName?.toLowerCase();
-
-        if (e.isComposing || e.repeat || e.ctrlKey || e.metaKey || e.altKey) return;
-        if (tag === 'input' || el?.isContentEditable) return;
-
-        const k = e.key.toLowerCase();
-
-        if (e.key === 'Escape') {
-            // prevent escape before setup
+    useShortcut({
+        escape: (e) => {
             if (!initialSetupDone && !gameStarted) return;
             if (activeModal) return setActiveModal(null);
             return setIsMenuOpen(false);
-        }
-
-
-        if (!initialSetupDone) {
-            if (k === 'm') router.push('/');
-            return;
-        }
-        
-        // once setup is done --> allow all
-        if (k === 'm') router.push('/');
-        if (k === 'r') resetGame(numberOfBoards, boardSize);
-        if (k === "n") setActiveModal(prev => prev === 'names' ? null : 'names');
-        if (k === "c") setActiveModal(prev => prev === 'boardConfig' ? null : 'boardConfig');
-        if (k === "s") setActiveModal(prev => prev === 'soundConfig' ? null : 'soundConfig');
-        if (k === "q") setActiveModal(prev => prev === 'shortcut' ? null : 'shortcut');
+        },
+        m: () => {
+            if (!initialSetupDone) return router.push('/');
+            router.push('/');
+        },
+        r: () => {
+            if (initialSetupDone) resetGame(numberOfBoards, boardSize);
+        },
+        n: () => {
+            if (!initialSetupDone) return; setActiveModal(prev => prev === 'names' ? null : 'names')
+        },
+        c: () => {
+            if (!initialSetupDone) return; setActiveModal(prev => prev === 'boardConfig' ? null : 'boardConfig')
+        },
+        s: () => {
+            if (!initialSetupDone) return; setActiveModal(prev => prev === 'soundConfig' ? null : 'soundConfig')
+        },
+        q: () => {
+            if (!initialSetupDone) return; setActiveModal(prev => prev === 'shortcut' ? null : 'shortcut')
+        },
     });
+
+
 
 
     const makeMove = (boardIndex: number, cellIndex: number) => {

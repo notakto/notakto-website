@@ -53,27 +53,17 @@ const Game = () => {
     const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
     const { canShowToast, triggerToastCooldown, resetCooldown } = useToastCooldown(TOAST_DURATION);
     const router = useRouter();
-
-    useShortcut((e) => {
-        const el = e.target as HTMLElement | null;
-        const tag = el?.tagName?.toLowerCase();
-        if (e.isComposing || e.repeat || e.ctrlKey || e.metaKey || e.altKey) return;
-        if (tag === 'input' || el?.isContentEditable) return;
-
-        const k = e.key.toLowerCase();
-
-        if (e.key === 'Escape') {
+    useShortcut({
+        escape: () => {
             if (activeModal) return setActiveModal(null);
             return setIsMenuOpen(false);
-        }
-
-        if (k === "r") handleReset();
-        if (k === "m") router.push("/");
-
-        if (k === "c") setActiveModal(prev => prev === 'boardConfig' ? null : 'boardConfig');
-        if (k === "s") setActiveModal(prev => prev === 'soundConfig' ? null : 'soundConfig');
-        if (k === "d") setActiveModal(prev => prev === 'difficulty' ? null : 'difficulty');
-        if (k === "q") setActiveModal(prev => prev === 'shortcut' ? null : 'shortcut');
+        },
+        m: () => router.push("/"),
+        r: () => handleReset(),
+        c: () => setActiveModal(prev => prev === "boardConfig" ? null : "boardConfig"),
+        s: () => setActiveModal(prev => prev === "soundConfig" ? null : "soundConfig"),
+        d: () => setActiveModal(prev => prev === "difficulty" ? null : "difficulty"),
+        q: () => setActiveModal(prev => prev === "shortcut" ? null : "shortcut"),
     });
 
 
