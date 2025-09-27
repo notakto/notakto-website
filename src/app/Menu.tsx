@@ -9,6 +9,7 @@ import { TOAST_DURATION,TOAST_IDS } from "@/constants/toast";
 import { MenuButton } from '@/components/ui/Buttons/MenuButton';
 import MenuContainer from '@/components/ui/Containers/Menu/MenuContainer';
 import MenuButtonContainer from '@/components/ui/Containers/Menu/MenuButtonContainer';
+import GameModeSection from '@/components/ui/Containers/Menu/GameModeSection';
 import { MenuTitle } from '@/components/ui/Title/MenuTitle';
 import SoundConfigModal from '@/modals/SoundConfigModal';
 import ShortcutModal from '@/modals/ShortcutModal';
@@ -57,15 +58,36 @@ const Menu = () => {
   return (
     <MenuContainer>
       <MenuTitle text='Notakto'></MenuTitle>
-      <MenuButtonContainer className="max-w-3xl mx-auto">
-        <MenuButton onClick={() => startGame('vsPlayer')}> Play vs Player </MenuButton>
-        <MenuButton onClick={() => startGame('vsComputer')}> Play vs Computer </MenuButton>
-        <MenuButton onClick={() => startGame('liveMatch')}> Live Match </MenuButton>
-        <MenuButton onClick={() => setShowTut(true)}> Tutorial </MenuButton>
-        <MenuButton onClick={(user) ? handleSignOut : handleSignIn}>{(user) ? "Sign Out" : "Sign in"}</MenuButton>
-        <MenuButton onClick={() => setShowSoundConfig(!showSoundConfig)}>Adjust Sound</MenuButton>
-        <MenuButton onClick={() => setshowShortcutConfig(!showShortcutConfig)}>Keyboard Shortcuts</MenuButton>
-      </MenuButtonContainer >
+      
+      {/* Game Mode Section - Phase 2 */}
+      <div className="w-full max-w-5xl mx-auto mb-12">
+        <GameModeSection 
+          onStartGame={startGame}
+          isAuthenticated={!!user}
+          className="mb-8"
+        />
+      </div>
+
+      {/* Divider */}
+      <div className="w-full max-w-4xl mx-auto mb-8">
+        <div className="h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+      </div>
+
+      {/* Additional Options Section */}
+      <div className="w-full max-w-3xl mx-auto">
+        <div className="text-center mb-6">
+          <h3 className="text-lg font-semibold text-white/90 mb-2">Settings & Help</h3>
+          <p className="text-gray-400 text-sm">Customize your experience</p>
+        </div>
+        
+        <MenuButtonContainer className="bg-black/10 backdrop-blur-sm rounded-xl border border-white/5 p-6 shadow-lg">
+          <MenuButton onClick={() => setShowTut(true)}> Tutorial </MenuButton>
+          <MenuButton onClick={(user) ? handleSignOut : handleSignIn}>{(user) ? "Sign Out" : "Sign in"}</MenuButton>
+          <MenuButton onClick={() => setShowSoundConfig(!showSoundConfig)}>Adjust Sound</MenuButton>
+          <MenuButton onClick={() => setshowShortcutConfig(!showShortcutConfig)}>Keyboard Shortcuts</MenuButton>
+        </MenuButtonContainer>
+      </div>
+      
       <SoundConfigModal visible={showSoundConfig} onClose={() => setShowSoundConfig(false)} />
       <ShortcutModal visible={showShortcutConfig} onClose={() => setshowShortcutConfig(false)} />
     </MenuContainer >
