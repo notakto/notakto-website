@@ -4,7 +4,10 @@ import { BoardConfigModalProps } from '../services/types';
 // Standardise components
 import { BoardConfigButton } from '@/components/ui/Buttons/BoardConfigButton';
 import { BoardActionButton } from '@/components/ui/Buttons/BoardActionButton';
-
+import BoardConfigContainer from '@/components/ui/Containers/BoardConfig/BoardConfigContainer';
+import BoardConfigTitle from '@/components/ui/Title/BoardConfigTitle';
+import BoardConfigOptions from '@/components/ui/Containers/BoardConfig/BoardConfigOptions';
+import BoardConfigAction from '@/components/ui/Containers/BoardConfig/BoardConfigAction';
 const BoardConfigModal = ({
   visible,
   currentBoards,
@@ -18,10 +21,10 @@ const BoardConfigModal = ({
   if (!visible) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50">
-      <div className="bg-black p-6 w-[90%] max-w-xl text-center space-y-6">
-        <h2 className="text-red-600 text-[35px] ">Number of Boards</h2>
-        <div className="flex flex-wrap gap-2 justify-center">
+    
+      <BoardConfigContainer>
+        <BoardConfigTitle text='Number of Boards' />
+        <BoardConfigOptions>
           {[1, 2, 3, 4, 5].map(num => (
             <BoardConfigButton
               key={num}
@@ -30,10 +33,11 @@ const BoardConfigModal = ({
               onClick={() => setSelectedBoards(num)}
             />
           ))}
-        </div>
+        </BoardConfigOptions>
 
-        <h2 className="text-red-600 text-[35px]">Board Size</h2>
-        <div className="flex flex-wrap gap-2 justify-center">
+        <BoardConfigTitle text='Board Size' />
+
+        <BoardConfigOptions>
           {[2, 3, 4, 5].map(size => (
             <BoardConfigButton
               key={size}
@@ -42,20 +46,21 @@ const BoardConfigModal = ({
               onClick={() => setSelectedSize(size)}
             />
           ))}
-        </div>
+        </BoardConfigOptions>
 
-        <div className="flex gap-4 pt-2">
-          
+        <BoardConfigAction>
+
           <BoardActionButton onClick={onCancel}>
             Cancel
           </BoardActionButton>
-          
+
           <BoardActionButton onClick={() => onConfirm(selectedBoards, selectedSize)}>
             Apply
           </BoardActionButton>
-        </div>
-      </div>
-    </div>
+
+        </BoardConfigAction>
+      </BoardConfigContainer>
+    
   );
 };
 
