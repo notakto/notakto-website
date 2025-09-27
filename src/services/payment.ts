@@ -43,6 +43,10 @@ export const handleBuyCoins = async (
                 data.chargeId,
                 paymentWindow,
                 () => {
+                    toast.dismiss(TOAST_IDS.Payment.Failure);
+                    toast.dismiss(TOAST_IDS.Payment.PopupBlocked);
+                    resetCooldown();
+
                     if (canShowToast()) {
                         toast('✅ Payment successful! 100 coins added to your account.', { 
                             toastId: TOAST_IDS.Payment.Success,
@@ -71,7 +75,7 @@ export const handleBuyCoins = async (
                 onClose: resetCooldown
              });
             
-        }
+        }      
     } catch (error) {
         if (canShowToast()) {
             toast("Payment processing failed", { 
