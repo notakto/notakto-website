@@ -1,5 +1,5 @@
 export const TOAST_DURATION = 4000; // milliseconds
-
+export const MAX_TOASTS = 3;
 export const TOAST_IDS = {
   // User/Auth related toasts
   User: {
@@ -22,5 +22,5 @@ export const TOAST_IDS = {
   LiveMatch: {
     OpponentDisconnected: "live-match/opponent-disconnected",
     GameOver: "live-match/game-over",
-  }
+  },
 } as const;
