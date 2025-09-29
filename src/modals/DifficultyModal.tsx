@@ -1,3 +1,4 @@
+"use client"
 import { DifficultyLevel, DifficultyModalProps } from "../services/types";
 import { DifficultyActionButton } from "@/components/ui/Buttons/DifficultyActionButton";
 import DifficultyContainer from "@/components/ui/Containers/Difficulty/DifficultyContainer"

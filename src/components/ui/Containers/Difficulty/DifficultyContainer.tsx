@@ -1,10 +1,10 @@
 import { ReactNode } from "react";
 
-interface BoardConfigContainerProps {
+interface DifficultyContainerProps {
     children: ReactNode;
 }
 
-export default function BoardConfigContainer({ children }: BoardConfigContainerProps) {
+export default function DifficultyContainer({ children }: DifficultyContainerProps) {
     return (
         <div className="bg-black w-full max-w-md p-6">
             {children}
