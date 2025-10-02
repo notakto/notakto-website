@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { gameSessions } from '@/lib/game-sessions';
 
+
 export async function POST(request: NextRequest) {
   try {
     const { sessionId } = await request.json();

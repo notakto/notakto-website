@@ -1,31 +1,36 @@
+"use client"
 import { DifficultyLevel, DifficultyModalProps } from "../services/types";
+import { DifficultyActionButton } from "@/components/ui/Buttons/DifficultyActionButton";
+import DifficultyContainer from "@/components/ui/Containers/Difficulty/DifficultyContainer"
+import ModalOverlay from "@/components/ui/Overlays/ModalOverlay";
+import DifficultyTitle from '@/components/ui/Title/DifficultyTitle'
 
 const DifficultyModal = ({ visible, onSelect, onClose }: DifficultyModalProps) => {
   if (!visible) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50">
-      <div className="bg-black w-full max-w-md p-6">
-        <h2 className="text-white text-4xl text-center mb-6">Select Difficulty</h2>
+    <ModalOverlay>
+      <DifficultyContainer>
+        <DifficultyTitle text="Select Difficulty"></DifficultyTitle>
 
         {[1, 2, 3, 4, 5].map(level => (
-          <button
+          <DifficultyActionButton
+            variant="level"
             key={level}
             onClick={() => onSelect(level as DifficultyLevel)}
-            className="w-full py-3 my-2 bg-blue-600 text-white text-3xl hover:bg-blue-700 transition"
           >
             Level {level}
-          </button>
+          </DifficultyActionButton>
         ))}
 
-        <button
+        <DifficultyActionButton
+          variant="cancel"
           onClick={onClose}
-          className="w-full mt-4 py-3 bg-red-600 text-white text-3xl hover:bg-red-700 transition"
         >
           Cancel
-        </button>
-      </div>
-    </div>
+        </DifficultyActionButton>
+      </DifficultyContainer >
+    </ModalOverlay>
   );
 };
 

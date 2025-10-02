@@ -1,0 +1,12 @@
+reviews:
+  smart_review_skipping: false # Skips files with trivial changes
+  profile: "chill" # Reduces the intensity of reviews, focusing on critical issues
+  request_changes_workflow: true # Enables automatic change requests
+  high_level_summary: true # Provides concise summaries instead of detailed comments
+  poem: false # Disables whimsical poems in reviews
+  collapse_walkthrough: true # Collapses detailed walkthroughs to reduce clutter
+  auto_review:
+    enabled: true # Enables automatic reviews
+    drafts: false # Skips reviews for draft PRs
+ignored_branch: "dependabot/*, renovate/*" # Ignores branches like dependency updates
+ignored_titles: "docs, documentation" # Skips PRs with these title snippets

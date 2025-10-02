@@ -1,6 +1,7 @@
+import { TOAST_DURATION } from "@/constants/toast";
 import { useRef, useCallback } from "react";
 
-export function useToastCooldown(cooldown: number = 4000) {
+export function useToastCooldown(cooldown: number = TOAST_DURATION){
   const cooldownTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const isOnCooldown = useRef(false);
 

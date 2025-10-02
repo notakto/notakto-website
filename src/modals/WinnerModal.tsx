@@ -1,6 +1,6 @@
 import { useRouter } from "next/navigation";
 import { WinnerModalProps } from "@/services/types";
-import { WinnerButton } from "@/components/ui/WinnerButton";
+import { WinnerButton } from "@/components/ui/Buttons/WinnerButton";
 
 const WinnerModal = ({ visible, winner, onPlayAgain }: WinnerModalProps) => {
   if (!visible) return null;

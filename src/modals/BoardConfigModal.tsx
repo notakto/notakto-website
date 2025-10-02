@@ -1,8 +1,14 @@
 'use client'
 import { useState } from 'react';
 import { BoardConfigModalProps } from '../services/types';
-import clsx from 'clsx';
-
+// Standardise components
+import { BoardConfigButton } from '@/components/ui/Buttons/BoardConfigButton';
+import { BoardActionButton } from '@/components/ui/Buttons/BoardActionButton';
+import BoardConfigContainer from '@/components/ui/Containers/BoardConfig/BoardConfigContainer';
+import BoardConfigTitle from '@/components/ui/Title/BoardConfigTitle';
+import BoardConfigOptions from '@/components/ui/Containers/BoardConfig/BoardConfigOptions';
+import BoardConfigAction from '@/components/ui/Containers/BoardConfig/BoardConfigAction';
+import ModalOverlay from '@/components/ui/Overlays/ModalOverlay';
 const BoardConfigModal = ({
   visible,
   currentBoards,
@@ -16,54 +22,46 @@ const BoardConfigModal = ({
   if (!visible) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50">
-      <div className="bg-black p-6 w-[90%] max-w-xl text-center space-y-6">
-        <h2 className="text-red-600 text-[35px] ">Number of Boards</h2>
-        <div className="flex flex-wrap gap-2 justify-center">
+    <ModalOverlay>
+      <BoardConfigContainer>
+        <BoardConfigTitle text='Number of Boards' />
+        <BoardConfigOptions>
           {[1, 2, 3, 4, 5].map(num => (
-            <button
+            <BoardConfigButton
               key={num}
+              label={num}
+              isActive={selectedBoards === num}
               onClick={() => setSelectedBoards(num)}
-              className={clsx("min-w-[60px] px-4 py-2 text-white text-xl",
-                selectedBoards === num ? 'bg-red-600' : 'bg-blue-600'
-              )}
-            >
-              {num}
-            </button>
+            />
           ))}
-        </div>
+        </BoardConfigOptions>
 
-        <h2 className="text-red-600 text-[35px]">Board Size</h2>
-        <div className="flex flex-wrap gap-2 justify-center">
+        <BoardConfigTitle text='Board Size' />
+
+        <BoardConfigOptions>
           {[2, 3, 4, 5].map(size => (
-            <button
+            <BoardConfigButton
               key={size}
+              label={`${size}x${size}`}
+              isActive={selectedSize === size}
               onClick={() => setSelectedSize(size)}
-              className={clsx("min-w-[60px] px-4 py-2 text-white text-xl",
-                selectedSize === size ? 'bg-red-600' : 'bg-blue-600'
-              )}
-            >
-              {size}x{size}
-            </button>
+            />
           ))}
-        </div>
+        </BoardConfigOptions>
 
-        <div className="flex gap-4 pt-2">
-          <button
-            onClick={onCancel}
-            className="flex-1 py-3 bg-blue-600 text-white text-xl hover:bg-blue-700"
-          >
+        <BoardConfigAction>
+
+          <BoardActionButton onClick={onCancel}>
             Cancel
-          </button>
-          <button
-            onClick={() => onConfirm(selectedBoards, selectedSize)}
-            className="flex-1 py-3 bg-blue-600 text-white text-xl hover:bg-blue-700"
-          >
+          </BoardActionButton>
+
+          <BoardActionButton onClick={() => onConfirm(selectedBoards, selectedSize)}>
             Apply
-          </button>
-        </div>
-      </div>
-    </div>
+          </BoardActionButton>
+
+        </BoardConfigAction>
+      </BoardConfigContainer>
+    </ModalOverlay>
   );
 };
 
