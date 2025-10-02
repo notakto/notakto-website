@@ -14,6 +14,7 @@ import SoundConfigModal from '@/modals/SoundConfigModal';
 import ShortcutModal from '@/modals/ShortcutModal';
 import { useState } from 'react';
 import { ConfirmationModal } from '@/modals/ConfirmationModal';
+
 const Menu = () => {
   const user = useUser((state) => state.user);
   const setUser = useUser((state) => state.setUser);
@@ -29,6 +30,8 @@ const Menu = () => {
   const handleSignIn = async () => {
     try {
       await signInWithGoogle();
+      toast.dismiss(TOAST_IDS.User.SignInError); 
+      resetCooldown();
     } catch (error) {
       console.error('Sign in error:', error);
     }
