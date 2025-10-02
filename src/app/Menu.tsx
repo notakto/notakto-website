@@ -5,7 +5,7 @@ import { signInWithGoogle, signOutUser } from '@/services/firebase';
 import { useUser, useTut } from '@/services/store';
 import { toast } from "react-toastify";
 import { useToastCooldown } from "@/components/hooks/useToastCooldown";
-import { TOAST_DURATION,TOAST_IDS } from "@/constants/toast";
+import { TOAST_DURATION, TOAST_IDS } from "@/constants/toast";
 import { MenuButton } from '@/components/ui/Buttons/MenuButton';
 import MenuContainer from '@/components/ui/Containers/Menu/MenuContainer';
 import MenuButtonContainer from '@/components/ui/Containers/Menu/MenuButtonContainer';
@@ -13,6 +13,7 @@ import { MenuTitle } from '@/components/ui/Title/MenuTitle';
 import SoundConfigModal from '@/modals/SoundConfigModal';
 import ShortcutModal from '@/modals/ShortcutModal';
 import { useState } from 'react';
+
 const Menu = () => {
   const user = useUser((state) => state.user);
   const setUser = useUser((state) => state.setUser);
@@ -56,7 +57,8 @@ const Menu = () => {
 
   return (
     <MenuContainer>
-      <MenuTitle text='Notakto'></MenuTitle>
+      {/* Updated MenuTitle with rem values for responsive font size */}
+      <MenuTitle className="text-[2rem] sm:text-[2.5rem] md:text-[3rem] lg:text-[4rem] xl:text-[5rem]" text='Notakto' />
       <MenuButtonContainer>
         <MenuButton onClick={() => startGame('vsPlayer')}> Play vs Player </MenuButton>
         <MenuButton onClick={() => startGame('vsComputer')}> Play vs Computer </MenuButton>
