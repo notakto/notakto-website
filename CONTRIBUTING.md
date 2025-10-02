@@ -166,16 +166,8 @@ notakto-socket-server/
 **Required checks:**
 ```bash
 pnpm test          # All tests pass
-pnpm lint          # No linting errors
 pnpm dev:local     # App runs without errors
 ```
-
-**Automated checks that must pass:**
-- Title Check (descriptive, not just branch/issue reference)
-- Description Check (must include overview)
-- Linked Issues Check (must implement what issue requests)
-- Out of Scope Changes Check (no unrelated modifications)
-- Docstring Coverage (80%+ required)
 
 ## Docker Testing (Optional)
 
