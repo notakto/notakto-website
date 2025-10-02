@@ -132,7 +132,7 @@ const Menu = () => {
 
   return (
     <MenuContainer>
-      {/* --- Utility buttons (top-right corner, grouped) --- */}
+      {/* --- Utility buttons (top-right corner, grouped) ---
       <div className="absolute top-20 right-15 flex flex-row gap-7">
         <button
           className="px-4 py-2 text-xl rounded-md bg-red-600 text-white font-regular hover:bg-red-700 transition"
@@ -154,7 +154,38 @@ const Menu = () => {
         >
           Shortcuts
         </button>
-      </div>
+      </div> */}
+      
+      {/* --- Utility buttons (top-right, responsive & grouped) --- */}
+<div className="absolute top-6 right-6 flex flex-wrap gap-3 justify-end max-w-[90%]">
+  <button
+    className="px-4 py-2 text-base sm:px-2 sm:py-1 sm:text-sm 
+               rounded-md bg-red-600 text-white font-medium 
+               hover:bg-red-700 transition"
+    onClick={(user) ? handleSignOut : handleSignIn}
+  >
+    {(user) ? "Sign Out" : "Sign In"}
+  </button>
+
+  <button
+    className="px-4 py-2 text-base sm:px-2 sm:py-1 sm:text-sm 
+               rounded-md bg-red-600 text-white font-medium 
+               hover:bg-red-700 transition"
+    onClick={() => setShowSoundConfig(!showSoundConfig)}
+  >
+    Sound
+  </button>
+
+  <button
+    className="px-4 py-2 text-base sm:px-2 sm:py-1 sm:text-sm 
+               rounded-md bg-red-600 text-white font-medium 
+               hover:bg-red-700 transition"
+    onClick={() => setshowShortcutConfig(!showShortcutConfig)}
+  >
+    Shortcuts
+  </button>
+</div>
+
 
       <MenuTitle text='Notakto' />
 
