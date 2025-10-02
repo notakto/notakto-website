@@ -27,6 +27,8 @@ const Menu = () => {
   const handleSignIn = async () => {
     try {
       await signInWithGoogle();
+      toast.dismiss(TOAST_IDS.User.SignInError); 
+      resetCooldown();
     } catch (error) {
       console.error('Sign in error:', error);
     }
