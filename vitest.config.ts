@@ -4,13 +4,14 @@ import path from "path";
 
 export default defineConfig({
   resolve: {
+   
     alias: {
-      "@": path.resolve(__dirname, "src"), // Resolve "@/..." to src/
+      "@": path.resolve(__dirname, "src"),
     },
   },
   test: {
-    globals: true,
-    environment: "jsdom",
+    globals: true,       
+    environment: "jsdom", 
     setupFiles: "./vitest.setup.ts",
     coverage: {
       provider: "v8",
