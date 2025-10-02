@@ -1,9 +1,11 @@
 import { toast } from "react-toastify";
+import { TOAST_DURATION,TOAST_IDS } from "@/constants/toast";
 
 export const handleBuyCoins = async (
     setIsProcessingPayment: (val: boolean) => void,
     canShowToast: () => boolean,
     triggerToastCooldown: () => void,
+    resetCooldown: () => void,
     setCoins: (val: number) => void,
     Coins: number
 ) => {
@@ -28,8 +30,11 @@ export const handleBuyCoins = async (
 
             if (!paymentWindow) {
                 if (canShowToast()) {
-                    toast('Popup blocked. Please allow popups and try again.', { autoClose: 4500 });
-                    triggerToastCooldown();
+                    toast('Popup blocked. Please allow popups and try again.', { 
+                        toastId: TOAST_IDS.Payment.PopupBlocked,
+                        autoClose: TOAST_DURATION,
+                        onClose: resetCooldown
+                     });
                 }
                 return;
             }
@@ -38,27 +43,47 @@ export const handleBuyCoins = async (
                 data.chargeId,
                 paymentWindow,
                 () => {
+                    toast.dismiss(TOAST_IDS.Payment.Failure);
+                    toast.dismiss(TOAST_IDS.Payment.PopupBlocked);
+                    resetCooldown();
+                    
                     if (canShowToast()) {
-                        toast('✅ Payment successful! 100 coins added to your account.', { autoClose: 4500 });
-                        triggerToastCooldown();
+                        toast('✅ Payment successful! 100 coins added to your account.', { 
+                            toastId: TOAST_IDS.Payment.Success,
+                            autoClose: TOAST_DURATION,
+                            onClose: resetCooldown
+                        });
+                        
                     }
                     setCoins(Coins + 100);
                 },
                 (reason) => {
                     if (canShowToast()) {
-                        toast(`❌ ${reason}`, { autoClose: 4500 });
-                        triggerToastCooldown();
+                        toast(`❌ ${reason}`, { 
+                            toastId: TOAST_IDS.Payment.Failure,
+                            autoClose: TOAST_DURATION,
+                            onClose: resetCooldown 
+                        });
+                        
                     }
                 }
             );
         } else if (canShowToast()) {
-            toast("Payment failed: Could not initiate payment", { autoClose: 4500 });
-            triggerToastCooldown();
+            toast("Payment failed: Could not initiate payment", { 
+                toastId: TOAST_IDS.Payment.Failure,
+                autoClose: TOAST_DURATION,
+                onClose: resetCooldown
+             });
+            
         }
     } catch (error) {
         if (canShowToast()) {
-            toast("Payment processing failed", { autoClose: 4500 });
-            triggerToastCooldown();
+            toast("Payment processing failed", { 
+                toastId: TOAST_IDS.Payment.Failure,
+                autoClose: TOAST_DURATION,
+                onClose: resetCooldown 
+            });
+            
         }
     } finally {
         setIsProcessingPayment(false);
