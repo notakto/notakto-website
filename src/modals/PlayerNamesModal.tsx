@@ -5,6 +5,11 @@ import { toast } from "react-toastify";
 import { useToastCooldown } from "@/components/hooks/useToastCooldown";
 import { TOAST_DURATION, TOAST_IDS } from "@/constants/toast";
 import { PlayerInput } from '@/components/ui/Inputs/PlayerInput';
+import ModalOverlay from '@/components/ui/Overlays/ModalOverlay';
+import PlayerNameModalTitle from '@/components/ui/Title/PlayerNameModalTitle';
+import PlayerNameModalContainer from '@/components/ui/Containers/PlayerNameModal/PlayerNameModalContainer';
+import PlayerNameFormContainer from '@/components/ui/Containers/PlayerNameModal/PlayerNameFormContainer';
+import { PlayerStartButton } from '@/components/ui/Buttons/PlayerStartButton';
 
 const PlayerNamesModal = ({ visible, onSubmit, initialNames = ['Player 1', 'Player 2'] }: PlayerNamesModalProps) => {
   const [player1, setPlayer1] = useState(initialNames[0] || 'Player 1');
@@ -22,11 +27,11 @@ const PlayerNamesModal = ({ visible, onSubmit, initialNames = ['Player 1', 'Play
 
     if (player1.trim().toLowerCase() === player2.trim().toLowerCase()) {
       toast("Player 1 and Player 2 cannot have the same name.", {
-        toastId:TOAST_IDS.PlayerNames.Duplicate,
+        toastId: TOAST_IDS.PlayerNames.Duplicate,
         autoClose: TOAST_DURATION,
         onClose: resetCooldown // reset cooldown if closed early
       });
-      
+
       return;
     }
     onSubmit(player1 || 'Player 1', player2 || 'Player 2');
@@ -35,11 +40,10 @@ const PlayerNamesModal = ({ visible, onSubmit, initialNames = ['Player 1', 'Play
   if (!visible) return null;
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center">
-      <div className="bg-black w-[80%] max-w-md p-6 text-center shadow-lg">
-        <h2 className="text-red-500 text-3xl mb-6">Enter Player Names</h2>
-        <div className='mb-6 gap-4 flex flex-col'>
-
+    <ModalOverlay>
+      <PlayerNameModalContainer>
+        <PlayerNameModalTitle text="Enter Player Names" />
+        <PlayerNameFormContainer>
           <PlayerInput
             value={player1}
             onChange={(e) => setPlayer1(e.target.value)}
@@ -51,16 +55,15 @@ const PlayerNamesModal = ({ visible, onSubmit, initialNames = ['Player 1', 'Play
             onChange={(e) => setPlayer2(e.target.value)}
             placeholder="Player 2 Name"
           />
-        </div>
+        </PlayerNameFormContainer>
 
-        <button
+        <PlayerStartButton
           onClick={handleSubmit}
-          className="bg-blue-600 text-white text-3xl w-full py-3 hover:bg-blue-700"
         >
           Start Game
-        </button>
-      </div>
-    </div>
+        </PlayerStartButton>
+      </PlayerNameModalContainer>
+    </ModalOverlay>
   );
 };
 
