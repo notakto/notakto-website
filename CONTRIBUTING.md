@@ -130,7 +130,6 @@ These guidelines are based on actual feedback from merged and reviewed PRs. Foll
 
 **Maintain 80%+ docstring coverage**
 - Run `@coderabbitai generate docstrings` to improve coverage before submitting
-- All PRs must pass the docstring coverage check
 
 ### CodeRabbit Suggestions
 
