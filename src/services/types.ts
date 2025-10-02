@@ -100,9 +100,7 @@ export interface GameState {
   numberOfBoards: BoardNumber;
   difficulty: DifficultyLevel;
   gameHistory: BoardState[][];
-  coins?: number;
-  xp?: number;
-  sessionId?: string;
+  sessionId: string;
   gameOver?: boolean;
 }
 
@@ -136,10 +134,19 @@ export interface undoMoveResponse {
 export interface skipMoveResponse {
   sessionId: string;
   gameState: GameState;
+  gameOver?: boolean;
   success: boolean;
 }
 
 export interface errorResponse {
   success: false;
   error: string;
+}
+
+// UI component props
+export interface AnimatedTitleProps {
+  text: string;
+  className?: string;
+  // Optional class for inner text element (color/size overrides)
+  textClassName?: string;
 }

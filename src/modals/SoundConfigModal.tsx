@@ -21,13 +21,11 @@ export default function SoundConfigModal({ visible, onClose }: SoundConfigModalP
         // setSfxMute(true);
     };
 
-    if (!visible) return null;
+if (!visible) return null;
     return (
-        <dialog open className="fixed inset-0 bg-black/80 flex justify-center items-center z-50">
-            <section className="bg-black p-6 w-[90%] max-w-xl space-y-6 text-center text-white">
-                <header>
-                    <h2 className="text-red-500 text-[35px]">Sound Configuration</h2>
-                </header>
+        <div className="fixed inset-0 bg-black/80 flex justify-center items-center z-50">
+            <div className="bg-black p-6 w-[90%] max-w-xl space-y-6  text-center text-white">
+                <h2 className="text-red-500 text-[35px]">Sound Configuration</h2>
 
                 {/* Background Music */}
                 <div className="my-4 flex items-center justify-between">
@@ -70,7 +68,7 @@ export default function SoundConfigModal({ visible, onClose }: SoundConfigModalP
                 </div>
 
                 {/* Controls */}
-                <footer className="mt-6 flex flex-wrap gap-3 justify-center">
+<div className="mt-6 flex flex-wrap gap-3 justify-center">
                     <SoundConfigButton
                         onClick={resetSounds}
                     >
@@ -81,8 +79,8 @@ export default function SoundConfigModal({ visible, onClose }: SoundConfigModalP
                     >
                         Return
                     </SoundConfigButton>
-                </footer>
-            </section>
-        </dialog>
+ </div>
+            </div>
+        </div>
     );
 }
