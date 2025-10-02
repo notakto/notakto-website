@@ -1,5 +1,4 @@
 import { ButtonHTMLAttributes } from "react";
-import clsx from "clsx";
 
 export function TutorialButton({
     ...props
