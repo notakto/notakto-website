@@ -1,4 +1,5 @@
 import "@testing-library/jest-dom";
 import React from "react";
 
-;(globalThis as any).React = React;
+// Make React globally available in tests
+(globalThis as any).React = React;
