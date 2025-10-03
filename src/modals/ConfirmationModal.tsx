@@ -57,7 +57,7 @@ export function ConfirmationModal({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60"
+      className="fixed inset-0 bg-black/80 flex justify-center items-center z-50"
       role="dialog"
       aria-modal="true"
       {...(title && { "aria-labelledby": "confirmation-title" })}
@@ -66,23 +66,26 @@ export function ConfirmationModal({
       <div
         ref={modalRef}
         tabIndex={-1}
-        className="bg-white rounded-xl shadow-xl p-6 w-96 max-w-full outline-none"
+        className="bg-black p-6 w-[90%] max-w-md space-y-6 text-center text-white outline-none"
       >
         {title && (
           <h2
             id="confirmation-title"
-            className="text-2xl font-semibold mb-3 text-gray-900"
+            className="text-red-500 text-[32px] font-bold"
           >
             {title}
           </h2>
         )}
         {message && (
-          <p id="confirmation-message" className="text-gray-700 text-xl mb-6">
+          <p
+            id="confirmation-message"
+            className="text-gray-300 text-xl leading-relaxed"
+          >
             {message}
           </p>
         )}
 
-        <div className="flex flex-col gap-2">
+        <div className="mt-6 flex flex-col gap-3">
           <DifficultyActionButton variant="level" onClick={onConfirm}>
             {confirmText}
           </DifficultyActionButton>
