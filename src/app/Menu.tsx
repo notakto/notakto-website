@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import { useToastCooldown } from "@/components/hooks/useToastCooldown";
 import { TOAST_DURATION, TOAST_IDS } from "@/constants/toast";
 import { MenuButton } from '@/components/ui/Buttons/MenuButton';
+import { UtilityButton } from '@/components/ui/Buttons/UtilityButton';
 import MenuContainer from '@/components/ui/Containers/Menu/MenuContainer';
 import MenuButtonContainer from '@/components/ui/Containers/Menu/MenuButtonContainer';
 import { MenuTitle } from '@/components/ui/Title/MenuTitle';
@@ -51,7 +52,7 @@ const Menu = () => {
           toastId: TOAST_IDS.User.SignInError,
           autoClose: TOAST_DURATION
         });
-        useToastCooldown(); // <-- start cooldown immediately
+        resetCooldown(); // <-- start cooldown immediately
       }
       return;
     }
@@ -60,38 +61,20 @@ const Menu = () => {
 
   return (
     <MenuContainer>
-      
-      
       {/* --- Utility buttons (top-right, responsive & grouped) --- */}
-<div className="absolute top-6 right-6 flex flex-wrap gap-3 justify-end max-w-[90%]">
-  <button
-    className="px-4 py-2 text-base sm:px-2 sm:py-1 sm:text-sm 
-               rounded-md bg-red-600 text-white font-medium 
-               hover:bg-red-700 transition"
-    onClick={(user) ? handleSignOut : handleSignIn}
-  >
-    {(user) ? "Sign Out" : "Sign In"}
-  </button>
+      <div className="absolute top-6 right-6 flex flex-wrap gap-3 justify-end max-w-[90%]">
+        <UtilityButton onClick={user ? handleSignOut : handleSignIn}>
+          {user ? "Sign Out" : "Sign In"}
+        </UtilityButton>
 
-  <button
-    className="px-4 py-2 text-base sm:px-2 sm:py-1 sm:text-sm 
-               rounded-md bg-red-600 text-white font-medium 
-               hover:bg-red-700 transition"
-    onClick={() => setShowSoundConfig(!showSoundConfig)}
-  >
-    Sound
-  </button>
+        <UtilityButton onClick={() => setShowSoundConfig(!showSoundConfig)}>
+          Sound
+        </UtilityButton>
 
-  <button
-    className="px-4 py-2 text-base sm:px-2 sm:py-1 sm:text-sm 
-               rounded-md bg-red-600 text-white font-medium 
-               hover:bg-red-700 transition"
-    onClick={() => setshowShortcutConfig(!showShortcutConfig)}
-  >
-    Shortcuts
-  </button>
-</div>
-
+        <UtilityButton onClick={() => setshowShortcutConfig(!showShortcutConfig)}>
+          Shortcuts
+        </UtilityButton>
+      </div>
 
       <MenuTitle text='Notakto' />
 
