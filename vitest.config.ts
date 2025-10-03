@@ -18,9 +18,4 @@ export default defineConfig({
       reporter: ["text", "html"],
     },
   },
-  resolve: {
-    alias: {
-      "@": path.resolve(__dirname, "src"),
-    },
-  },
 });
