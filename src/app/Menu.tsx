@@ -47,9 +47,9 @@ const Menu = () => {
       if (canShowToast()) {
         toast("Please sign in!", {
           toastId: TOAST_IDS.User.SignInError,
-          autoClose: TOAST_DURATION,
-          onClose: resetCooldown
+          autoClose: TOAST_DURATION
         });
+        useToastCooldown(); // <-- start cooldown immediately
       }
       return;
     }
