@@ -1,7 +1,7 @@
 
 const SoundConfigLabel = ({ label }: { label: string }) => (
-  <label className="text-red-500 text-2xl flex-1 text-left">
+  <span className="text-red-500 text-2xl flex-1 text-left">
     {label}
-  </label>
+  </span>
 );
 export default SoundConfigLabel
