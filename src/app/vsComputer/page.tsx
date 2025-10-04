@@ -19,6 +19,17 @@ import SoundConfigModal from '@/modals/SoundConfigModal';
 import { createGame, makeMove, resetGame, updateConfig, undoMove, skipMove } from '@/services/game-apis';
 import { TOAST_DURATION } from '@/constants/toast';
 import { useSound } from '@/services/store';
+import GameLayout from '@/components/ui/Layout/GameLayout';
+import BoardWrapper from '@/components/ui/Containers/Board/BoardWrapper';
+import SettingOverlay from '@/components/ui/Containers/Settings/SettingOverlay';
+import SettingContainer from '@/components/ui/Containers/Settings/SettingContainer';
+import PlayerTurnTitle from '@/components/ui/Title/PlayerTurnTitle';
+import SettingBar from '@/components/ui/Buttons/SettingBar';
+import BoardContainer from '@/components/ui/Containers/Board/BoardContainer';
+import GameBoardArea from '@/components/ui/Containers/Games/GameBoardArea';
+import PlayerStatusContainer from '@/components/ui/Containers/Games/PlayerStatusContainer';
+import StatLabel from '@/components/ui/Title/StatLabel';
+import StatContainer from '@/components/ui/Containers/Games/StatContainer';
 
 const Game = () => {
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
@@ -280,22 +291,19 @@ const Game = () => {
     }, []);
 
     return (
-        <div className="flex flex-col min-h-screen bg-black bg-[url('/background.png')] bg-no-repeat bg-cover bg-center relative">
-            <div className="flex-1">
-                <div className="flex flex-col items-center px-6 py-4 -mb-8">
-                    <div className="flex flex-row justify-center items-center -mt-2">
-                        <span className="text-red-600 text-[35px] ">Coins: {Coins}</span>
-                        <span className="text-red-600 text-[35px] "> | XP: {XP}</span>
-                    </div>
-                    <h2 className="text-red-600 text-[80px] mb-5 text-center">
-                        {currentPlayer === 1 ? "Your Turn" : "Computer's Turn"}
-                    </h2>
+        <GameLayout>
+            <GameBoardArea>
+                <PlayerStatusContainer>
+                    <StatContainer>
+                        <StatLabel text={`Coins: ${Coins}`} />
+                        <StatLabel text={`| XP: ${XP}`} />
+                    </StatContainer>
+                    <PlayerTurnTitle text={currentPlayer === 1 ? "Your Turn" : "Computer's Turn"} />
+                </PlayerStatusContainer>
 
-                </div>
-
-                <div className="flex flex-wrap justify-center gap-4 p-4 w-full mb-20">
+                <BoardContainer>
                     {boards.map((board, index) => (
-                        <div key={index} className="w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.3%-1.5rem)]" style={{ maxWidth: '400px' }}>
+                        <BoardWrapper key={index}>
                             <Board
                                 boardIndex={index}
                                 boardState={board}
@@ -303,30 +311,29 @@ const Game = () => {
                                 isDead={isBoardDead(board, boardSize)}
                                 boardSize={boardSize}
                             />
-                        </div>
+                        </BoardWrapper>
                     ))}
-                </div>
+                </BoardContainer>
+                <SettingBar text={"Settings"} onClick={toggleMenu} />
+            </GameBoardArea>
 
-                <div className="absolute bottom-0 left-0 right-0 flex justify-center items-center bg-blue-600 px-6 py-2 mt-2">
-                    <button onClick={toggleMenu} className="text-white text-[35px]">Settings</button>
-                </div>
-            </div>
-
-            {isMenuOpen && (
-                <div className="fixed top-0 left-0 w-screen h-screen bg-black bg-opacity-60 z-[9999] flex items-center justify-center px-4 overflow-y-auto">
-                    <div className="flex flex-wrap justify-center gap-4 max-w-4xl py-8">
-                        <SettingButton onClick={() => { handleReset(); setIsMenuOpen(false); }} disabled={isResetting} loading={isResetting}>Reset</SettingButton>
-                        <SettingButton onClick={() => { setShowBoardConfig(true); setIsMenuOpen(false); }} disabled={isUpdatingConfig}>Game Configuration</SettingButton>
-                        <SettingButton onClick={() => { handleUndo(); setIsMenuOpen(false); }} disabled={Coins < 100 || isUndoing} loading={isUndoing}>Undo (100 coins)</SettingButton>
-                        <SettingButton onClick={() => { handleSkip(); setIsMenuOpen(false); }} disabled={Coins < 200 || isSkipping} loading={isSkipping}>Skip a Move (200 coins)</SettingButton>
-                        <SettingButton onClick={() => handleBuyCoins(setIsProcessingPayment, canShowToast, triggerToastCooldown, resetCooldown, setCoins, Coins)} disabled={isProcessingPayment} loading={isProcessingPayment}>Buy Coins (100)</SettingButton>
-                        <SettingButton onClick={() => { setShowDifficultyModal(true); setIsMenuOpen(false); }}>AI Level: {difficulty}</SettingButton>
-                        <SettingButton onClick={() => { setShowSoundConfig(true); setIsMenuOpen(false) }}>Adjust Sound</SettingButton>
-                        <SettingButton onClick={() => router.push('/')}>Main Menu</SettingButton>
-                        <SettingButton onClick={toggleMenu}>Return to Game</SettingButton>
-                    </div>
-                </div>
-            )}
+            {
+                isMenuOpen && (
+                    <SettingOverlay>
+                        <SettingContainer>
+                            <SettingButton onClick={() => { handleReset(); setIsMenuOpen(false); }} disabled={isResetting} loading={isResetting}>Reset</SettingButton>
+                            <SettingButton onClick={() => { setShowBoardConfig(true); setIsMenuOpen(false); }} disabled={isUpdatingConfig}>Game Configuration</SettingButton>
+                            <SettingButton onClick={() => { handleUndo(); setIsMenuOpen(false); }} disabled={Coins < 100 || isUndoing} loading={isUndoing}>Undo (100 coins)</SettingButton>
+                            <SettingButton onClick={() => { handleSkip(); setIsMenuOpen(false); }} disabled={Coins < 200 || isSkipping} loading={isSkipping}>Skip a Move (200 coins)</SettingButton>
+                            <SettingButton onClick={() => handleBuyCoins(setIsProcessingPayment, canShowToast, triggerToastCooldown, resetCooldown, setCoins, Coins)} disabled={isProcessingPayment} loading={isProcessingPayment}>Buy Coins (100)</SettingButton>
+                            <SettingButton onClick={() => { setShowDifficultyModal(true); setIsMenuOpen(false); }}>AI Level: {difficulty}</SettingButton>
+                            <SettingButton onClick={() => { setShowSoundConfig(true); setIsMenuOpen(false) }}>Adjust Sound</SettingButton>
+                            <SettingButton onClick={() => router.push('/')}>Main Menu</SettingButton>
+                            <SettingButton onClick={toggleMenu}>Return to Game</SettingButton>
+                        </SettingContainer>
+                    </SettingOverlay>
+                )
+            }
 
             <WinnerModal
                 visible={showWinnerModal}
@@ -355,7 +362,7 @@ const Game = () => {
                 visible={showSoundConfig}
                 onClose={() => setShowSoundConfig(false)}
             />
-        </div>
+        </GameLayout >
     );
 };
 

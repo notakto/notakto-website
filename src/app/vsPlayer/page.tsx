@@ -12,7 +12,15 @@ import WinnerModal from '@/modals/WinnerModal';
 import SoundConfigModal from '@/modals/SoundConfigModal';
 import BoardConfigModal from '@/modals/BoardConfigModal';
 import { SettingButton } from '@/components/ui/Buttons/SettingButton';
-
+import GameLayout from '@/components/ui/Layout/GameLayout';
+import BoardWrapper from '@/components/ui/Containers/Board/BoardWrapper';
+import SettingOverlay from '@/components/ui/Containers/Settings/SettingOverlay';
+import SettingContainer from '@/components/ui/Containers/Settings/SettingContainer';
+import PlayerTurnTitle from '@/components/ui/Title/PlayerTurnTitle';
+import SettingBar from '@/components/ui/Buttons/SettingBar';
+import BoardContainer from '@/components/ui/Containers/Board/BoardContainer';
+import GameBoardArea from '@/components/ui/Containers/Games/GameBoardArea';
+import PlayerStatusContainer from '@/components/ui/Containers/Games/PlayerStatusContainer';
 const Game = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [boards, setBoards] = useState<BoardState[]>([]);
@@ -76,17 +84,15 @@ const Game = () => {
     };
 
     return (
-        <div className="flex flex-col min-h-screen bg-black bg-[url('/background.png')] bg-no-repeat bg-cover bg-center relative">
-            <div className="flex-1">
-                <div className="flex flex-col items-center px-6 py-4 -mb-8">
-                    <h2 className="text-red-600 text-[80px] mb-5 text-center">
-                        {currentPlayer === 1 ? `${player1Name}'s turn` : `${player2Name}'s turn`}
-                    </h2>
-                </div>
+        <GameLayout>
+            <GameBoardArea>
+                <PlayerStatusContainer>
+                    <PlayerTurnTitle text={currentPlayer === 1 ? `${player1Name}'s turn` : `${player2Name}'s turn`} />
+                </PlayerStatusContainer>
 
-                <div className="flex flex-wrap justify-center gap-4 p-4 w-full mb-20">
+                <BoardContainer>
                     {boards.map((board, index) => (
-                        <div key={index} className="w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.3%-1.5rem)]" style={{ maxWidth: '400px' }}>
+                        <BoardWrapper key={index}>
                             <Board
                                 boardIndex={index}
                                 boardState={board}
@@ -94,26 +100,25 @@ const Game = () => {
                                 isDead={isBoardDead(board, boardSize)}
                                 boardSize={boardSize}
                             />
-                        </div>
+                        </BoardWrapper>
                     ))}
-                </div>
+                </BoardContainer>
 
-                <div className="absolute bottom-0 left-0 right-0 flex justify-center items-center bg-blue-600 px-6 py-2 mt-2">
-                    <button onClick={toggleMenu} className="text-white text-[35px]">Settings</button>
-                </div>
-            </div>
+                <SettingBar text={"Settings"} onClick={toggleMenu} />
+
+            </GameBoardArea>
 
             {isMenuOpen && (
-                <div className="fixed top-0 left-0 w-screen h-screen bg-black bg-opacity-60 z-[9999] flex items-center justify-center px-4 overflow-y-auto">
-                    <div className="flex flex-wrap justify-center gap-4 max-w-4xl py-8">
+                <SettingOverlay>
+                    <SettingContainer>
                         <SettingButton onClick={() => { resetGame(numberOfBoards, boardSize); setIsMenuOpen(false); }}>Reset</SettingButton>
                         <SettingButton onClick={() => { setShowBoardConfig(!showBoardConfig); setIsMenuOpen(false); }}>Game Configuration</SettingButton>
                         <SettingButton onClick={() => { setShowNameModal(true); setIsMenuOpen(false); }}>Reset Names</SettingButton>
                         <SettingButton onClick={() => { setShowSoundConfig(true); setIsMenuOpen(false) }}>Adjust Sound</SettingButton>
                         <SettingButton onClick={exitToMenu}>Main Menu</SettingButton>
                         <SettingButton onClick={toggleMenu}>Return to Game</SettingButton>
-                    </div>
-                </div>
+                    </SettingContainer>
+                </SettingOverlay>
             )}
 
             <PlayerNamesModal
@@ -149,7 +154,7 @@ const Game = () => {
                 visible={showSoundConfig}
                 onClose={() => setShowSoundConfig(false)}
             />
-        </div>
+        </GameLayout>
     );
 };
 
