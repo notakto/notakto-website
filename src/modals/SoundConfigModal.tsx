@@ -37,8 +37,9 @@ export default function SoundConfigModal({ visible, onClose }: SoundConfigModalP
 
                 {/* Background Music */}
                 <SoundConfigSection>
-                    <SoundConfigLabel label="Background Music" />
+                    <SoundConfigLabel label="Background Music" htmlFor="bg-music-slider" />
                     <SoundConfigSlider
+                        id="bg-music-slider"
                         value={Math.round(bgVolume * 100)}
                         onChange={(e) => setBgVolume(Number(e.target.value) / 100)}
                     />
@@ -51,8 +52,9 @@ export default function SoundConfigModal({ visible, onClose }: SoundConfigModalP
 
                 {/* Player Move */}
                 <SoundConfigSection>
-                    <SoundConfigLabel label="Player Move Sound" />
+                    <SoundConfigLabel label="Player Move Sound" htmlFor="player-move-slider" />
                     <SoundConfigSlider
+                        id="player-move-slider"
                         value={Math.round(sfxVolume * 100)}
                         onChange={(e) => setSfxVolume(Number(e.target.value) / 100)}
                     />
