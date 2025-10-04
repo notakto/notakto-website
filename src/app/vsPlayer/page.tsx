@@ -12,6 +12,7 @@ import WinnerModal from '@/modals/WinnerModal';
 import SoundConfigModal from '@/modals/SoundConfigModal';
 import BoardConfigModal from '@/modals/BoardConfigModal';
 import { SettingButton } from '@/components/ui/Buttons/SettingButton';
+import BackgroundImage from "@/components/BackgroundImage";
 
 const Game = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -76,8 +77,10 @@ const Game = () => {
     };
 
     return (
-        <div className="flex flex-col min-h-screen bg-black bg-[url('/background.png')] bg-no-repeat bg-cover bg-center relative">
-            <div className="flex-1">
+-        <div className="flex flex-col min-h-screen bg-black bg-[url('/background.png')] bg-no-repeat bg-cover bg-center relative">
++        <div className="relative flex flex-col min-h-screen bg-black">
++            <BackgroundImage />
+             <div className="flex-1">
                 <div className="flex flex-col items-center px-6 py-4 -mb-8">
                     <h2 className="text-red-600 text-[80px] mb-5 text-center">
                         {currentPlayer === 1 ? `${player1Name}'s turn` : `${player2Name}'s turn`}
