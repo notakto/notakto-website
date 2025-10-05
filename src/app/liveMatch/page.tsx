@@ -4,8 +4,18 @@ import { io } from "socket.io-client";
 import { useRouter } from "next/navigation";
 import clsx from "clsx";
 import { toast } from "react-toastify";
-import { TOAST_DURATION,TOAST_IDS } from "@/constants/toast";
+import { TOAST_DURATION, TOAST_IDS } from "@/constants/toast";
 import { useToastCooldown } from "@/components/hooks/useToastCooldown";
+import GameLayout from "@/components/ui/Layout/GameLayout";
+import Spinner from "@/components/ui/Feedback/Spinner";
+import ExitBar from "@/components/ui/Buttons/ExitBar";
+import PlayerTurnTitle from "@/components/ui/Title/PlayerTurnTitle";
+import LiveContainer from "@/components/ui/Containers/Games/Live/LiveContainer";
+import SearchContainer from "@/components/ui/Containers/Games/Live/SearchContainer";
+import SearchLabel from "@/components/ui/Title/SearchLabel";
+import BoardCell from "@/components/ui/Containers/Games/Live/BoardCell";
+import BoardGridContainer from "@/components/ui/Containers/Games/Live/BoardGridContainer";
+import BoardLiveContainer from "@/components/ui/Containers/Games/Live/BoardLiveContainer";
 
 const SERVER_URL = "https://notakto-websocket.onrender.com";
 const socket = io(SERVER_URL);
@@ -41,7 +51,7 @@ const LiveMode = () => {
     });
 
     socket.on("gameOver", (data: { loser: string }) => {
-      toast(data.loser === socket.id ? "You Lost!" : "You Won!",{
+      toast(data.loser === socket.id ? "You Lost!" : "You Won!", {
         toastId: TOAST_IDS.LiveMatch.GameOver,
         autoClose: TOAST_DURATION,
         onClose: resetCooldown
@@ -79,49 +89,36 @@ const LiveMode = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-black bg-[url('/background.png')] bg-no-repeat bg-cover bg-center">
-      <div className="flex-1 flex flex-col justify-center items-center px-4">
+    <GameLayout>
+      <LiveContainer>
         {gameState === "playing" ? (
           <>
-            <h1 className="text-5xl text-red-600 mb-6">
-              {isMyTurn ? "Your Turn" : "Opponent's Turn"}
-            </h1>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 pb-10">
+            <PlayerTurnTitle variant={"live"} text={isMyTurn ? "Your Turn" : "Opponent's Turn"} />
+            <BoardGridContainer>
               {boards.map((board, boardIndex) => (
-                <div
-                  key={boardIndex}
-                  className={clsx(
-                    "w-[300px] h-[300px] flex flex-wrap bg-black",
-                    board.blocked && "opacity-50"
-                  )}
-                >
+                <BoardLiveContainer key={boardIndex} blocked={board.blocked}>
                   {board.grid.map((cell, cellIndex) => (
-                    <button
+
+                    <BoardCell
                       key={cellIndex}
+                      value={cell}
                       onClick={() => handleMove(boardIndex, cellIndex)}
-                      disabled={!isMyTurn || board.blocked || cell !== ""}
-                      className="w-1/3 h-1/3 border border-gray-300 flex items-center justify-center bg-black"
-                    >
-                      <span className="text-[100px] text-red-600">{cell}</span>
-                    </button>
+                      disabled={!isMyTurn || board.blocked || cell !== ""} />
+
                   ))}
-                </div>
+                </BoardLiveContainer>
               ))}
-            </div>
+            </BoardGridContainer>
           </>
         ) : (
-          <div className="flex flex-col items-center gap-5">
-            <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
-            <p className="text-white text-2xl">Searching for opponent...</p>
-          </div>
+          <SearchContainer>
+            <Spinner />
+            <SearchLabel text="Searching for opponent..." />
+          </SearchContainer>
         )}
-      </div>
-      <div className="w-full bg-red-600 py-3 text-center mt-auto">
-        <button onClick={onClose} className="text-white text-2xl">
-          Leave
-        </button>
-      </div>
-    </div>
+      </LiveContainer>
+      <ExitBar text={"Leave"} onClick={onClose} />
+    </GameLayout>
   );
 };
 
