@@ -1,7 +1,7 @@
 import { ButtonHTMLAttributes } from "react";
 
 interface ExitBarProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-    text: String;
+    text: string;
 }
 export default function ExitBar({
     text,
