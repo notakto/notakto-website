@@ -1,11 +1,11 @@
 import clsx from "clsx";
 import { ReactNode } from "react";
-interface BoardContainerProps {
+interface BoardLiveContainerProps {
     blocked: boolean;
     children: ReactNode;
 }
 
-const BoardLiveContainer = ({ blocked, children }: BoardContainerProps) => (
+const BoardLiveContainer = ({ blocked, children }: BoardLiveContainerProps) => (
     <div
         className={clsx(
             "w-[300px] h-[300px] flex flex-wrap bg-black",
