@@ -1,7 +1,7 @@
 import { ButtonHTMLAttributes } from "react";
 
 interface SettingBarProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-    text: String;
+    text: string;
 }
 export default function SettingBar({
     text,
