@@ -1,5 +1,11 @@
 'use client'
 
+import { ShortcutButton } from "@/components/ui/Buttons/ShortcutButton";
+import ShortcutContainer from "@/components/ui/Containers/Shortcut/ShortcutContainer";
+import ModalOverlay from "@/components/ui/Overlays/ModalOverlay";
+import ShortcutTitle from "@/components/ui/Title/ShortcutTitle";
+import ShortcutList from "@/components/ui/List/ShortcutList";
+
 type ShortcutModalProps = {
     visible: boolean;
     onClose: () => void;
@@ -19,9 +25,9 @@ export default function ShortcutModal({ visible, onClose }: ShortcutModalProps) 
     ];
 
     return (
-        <div className="fixed inset-0 bg-black/80 flex justify-center items-center z-50">
-            <div className="bg-black p-6 w-[90%] max-w-md space-y-6 text-white rounded-xl shadow-lg">
-                <h2 className="text-red-500 text-4xl mb-2">Keyboard Shortcuts</h2>
+        <ModalOverlay>
+            <ShortcutContainer>
+                <ShortcutTitle text="Keyboard Shortcuts" />
 
                 {/* Pending notice */}
                 <div className="bg-yellow-500/20 border border-yellow-500 text-yellow-400 p-3 rounded-lg text-md">
@@ -29,22 +35,10 @@ export default function ShortcutModal({ visible, onClose }: ShortcutModalProps) 
                     won’t work right now.
                 </div>
 
-                <div className="grid grid-cols-2 gap-4 text-left">
-                    {shortcuts.map((shortcut) => (
-                        <div key={shortcut.key} className="flex flex-col items-start">
-                            <h4 className="font-extrabold text-xl">{shortcut.key}</h4>
-                            <p className="text-lg text-gray-300">{shortcut.action}</p>
-                        </div>
-                    ))}
-                </div>
+                <ShortcutList shortcuts={shortcuts} />
 
-                <button
-                    className="bg-blue-600 hover:bg-blue-700 text-white px-12 py-3 text-xl w-full mt-4 rounded-lg"
-                    onClick={onClose}
-                >
-                    Return
-                </button>
-            </div>
-        </div>
+                <ShortcutButton onClick={onClose}>Return</ShortcutButton>
+            </ShortcutContainer>
+        </ModalOverlay>
     );
 }
