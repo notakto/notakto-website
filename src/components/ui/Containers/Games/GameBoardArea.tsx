@@ -1,15 +1,9 @@
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 interface GameBoardAreaProps {
-    children: ReactNode;
+	children: ReactNode;
 }
 
 export default function GameBoardArea({ children }: GameBoardAreaProps) {
-    return (
-        <div
-            className="flex-1"
-        >
-            {children}
-        </div>
-    );
+	return <div className="flex-1">{children}</div>;
 }
