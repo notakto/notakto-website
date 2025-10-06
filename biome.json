@@ -3,10 +3,18 @@
 	"vcs": {
 		"enabled": false,
 		"clientKind": "git",
-		"useIgnoreFile": false
+		"useIgnoreFile": true
 	},
 	"files": {
-		"ignoreUnknown": false
+		"ignoreUnknown": false,
+		"includes": [
+			"**/*.{js,jsx,ts,tsx,json,md}",
+			"!node_modules",
+			"!dist",
+			"!.next",
+			"!**/*.test.{js,ts,jsx,tsx}",
+			"!**/*.snap"
+		]
 	},
 	"formatter": {
 		"enabled": true,
@@ -20,7 +28,8 @@
 	},
 	"javascript": {
 		"formatter": {
-			"quoteStyle": "double"
+			"quoteStyle": "double",
+			"semicolons": "always"
 		}
 	},
 	"assist": {
