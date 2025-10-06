@@ -7,7 +7,7 @@ export function TutorialButton({
         <button
             {...props}
             className={
-                "bg-red-600 text-white text-xl px-6 py-3 rounded text-center w-full"
+                "bg-red-600 text-white text-xl px-6 py-3 text-center w-full"
             }
         />
     );

@@ -36,7 +36,7 @@ const PlayerNamesModal = ({ visible, onSubmit, initialNames = ['Player 1', 'Play
     }
     toast.dismiss(TOAST_IDS.PlayerNames.Duplicate);
     resetCooldown();
-    
+
     onSubmit(player1 || 'Player 1', player2 || 'Player 2');
   };
 
