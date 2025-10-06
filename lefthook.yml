@@ -1,7 +1,7 @@
 pre-commit:
   commands:
     biome:
-      glob: "*.{js,ts,jsx,tsx}"
+      glob: "**/*.{js,ts,jsx,tsx}"
       run: pnpm exec biome check --write {staged_files}
       # Optional: Exclude build dirs or tests
       exclude: |

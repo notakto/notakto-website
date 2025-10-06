@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import Board from "@/app/vsPlayer/Board";
 import SettingBar from "@/components/ui/Buttons/SettingBar";
 import { SettingButton } from "@/components/ui/Buttons/SettingButton";
 import BoardContainer from "@/components/ui/Containers/Board/BoardContainer";
@@ -20,7 +21,6 @@ import { isBoardDead } from "@/services/logic";
 import { playMoveSound, playWinSound } from "@/services/sounds";
 import { useSound } from "@/services/store";
 import type { BoardNumber, BoardSize, BoardState } from "@/services/types";
-import Board from "./Board";
 
 const Game = () => {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
