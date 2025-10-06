@@ -26,6 +26,7 @@ const Game = () => {
     const [numberOfBoards, setNumberOfBoards] = useState<number>(3);
     const [showBoardConfig, setShowBoardConfig] = useState<boolean>(false);
     const [showSoundConfig, setShowSoundConfig] = useState<boolean>(false);
+    const [gameHistory, setGameHistory] = useState<Array<{ boards: BoardState[], player: 1 | 2 }>>([]);
 
     const { sfxMute } = useSound();
     const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
@@ -33,6 +34,9 @@ const Game = () => {
 
     const makeMove = (boardIndex: number, cellIndex: number) => {
         if (boards[boardIndex][cellIndex] !== '' || isBoardDead(boards[boardIndex], boardSize)) return;
+
+        // Save current state to history before making the move
+        setGameHistory(prev => [...prev, { boards: boards, player: currentPlayer }]);
 
         const newBoards = boards.map((board, idx) =>
             idx === boardIndex ? [
@@ -62,6 +66,24 @@ const Game = () => {
         setBoards(initialBoards);
         setCurrentPlayer(1);
         setShowWinnerModal(false);
+        setGameHistory([]);
+    };
+
+    const handleUndo = () => {
+        if (gameHistory.length === 0) return;
+
+        // Get the last state from history
+        const lastState = gameHistory[gameHistory.length - 1];
+        
+        // Restore the previous state
+        setBoards(lastState.boards);
+        setCurrentPlayer(lastState.player);
+        
+        // Remove the last state from history
+        setGameHistory(prev => prev.slice(0, -1));
+        
+        // Close the menu
+        setIsMenuOpen(false);
     };
 
     const handleBoardConfigChange = (num: number, size: number) => {
@@ -107,6 +129,7 @@ const Game = () => {
                 <div className="fixed top-0 left-0 w-screen h-screen bg-black bg-opacity-60 z-[9999] flex items-center justify-center px-4 overflow-y-auto">
                     <div className="flex flex-wrap justify-center gap-4 max-w-4xl py-8">
                         <SettingButton onClick={() => { resetGame(numberOfBoards, boardSize); setIsMenuOpen(false); }}>Reset</SettingButton>
+                        <SettingButton onClick={handleUndo} disabled={gameHistory.length === 0}>Undo Move</SettingButton>
                         <SettingButton onClick={() => { setShowBoardConfig(!showBoardConfig); setIsMenuOpen(false); }}>Game Configuration</SettingButton>
                         <SettingButton onClick={() => { setShowNameModal(true); setIsMenuOpen(false); }}>Reset Names</SettingButton>
                         <SettingButton onClick={() => { setShowSoundConfig(true); setIsMenuOpen(false) }}>Adjust Sound</SettingButton>
