@@ -321,7 +321,7 @@ const Game = () => {
 		}
 	};
 
-	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation here>
+	// biome-ignore lint/correctness/useExhaustiveDependencies: <intentionally run only on mount to initialize game once>
 	useEffect(() => {
 		initGame(numberOfBoards, boardSize, difficulty);
 	}, []);

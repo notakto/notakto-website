@@ -1,13 +1,16 @@
 import axios from "axios";
 import { type NextRequest, NextResponse } from "next/server";
 
-const COINBASE_API_KEY = process.env.COINBASE_API_KEY;
-if (!COINBASE_API_KEY) {
-	throw new Error("COINBASE_API_KEY environment variable is not set.");
-}
-const COINBASE_API_URL = "https://api.commerce.coinbase.com/charges";
-
 export async function POST(req: NextRequest) {
+	const COINBASE_API_KEY = process.env.COINBASE_API_KEY;
+	if (!COINBASE_API_KEY) {
+		return NextResponse.json(
+			{ success: false, error: "Missing Coinbase API key" },
+			{ status: 500 },
+		);
+	}
+	const COINBASE_API_URL = "https://api.commerce.coinbase.com/charges";
+
 	try {
 		const body = await req.json();
 		const { amount, currency, customerId, customerName } = body;

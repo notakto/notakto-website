@@ -19,7 +19,7 @@ const PlayerNamesModal = ({
 	const [player1, setPlayer1] = useState(initialNames[0] || "Player 1");
 	const [player2, setPlayer2] = useState(initialNames[1] || "Player 2");
 
-	const { canShowToast, resetCooldown } = useToastCooldown(TOAST_DURATION);
+	const { canShowToast,triggerToastCooldown, resetCooldown } = useToastCooldown(TOAST_DURATION);
 
 	useEffect(() => {
 		setPlayer1(initialNames[0] || "Player 1");
@@ -35,7 +35,7 @@ const PlayerNamesModal = ({
 				autoClose: TOAST_DURATION,
 				onClose: resetCooldown, // reset cooldown if closed early
 			});
-
+			triggerToastCooldown();
 			return;
 		}
 		toast.dismiss(TOAST_IDS.PlayerNames.Duplicate);

@@ -1,13 +1,16 @@
 import axios from "axios";
 import { type NextRequest, NextResponse } from "next/server";
 
-const COINBASE_API_KEY = process.env.COINBASE_API_KEY;
-if (!COINBASE_API_KEY) {
-	throw new Error("COINBASE_API_KEY environment variable is not set");
-}
-const COINBASE_API_URL = "https://api.commerce.coinbase.com/charges";
-
 export async function GET(req: NextRequest) {
+	const COINBASE_API_KEY = process.env.COINBASE_API_KEY;
+	if (!COINBASE_API_KEY) {
+		return NextResponse.json(
+			{ status: "missing_api_key" },
+			{ status: 500 },
+		);
+	}
+	const COINBASE_API_URL = "https://api.commerce.coinbase.com/charges";
+
 	try {
 		const chargeId = req.nextUrl.pathname.split("/").pop(); // gets the [id] from URL
 
