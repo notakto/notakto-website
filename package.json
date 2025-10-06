@@ -7,13 +7,13 @@
 		"dev": "next dev --turbo",
 		"build": "next build",
 		"start": "next start",
-		"lint": "next lint",
 		"ci-setup": "pnpm install --frozen-lockfile",
 		"test:coverage": "vitest run --coverage",
 		"test": "vitest run",
 		"test:watch": "vitest",
 		"test:ui": "vitest --ui",
 		"coverage": "vitest run --coverage",
+		"prepare": "lefthook install",
 		"dev:local": "concurrently --kill-others --prefix \"[{name}]\" --names \"NEXT.JS,SOCKET\" \"pnpm dev\" \"cd notakto-socket-server && pnpm start\"",
 		"install:all": "pnpm install && cd notakto-socket-server && pnpm install",
 		"postinstall": "cd notakto-socket-server && pnpm install || echo 'Socket server dependencies will be installed on first run'"
@@ -50,6 +50,7 @@
 		"eslint": "^9.34.0",
 		"eslint-config-next": "^15.5.2",
 		"jsdom": "^26.1.0",
+		"lefthook": "^1.13.6",
 		"ts-node": "^10.9.2",
 		"typescript": "^5.9.2",
 		"vitest": "^3.2.4"
