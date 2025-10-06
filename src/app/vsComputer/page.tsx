@@ -74,8 +74,7 @@ const Game = () => {
 	const XP = useXP((state) => state.XP);
 	const user = useUser((state) => state.user);
 	const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
-	const { canShowToast, resetCooldown } =
-		useToastCooldown(TOAST_DURATION);
+	const { canShowToast, resetCooldown } = useToastCooldown(TOAST_DURATION);
 	const router = useRouter();
 
 	const initGame = async (

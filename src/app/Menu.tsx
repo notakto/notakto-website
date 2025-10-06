@@ -20,8 +20,7 @@ const Menu = () => {
 	const setShowTut = useTut((state) => state.setShowTut);
 
 	const router = useRouter();
-	const { canShowToast, resetCooldown } =
-		useToastCooldown(TOAST_DURATION);
+	const { canShowToast, resetCooldown } = useToastCooldown(TOAST_DURATION);
 	const [showSoundConfig, setShowSoundConfig] = useState<boolean>(false);
 	const [showShortcutConfig, setshowShortcutConfig] = useState<boolean>(false);
 

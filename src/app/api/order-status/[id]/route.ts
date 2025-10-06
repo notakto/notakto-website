@@ -27,7 +27,7 @@ export async function GET(req: NextRequest) {
 
 		return NextResponse.json({ status: latestStatus });
 	} catch (error) {
-		console.error("Error checking payment status:",error);
+		console.error("Error checking payment status:", error);
 		return NextResponse.json({ status: "unknown" }, { status: 500 });
 	}
 }

@@ -35,7 +35,7 @@ export async function POST(req: NextRequest) {
 
 		return NextResponse.json({ success: true, chargeId, paymentUrl });
 	} catch (error) {
-		console.error("Error creating payment:",error);
+		console.error("Error creating payment:", error);
 		return NextResponse.json(
 			{ success: false, error: "Payment creation failed" },
 			{ status: 500 },

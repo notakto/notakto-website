@@ -58,7 +58,9 @@ function getCellValue(cellIndex: number, boardSize: number): number {
 	}
 	const value = boardMap.get(cellIndex);
 	if (value === undefined) {
-		throw new Error(`No cell value found for cell index ${cellIndex} on board size ${boardSize}`);
+		throw new Error(
+			`No cell value found for cell index ${cellIndex} on board size ${boardSize}`,
+		);
 	}
 	return value;
 }

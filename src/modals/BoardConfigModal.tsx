@@ -8,7 +8,11 @@ import BoardConfigContainer from "@/components/ui/Containers/BoardConfig/BoardCo
 import BoardConfigOptions from "@/components/ui/Containers/BoardConfig/BoardConfigOptions";
 import ModalOverlay from "@/components/ui/Overlays/ModalOverlay";
 import BoardConfigTitle from "@/components/ui/Title/BoardConfigTitle";
-import type { BoardConfigModalProps, BoardNumber, BoardSize } from "@/services/types";
+import type {
+	BoardConfigModalProps,
+	BoardNumber,
+	BoardSize,
+} from "@/services/types";
 
 const BoardConfigModal = ({
 	visible,
@@ -17,7 +21,8 @@ const BoardConfigModal = ({
 	onConfirm,
 	onCancel,
 }: BoardConfigModalProps) => {
-	const [selectedBoards, setSelectedBoards] = useState<BoardNumber>(currentBoards);
+	const [selectedBoards, setSelectedBoards] =
+		useState<BoardNumber>(currentBoards);
 	const [selectedSize, setSelectedSize] = useState<BoardSize>(currentSize);
 	const BoardNumbers: BoardNumber[] = [1, 2, 3, 4, 5];
 	const BoardSizes: BoardSize[] = [2, 3, 4, 5];

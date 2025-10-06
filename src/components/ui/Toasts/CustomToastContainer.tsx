@@ -1,9 +1,6 @@
 "use client";
 
-import {
-	ToastContainer,
-	type ToastContainerProps,
-} from "react-toastify";
+import { ToastContainer, type ToastContainerProps } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { VT323 } from "next/font/google";
 import { TOAST_DURATION } from "@/constants/toast";
