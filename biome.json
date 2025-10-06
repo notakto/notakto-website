@@ -23,7 +23,20 @@
 	"linter": {
 		"enabled": true,
 		"rules": {
-			"recommended": true
+			"recommended": true,
+			"style": {
+				"noRestrictedImports": {
+					"level": "error",
+					"options": {
+						"patterns": [
+							{
+								"group": ["./*", "../*"],
+								"message": "Use the @ alias for all internal project imports, even in the same directory."
+							}
+						]
+					}
+				}
+			}
 		}
 	},
 	"javascript": {
