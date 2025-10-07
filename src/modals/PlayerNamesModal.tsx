@@ -11,16 +11,11 @@ import PlayerNameModalTitle from "@/components/ui/Title/PlayerNameModalTitle";
 import { TOAST_DURATION, TOAST_IDS } from "@/constants/toast";
 import type { PlayerNamesModalProps } from "@/services/types";
 
-const PlayerNamesModal = ({
-	visible,
-	onSubmit,
-	initialNames = ["Player 1", "Player 2"],
-}: PlayerNamesModalProps) => {
+const PlayerNamesModal = ({ visible, onSubmit, initialNames = ["Player 1", "Player 2"] }: PlayerNamesModalProps) => {
 	const [player1, setPlayer1] = useState(initialNames[0] || "Player 1");
 	const [player2, setPlayer2] = useState(initialNames[1] || "Player 2");
 
-	const { canShowToast, triggerToastCooldown, resetCooldown } =
-		useToastCooldown(TOAST_DURATION);
+	const { canShowToast, triggerToastCooldown, resetCooldown } = useToastCooldown(TOAST_DURATION);
 
 	useEffect(() => {
 		setPlayer1(initialNames[0] || "Player 1");
@@ -52,17 +47,9 @@ const PlayerNamesModal = ({
 			<PlayerNameModalContainer>
 				<PlayerNameModalTitle text="Enter Player Names" />
 				<PlayerNameFormContainer>
-					<PlayerInput
-						value={player1}
-						onChange={(e) => setPlayer1(e.target.value)}
-						placeholder="Player 1 Name"
-					/>
+					<PlayerInput value={player1} onChange={(e) => setPlayer1(e.target.value)} placeholder="Player 1 Name" />
 
-					<PlayerInput
-						value={player2}
-						onChange={(e) => setPlayer2(e.target.value)}
-						placeholder="Player 2 Name"
-					/>
+					<PlayerInput value={player2} onChange={(e) => setPlayer2(e.target.value)} placeholder="Player 2 Name" />
 				</PlayerNameFormContainer>
 
 				<PlayerStartButton onClick={handleSubmit}>Start Game</PlayerStartButton>

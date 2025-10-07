@@ -16,14 +16,11 @@ export async function middleware(req: NextRequest) {
 		const apiKey = process.env.FIREBASE_API_KEY;
 
 		try {
-			const res = await fetch(
-				`https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${apiKey}`,
-				{
-					method: "POST",
-					headers: { "Content-Type": "application/json" },
-					body: JSON.stringify({ idToken }),
-				},
-			);
+			const res = await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${apiKey}`, {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({ idToken }),
+			});
 
 			if (!res.ok) {
 				return NextResponse.json({ error: "Invalid token" }, { status: 401 });

@@ -2,22 +2,13 @@ import { db } from "@/lib/db";
 import { gameSessions } from "@/lib/game-sessions";
 import { calculateRewards } from "@/services/economyUtils";
 import type { GameState } from "@/services/types";
-export async function handleRewards(
-	gameState: GameState,
-	uid: string,
-	idToken: string,
-) {
+export async function handleRewards(gameState: GameState, uid: string, idToken: string) {
 	const loser = gameState.currentPlayer as 1 | 2;
 	const winner = loser === 1 ? 2 : 1;
 	const isHumanWinner = winner === 1;
 	gameState.gameOver = true;
 
-	const rewards = calculateRewards(
-		isHumanWinner,
-		gameState.difficulty,
-		gameState.numberOfBoards,
-		gameState.boardSize,
-	);
+	const rewards = calculateRewards(isHumanWinner, gameState.difficulty, gameState.numberOfBoards, gameState.boardSize);
 
 	gameState.winner = winner === 1 ? "You" : "Computer";
 	gameSessions.set(gameState.sessionId, gameState);

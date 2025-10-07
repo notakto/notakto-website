@@ -4,10 +4,7 @@ import { type NextRequest, NextResponse } from "next/server";
 export async function POST(req: NextRequest) {
 	const COINBASE_API_KEY = process.env.COINBASE_API_KEY;
 	if (!COINBASE_API_KEY) {
-		return NextResponse.json(
-			{ success: false, error: "Missing Coinbase API key" },
-			{ status: 500 },
-		);
+		return NextResponse.json({ success: false, error: "Missing Coinbase API key" }, { status: 500 });
 	}
 	const COINBASE_API_URL = "https://api.commerce.coinbase.com/charges";
 
@@ -39,9 +36,6 @@ export async function POST(req: NextRequest) {
 		return NextResponse.json({ success: true, chargeId, paymentUrl });
 	} catch (error) {
 		console.error("Error creating payment:", error);
-		return NextResponse.json(
-			{ success: false, error: "Payment creation failed" },
-			{ status: 500 },
-		);
+		return NextResponse.json({ success: false, error: "Payment creation failed" }, { status: 500 });
 	}
 }

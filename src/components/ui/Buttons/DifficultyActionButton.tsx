@@ -1,15 +1,10 @@
 import clsx from "clsx";
 
-interface DifficultyActionProps
-	extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface DifficultyActionProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 	variant?: "level" | "cancel";
 }
 
-export function DifficultyActionButton({
-	variant = "level",
-	children,
-	...props
-}: DifficultyActionProps) {
+export function DifficultyActionButton({ variant = "level", children, ...props }: DifficultyActionProps) {
 	return (
 		<button
 			className={clsx(
@@ -17,8 +12,7 @@ export function DifficultyActionButton({
 				variant === "level" && "bg-blue-600 hover:bg-blue-700 my-2",
 				variant === "cancel" && "bg-red-600 hover:bg-red-700 mt-4",
 			)}
-			{...props}
-		>
+			{...props}>
 			{children}
 		</button>
 	);

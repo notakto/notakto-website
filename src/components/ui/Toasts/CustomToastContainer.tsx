@@ -44,8 +44,7 @@ export function CustomToastContainer({
 					type="button"
 					onClick={props.closeToast}
 					className={`absolute top-1 flex items-center justify-center right-1 h-[25px] w-[25px] text-white ${vt323.className} border-1 rounded-full hover:text-slate-200`}
-					aria-label="close"
-				>
+					aria-label="close">
 					X
 				</button>
 			)}

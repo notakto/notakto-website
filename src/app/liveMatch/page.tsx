@@ -32,9 +32,7 @@ const LiveMode = () => {
 	);
 	const [isMyTurn, setIsMyTurn] = useState(false);
 	const [roomId, setRoomId] = useState("");
-	const [gameState, setGameState] = useState<"searching" | "playing">(
-		"searching",
-	);
+	const [gameState, setGameState] = useState<"searching" | "playing">("searching");
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation here>
 	useEffect(() => {
@@ -77,13 +75,7 @@ const LiveMode = () => {
 	}, []);
 
 	const handleMove = (boardIndex: number, cellIndex: number) => {
-		if (
-			!isMyTurn ||
-			boards[boardIndex].blocked ||
-			boards[boardIndex].grid[cellIndex] !== "" ||
-			!roomId
-		)
-			return;
+		if (!isMyTurn || boards[boardIndex].blocked || boards[boardIndex].grid[cellIndex] !== "" || !roomId) return;
 		socket.emit("makeMove", { roomId, boardIndex, cellIndex });
 	};
 
@@ -102,10 +94,7 @@ const LiveMode = () => {
 			<LiveContainer>
 				{gameState === "playing" ? (
 					<>
-						<PlayerTurnTitle
-							variant={"live"}
-							text={isMyTurn ? "Your Turn" : "Opponent's Turn"}
-						/>
+						<PlayerTurnTitle variant={"live"} text={isMyTurn ? "Your Turn" : "Opponent's Turn"} />
 						<BoardGridContainer>
 							{boards.map((board, boardIndex) => {
 								const boardKey = `board-${roomId}-${board.grid.join("")}-${board.blocked}`;

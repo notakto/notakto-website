@@ -24,46 +24,12 @@ describe("isBoardDead", () => {
 	});
 
 	it("detects dead board on 4x4 diagonal", () => {
-		const board: BoardState = [
-			"X",
-			"",
-			"",
-			"",
-			"",
-			"X",
-			"",
-			"",
-			"",
-			"",
-			"X",
-			"",
-			"",
-			"",
-			"",
-			"X",
-		];
+		const board: BoardState = ["X", "", "", "", "", "X", "", "", "", "", "X", "", "", "", "", "X"];
 		expect(isBoardDead(board, 4)).toBe(true);
 	});
 
 	it("detects live 4x4 board with scattered Xs", () => {
-		const board: BoardState = [
-			"X",
-			"",
-			"X",
-			"",
-			"",
-			"X",
-			"",
-			"",
-			"",
-			"",
-			"",
-			"",
-			"",
-			"",
-			"",
-			"",
-		];
+		const board: BoardState = ["X", "", "X", "", "", "X", "", "", "", "", "", "", "", "", "", ""];
 		expect(isBoardDead(board, 4)).toBe(false);
 	});
 });

@@ -14,10 +14,8 @@ vi.mock("@/services/firebase", () => ({
 }));
 
 vi.mock("@/services/store", () => ({
-	useUser: <T,>(selector: (state: userStore) => T) =>
-		selector({ user: null, setUser: vi.fn() }),
-	useTut: <T,>(selector: (state: tutStore) => T) =>
-		selector({ showTut: false, setShowTut: vi.fn() }),
+	useUser: <T,>(selector: (state: userStore) => T) => selector({ user: null, setUser: vi.fn() }),
+	useTut: <T,>(selector: (state: tutStore) => T) => selector({ showTut: false, setShowTut: vi.fn() }),
 	useSound: () => ({
 		bgMute: false,
 		bgVolume: 0.5,

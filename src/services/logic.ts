@@ -8,9 +8,6 @@ export const isBoardDead = (board: BoardState, boardSize: number) => {
 		if (row.every((c) => c === "X") || col.every((c) => c === "X")) return true;
 	}
 	const diag1 = Array.from({ length: size }, (_, i) => board[i * (size + 1)]);
-	const diag2 = Array.from(
-		{ length: size },
-		(_, i) => board[(i + 1) * (size - 1)],
-	);
+	const diag2 = Array.from({ length: size }, (_, i) => board[(i + 1) * (size - 1)]);
 	return diag1.every((c) => c === "X") || diag2.every((c) => c === "X");
 };

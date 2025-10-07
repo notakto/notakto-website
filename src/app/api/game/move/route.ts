@@ -23,10 +23,7 @@ export async function POST(request: NextRequest) {
 			!Number.isInteger(body.cellIndex) ||
 			body.cellIndex < 0
 		) {
-			return NextResponse.json(
-				{ error: "Invalid request body" },
-				{ status: 400 },
-			);
+			return NextResponse.json({ error: "Invalid request body" }, { status: 400 });
 		}
 		const { sessionId, boardIndex, cellIndex } = body as {
 			sessionId: string;
@@ -34,20 +31,11 @@ export async function POST(request: NextRequest) {
 			cellIndex: number;
 		};
 
-		const result = await handlePlayerMove(
-			sessionId,
-			boardIndex,
-			cellIndex,
-			uid,
-			idToken,
-		);
+		const result = await handlePlayerMove(sessionId, boardIndex, cellIndex, uid, idToken);
 		const { status = 200, ...payload } = result as { status?: number };
 		return NextResponse.json(payload, { status });
 	} catch (error) {
 		console.error("Move error:", error);
-		return NextResponse.json(
-			{ error: "Internal server error" },
-			{ status: 500 },
-		);
+		return NextResponse.json({ error: "Internal server error" }, { status: 500 });
 	}
 }

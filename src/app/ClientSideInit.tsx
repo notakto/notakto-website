@@ -11,25 +11,19 @@ import { useCoins, useUser, useXP } from "@/services/store";
 
 const ClientSideInit = (): null => {
 	const user = useUser((state) => state.user);
-	const setCoins = useCoins(
-		(state): ((newCoins: number) => void) => state.setCoins,
-	);
+	const setCoins = useCoins((state): ((newCoins: number) => void) => state.setCoins);
 	const setXP = useXP((state): ((newXP: number) => void) => state.setXP);
-	const setUser = useUser(
-		(state): ((newUser: User | null) => void) => state.setUser,
-	);
+	const setUser = useUser((state): ((newUser: User | null) => void) => state.setUser);
 
 	// Load user
 	useEffect((): (() => void) => {
-		const unsubscribe = onAuthStateChangedListener(
-			async (usr): Promise<void> => {
-				setUser(usr);
-				if (!usr) {
-					setCoins(1000);
-					setXP(0);
-				}
-			},
-		);
+		const unsubscribe = onAuthStateChangedListener(async (usr): Promise<void> => {
+			setUser(usr);
+			if (!usr) {
+				setCoins(1000);
+				setXP(0);
+			}
+		});
 		return (): void => unsubscribe();
 	}, [setCoins, setUser, setXP]);
 	useEffect((): (() => void) | undefined => {

@@ -41,16 +41,10 @@ const Game = () => {
 	const router = useRouter();
 
 	const makeMove = (boardIndex: number, cellIndex: number) => {
-		if (
-			boards[boardIndex][cellIndex] !== "" ||
-			isBoardDead(boards[boardIndex], boardSize)
-		)
-			return;
+		if (boards[boardIndex][cellIndex] !== "" || isBoardDead(boards[boardIndex], boardSize)) return;
 
 		const newBoards = boards.map((board, idx) =>
-			idx === boardIndex
-				? [...board.slice(0, cellIndex), "X", ...board.slice(cellIndex + 1)]
-				: [...board],
+			idx === boardIndex ? [...board.slice(0, cellIndex), "X", ...board.slice(cellIndex + 1)] : [...board],
 		);
 		playMoveSound(sfxMute);
 		setBoards(newBoards);
@@ -92,13 +86,7 @@ const Game = () => {
 		<GameLayout>
 			<GameBoardArea>
 				<PlayerStatusContainer>
-					<PlayerTurnTitle
-						text={
-							currentPlayer === 1
-								? `${player1Name}'s turn`
-								: `${player2Name}'s turn`
-						}
-					/>
+					<PlayerTurnTitle text={currentPlayer === 1 ? `${player1Name}'s turn` : `${player2Name}'s turn`} />
 				</PlayerStatusContainer>
 
 				<BoardContainer>
@@ -106,13 +94,7 @@ const Game = () => {
 						const boardKey = `${board.join("-")}-${index}`; //TODO: use better key
 						return (
 							<BoardWrapper key={boardKey}>
-								<Board
-									boardIndex={index}
-									boardState={board}
-									makeMove={makeMove}
-									isDead={isBoardDead(board, boardSize)}
-									boardSize={boardSize}
-								/>
+								<Board boardIndex={index} boardState={board} makeMove={makeMove} isDead={isBoardDead(board, boardSize)} boardSize={boardSize} />
 							</BoardWrapper>
 						);
 					})}
@@ -128,32 +110,28 @@ const Game = () => {
 							onClick={() => {
 								resetGame(numberOfBoards, boardSize);
 								setIsMenuOpen(false);
-							}}
-						>
+							}}>
 							Reset
 						</SettingButton>
 						<SettingButton
 							onClick={() => {
 								setShowBoardConfig(!showBoardConfig);
 								setIsMenuOpen(false);
-							}}
-						>
+							}}>
 							Game Configuration
 						</SettingButton>
 						<SettingButton
 							onClick={() => {
 								setShowNameModal(true);
 								setIsMenuOpen(false);
-							}}
-						>
+							}}>
 							Reset Names
 						</SettingButton>
 						<SettingButton
 							onClick={() => {
 								setShowSoundConfig(true);
 								setIsMenuOpen(false);
-							}}
-						>
+							}}>
 							Adjust Sound
 						</SettingButton>
 						<SettingButton onClick={exitToMenu}>Main Menu</SettingButton>
@@ -191,10 +169,7 @@ const Game = () => {
 				onConfirm={handleBoardConfigChange}
 				onCancel={() => setShowBoardConfig(false)}
 			/>
-			<SoundConfigModal
-				visible={showSoundConfig}
-				onClose={() => setShowSoundConfig(false)}
-			/>
+			<SoundConfigModal visible={showSoundConfig} onClose={() => setShowSoundConfig(false)} />
 		</GameLayout>
 	);
 };

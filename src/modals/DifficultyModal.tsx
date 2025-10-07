@@ -5,11 +5,7 @@ import ModalOverlay from "@/components/ui/Overlays/ModalOverlay";
 import DifficultyTitle from "@/components/ui/Title/DifficultyTitle";
 import type { DifficultyLevel, DifficultyModalProps } from "@/services/types";
 
-const DifficultyModal = ({
-	visible,
-	onSelect,
-	onClose,
-}: DifficultyModalProps) => {
+const DifficultyModal = ({ visible, onSelect, onClose }: DifficultyModalProps) => {
 	if (!visible) return null;
 	const DifficultyLevels: DifficultyLevel[] = [1, 2, 3, 4, 5];
 	return (
@@ -18,11 +14,7 @@ const DifficultyModal = ({
 				<DifficultyTitle text="Select Difficulty"></DifficultyTitle>
 
 				{DifficultyLevels.map((level) => (
-					<DifficultyActionButton
-						variant="level"
-						key={level}
-						onClick={() => onSelect(level)}
-					>
+					<DifficultyActionButton variant="level" key={level} onClick={() => onSelect(level)}>
 						Level {level}
 					</DifficultyActionButton>
 				))}

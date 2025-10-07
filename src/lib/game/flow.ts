@@ -4,13 +4,7 @@ import { applyMove, isGameOver, switchPlayer } from "@/lib/game/state";
 import { isValidMove } from "@/lib/game/validators";
 import { gameSessions } from "@/lib/game-sessions";
 
-export async function handlePlayerMove(
-	sessionId: string,
-	boardIndex: number,
-	cellIndex: number,
-	uid: string,
-	idToken: string,
-) {
+export async function handlePlayerMove(sessionId: string, boardIndex: number, cellIndex: number, uid: string, idToken: string) {
 	const gameState = gameSessions.get(sessionId);
 	if (!gameState) return { error: "Session not found", status: 404 };
 

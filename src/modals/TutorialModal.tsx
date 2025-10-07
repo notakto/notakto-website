@@ -25,9 +25,7 @@ const TutorialModal = () => {
 
 				<TutorialList items={rules} />
 
-				<TutorialButton onClick={() => setShowTut(false)}>
-					Close&nbsp;&nbsp;&nbsp;Tutorial
-				</TutorialButton>
+				<TutorialButton onClick={() => setShowTut(false)}>Close&nbsp;&nbsp;&nbsp;Tutorial</TutorialButton>
 			</TutorialContainer>
 		</ModalOverlay>
 	);

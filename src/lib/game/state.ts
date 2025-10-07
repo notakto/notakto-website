@@ -1,19 +1,14 @@
 import { isBoardDead, updateBoards } from "@/services/ai";
 import type { BoardState, GameState } from "@/services/types";
 
-export function applyMove(
-	gameState: GameState,
-	move: { boardIndex: number; cellIndex: number },
-) {
+export function applyMove(gameState: GameState, move: { boardIndex: number; cellIndex: number }) {
 	const newBoards = updateBoards(gameState.boards, move);
 	gameState.boards = newBoards;
 	gameState.gameHistory.push(newBoards);
 }
 
 export function isGameOver(gameState: GameState) {
-	return gameState.boards.every((board: BoardState) =>
-		isBoardDead(board, gameState.boardSize),
-	);
+	return gameState.boards.every((board: BoardState) => isBoardDead(board, gameState.boardSize));
 }
 
 export function switchPlayer(gameState: GameState) {

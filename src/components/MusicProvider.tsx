@@ -1,14 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import {
-	initBackgroundMusic,
-	playBackgroundMusic,
-	setBackgroundVolume,
-	setMoveVolume,
-	setWinVolume,
-	stopBackgroundMusic,
-} from "@/services/sounds";
+import { initBackgroundMusic, playBackgroundMusic, setBackgroundVolume, setMoveVolume, setWinVolume, stopBackgroundMusic } from "@/services/sounds";
 import { useSound } from "@/services/store";
 
 export default function MusicProvider() {
