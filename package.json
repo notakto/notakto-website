@@ -15,8 +15,7 @@
 		"coverage": "vitest run --coverage",
 		"prepare": "lefthook install",
 		"dev:local": "concurrently --kill-others --prefix \"[{name}]\" --names \"NEXT.JS,SOCKET\" \"pnpm dev\" \"cd notakto-socket-server && pnpm start\"",
-		"install:all": "pnpm install && cd notakto-socket-server && pnpm install",
-		"postinstall": "cd notakto-socket-server && pnpm install || echo 'Socket server dependencies will be installed on first run'"
+		"install:all": "pnpm install && cd notakto-socket-server && pnpm install"
 	},
 	"dependencies": {
 		"@tailwindcss/postcss": "^4.1.12",
