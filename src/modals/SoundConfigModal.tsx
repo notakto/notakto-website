@@ -41,8 +41,8 @@ export default function SoundConfigModal({
 	return (
 		<ModalOverlay>
 			<SoundConfigContainer>
+				<SoundConfigTitle text="Sound Configuration" />
 				<SoundConfigSection>
-					<SoundConfigTitle text="Sound Configuration" />
 					<SoundConfigLabel
 						label="Background Music"
 						htmlFor="bg-music-slider"
@@ -57,6 +57,9 @@ export default function SoundConfigModal({
 					<SoundMuteButton onClick={() => setBgMute(!bgMute)}>
 						{bgMute ? "Unmute" : "Mute"}
 					</SoundMuteButton>
+				</SoundConfigSection>
+
+				<SoundConfigSection>
 					<SoundConfigLabel
 						label="Player Move Sound"
 						htmlFor="player-move-slider"
