@@ -20,7 +20,7 @@ const Board: React.FC<BoardProps> = ({
 			>
 				{boardState.map((cell, cellIndex) => (
 					<Cell
-						key={`${boardIndex}-${cellIndex}-${cell}`}
+						key={`${boardIndex}-${cellIndex}-${cell}`} //FIXME: Improve key
 						boardIndex={boardIndex}
 						cellIndex={cellIndex}
 						value={cell}

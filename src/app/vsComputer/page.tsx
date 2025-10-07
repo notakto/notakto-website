@@ -341,6 +341,7 @@ const Game = () => {
 
 				<BoardContainer>
 					{boards.map((board, index) => (
+						//FIXME:
 						// biome-ignore lint/suspicious/noArrayIndexKey: <fix later>
 						<BoardWrapper key={index}>
 							<Board

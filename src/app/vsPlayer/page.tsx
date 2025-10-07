@@ -103,7 +103,7 @@ const Game = () => {
 
 				<BoardContainer>
 					{boards.map((board, index) => {
-						const boardKey = `${board.join("-")}-${index}`; //TODO use better key
+						const boardKey = `${board.join("-")}-${index}`; //TODO: use better key
 						return (
 							<BoardWrapper key={boardKey}>
 								<Board

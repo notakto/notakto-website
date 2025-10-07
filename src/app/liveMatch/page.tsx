@@ -113,7 +113,7 @@ const LiveMode = () => {
 									<BoardLiveContainer key={boardKey} blocked={board.blocked}>
 										{board.grid.map((cell, cellIndex) => (
 											<BoardCell
-												key={`cell-${cellIndex}-${cell}`}
+												key={`cell-${cellIndex}-${cell}`} //FIXME: better key
 												value={cell}
 												onClick={() => handleMove(boardIndex, cellIndex)}
 												disabled={!isMyTurn || board.blocked || cell !== ""}

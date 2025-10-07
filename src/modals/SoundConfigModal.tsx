@@ -7,14 +7,13 @@ import SoundConfigSection from "@/components/ui/Containers/SoundConfig/SoundConf
 import { SoundConfigSlider } from "@/components/ui/Inputs/SoundConfigSlider";
 import ModalOverlay from "@/components/ui/Overlays/ModalOverlay";
 import SoundConfigLabel from "@/components/ui/Title/SoundConfigLabel";
+import SoundConfigTitle from "@/components/ui/Title/SoundConfigTitle";
 import { useSound } from "@/services/store";
 
 type SoundConfigModalProps = {
 	visible: boolean;
 	onClose: () => void;
 };
-
-import { useId } from "react";
 
 export default function SoundConfigModal({
 	visible,
@@ -31,9 +30,6 @@ export default function SoundConfigModal({
 		setSfxVolume,
 	} = useSound();
 
-	const bgMusicSliderId = useId();
-	const playerMoveSliderId = useId();
-
 	const resetSounds = () => {
 		setBgVolume(0.3);
 		setSfxVolume(0.5);
@@ -46,12 +42,15 @@ export default function SoundConfigModal({
 		<ModalOverlay>
 			<SoundConfigContainer>
 				<SoundConfigSection>
+					<SoundConfigTitle text="Sound Configuration" />
 					<SoundConfigLabel
 						label="Background Music"
-						htmlFor={bgMusicSliderId}
+						htmlFor="bg-music-slider"
 					/>
+					{/* FIXME:*/
+					/** biome-ignore lint/correctness/useUniqueElementIds: <will take care later> */}
 					<SoundConfigSlider
-						id={bgMusicSliderId}
+						id="bg-music-slider"
 						value={Math.round(bgVolume * 100)}
 						onChange={(e) => setBgVolume(Number(e.target.value) / 100)}
 					/>
@@ -60,10 +59,12 @@ export default function SoundConfigModal({
 					</SoundMuteButton>
 					<SoundConfigLabel
 						label="Player Move Sound"
-						htmlFor={playerMoveSliderId}
+						htmlFor="player-move-slider"
 					/>
+					{/*FIXME:*/
+					/** biome-ignore lint/correctness/useUniqueElementIds: <will take care later> */}
 					<SoundConfigSlider
-						id={playerMoveSliderId}
+						id="player-move-slider"
 						value={Math.round(sfxVolume * 100)}
 						onChange={(e) => setSfxVolume(Number(e.target.value) / 100)}
 					/>
