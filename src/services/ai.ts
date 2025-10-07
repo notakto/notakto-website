@@ -1,5 +1,5 @@
 // ai.ts
-import type { BoardSize, BoardState, DifficultyLevel } from "./types";
+import type { BoardSize, BoardState, DifficultyLevel } from "@/services/types";
 
 //
 // ——— Helpers for win detection —————————————————————————————————————
