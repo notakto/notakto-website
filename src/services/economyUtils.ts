@@ -1,4 +1,4 @@
-import type { BoardSize, DifficultyLevel } from "@/services/types";
+import type { BoardSize, DifficultyLevel } from "./types";
 
 export const calculateRewards = (
 	isWin: boolean,

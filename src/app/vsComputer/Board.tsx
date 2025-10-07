@@ -1,6 +1,6 @@
 import clsx from "clsx";
-import Cell from "@/app/vsComputer/Cell";
-import type { BoardProps } from "@/services/types";
+import type { BoardProps } from "../../services/types";
+import Cell from "./Cell";
 
 const Board: React.FC<BoardProps> = ({
 	boardIndex,
