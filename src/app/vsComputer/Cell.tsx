@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import type { CellProps } from "../../services/types";
+import type { CellProps } from "@/services/types";
 
 const Cell: React.FC<CellProps> = ({ boardIndex, cellIndex, value, onPress, disabled }) => {
 	return (

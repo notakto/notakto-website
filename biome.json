@@ -27,7 +27,7 @@
 					"options": {
 						"patterns": [
 							{
-								"group": ["./*", "../*"],
+								"group": ["./**", "../**"],
 								"message": "Use the @ alias for all internal project imports, even in the same directory."
 							}
 						]

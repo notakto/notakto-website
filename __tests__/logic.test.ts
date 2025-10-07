@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { isBoardDead } from "../src/services/ai";
-import type { BoardState } from "../src/services/types";
+import { isBoardDead } from "@/services/ai";
+import type { BoardState } from "@/services/types";
 
 describe("isBoardDead", () => {
 	it("detects dead board on 3x3 row", () => {
