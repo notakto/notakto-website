@@ -1,4 +1,5 @@
 "use client";
+import ClientSideInit from "@/app/ClientSideInit";
 import Menu from "@/app/Menu";
 import { MenuLayout } from "@/components/ui/Containers/Menu/MenuLayout";
 import TutorialModal from "@/modals/TutorialModal";
