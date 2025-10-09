@@ -6,7 +6,10 @@ const app = express();
 const server = createServer(app);
 const io = new Server(server, {
 	cors: {
-		origin: ["https://notakto-website.vercel.app", "https://paradox-xx.vercel.app"],
+		origin: [
+			"https://notakto-website.vercel.app",
+			"https://paradox-xx.vercel.app",
+		],
 		methods: ["GET", "POST"],
 	},
 });

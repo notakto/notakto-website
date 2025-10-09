@@ -3,7 +3,8 @@ import { gameSessions } from "@/lib/game-sessions";
 
 export async function POST(request: NextRequest) {
 	try {
-		const { sessionId, numberOfBoards, boardSize, difficulty } = await request.json();
+		const { sessionId, numberOfBoards, boardSize, difficulty } =
+			await request.json();
 		const gameState = gameSessions.get(sessionId);
 
 		if (!gameState) {
@@ -27,6 +28,9 @@ export async function POST(request: NextRequest) {
 		return NextResponse.json({ success: true, gameState });
 	} catch (error) {
 		console.error("Config game error:", error);
-		return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+		return NextResponse.json(
+			{ error: "Internal server error" },
+			{ status: 500 },
+		);
 	}
 }

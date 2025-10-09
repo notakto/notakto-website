@@ -34,7 +34,12 @@ export async function createGame(
 	}
 }
 
-export async function makeMove(sessionId: string, boardIndex: number, cellIndex: number, idToken: string): Promise<makeMoveResponse | errorResponse> {
+export async function makeMove(
+	sessionId: string,
+	boardIndex: number,
+	cellIndex: number,
+	idToken: string,
+): Promise<makeMoveResponse | errorResponse> {
 	try {
 		const response = await fetch(`${API_BASE}/move`, {
 			method: "POST",
@@ -51,7 +56,10 @@ export async function makeMove(sessionId: string, boardIndex: number, cellIndex:
 	}
 }
 
-export async function resetGame(sessionId: string, idToken: string): Promise<resetGameResponse | errorResponse> {
+export async function resetGame(
+	sessionId: string,
+	idToken: string,
+): Promise<resetGameResponse | errorResponse> {
 	try {
 		const response = await fetch(`${API_BASE}/reset`, {
 			method: "POST",
@@ -96,7 +104,10 @@ export async function updateConfig(
 	}
 }
 
-export async function undoMove(sessionId: string, idToken: string): Promise<undoMoveResponse | errorResponse> {
+export async function undoMove(
+	sessionId: string,
+	idToken: string,
+): Promise<undoMoveResponse | errorResponse> {
 	try {
 		const response = await fetch(`${API_BASE}/undo`, {
 			method: "POST",
@@ -113,7 +124,10 @@ export async function undoMove(sessionId: string, idToken: string): Promise<undo
 	}
 }
 
-export async function skipMove(sessionId: string, idToken: string): Promise<skipMoveResponse | errorResponse> {
+export async function skipMove(
+	sessionId: string,
+	idToken: string,
+): Promise<skipMoveResponse | errorResponse> {
 	try {
 		const response = await fetch(`${API_BASE}/skip`, {
 			method: "POST",

@@ -11,7 +11,10 @@ type ShortcutModalProps = {
 	onClose: () => void;
 };
 
-export default function ShortcutModal({ visible, onClose }: ShortcutModalProps) {
+export default function ShortcutModal({
+	visible,
+	onClose,
+}: ShortcutModalProps) {
 	if (!visible) return null;
 
 	const shortcuts = [
@@ -31,7 +34,8 @@ export default function ShortcutModal({ visible, onClose }: ShortcutModalProps) 
 
 				{/* Pending notice */}
 				<div className="bg-yellow-500/20 border border-yellow-500 text-yellow-400 p-3 rounded-lg text-md">
-					⚠️ NOTE : These shortcuts are for reference only. Implementation is pending, so they won’t work right now.
+					⚠️ NOTE : These shortcuts are for reference only. Implementation is
+					pending, so they won’t work right now.
 				</div>
 
 				<ShortcutList shortcuts={shortcuts} />

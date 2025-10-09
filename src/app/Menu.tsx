@@ -61,16 +61,37 @@ const Menu = () => {
 		<MenuContainer>
 			<MenuTitle text="Notakto"></MenuTitle>
 			<MenuButtonContainer>
-				<MenuButton onClick={() => startGame("vsPlayer")}> Play vs Player </MenuButton>
-				<MenuButton onClick={() => startGame("vsComputer")}> Play vs Computer </MenuButton>
-				<MenuButton onClick={() => startGame("liveMatch")}> Live Match </MenuButton>
+				<MenuButton onClick={() => startGame("vsPlayer")}>
+					{" "}
+					Play vs Player{" "}
+				</MenuButton>
+				<MenuButton onClick={() => startGame("vsComputer")}>
+					{" "}
+					Play vs Computer{" "}
+				</MenuButton>
+				<MenuButton onClick={() => startGame("liveMatch")}>
+					{" "}
+					Live Match{" "}
+				</MenuButton>
 				<MenuButton onClick={() => setShowTut(true)}> Tutorial </MenuButton>
-				<MenuButton onClick={user ? handleSignOut : handleSignIn}>{user ? "Sign Out" : "Sign in"}</MenuButton>
-				<MenuButton onClick={() => setShowSoundConfig(!showSoundConfig)}>Adjust Sound</MenuButton>
-				<MenuButton onClick={() => setshowShortcutConfig(!showShortcutConfig)}>Keyboard Shortcuts</MenuButton>
+				<MenuButton onClick={user ? handleSignOut : handleSignIn}>
+					{user ? "Sign Out" : "Sign in"}
+				</MenuButton>
+				<MenuButton onClick={() => setShowSoundConfig(!showSoundConfig)}>
+					Adjust Sound
+				</MenuButton>
+				<MenuButton onClick={() => setshowShortcutConfig(!showShortcutConfig)}>
+					Keyboard Shortcuts
+				</MenuButton>
 			</MenuButtonContainer>
-			<SoundConfigModal visible={showSoundConfig} onClose={() => setShowSoundConfig(false)} />
-			<ShortcutModal visible={showShortcutConfig} onClose={() => setshowShortcutConfig(false)} />
+			<SoundConfigModal
+				visible={showSoundConfig}
+				onClose={() => setShowSoundConfig(false)}
+			/>
+			<ShortcutModal
+				visible={showShortcutConfig}
+				onClose={() => setshowShortcutConfig(false)}
+			/>
 		</MenuContainer>
 	);
 };

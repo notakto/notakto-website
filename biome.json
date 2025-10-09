@@ -7,13 +7,19 @@
 	},
 	"files": {
 		"ignoreUnknown": false,
-		"includes": ["**/*.{js,jsx,ts,tsx,json,md}", "!node_modules", "!dist", "!.next", "!**/*.snap"]
+		"includes": [
+			"**/*.{js,jsx,ts,tsx,json,md}",
+			"!node_modules",
+			"!dist",
+			"!.next",
+			"!**/*.snap"
+		]
 	},
 	"formatter": {
 		"enabled": true,
 		"indentStyle": "tab",
 		"bracketSpacing": true,
-		"lineWidth": 150,
+		"lineWidth": 80,
 		"formatWithErrors": true,
 		"bracketSameLine": true
 	},

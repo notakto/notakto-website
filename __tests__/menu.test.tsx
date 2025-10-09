@@ -13,8 +13,10 @@ vi.mock("@/services/firebase", () => ({
 }));
 
 vi.mock("@/services/store", () => ({
-	useUser: <T,>(selector: (state: userStore) => T) => selector({ user: null, setUser: vi.fn() }),
-	useTut: <T,>(selector: (state: tutStore) => T) => selector({ showTut: false, setShowTut: vi.fn() }),
+	useUser: <T,>(selector: (state: userStore) => T) =>
+		selector({ user: null, setUser: vi.fn() }),
+	useTut: <T,>(selector: (state: tutStore) => T) =>
+		selector({ showTut: false, setShowTut: vi.fn() }),
 	useSound: () => ({
 		bgMute: false,
 		bgVolume: 0.5,
@@ -41,12 +43,26 @@ describe("Menu buttons", () => {
 	it("renders all expected menu buttons", () => {
 		render(<Menu />);
 
-		expect(screen.getByRole("button", { name: /play vs player/i })).toBeInTheDocument();
-		expect(screen.getByRole("button", { name: /play vs computer/i })).toBeInTheDocument();
-		expect(screen.getByRole("button", { name: /live match/i })).toBeInTheDocument();
-		expect(screen.getByRole("button", { name: /tutorial/i })).toBeInTheDocument();
-		expect(screen.getByRole("button", { name: /sign in|sign out/i })).toBeInTheDocument();
-		expect(screen.getByRole("button", { name: /adjust sound/i })).toBeInTheDocument();
-		expect(screen.getByRole("button", { name: /keyboard shortcuts/i })).toBeInTheDocument();
+		expect(
+			screen.getByRole("button", { name: /play vs player/i }),
+		).toBeInTheDocument();
+		expect(
+			screen.getByRole("button", { name: /play vs computer/i }),
+		).toBeInTheDocument();
+		expect(
+			screen.getByRole("button", { name: /live match/i }),
+		).toBeInTheDocument();
+		expect(
+			screen.getByRole("button", { name: /tutorial/i }),
+		).toBeInTheDocument();
+		expect(
+			screen.getByRole("button", { name: /sign in|sign out/i }),
+		).toBeInTheDocument();
+		expect(
+			screen.getByRole("button", { name: /adjust sound/i }),
+		).toBeInTheDocument();
+		expect(
+			screen.getByRole("button", { name: /keyboard shortcuts/i }),
+		).toBeInTheDocument();
 	});
 });

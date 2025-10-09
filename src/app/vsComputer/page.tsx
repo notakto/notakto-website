@@ -22,12 +22,24 @@ import BoardConfigModal from "@/modals/BoardConfigModal";
 import DifficultyModal from "@/modals/DifficultyModal";
 import SoundConfigModal from "@/modals/SoundConfigModal";
 import WinnerModal from "@/modals/WinnerModal";
-import { createGame, makeMove, resetGame, skipMove, undoMove, updateConfig } from "@/services/game-apis";
+import {
+	createGame,
+	makeMove,
+	resetGame,
+	skipMove,
+	undoMove,
+	updateConfig,
+} from "@/services/game-apis";
 import { isBoardDead } from "@/services/logic";
 import { handleBuyCoins } from "@/services/payment";
 import { playMoveSound, playWinSound } from "@/services/sounds";
 import { useCoins, useSound, useUser, useXP } from "@/services/store";
-import type { BoardNumber, BoardSize, BoardState, DifficultyLevel } from "@/services/types";
+import type {
+	BoardNumber,
+	BoardSize,
+	BoardState,
+	DifficultyLevel,
+} from "@/services/types";
 
 const Game = () => {
 	const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
@@ -40,8 +52,10 @@ const Game = () => {
 	const [numberOfBoards, setNumberOfBoards] = useState<BoardNumber>(3);
 	const [showBoardConfig, setShowBoardConfig] = useState<boolean>(false);
 	const [showSoundConfig, setShowSoundConfig] = useState<boolean>(false);
-	const [isProcessingPayment, setIsProcessingPayment] = useState<boolean>(false);
-	const [showDifficultyModal, setShowDifficultyModal] = useState<boolean>(false);
+	const [isProcessingPayment, setIsProcessingPayment] =
+		useState<boolean>(false);
+	const [showDifficultyModal, setShowDifficultyModal] =
+		useState<boolean>(false);
 	const [difficulty, setDifficulty] = useState<DifficultyLevel>(1);
 	const [sessionId, setSessionId] = useState<string>("");
 
@@ -51,7 +65,8 @@ const Game = () => {
 	const [isUndoing, setIsUndoing] = useState<boolean>(false);
 	const [isSkipping, setIsSkipping] = useState<boolean>(false);
 	const [isUpdatingConfig, setIsUpdatingConfig] = useState<boolean>(false);
-	const [isUpdatingDifficulty, setIsUpdatingDifficulty] = useState<boolean>(false);
+	const [isUpdatingDifficulty, setIsUpdatingDifficulty] =
+		useState<boolean>(false);
 
 	const { sfxMute } = useSound();
 	const Coins = useCoins((state) => state.coins);
@@ -62,7 +77,11 @@ const Game = () => {
 	const { canShowToast, resetCooldown } = useToastCooldown(TOAST_DURATION);
 	const router = useRouter();
 
-	const initGame = async (num: BoardNumber, size: BoardSize, diff: DifficultyLevel) => {
+	const initGame = async (
+		num: BoardNumber,
+		size: BoardSize,
+		diff: DifficultyLevel,
+	) => {
 		if (isInitializing) return;
 		setIsInitializing(true);
 
@@ -99,7 +118,12 @@ const Game = () => {
 		setIsProcessing(true);
 		try {
 			if (user) {
-				const data = await makeMove(sessionId, boardIndex, cellIndex, await user.getIdToken());
+				const data = await makeMove(
+					sessionId,
+					boardIndex,
+					cellIndex,
+					await user.getIdToken(),
+				);
 				if (data.success) {
 					setBoards(data.gameState.boards);
 					setCurrentPlayer(data.gameState.currentPlayer);
@@ -221,13 +245,22 @@ const Game = () => {
 		}
 	};
 
-	const handleBoardConfigChange = async (newNumberOfBoards: BoardNumber, newBoardSize: BoardSize) => {
+	const handleBoardConfigChange = async (
+		newNumberOfBoards: BoardNumber,
+		newBoardSize: BoardSize,
+	) => {
 		if (isUpdatingConfig) return;
 		setIsUpdatingConfig(true);
 
 		try {
 			if (user) {
-				const data = await updateConfig(sessionId, newNumberOfBoards, newBoardSize, difficulty, await user.getIdToken());
+				const data = await updateConfig(
+					sessionId,
+					newNumberOfBoards,
+					newBoardSize,
+					difficulty,
+					await user.getIdToken(),
+				);
 				if (data.success) {
 					setNumberOfBoards(newNumberOfBoards);
 					setBoardSize(newBoardSize);
@@ -257,7 +290,13 @@ const Game = () => {
 
 		try {
 			if (user) {
-				const data = await updateConfig(sessionId, numberOfBoards, boardSize, level, await user.getIdToken());
+				const data = await updateConfig(
+					sessionId,
+					numberOfBoards,
+					boardSize,
+					level,
+					await user.getIdToken(),
+				);
 				if (data.success) {
 					setDifficulty(level);
 					setBoards(data.gameState.boards);
@@ -295,7 +334,9 @@ const Game = () => {
 						<StatLabel text={`Coins: ${Coins}`} />
 						<StatLabel text={`| XP: ${XP}`} />
 					</StatContainer>
-					<PlayerTurnTitle text={currentPlayer === 1 ? "Your Turn" : "Computer's Turn"} />
+					<PlayerTurnTitle
+						text={currentPlayer === 1 ? "Your Turn" : "Computer's Turn"}
+					/>
 				</PlayerStatusContainer>
 
 				<BoardContainer>
@@ -303,7 +344,13 @@ const Game = () => {
 						//FIXME:
 						// biome-ignore lint/suspicious/noArrayIndexKey: <fix later>
 						<BoardWrapper key={index}>
-							<Board boardIndex={index} boardState={board} makeMove={handleMove} isDead={isBoardDead(board, boardSize)} boardSize={boardSize} />
+							<Board
+								boardIndex={index}
+								boardState={board}
+								makeMove={handleMove}
+								isDead={isBoardDead(board, boardSize)}
+								boardSize={boardSize}
+							/>
 						</BoardWrapper>
 					))}
 				</BoardContainer>
@@ -349,7 +396,15 @@ const Game = () => {
 							Skip a Move (200 coins)
 						</SettingButton>
 						<SettingButton
-							onClick={() => handleBuyCoins(setIsProcessingPayment, canShowToast, resetCooldown, setCoins, Coins)}
+							onClick={() =>
+								handleBuyCoins(
+									setIsProcessingPayment,
+									canShowToast,
+									resetCooldown,
+									setCoins,
+									Coins,
+								)
+							}
 							disabled={isProcessingPayment}
 							loading={isProcessingPayment}>
 							Buy Coins (100)
@@ -368,7 +423,9 @@ const Game = () => {
 							}}>
 							Adjust Sound
 						</SettingButton>
-						<SettingButton onClick={() => router.push("/")}>Main Menu</SettingButton>
+						<SettingButton onClick={() => router.push("/")}>
+							Main Menu
+						</SettingButton>
 						<SettingButton onClick={toggleMenu}>Return to Game</SettingButton>
 					</SettingContainer>
 				</SettingOverlay>
@@ -403,7 +460,10 @@ const Game = () => {
 				}}
 				onClose={() => setShowDifficultyModal(false)}
 			/>
-			<SoundConfigModal visible={showSoundConfig} onClose={() => setShowSoundConfig(false)} />
+			<SoundConfigModal
+				visible={showSoundConfig}
+				onClose={() => setShowSoundConfig(false)}
+			/>
 		</GameLayout>
 	);
 };

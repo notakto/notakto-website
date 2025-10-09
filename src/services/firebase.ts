@@ -1,5 +1,12 @@
 import { initializeApp } from "firebase/app";
-import { GoogleAuthProvider, getAuth, onAuthStateChanged, signInWithPopup, signOut, type User } from "firebase/auth";
+import {
+	GoogleAuthProvider,
+	getAuth,
+	onAuthStateChanged,
+	signInWithPopup,
+	signOut,
+	type User,
+} from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
 // Initialize Firebase
@@ -50,6 +57,8 @@ export const signOutUser = async () => {
 	}
 };
 
-export const onAuthStateChangedListener = (callback: (user: User | null) => void): (() => void) => {
+export const onAuthStateChangedListener = (
+	callback: (user: User | null) => void,
+): (() => void) => {
 	return onAuthStateChanged(auth, callback);
 };

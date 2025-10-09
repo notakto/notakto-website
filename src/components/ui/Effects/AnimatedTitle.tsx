@@ -4,7 +4,11 @@ import type { AnimatedTitleProps } from "@/services/types";
 
 // Simple, self-contained animated title with Tailwind-friendly classes.
 // No global CSS or side effects to keep this PR atomic and easy to revert.
-export function AnimatedTitle({ text, className = "", textClassName = "" }: AnimatedTitleProps) {
+export function AnimatedTitle({
+	text,
+	className = "",
+	textClassName = "",
+}: AnimatedTitleProps) {
 	return (
 		<h1
 			aria-label={text}

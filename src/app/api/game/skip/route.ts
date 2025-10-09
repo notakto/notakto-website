@@ -28,7 +28,12 @@ export async function POST(request: NextRequest) {
 		gameState.currentPlayer = 2;
 
 		// Make AI move
-		const move = findBestMove(gameState.boards, gameState.difficulty, gameState.boardSize, gameState.numberOfBoards);
+		const move = findBestMove(
+			gameState.boards,
+			gameState.difficulty,
+			gameState.boardSize,
+			gameState.numberOfBoards,
+		);
 
 		if (move) {
 			const aiBoards = updateBoards(gameState.boards, move);
@@ -40,11 +45,20 @@ export async function POST(request: NextRequest) {
 				const loser = gameState.currentPlayer as 1 | 2;
 				const winner = loser === 1 ? 2 : 1;
 				const isHumanWinner = winner === 1;
-				const rewards = calculateRewards(isHumanWinner, gameState.difficulty, gameState.numberOfBoards, gameState.boardSize);
+				const rewards = calculateRewards(
+					isHumanWinner,
+					gameState.difficulty,
+					gameState.numberOfBoards,
+					gameState.boardSize,
+				);
 
 				gameState.winner = winner === 1 ? "You" : "Computer";
 				const r = await db(uid, rewards.coins - 200, rewards.xp, idToken);
-				if (!r?.success) return NextResponse.json({ error: "Unauthorized" }, { status: r?.status ?? 403 });
+				if (!r?.success)
+					return NextResponse.json(
+						{ error: "Unauthorized" },
+						{ status: r?.status ?? 403 },
+					);
 				gameSessions.set(sessionId, gameState);
 				return NextResponse.json({
 					success: true,
@@ -58,7 +72,11 @@ export async function POST(request: NextRequest) {
 
 		gameSessions.set(sessionId, gameState);
 		const charge = await db(uid, -200, 0, idToken);
-		if (!charge?.success) return NextResponse.json({ error: "Unauthorized" }, { status: charge?.status ?? 403 });
+		if (!charge?.success)
+			return NextResponse.json(
+				{ error: "Unauthorized" },
+				{ status: charge?.status ?? 403 },
+			);
 		return NextResponse.json({
 			success: true,
 			gameState,
@@ -67,6 +85,9 @@ export async function POST(request: NextRequest) {
 		});
 	} catch (error) {
 		console.error("Skip move error:", error);
-		return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+		return NextResponse.json(
+			{ error: "Internal server error" },
+			{ status: 500 },
+		);
 	}
 }

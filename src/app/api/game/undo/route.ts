@@ -17,7 +17,10 @@ export async function POST(request: NextRequest) {
 		}
 		const { sessionId } = await request.json();
 		if (!sessionId) {
-			return NextResponse.json({ error: "Session ID is required" }, { status: 400 });
+			return NextResponse.json(
+				{ error: "Session ID is required" },
+				{ status: 400 },
+			);
 		}
 		const gameState = gameSessions.get(sessionId);
 
@@ -36,11 +39,18 @@ export async function POST(request: NextRequest) {
 		gameState.winner = "";
 		gameState.gameOver = false;
 		const r = await db(uid, -100, 0, idToken);
-		if (!r?.success) return NextResponse.json({ error: "Database operation failed" }, { status: r?.status ?? 500 });
+		if (!r?.success)
+			return NextResponse.json(
+				{ error: "Database operation failed" },
+				{ status: r?.status ?? 500 },
+			);
 		gameSessions.set(sessionId, gameState);
 		return NextResponse.json({ success: true, gameState });
 	} catch (error) {
 		console.error("Undo move error:", error);
-		return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+		return NextResponse.json(
+			{ error: "Internal server error" },
+			{ status: 500 },
+		);
 	}
 }

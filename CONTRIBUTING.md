@@ -199,4 +199,5 @@ Thanks again for being part of Notakto! 🎮
 [9]: https://github.com/rakshitg600/notakto-website/issues
 [10]: https://github.com/Rakshitg600/notakto-website/issues/13
 [11]: https://docs.docker.com/desktop/
+[12]: https://fellow.ai/blog/the-complete-guide-to-readable-code/
 

@@ -1,7 +1,12 @@
 const PROJECT_ID = process.env.FIREBASE_PROJECT_ID;
 const BASE_URL = `https://firestore.googleapis.com/v1/projects/${PROJECT_ID}/databases/(default)/documents:commit`;
 
-export async function db(uid: string, coins: number, xp: number, idToken: string) {
+export async function db(
+	uid: string,
+	coins: number,
+	xp: number,
+	idToken: string,
+) {
 	try {
 		const body = {
 			writes: [

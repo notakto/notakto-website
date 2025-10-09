@@ -58,7 +58,9 @@ function getCellValue(cellIndex: number, boardSize: number): number {
 	}
 	const value = boardMap.get(cellIndex);
 	if (value === undefined) {
-		throw new Error(`No cell value found for cell index ${cellIndex} on board size ${boardSize}`);
+		throw new Error(
+			`No cell value found for cell index ${cellIndex} on board size ${boardSize}`,
+		);
 	}
 	return value;
 }
@@ -66,7 +68,10 @@ function getCellValue(cellIndex: number, boardSize: number): number {
 //
 // ——— Valid moves & board updates ———————————————————————————————
 //
-export function getValidMoves(boards: BoardState[], boardSize: number): { boardIndex: number; cellIndex: number }[] {
+export function getValidMoves(
+	boards: BoardState[],
+	boardSize: number,
+): { boardIndex: number; cellIndex: number }[] {
 	const moves: { boardIndex: number; cellIndex: number }[] = [];
 	for (let b = 0; b < boards.length; b++) {
 		if (isBoardDead(boards[b], boardSize)) continue;
@@ -75,10 +80,17 @@ export function getValidMoves(boards: BoardState[], boardSize: number): { boardI
 		});
 	}
 	// order by center‑bias
-	return moves.sort((a, b) => getCellValue(b.cellIndex, boardSize) - getCellValue(a.cellIndex, boardSize));
+	return moves.sort(
+		(a, b) =>
+			getCellValue(b.cellIndex, boardSize) -
+			getCellValue(a.cellIndex, boardSize),
+	);
 }
 
-export function updateBoards(boards: BoardState[], move: { boardIndex: number; cellIndex: number }): BoardState[] {
+export function updateBoards(
+	boards: BoardState[],
+	move: { boardIndex: number; cellIndex: number },
+): BoardState[] {
 	const copy = boards.map((b) => [...b] as BoardState);
 	copy[move.boardIndex][move.cellIndex] = "X";
 	return copy;
@@ -103,7 +115,10 @@ export function findBestMove(
 	}
 
 	// count live boards
-	const liveCount = boards.reduce((sum, b) => sum + (isBoardDead(b, boardSize) ? 0 : 1), 0);
+	const liveCount = boards.reduce(
+		(sum, b) => sum + (isBoardDead(b, boardSize) ? 0 : 1),
+		0,
+	);
 
 	// split moves by whether they kill their board
 	const killing: typeof moves = [];

@@ -10,7 +10,15 @@ import { CustomToastContainer } from "@/components/ui/Toasts/CustomToastContaine
 export const metadata: Metadata = {
 	title: "Notakto",
 	description: "No ties, Always a winner",
-	keywords: ["Notakto", "misère Tic Tac Toe", "X only", "Tic Tac Toe variant", "retro games", "multiplayer", "AI board game"],
+	keywords: [
+		"Notakto",
+		"misère Tic Tac Toe",
+		"X only",
+		"Tic Tac Toe variant",
+		"retro games",
+		"multiplayer",
+		"AI board game",
+	],
 	authors: [{ name: "Notakto Team" }],
 	creator: "Notakto Team",
 };
@@ -31,7 +39,10 @@ export default function RootLayout({
 					async
 					src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4854199776978392"
 					crossOrigin="anonymous"></script>
-				<meta name="google-site-verification" content="lxHtpLX2cDKFEAAabqQ3-9IY-ckiw3KvqM3Z1kNPxRo" />
+				<meta
+					name="google-site-verification"
+					content="lxHtpLX2cDKFEAAabqQ3-9IY-ckiw3KvqM3Z1kNPxRo"
+				/>
 				<meta name="monetag" content="31cbc3974b21341db36f756db33d15d6"></meta>
 			</head>
 			<body>

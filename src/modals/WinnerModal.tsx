@@ -17,7 +17,9 @@ const WinnerModal = ({ visible, winner, onPlayAgain }: WinnerModalProps) => {
 		<ModalOverlay>
 			<WinnerContainer>
 				<WinnerTitle text="Game Over!" />
-				<WinnerMessage text={winner === "You" ? "You won!" : `${winner} wins`} />
+				<WinnerMessage
+					text={winner === "You" ? "You won!" : `${winner} wins`}
+				/>
 				<WinnerAction>
 					<WinnerButton onClick={onPlayAgain}>Play Again</WinnerButton>
 					<WinnerButton onClick={exitToMenu}>Main Menu</WinnerButton>

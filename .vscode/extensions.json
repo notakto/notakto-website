@@ -1,3 +1,7 @@
 {
-	"recommendations": ["gruntfuggly.todo-tree", "biomejs.biome", "vitest.explorer"]
+	"recommendations": [
+		"gruntfuggly.todo-tree",
+		"biomejs.biome",
+		"vitest.explorer"
+	]
 }
