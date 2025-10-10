@@ -194,6 +194,24 @@ Your questions are valuable. Don't hesitate to reach out.
 - [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
 - [Zustand Guide](https://zustand-demo.pmnd.rs/)
 
----
+Thanks again for being part of Notakto! 🎮
+
+[1]: ./FIRST_PR.md
+[2]: https://docs.github.com/en/get-started/using-github/github-flow
+[3]: https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/about-forks
+[4]: https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-branches
+[5]: ./package.json
+[6]: https://localhost:3000
+[7]: https://jestjs.io/
+[8]: https://testing-library.com/docs/react-testing-library/intro/
+[9]: https://github.com/rakshitg600/notakto-website/issues
+[10]: https://github.com/Rakshitg600/notakto-website/issues/13
+[11]: https://docs.docker.com/desktop/
+## 📚 Additional Resources
+...
+- [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
+- [The Complete Guide to Readable Code][12]
+...
+[12]: https://fellow.ai/blog/the-complete-guide-to-readable-code/
 
 Thanks for contributing to Notakto! 🎮
