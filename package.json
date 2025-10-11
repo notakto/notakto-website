@@ -21,7 +21,7 @@
 		"@tailwindcss/postcss": "^4.1.12",
 		"@vercel/analytics": "^1.5.0",
 		"@vercel/speed-insights": "^1.2.0",
-		"axios": "^1.11.0",
+		"axios": "^1.12.2",
 		"clsx": "^2.1.1",
 		"firebase": "^12.2.1",
 		"micro": "^10.0.1",
