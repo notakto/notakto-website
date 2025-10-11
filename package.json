@@ -23,7 +23,7 @@
 		"@vercel/speed-insights": "^1.2.0",
 		"axios": "^1.11.0",
 		"clsx": "^2.1.1",
-		"firebase": "^12.2.1",
+		"firebase": "^12.3.0",
 		"micro": "^10.0.1",
 		"next": "^15.5.2",
 		"postcss": "^8.5.6",
