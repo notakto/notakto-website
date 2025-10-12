@@ -22,7 +22,11 @@ jobs:
               repo: context.repo.repo,
               issue_number: context.issue.number,
             });
-
+            const maintainers = ["AshmitSherigar", "Rakshitg600"];
+            if (maintainers.includes(context.actor)) {
+              console.log("Skipping comment — PR opened by a maintainer.");
+              return;
+            }
             // Prevent duplicate bot comments
             const alreadyCommented = existingComments.data.some(c => 
               c.user.type === "Bot" && c.body.includes("👋 **Hi @")
@@ -33,7 +37,7 @@ jobs:
             }
 
             const body = `
-👋 **Hi @${{ github.actor }}!**
+👋 **Hi @${ context.actor }!**
 
 Thanks for opening this PR 🎉
 
