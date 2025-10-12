@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import { describe, it, expect, vi } from "vitest";
+import { describe, it, expect, vi, afterEach } from "vitest";
 import { act } from "@testing-library/react";
 import { toast } from "react-toastify";
 
@@ -13,6 +13,12 @@ import { CustomToastContainer } from "@/components/ui/Toasts/CustomToastContaine
 
 describe("Toast Tests", () => {
 
+    afterEach(() => {
+        act(() => {
+            toast.dismiss();
+        })
+    });
+
     it("T1 : shows a toast with correct text and styling when triggered", async () => {
         render(<CustomToastContainer />);
 
@@ -23,7 +29,7 @@ describe("Toast Tests", () => {
         const toastText = await screen.findByText("Hello Toast Test");
         expect(toastText).toBeInTheDocument();
 
-        const toastWrapper = toastText.closest("div");
+        const toastWrapper = toastText.closest('.Toastify__toast') ?? toastText.closest("div");
         expect(toastWrapper).toBeTruthy();
 
         const expected = [
@@ -31,7 +37,6 @@ describe("Toast Tests", () => {
         ];
         for (const cls of expected) expect(toastWrapper?.className).toContain(cls);
 
-        const toastsByText = screen.getAllByText("Hello Toast Test");
-        expect(toastsByText.length).toBe(1);
+        expect(screen.queryAllByText("Hello Toast Test")).toHaveLength(1);
     });
 });
