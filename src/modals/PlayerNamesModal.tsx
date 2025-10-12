@@ -11,64 +11,108 @@ import PlayerNameModalTitle from "@/components/ui/Title/PlayerNameModalTitle";
 import { TOAST_DURATION, TOAST_IDS } from "@/constants/toast";
 import type { PlayerNamesModalProps } from "@/services/types";
 
+// ✅ Following UPPER_SNAKE_CASE for constants (from contributing guide)
+const MAX_PLAYER_NAME_LENGTH = 15;
+
 const PlayerNamesModal = ({
-	visible,
-	onSubmit,
-	initialNames = ["Player 1", "Player 2"],
+    visible,
+    onSubmit,
+    initialNames = ["Player 1", "Player 2"],
 }: PlayerNamesModalProps) => {
-	const [player1, setPlayer1] = useState(initialNames[0] || "Player 1");
-	const [player2, setPlayer2] = useState(initialNames[1] || "Player 2");
+    const [player1, setPlayer1] = useState(initialNames[0] || "Player 1");
+    const [player2, setPlayer2] = useState(initialNames[1] || "Player 2");
 
-	const { canShowToast, triggerToastCooldown, resetCooldown } =
-		useToastCooldown(TOAST_DURATION);
+    const { canShowToast, triggerToastCooldown, resetCooldown } =
+        useToastCooldown(TOAST_DURATION);
 
-	useEffect(() => {
-		setPlayer1(initialNames[0] || "Player 1");
-		setPlayer2(initialNames[1] || "Player 2");
-	}, [initialNames]);
+    useEffect(() => {
+        setPlayer1(initialNames[0] || "Player 1");
+        setPlayer2(initialNames[1] || "Player 2");
+    }, [initialNames]);
 
-	const handleSubmit = () => {
-		if (!canShowToast()) return;
+    // ✅ Following camelCase for functions (from contributing guide)
+    const handlePlayer1Change = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        if (value.length <= MAX_PLAYER_NAME_LENGTH) {
+            setPlayer1(value);
+        }
+    };
 
-		if (player1.trim().toLowerCase() === player2.trim().toLowerCase()) {
-			toast("Player 1 and Player 2 cannot have the same name.", {
-				toastId: TOAST_IDS.PlayerNames.Duplicate,
-				autoClose: TOAST_DURATION,
-				onClose: resetCooldown, // reset cooldown if closed early
-			});
-			triggerToastCooldown();
-			return;
-		}
-		toast.dismiss(TOAST_IDS.PlayerNames.Duplicate);
-		resetCooldown();
+    const handlePlayer2Change = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        if (value.length <= MAX_PLAYER_NAME_LENGTH) {
+            setPlayer2(value);
+        }
+    };
 
-		onSubmit(player1 || "Player 1", player2 || "Player 2");
-	};
+    const handleSubmit = () => {
+        if (!canShowToast()) return;
 
-	if (!visible) return null;
+        if (player1.trim().toLowerCase() === player2.trim().toLowerCase()) {
+            toast("Player 1 and Player 2 cannot have the same name.", {
+                toastId: TOAST_IDS.PlayerNames.Duplicate,
+                autoClose: TOAST_DURATION,
+                onClose: resetCooldown,
+            });
+            triggerToastCooldown();
+            return;
+        }
 
-	return (
-		<ModalOverlay>
-			<PlayerNameModalContainer>
-				<PlayerNameModalTitle text="Enter Player Names" />
-				<PlayerNameFormContainer>
-					<PlayerInput
-						value={player1}
-						onChange={(e) => setPlayer1(e.target.value)}
-						placeholder="Player 1 Name"
-					/>
+        // ✅ Character limit validation with toast message
+        if (player1.length > MAX_PLAYER_NAME_LENGTH || player2.length > MAX_PLAYER_NAME_LENGTH) {
+            toast(`Player names cannot exceed ${MAX_PLAYER_NAME_LENGTH} characters.`, {
+                toastId:  "player-name-too-long",
+                autoClose: TOAST_DURATION,
+                onClose: resetCooldown,
+            });
+            triggerToastCooldown();
+            return;
+        }
 
-					<PlayerInput
-						value={player2}
-						onChange={(e) => setPlayer2(e.target.value)}
-						placeholder="Player 2 Name"
-					/>
-				</PlayerNameFormContainer>
+        toast.dismiss(TOAST_IDS.PlayerNames.Duplicate);
+        resetCooldown();
 
-				<PlayerStartButton onClick={handleSubmit}>Start Game</PlayerStartButton>
-			</PlayerNameModalContainer>
-		</ModalOverlay>
-	);
+        onSubmit(player1 || "Player 1", player2 || "Player 2");
+    };
+
+    if (!visible) return null;
+
+    return (
+        <ModalOverlay>
+            <PlayerNameModalContainer>
+                <PlayerNameModalTitle text="Enter Player Names" />
+                <PlayerNameFormContainer>
+                    <div>
+                        <PlayerInput
+                            value={player1}
+                            onChange={handlePlayer1Change}
+                            placeholder="Player 1 Name"
+                            maxLength={MAX_PLAYER_NAME_LENGTH}
+                        />
+                        {/* ✅ Character counter */}
+                        <div style={{ fontSize: '12px', color: '#666', marginTop: '4px' }}>
+                            {player1.length}/{MAX_PLAYER_NAME_LENGTH} characters
+                        </div>
+                    </div>
+
+                    <div>
+                        <PlayerInput
+                            value={player2}
+                            onChange={handlePlayer2Change}
+                            placeholder="Player 2 Name"
+                            maxLength={MAX_PLAYER_NAME_LENGTH}
+                        />
+                        {/* ✅ Character counter */}
+                        <div style={{ fontSize: '12px', color: '#666', marginTop: '4px' }}>
+                            {player2.length}/{MAX_PLAYER_NAME_LENGTH} characters
+                        </div>
+                    </div>
+                </PlayerNameFormContainer>
+
+                <PlayerStartButton onClick={handleSubmit}>Start Game</PlayerStartButton>
+            </PlayerNameModalContainer>
+        </ModalOverlay>
+    );
 };
 
 export default PlayerNamesModal;
