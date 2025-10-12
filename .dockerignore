@@ -13,3 +13,4 @@ LICENSE
 docs/
 __tests__/
 *.test.ts
+.vscode
