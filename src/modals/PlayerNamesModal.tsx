@@ -15,104 +15,92 @@ import type { PlayerNamesModalProps } from "@/services/types";
 const MAX_PLAYER_NAME_LENGTH = 15;
 
 const PlayerNamesModal = ({
-    visible,
-    onSubmit,
-    initialNames = ["Player 1", "Player 2"],
+	visible,
+	onSubmit,
+	initialNames = ["Player 1", "Player 2"],
 }: PlayerNamesModalProps) => {
-    const [player1, setPlayer1] = useState(initialNames[0] || "Player 1");
-    const [player2, setPlayer2] = useState(initialNames[1] || "Player 2");
+	const [player1, setPlayer1] = useState(initialNames[0] || "Player 1");
+	const [player2, setPlayer2] = useState(initialNames[1] || "Player 2");
 
-    const { canShowToast, triggerToastCooldown, resetCooldown } =
-        useToastCooldown(TOAST_DURATION);
+	const { canShowToast, triggerToastCooldown, resetCooldown } =
+		useToastCooldown(TOAST_DURATION);
 
-    useEffect(() => {
-        setPlayer1(initialNames[0] || "Player 1");
-        setPlayer2(initialNames[1] || "Player 2");
-    }, [initialNames]);
+	useEffect(() => {
+		setPlayer1(initialNames[0] || "Player 1");
+		setPlayer2(initialNames[1] || "Player 2");
+	}, [initialNames]);
 
-    // ✅ Following camelCase for functions (from contributing guide)
-    const handlePlayer1Change = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const value = e.target.value;
-        if (value.length <= MAX_PLAYER_NAME_LENGTH) {
-            setPlayer1(value);
-        }
-    };
+	// ✅ Following camelCase for functions (from contributing guide)
+	const handlePlayer1Change = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const value = e.target.value;
+		if (value.length <= MAX_PLAYER_NAME_LENGTH) {
+			setPlayer1(value);
+		}
+	};
 
-    const handlePlayer2Change = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const value = e.target.value;
-        if (value.length <= MAX_PLAYER_NAME_LENGTH) {
-            setPlayer2(value);
-        }
-    };
+	const handlePlayer2Change = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const value = e.target.value;
+		if (value.length <= MAX_PLAYER_NAME_LENGTH) {
+			setPlayer2(value);
+		}
+	};
 
-    const handleSubmit = () => {
-        if (!canShowToast()) return;
+	const handleSubmit = () => {
+		if (!canShowToast()) return;
 
-        if (player1.trim().toLowerCase() === player2.trim().toLowerCase()) {
-            toast("Player 1 and Player 2 cannot have the same name.", {
-                toastId: TOAST_IDS.PlayerNames.Duplicate,
-                autoClose: TOAST_DURATION,
-                onClose: resetCooldown,
-            });
-            triggerToastCooldown();
-            return;
-        }
+		if (player1.trim().toLowerCase() === player2.trim().toLowerCase()) {
+			toast("Player 1 and Player 2 cannot have the same name.", {
+				toastId: TOAST_IDS.PlayerNames.Duplicate,
+				autoClose: TOAST_DURATION,
+				onClose: resetCooldown,
+			});
+			triggerToastCooldown();
+			return;
+		}
+		toast.dismiss(TOAST_IDS.PlayerNames.Duplicate);
+		resetCooldown();
 
-        // ✅ Character limit validation with toast message
-        if (player1.length > MAX_PLAYER_NAME_LENGTH || player2.length > MAX_PLAYER_NAME_LENGTH) {
-            toast(`Player names cannot exceed ${MAX_PLAYER_NAME_LENGTH} characters.`, {
-                toastId:  "player-name-too-long",
-                autoClose: TOAST_DURATION,
-                onClose: resetCooldown,
-            });
-            triggerToastCooldown();
-            return;
-        }
+		onSubmit(player1 || "Player 1", player2 || "Player 2");
+	};
 
-        toast.dismiss(TOAST_IDS.PlayerNames.Duplicate);
-        resetCooldown();
+	if (!visible) return null;
 
-        onSubmit(player1 || "Player 1", player2 || "Player 2");
-    };
+	return (
+		<ModalOverlay>
+			<PlayerNameModalContainer>
+				<PlayerNameModalTitle text="Enter Player Names" />
+				<PlayerNameFormContainer>
+					<div>
+						<PlayerInput
+							value={player1}
+							onChange={handlePlayer1Change}
+							placeholder="Player 1 Name"
+							maxLength={MAX_PLAYER_NAME_LENGTH}
+						/>
+						{/* ✅ Character counter */}
+						<div className="text-xs text-gray-600 mt-1">
+							{player1.length}/{MAX_PLAYER_NAME_LENGTH} characters
+						</div>
+					</div>
 
-    if (!visible) return null;
+					<div>
+						<PlayerInput
+							value={player2}
+							onChange={handlePlayer2Change}
+							placeholder="Player 2 Name"
+							maxLength={MAX_PLAYER_NAME_LENGTH}
+						/>
+						{/* ✅ Character counter */}
+						<div className="text-xs text-gray-600 mt-1">
+							{player2.length}/{MAX_PLAYER_NAME_LENGTH} characters
+						</div>
+					</div>
+				</PlayerNameFormContainer>
 
-    return (
-        <ModalOverlay>
-            <PlayerNameModalContainer>
-                <PlayerNameModalTitle text="Enter Player Names" />
-                <PlayerNameFormContainer>
-                    <div>
-                        <PlayerInput
-                            value={player1}
-                            onChange={handlePlayer1Change}
-                            placeholder="Player 1 Name"
-                            maxLength={MAX_PLAYER_NAME_LENGTH}
-                        />
-                        {/* ✅ Character counter */}
-                        <div style={{ fontSize: '12px', color: '#666', marginTop: '4px' }}>
-                            {player1.length}/{MAX_PLAYER_NAME_LENGTH} characters
-                        </div>
-                    </div>
-
-                    <div>
-                        <PlayerInput
-                            value={player2}
-                            onChange={handlePlayer2Change}
-                            placeholder="Player 2 Name"
-                            maxLength={MAX_PLAYER_NAME_LENGTH}
-                        />
-                        {/* ✅ Character counter */}
-                        <div style={{ fontSize: '12px', color: '#666', marginTop: '4px' }}>
-                            {player2.length}/{MAX_PLAYER_NAME_LENGTH} characters
-                        </div>
-                    </div>
-                </PlayerNameFormContainer>
-
-                <PlayerStartButton onClick={handleSubmit}>Start Game</PlayerStartButton>
-            </PlayerNameModalContainer>
-        </ModalOverlay>
-    );
+				<PlayerStartButton onClick={handleSubmit}>Start Game</PlayerStartButton>
+			</PlayerNameModalContainer>
+		</ModalOverlay>
+	);
 };
 
 export default PlayerNamesModal;
