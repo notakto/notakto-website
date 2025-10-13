@@ -11,7 +11,6 @@ import PlayerNameModalTitle from "@/components/ui/Title/PlayerNameModalTitle";
 import { TOAST_DURATION, TOAST_IDS } from "@/constants/toast";
 import type { PlayerNamesModalProps } from "@/services/types";
 
-// ✅ Following UPPER_SNAKE_CASE for constants (from contributing guide)
 const MAX_PLAYER_NAME_LENGTH = 15;
 
 const PlayerNamesModal = ({
@@ -30,21 +29,6 @@ const PlayerNamesModal = ({
 		setPlayer2(initialNames[1] || "Player 2");
 	}, [initialNames]);
 
-	// ✅ Following camelCase for functions (from contributing guide)
-	const handlePlayer1Change = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const value = e.target.value;
-		if (value.length <= MAX_PLAYER_NAME_LENGTH) {
-			setPlayer1(value);
-		}
-	};
-
-	const handlePlayer2Change = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const value = e.target.value;
-		if (value.length <= MAX_PLAYER_NAME_LENGTH) {
-			setPlayer2(value);
-		}
-	};
-
 	const handleSubmit = () => {
 		if (!canShowToast()) return;
 
@@ -52,7 +36,7 @@ const PlayerNamesModal = ({
 			toast("Player 1 and Player 2 cannot have the same name.", {
 				toastId: TOAST_IDS.PlayerNames.Duplicate,
 				autoClose: TOAST_DURATION,
-				onClose: resetCooldown,
+				onClose: resetCooldown, // reset cooldown if closed early
 			});
 			triggerToastCooldown();
 			return;
@@ -73,11 +57,11 @@ const PlayerNamesModal = ({
 					<div>
 						<PlayerInput
 							value={player1}
-							onChange={handlePlayer1Change}
+							onChange={(e) => setPlayer1(e.target.value)}
 							placeholder="Player 1 Name"
 							maxLength={MAX_PLAYER_NAME_LENGTH}
 						/>
-						{/* ✅ Character counter - right aligned with better color */}
+						{/* ✅ Character counter - right aligned */}
 						<div className="text-xl text-white mt-1 text-right">
 							{player1.length}/{MAX_PLAYER_NAME_LENGTH} characters
 						</div>
@@ -86,11 +70,11 @@ const PlayerNamesModal = ({
 					<div>
 						<PlayerInput
 							value={player2}
-							onChange={handlePlayer2Change}
+							onChange={(e) => setPlayer2(e.target.value)}
 							placeholder="Player 2 Name"
 							maxLength={MAX_PLAYER_NAME_LENGTH}
 						/>
-						{/* ✅ Character counter - right aligned with better color */}
+						{/* ✅ Character counter - right aligned */}
 						<div className="text-xl text-white mt-1 text-right">
 							{player2.length}/{MAX_PLAYER_NAME_LENGTH} characters
 						</div>
