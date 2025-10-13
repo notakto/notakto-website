@@ -75,6 +75,14 @@ const LiveMode = () => {
 			socket.disconnect();
 		};
 	}, []);
+	useEffect(() => {
+		document.title =
+			gameState === "playing"
+				? isMyTurn
+					? "Notakto | Your Turn"
+					: "Notakto | Opponent's Turn"
+				: "Searching for Opponent | Notakto";
+	}, [gameState, isMyTurn]);
 
 	const handleMove = (boardIndex: number, cellIndex: number) => {
 		if (

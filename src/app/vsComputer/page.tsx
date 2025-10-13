@@ -320,6 +320,23 @@ const Game = () => {
 			setIsUpdatingDifficulty(false);
 		}
 	};
+useEffect(() => {
+  let title = "vs Computer | Notakto";
+
+  if (isMenuOpen) {
+    title = "Settings | Notakto";
+  } else if (showWinnerModal) {
+    if (winner === "Player 1") title = "You Won! | Notakto";
+    else if (winner === "Player 2") title = "Computer Won! | Notakto";
+    else title = "Game Over | Notakto";
+  } else if (boards.length === 0 || !sessionId) {
+    title = "vs Computer | Notakto";
+  } else {
+    title = currentPlayer === 1 ? "Your Turn | Notakto" : "Computer's Turn | Notakto";
+  }
+
+  document.title = title;
+}, [boards, sessionId, currentPlayer, showWinnerModal, winner, isMenuOpen]);
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <intentionally run only on mount to initialize game once>
 	useEffect(() => {
@@ -381,6 +398,7 @@ const Game = () => {
 							onClick={() => {
 								handleUndo();
 								setIsMenuOpen(false);
+								
 							}}
 							disabled={Coins < 100 || isUndoing}
 							loading={isUndoing}>
