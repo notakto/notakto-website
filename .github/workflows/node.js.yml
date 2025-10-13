@@ -27,7 +27,6 @@ jobs:
            [ -z "$FIREBASE_CLIENT_EMAIL" ] && echo "❌ CLIENT_EMAIL missing" || echo "✅ CLIENT_EMAIL present"
            [ -z "$FIREBASE_PRIVATE_KEY" ] && echo "❌ PRIVATE_KEY missing" || echo "✅ PRIVATE_KEY present"
 
-
       - name: Install pnpm
         uses: pnpm/action-setup@v4
 
@@ -43,8 +42,10 @@ jobs:
       - name: Install socket server dependencies
         run: cd notakto-socket-server && pnpm install --frozen-lockfile
 
-      - name: Lint code
-        run: pnpm lint
+      - name: Run Biome CI
+        run: |
+          pnpm exec biome ci .
+          cd notakto-socket-server && pnpm exec biome ci .
 
       - name: Run tests
         run: pnpm test
@@ -58,5 +59,6 @@ jobs:
           NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET: ${{ vars.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET }}
           NEXT_PUBLIC_FIREBASE_API_KEY: ${{ vars.NEXT_PUBLIC_FIREBASE_API_KEY }}
           FIREBASE_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
+          COINBASE_API_KEY: ${{ secrets.COINBASE_API_KEY }}
           NODE_ENV: production
         run: pnpm build

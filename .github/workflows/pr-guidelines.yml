@@ -1,0 +1,78 @@
+name: PR Guidelines Comment
+
+on:
+  pull_request:
+    types: [opened, reopened]
+
+permissions:
+  pull-requests: write
+  issues: write
+
+jobs:
+  add_comment:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Add guideline comment
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const existingComments = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+
+            // Maintainers who shouldn't receive automated comments
+            const maintainers = ["AshmitSherigar", "Rakshitg600"];
+            if (maintainers.includes(context.actor)) {
+              console.log("Skipping comment — PR opened by a maintainer.");
+              return;
+            }
+
+            // Prevent duplicate bot comments
+            const alreadyCommented = existingComments.data.some(c =>
+              c.user.type === "Bot" && c.body.includes("👋 **Hi @")
+            );
+            if (alreadyCommented) {
+              console.log("Bot already commented, skipping...");
+              return;
+            }
+
+            // Build the comment safely (avoids YAML parsing issues)
+            const lines = [
+              `👋 **Hi @${context.actor}!**`,
+              "",
+              "Thanks for opening this PR 🎉",
+              "",
+              "Before requesting review, please check:",
+              "",
+              "🧠 **CodeRabbit Review**",
+              "- Wait for CodeRabbit to analyze your changes.",
+              "- Review each comment carefully.",
+              "- If you disagree, reply briefly explaining why and resolve it when agreed.",
+              "",
+              "🧹 **Code Quality**",
+              "- Linting: Ensure all checks pass.",
+              "- Commits: Use clear, meaningful commit messages.",
+              "",
+              "🪄 **Optional**",
+              "- Add screenshots or GIFs if UI changes were made.",
+              "- Mention related issues with `Closes #<issue_number>`.",
+              "",
+              "> 💡 Tip: If you’re not sure about something, tag your reviewer using `@username`.",
+              "",
+              "Happy coding 🚀",
+              "",
+              "---",
+              "_🤖 This message was generated automatically to help maintain consistent PR quality._",
+            ];
+
+            const body = lines.join("\n");
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body,
+            });
