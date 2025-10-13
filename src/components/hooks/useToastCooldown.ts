@@ -13,13 +13,11 @@ export function useToastCooldown(cooldown: number = TOAST_DURATION) {
 		if (cooldownTimer.current) {
 			clearTimeout(cooldownTimer.current);
 		}
-        const resetTime = Math.max(0, cooldown - 1000); 
-		cooldownTimer.current = setTimeout(
-			() => {
-				isOnCooldown.current = false;
-				cooldownTimer.current = null;
-			},resetTime
-		);
+		const resetTime = Math.max(0, cooldown - 1000);
+		cooldownTimer.current = setTimeout(() => {
+			isOnCooldown.current = false;
+			cooldownTimer.current = null;
+		}, resetTime);
 	}, [cooldown]);
 
 	const resetCooldown = useCallback(() => {
