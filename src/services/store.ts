@@ -17,10 +17,10 @@ export type userStore = {
 	setUser: (newUser: User | null) => void;
 };
 
-export type tutStore = {
-	showTut: boolean;
-	setShowTut: (newShowTut: boolean) => void;
-};
+// export type tutStore = {
+// 	showTut: boolean;
+// 	setShowTut: (newShowTut: boolean) => void;
+// };
 type CoinStore = {
 	coins: number;
 	setCoins: (newCoins: number) => void;
@@ -53,10 +53,10 @@ export const useUser = create<userStore>((set) => ({
 	setUser: (newUser) => set({ user: newUser }),
 }));
 
-export const useTut = create<tutStore>((set) => ({
-	showTut: false,
-	setShowTut: (newShowTut) => set({ showTut: newShowTut }),
-}));
+// export const useTut = create<tutStore>((set) => ({
+// 	showTut: false,
+// 	setShowTut: (newShowTut) => set({ showTut: newShowTut }),
+// }));
 export const useCoins = create<CoinStore>((set, get) => ({
 	coins: 0,
 	setCoins: (newCoins: number) => set({ coins: newCoins }),

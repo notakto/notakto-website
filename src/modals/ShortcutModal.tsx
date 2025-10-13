@@ -21,9 +21,12 @@ export default function ShortcutModal({
 		{ key: "Esc", action: "Close the modal / pause menu" },
 		{ key: "R", action: "Reset the game" },
 		{ key: "N", action: "Reset player names" },
-		{ key: "C", action: "Open game configuration" },
 		{ key: "M", action: "Go to main menu" },
 		{ key: "S", action: "Adjust sound" },
+		{ key: "C", action: "Open game configuration" },
+		{ key: 'D', action: 'Open difficulty level' },
+		{ key: 'Q', action: 'Open keyboard shortcuts' },
+        { key: 'T', action: 'Open tutorial' },
 		{ key: "Enter", action: "Return to game" },
 	];
 
@@ -31,12 +34,6 @@ export default function ShortcutModal({
 		<ModalOverlay>
 			<ShortcutContainer>
 				<ShortcutTitle text="Keyboard Shortcuts" />
-
-				{/* Pending notice */}
-				<div className="bg-yellow-500/20 border border-yellow-500 text-yellow-400 p-3 rounded-lg text-md">
-					⚠️ NOTE : These shortcuts are for reference only. Implementation is
-					pending, so they won’t work right now.
-				</div>
 
 				<ShortcutList shortcuts={shortcuts} />
 

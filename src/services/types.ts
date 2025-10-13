@@ -150,3 +150,7 @@ export interface AnimatedTitleProps {
 	// Optional class for inner text element (color/size overrides)
 	textClassName?: string;
 }
+
+export type PlayerButtonModalType = 'names' | 'winner' | 'boardConfig' | 'soundConfig' | 'shortcut' | null;
+
+export type ComputerButtonModalType = 'winner' | 'boardConfig' | 'soundConfig' | 'difficulty' | 'shortcut' | null;
