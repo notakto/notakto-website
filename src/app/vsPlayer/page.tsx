@@ -88,22 +88,29 @@ const Game = () => {
 		router.push("/");
 	};
 	useEffect(() => {
-  let title = "Notakto";
+		let title = "Notakto";
 
-  if (isMenuOpen) {
-    title = "Setting | Notakto";
-  } else if (showWinnerModal && boards.length !== 0) {
-    title = `${winner} Won!! | Notakto`;
-  } else if (!showNameModal && boards.length > 0) {
-    title = `${currentPlayer === 1 ? `${player1Name}'s Turn` : `${player2Name}'s Turn`} | Notakto`;
-  } else if (showNameModal) {
-    title = "vs Player | Notakto";
-  }
+		if (isMenuOpen) {
+			title = "Setting | Notakto";
+		} else if (showWinnerModal && boards.length !== 0) {
+			title = `${winner} Won!! | Notakto`;
+		} else if (!showNameModal && boards.length > 0) {
+			title = `${currentPlayer === 1 ? `${player1Name}'s Turn` : `${player2Name}'s Turn`} | Notakto`;
+		} else if (showNameModal) {
+			title = "vs Player | Notakto";
+		}
 
-  document.title = title;
-}, [isMenuOpen, showWinnerModal, winner, boards.length, showNameModal, currentPlayer, player1Name, player2Name]);
-
-
+		document.title = title;
+	}, [
+		isMenuOpen,
+		showWinnerModal,
+		winner,
+		boards.length,
+		showNameModal,
+		currentPlayer,
+		player1Name,
+		player2Name,
+	]);
 
 	return (
 		<GameLayout>
