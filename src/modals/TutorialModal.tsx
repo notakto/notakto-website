@@ -21,12 +21,12 @@ const TutorialModal = () => {
 	return (
 		<ModalOverlay>
 			<TutorialContainer>
-				<TutorialTitle text="How&nbsp;&nbsp;&nbsp;to&nbsp;&nbsp;&nbsp;Play Notakto" />
+				<TutorialTitle text="How&nbsp;to&nbsp;Play&nbsp;Notakto" />
 
 				<TutorialList items={rules} />
 
 				<TutorialButton onClick={() => setShowTut(false)}>
-					Close&nbsp;&nbsp;&nbsp;Tutorial
+					Close&nbsp;Tutorial
 				</TutorialButton>
 			</TutorialContainer>
 		</ModalOverlay>
