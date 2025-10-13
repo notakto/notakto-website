@@ -27,7 +27,6 @@ export default function ShortcutModal({
 		{ key: 'D', action: 'Open difficulty level' },
 		{ key: 'Q', action: 'Open keyboard shortcuts' },
         { key: 'T', action: 'Open tutorial' },
-		{ key: "Enter", action: "Return to game" },
 	];
 
 	return (

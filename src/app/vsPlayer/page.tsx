@@ -192,7 +192,9 @@ const Game = () => {
 				onSubmit={(name1: string, name2: string) => {
 					setPlayer1Name(name1 || "Player 1");
 					setPlayer2Name(name2 || "Player 2");
-					setActiveModal(null);
+					setGameStarted(true);
+                    setInitialSetupDone(true);
+                    setActiveModal(null);
 					resetGame(numberOfBoards, boardSize);
 				}}
 				initialNames={[player1Name, player2Name]}
