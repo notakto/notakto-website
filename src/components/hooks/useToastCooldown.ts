@@ -8,12 +8,12 @@ export function useToastCooldown(cooldown: number = TOAST_DURATION) {
 	const canShowToast = useCallback(() => !isOnCooldown.current, []);
 
 	const triggerToastCooldown = useCallback(() => {
-		isOnCooldown.current = false;
+		isOnCooldown.current = true;
 
 		if (cooldownTimer.current) {
 			clearTimeout(cooldownTimer.current);
 		}
-		const resetTime = Math.max(0, cooldown - 1000);
+		const resetTime = Math.max(0, cooldown - 50);
 		cooldownTimer.current = setTimeout(() => {
 			isOnCooldown.current = false;
 			cooldownTimer.current = null;
