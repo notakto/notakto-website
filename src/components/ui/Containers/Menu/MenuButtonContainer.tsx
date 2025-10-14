@@ -8,6 +8,6 @@ export default function MenuButtonContainer({
 	children,
 }: MenuButtonContainerProps) {
 	return (
-		<div className="flex flex-col items-center gap-4 w-full">{children}</div>
+		<div className="flex flex-col items-center gap-6 w-full">{children}</div>
 	);
 }
