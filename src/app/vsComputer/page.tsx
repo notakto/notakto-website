@@ -358,7 +358,6 @@ const Game = () => {
 						text={currentPlayer === 1 ? "Your Turn" : "Computer's Turn"}
 					/>
 				</PlayerStatusContainer>
-				
 				<BoardContainer>
 					{boards.map((board, index) => (
 						//FIXME:
