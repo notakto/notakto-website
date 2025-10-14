@@ -400,7 +400,6 @@ const Game = () => {
 							onClick={() => {
 								handleUndo();
 								setIsMenuOpen(false);
-								
 							}}
 							disabled={Coins < 100 || isUndoing}
 							loading={isUndoing}>
