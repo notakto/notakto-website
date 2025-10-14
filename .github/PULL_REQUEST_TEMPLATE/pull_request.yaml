@@ -1,0 +1,83 @@
+name: "Pull Request Form"
+description: "Please fill all fields. PRs with missing information may be closed."
+
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: "Description"
+      description: |
+        Purpose of this PR:
+        (Do not remove this section)
+      placeholder: "Describe why this PR exists..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: manual_test
+    attributes:
+      label: "How to test this PR manually:"
+      placeholder: "Explain how a reviewer can test this..."
+    validations:
+      required: true
+
+  - type: input
+    id: related_issue
+    attributes:
+      label: "Related Issue"
+      placeholder: "Closes #123"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: category
+    attributes:
+      label: "Category"
+      options:
+        - label: "Bug"
+        - label: "Refactor"
+        - label: "Enhancement/New Feature"
+        - label: "Tests"
+        - label: "Documentation"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: "Checklist"
+      options:
+        - label: "I have read and reviewed each line of my Git/File Differences for this PR very carefully and I clearly understand the reason behind the code changes and decisions I have made"
+          required: true
+        - label: "This PR cant be decomposed further without breaking consistency (check /docs/SHORT_PR.md for more information)"
+          required: true
+        - label: "I have manually tested all the changes and indirect impacts these changes could have made"
+          required: true
+        - label: "I have added/updated automated testing scripts (check /docs/TESTS_FOR_PR.md for more information) if applicable"
+          required: false
+        - label: "I will keep my branch updated with main till this branch doesn't get merged"
+          required: true
+        - label: "Documentations updated if applicable"
+          required: true
+        - label: "Code reviewed for accessibility"
+          required: true
+        - label: "I will check the review made by coderabbit (both actionable and nitpick) and will respond with atleast a short comment of why I disagree with it"
+          required: true
+        - label: "I understand maintainers might not be able to help with general doubts like git, tech stack etc"
+          required: true
+        - label: "I will post the doubts regarding repository/project in Discussions tab only, so that fellow contributors could help me"
+          required: true
+        - label: "I understand that doubts related to an issue or PR will be made as comment to the same."
+          required: true
+        - label: "I do not have any existing open PR pending to be merged"
+          required: true
+        - label: "If I am making this PR as a part of any competition then I will name it and mention e-mail id registered with that competition"
+          required: true
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: "Screenshots (if applicable)"
+      placeholder: "Add images or links here..."
+    validations:
+      required: false

@@ -1,0 +1,39 @@
+{
+	"editor.defaultFormatter": "biomejs.biome",
+	"editor.formatOnSave": true,
+	"[javascript]": { "editor.defaultFormatter": "biomejs.biome" },
+	"[typescript]": { "editor.defaultFormatter": "biomejs.biome" },
+	"[javascriptreact]": { "editor.defaultFormatter": "biomejs.biome" },
+	"[typescriptreact]": { "editor.defaultFormatter": "biomejs.biome" },
+	"editor.codeActionsOnSave": {
+		"source.fixAll.biome": "explicit",
+		"source.organizeImports.biome": "explicit"
+	},
+	"todo-tree.highlights.defaultHighlight": {
+		"type": "tag",
+		"foreground": "#FFFFFF",
+		"background": "#000000",
+		"iconColour": "#00FF00"
+	},
+	"todo-tree.highlights.customHighlight": {
+		"TODO": {
+			// "textDecoration": "underline",
+			// "fontStyle": "italic",
+			// "fontWeight": "bold",
+			"icon": "beaker",
+			"foreground": "#000000",
+			"background": "#070fff"
+		},
+		"FIXME": {
+			// "fontWeight": "bold",
+			"icon": "flame",
+			"foreground": "#FFFFFF",
+			"background": "#FF0000"
+		}
+	},
+	"todo-tree.general.tags": ["TODO", "FIXME"],
+	"todo-tree.highlights.enabled": true,
+	"[yaml]": {
+		"editor.defaultFormatter": "redhat.vscode-yaml"
+	}
+}

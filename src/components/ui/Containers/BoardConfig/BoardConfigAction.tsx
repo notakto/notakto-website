@@ -1,13 +1,11 @@
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 interface BoardConfigActionProps {
-    children: ReactNode;
+	children: ReactNode;
 }
 
-export default function BoardConfigAction({ children }: BoardConfigActionProps) {
-    return (
-        <div className="flex gap-4 pt-2">
-            {children}
-        </div>
-    );
+export default function BoardConfigAction({
+	children,
+}: BoardConfigActionProps) {
+	return <div className="flex gap-4 pt-2">{children}</div>;
 }

@@ -1,0 +1,10 @@
+ignoredBuiltDependencies: null
+
+onlyBuiltDependencies:
+  - '@firebase/util'
+  - '@tailwindcss/oxide'
+  - '@vercel/speed-insights'
+  - esbuild
+  - lefthook
+  - protobufjs
+  - sharp
