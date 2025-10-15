@@ -36,4 +36,3 @@ describe("vsComputer title logic", () => {
 		expect(document.title).toBe("Game Over | Notakto");
 	});
 });
- 
