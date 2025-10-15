@@ -24,9 +24,9 @@ export default function ShortcutModal({
 		{ key: "C", action: "Open game configuration" },
 		{ key: "M", action: "Go to main menu" },
 		{ key: "S", action: "Adjust sound" },
-		{ key: 'Q', action: 'Open keyboard shortcuts' },
-        { key: 'T', action: 'Open tutorial' },
-		{ key: 'D', action: 'Open difficulty level' }
+		{ key: "Q", action: "Open keyboard shortcuts" },
+		{ key: "T", action: "Open tutorial" },
+		{ key: "D", action: "Open difficulty level" },
 	];
 
 	return (

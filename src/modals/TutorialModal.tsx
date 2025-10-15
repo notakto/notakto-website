@@ -5,13 +5,13 @@ import ModalOverlay from "@/components/ui/Overlays/ModalOverlay";
 import TutorialTitle from "@/components/ui/Title/TutorialTitle";
 
 interface TutorialProps {
-  visible: boolean;
-  onClose: () => void;
+	visible: boolean;
+	onClose: () => void;
 }
 
 const TutorialModal = ({ visible, onClose }: TutorialProps) => {
 	if (!visible) return null;
-	const rules = [	
+	const rules = [
 		"Both players use X marks",
 		"Game is played on three 3x3 boards",
 		"Players alternate placing Xs",
@@ -27,9 +27,7 @@ const TutorialModal = ({ visible, onClose }: TutorialProps) => {
 
 				<TutorialList items={rules} />
 
-				<TutorialButton onClick={onClose}>
-					Close&nbsp;Tutorial
-				</TutorialButton>
+				<TutorialButton onClick={onClose}>Close&nbsp;Tutorial</TutorialButton>
 			</TutorialContainer>
 		</ModalOverlay>
 	);
