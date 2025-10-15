@@ -18,7 +18,7 @@ export default function ShortcutModal({
 	if (!visible) return null;
 
 	const shortcuts = [
-		{ key: "Esc", action: "Close the modal / pause menu" },
+		{ key: "Esc", action: "Close the modal" },
 		{ key: "R", action: "Reset the game" },
 		{ key: "N", action: "Reset player names" },
 		{ key: "C", action: "Open game configuration" },

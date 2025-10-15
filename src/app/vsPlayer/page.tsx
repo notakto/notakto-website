@@ -210,6 +210,9 @@ const Game = () => {
 					setPlayer2Name(name2 || "Player 2");
 					setActiveModal(null);
 					resetGame(numberOfBoards, boardSize);
+					setInitialSetupDone(true);
+					setGameStarted(true);
+					
 				}}
 				initialNames={[player1Name, player2Name]}
 				key={player1Name + player2Name}
