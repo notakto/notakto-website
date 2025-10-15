@@ -19,7 +19,7 @@ export default function CellButton({
 			disabled={disabled}
 			className={clsx(
 				"relative border border-gray-300 flex items-center justify-center aspect-square",
-				disabled ? "bg-gray-800" : "bg-black hover:bg-gray-900"
+				disabled ? "bg-gray-800" : "bg-black hover:bg-gray-900",
 			)}>
 			{children}
 		</button>
