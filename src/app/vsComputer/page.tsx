@@ -396,16 +396,22 @@ const Game = () => {
 							Skip a Move (200 coins)
 						</SettingButton>
 						<SettingButton
-							onClick={() =>
-								handleBuyCoins(
-									setIsProcessingPayment,
-									canShowToast,
-									resetCooldown,
-									setCoins,
-									Coins,
-								)
-							}
-							disabled={isProcessingPayment}
+							// onClick={() =>
+							// 	handleBuyCoins(
+							// 		setIsProcessingPayment,
+							// 		canShowToast,
+							// 		resetCooldown,
+							// 		setCoins,
+							// 		Coins,
+							// 	)
+							// }
+							onClick={() => {
+								// Temporarily disable actual function
+								alert("Feature not available yet."); // quick placeholder (can replace with toast)
+							}}
+							disabled={true} // make it gray + non-clickable
+							title="Currently not available" // native tooltip
+							// disabled={isProcessingPayment}
 							loading={isProcessingPayment}>
 							Buy Coins (100)
 						</SettingButton>
