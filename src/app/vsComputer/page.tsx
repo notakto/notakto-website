@@ -329,7 +329,7 @@ const Game = () => {
 			if (winner === "Player 1") title = "You Won! | Notakto";
 			else if (winner === "Player 2") title = "Computer Won! | Notakto";
 			else title = "Game Over | Notakto";
-		} else if (boards.length === 0 || !sessionId) {
+		} else if (boards.length > 0 && sessionId) {
 			title = "vs Computer | Notakto";
 		} else {
 			title =

@@ -22,11 +22,16 @@ const PlayerNamesModal = ({
 	const { canShowToast, triggerToastCooldown, resetCooldown } =
 		useToastCooldown(TOAST_DURATION);
 
-	useEffect(() => {
-		if (visible) {
-			document.title = "vs Player | Notakto";
-		}
-	}, [visible]);
+useEffect(() => {
+	if (visible) {
+		const previousTitle = document.title;
+		document.title = "vs Player | Notakto";
+		
+		return () => {
+			document.title = previousTitle;
+		};
+	}
+}, [visible]);
 
 	useEffect(() => {
 		setPlayer1(initialNames[0] || "Player 1");
