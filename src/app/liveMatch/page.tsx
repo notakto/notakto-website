@@ -75,7 +75,8 @@ const LiveMode = () => {
 			socket.disconnect();
 		};
 	}, []);
-		useEffect(() => {
+	
+	useEffect(() => {
 		document.title =
 			gameState === "playing"
 				? isMyTurn

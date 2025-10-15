@@ -337,7 +337,6 @@ const Game = () => {
 					? "Your Turn | Notakto"
 					: "Computer's Turn | Notakto";
 		}
-
 		document.title = title;
 	}, [boards, sessionId, currentPlayer, showWinnerModal, winner, isMenuOpen]);
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <intentionally run only on mount to initialize game once>
