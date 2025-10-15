@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect,useState } from "react";
 import Board from "@/app/vsPlayer/Board";
 import SettingBar from "@/components/ui/Buttons/SettingBar";
 import { SettingButton } from "@/components/ui/Buttons/SettingButton";
@@ -87,7 +87,30 @@ const Game = () => {
 	const exitToMenu = () => {
 		router.push("/");
 	};
+	useEffect(() => {
+		let title = "Notakto";
 
+		if (isMenuOpen) {
+			title = "Setting | Notakto";
+		} else if (showWinnerModal && boards.length !== 0) {
+			title = `${winner} Won!! | Notakto`;
+		} else if (!showNameModal && boards.length > 0) {
+			title = `${currentPlayer === 1 ? `${player1Name}'s Turn` : `${player2Name}'s Turn`} | Notakto`;
+		} else if (showNameModal) {
+			title = "vs Player | Notakto";
+		}
+
+		document.title = title;
+	}, [
+		isMenuOpen,
+		showWinnerModal,
+		winner,
+		boards.length,
+		showNameModal,
+		currentPlayer,
+		player1Name,
+		player2Name,
+	]);
 	return (
 		<GameLayout>
 			<GameBoardArea>

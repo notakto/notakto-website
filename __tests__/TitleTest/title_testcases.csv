@@ -1,0 +1,25 @@
+Priority,User Navigation,Expected Title
+High,Open Home Page,Home | Notakto
+Medium,click vs player-naming stage,vsPlayer | Notakto
+High,click vs player-Boards Visible,Player 1's Turn | Notakto
+High,click vs player-second player chance,Player 2's Turn | Notakto
+High,click vs player-player 1 won,Player 1 Won!! | Notakto
+High,click vs player-player 2 won,Player 2 Won!! | Notakto
+Medium,click vs player-open settings ,Settings | Notakto
+Low,click vs player-go settings -go back to board stage,Player 1's Turn | Notakto
+Low,click vs player-go setting-hit rematch,Player 1's Turn | Notakto
+High,click vsComputer,vsComputer | Notakto
+High,click vs Computer-Your Chance,Your Chance | Notakto
+High,click vs Computer-Computers Chance,Computers Chance | Notakto
+Medium,click vs Computer-Settings,Settings | Notakto
+Low,click vsComputer-go settings -go back to board stage,Your Chance | Notakto
+Low,click vsComputer--go setting-hit rematch,Your Chance | Notakto
+High,click LiveMatch- opponent not found,Searching for opponents | Notakto
+High,click LiveMatch - opponent found,Notakto | Your Turn
+High,click LiveMatch - your turn,Notakto | Your Turn
+High,click LiveMatch - opponent's turn,Notakto | Opponent's Turn
+High,click LiveMatch - you won,You Won!! | Notakto
+High,click LiveMatch - you lost,You Lost!! | Notakto
+Medium,click LiveMatch - open settings,Settings | Notakto
+Low,click LiveMatch - go settings - go back to board stage,Notakto | Your Turn
+Low,click LiveMatch - go setting - hit rematch,Notakto | Your Turn
