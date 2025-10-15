@@ -1,74 +1,72 @@
-'use client'
-import { useState } from 'react';
-import { BoardConfigModalProps } from '../services/types';
+"use client";
+import { useState } from "react";
+import { BoardActionButton } from "@/components/ui/Buttons/BoardActionButton";
 // Standardise components
-import { BoardConfigButton } from '@/components/ui/Buttons/BoardConfigButton';
-import { BoardActionButton } from '@/components/ui/Buttons/BoardActionButton';
+import { BoardConfigButton } from "@/components/ui/Buttons/BoardConfigButton";
+import BoardConfigAction from "@/components/ui/Containers/BoardConfig/BoardConfigAction";
+import BoardConfigContainer from "@/components/ui/Containers/BoardConfig/BoardConfigContainer";
+import BoardConfigOptions from "@/components/ui/Containers/BoardConfig/BoardConfigOptions";
+import ModalOverlay from "@/components/ui/Overlays/ModalOverlay";
+import BoardConfigTitle from "@/components/ui/Title/BoardConfigTitle";
+import type {
+	BoardConfigModalProps,
+	BoardNumber,
+	BoardSize,
+} from "@/services/types";
 
 const BoardConfigModal = ({
-  visible,
-  currentBoards,
-  currentSize,
-  onConfirm,
-  onCancel
+	visible,
+	currentBoards,
+	currentSize,
+	onConfirm,
+	onCancel,
 }: BoardConfigModalProps) => {
-  const [selectedBoards, setSelectedBoards] = useState<any>(currentBoards);
-  const [selectedSize, setSelectedSize] = useState<any>(currentSize);
+	const [selectedBoards, setSelectedBoards] =
+		useState<BoardNumber>(currentBoards);
+	const [selectedSize, setSelectedSize] = useState<BoardSize>(currentSize);
+	const BoardNumbers: BoardNumber[] = [1, 2, 3, 4, 5];
+	const BoardSizes: BoardSize[] = [2, 3, 4, 5];
+	if (!visible) return null;
 
-  if (!visible) return null;
+	return (
+		<ModalOverlay>
+			<BoardConfigContainer>
+				<BoardConfigTitle text="Number of Boards" />
+				<BoardConfigOptions>
+					{BoardNumbers.map((num) => (
+						<BoardConfigButton
+							key={num}
+							label={num}
+							isActive={selectedBoards === num}
+							onClick={() => setSelectedBoards(num)}
+						/>
+					))}
+				</BoardConfigOptions>
 
-  return (
-    <dialog open className="fixed inset-0 bg-black/80 flex items-center justify-center z-50">
-      <section className="bg-black p-6 w-[90%] max-w-xl text-center space-y-6" role="dialog" aria-modal="true">
-        
-        <header>
-          <h2 className="text-red-600 text-[35px]">Number of Boards</h2>
-        </header>
-        
-        <nav aria-label="Select number of boards">
-          <ul className="flex flex-wrap gap-2 justify-center">
-            {[1, 2, 3, 4, 5].map(num => (
-              <li key={num}>
-                <BoardConfigButton
-                  label={num}
-                  isActive={selectedBoards === num}
-                  onClick={() => setSelectedBoards(num)}
-                />
-              </li>
-            ))}
-          </ul>
-        </nav>
+				<BoardConfigTitle text="Board Size" />
 
-        <header>
-          <h2 className="text-red-600 text-[35px]">Board Size</h2>
-        </header>
+				<BoardConfigOptions>
+					{BoardSizes.map((size) => (
+						<BoardConfigButton
+							key={size}
+							label={`${size}x${size}`}
+							isActive={selectedSize === size}
+							onClick={() => setSelectedSize(size)}
+						/>
+					))}
+				</BoardConfigOptions>
 
-        <nav aria-label="Select board size">
-          <ul className="flex flex-wrap gap-2 justify-center">
-            {[2, 3, 4, 5].map(size => (
-              <li key={size}>
-                <BoardConfigButton
-                  label={`${size}x${size}`}
-                  isActive={selectedSize === size}
-                  onClick={() => setSelectedSize(size)}
-                />
-              </li>
-            ))}
-          </ul>
-        </nav>
+				<BoardConfigAction>
+					<BoardActionButton onClick={onCancel}>Cancel</BoardActionButton>
 
-        <footer className="flex gap-4 pt-2 justify-center">
-          <BoardActionButton onClick={onCancel}>
-            Cancel
-          </BoardActionButton>
-
-          <BoardActionButton onClick={() => onConfirm(selectedBoards, selectedSize)}>
-            Apply
-          </BoardActionButton>
-        </footer>
-      </section>
-    </dialog>
-  );
+					<BoardActionButton
+						onClick={() => onConfirm(selectedBoards, selectedSize)}>
+						Apply
+					</BoardActionButton>
+				</BoardConfigAction>
+			</BoardConfigContainer>
+		</ModalOverlay>
+	);
 };
 
 export default BoardConfigModal;
