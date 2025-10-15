@@ -31,7 +31,7 @@ import {
 	updateConfig,
 } from "@/services/game-apis";
 import { isBoardDead } from "@/services/logic";
-import { handleBuyCoins } from "@/services/payment";
+// import { handleBuyCoins } from "@/services/payment";
 import { playMoveSound, playWinSound } from "@/services/sounds";
 import { useCoins, useSound, useUser, useXP } from "@/services/store";
 import type {
@@ -70,11 +70,11 @@ const Game = () => {
 
 	const { sfxMute } = useSound();
 	const Coins = useCoins((state) => state.coins);
-	const setCoins = useCoins((state) => state.setCoins);
+	// const setCoins = useCoins((state) => state.setCoins);
 	const XP = useXP((state) => state.XP);
 	const user = useUser((state) => state.user);
 	const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
-	const { canShowToast, resetCooldown } = useToastCooldown(TOAST_DURATION);
+	// const { canShowToast, resetCooldown } = useToastCooldown(TOAST_DURATION);
 	const router = useRouter();
 
 	const initGame = async (
@@ -409,10 +409,9 @@ const Game = () => {
 							// 	)
 							// }
 							// disabled={isProcessingPayment}
-							
+
 							disabled={true} // make it gray + non-clickable
 							title="Currently not available" // native tooltip
-
 							loading={isProcessingPayment}>
 							Buy Coins (100)
 						</SettingButton>
