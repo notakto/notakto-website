@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import Board from "@/app/vsComputer/Board";
+import BoardModal from "@/modals/BoardModal";
 import { useToastCooldown } from "@/components/hooks/useToastCooldown";
 import SettingBar from "@/components/ui/Buttons/SettingBar";
 import { SettingButton } from "@/components/ui/Buttons/SettingButton";
@@ -363,7 +363,7 @@ const Game = () => {
 						//FIXME:
 						// biome-ignore lint/suspicious/noArrayIndexKey: <fix later>
 						<BoardWrapper key={index}>
-							<Board
+							<BoardModal
 								boardIndex={index}
 								boardState={board}
 								makeMove={handleMove}

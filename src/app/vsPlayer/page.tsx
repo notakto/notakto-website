@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import Board from "@/app/vsPlayer/Board";
+import BoardModal from "@/modals/BoardModal";
 import SettingBar from "@/components/ui/Buttons/SettingBar";
 import { SettingButton } from "@/components/ui/Buttons/SettingButton";
 import BoardContainer from "@/components/ui/Containers/Board/BoardContainer";
@@ -130,7 +130,7 @@ const Game = () => {
 						const boardKey = `${board.join("-")}-${index}`; //TODO: use better key
 						return (
 							<BoardWrapper key={boardKey}>
-								<Board
+								<BoardModal
 									boardIndex={index}
 									boardState={board}
 									makeMove={makeMove}
