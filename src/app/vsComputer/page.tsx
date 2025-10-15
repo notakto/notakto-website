@@ -39,7 +39,10 @@ import type {
 	BoardSize,
 	BoardState,
 	DifficultyLevel,
+	ComputerButtonModalType
 } from "@/services/types";
+import { useShortcut } from '@/components/hooks/useShortcut';
+import ShortcutModal from '@/modals/ShortcutModal';
 
 const Game = () => {
 	const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
@@ -48,13 +51,8 @@ const Game = () => {
 	const [, setGameHistory] = useState<BoardState[][]>([]);
 	const [currentPlayer, setCurrentPlayer] = useState<number>(1);
 	const [winner, setWinner] = useState<string>("");
-	const [showWinnerModal, setShowWinnerModal] = useState<boolean>(false);
 	const [numberOfBoards, setNumberOfBoards] = useState<BoardNumber>(3);
-	const [showBoardConfig, setShowBoardConfig] = useState<boolean>(false);
-	const [showSoundConfig, setShowSoundConfig] = useState<boolean>(false);
 	const [isProcessingPayment, setIsProcessingPayment] =
-		useState<boolean>(false);
-	const [showDifficultyModal, setShowDifficultyModal] =
 		useState<boolean>(false);
 	const [difficulty, setDifficulty] = useState<DifficultyLevel>(1);
 	const [sessionId, setSessionId] = useState<string>("");
@@ -67,6 +65,7 @@ const Game = () => {
 	const [isUpdatingConfig, setIsUpdatingConfig] = useState<boolean>(false);
 	const [isUpdatingDifficulty, setIsUpdatingDifficulty] =
 		useState<boolean>(false);
+	const [activeModal, setActiveModal] = useState<ComputerButtonModalType>(null);
 
 	const { sfxMute } = useSound();
 	const Coins = useCoins((state) => state.coins);
@@ -76,6 +75,19 @@ const Game = () => {
 	const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 	const { canShowToast, resetCooldown } = useToastCooldown(TOAST_DURATION);
 	const router = useRouter();
+
+	useShortcut({
+    	escape: () => {
+            if (activeModal) return setActiveModal(null);
+            return setIsMenuOpen(false);
+        },
+        m: () => router.push("/"),
+        r: () => handleReset(),
+        c: () => setActiveModal(prev => prev === "boardConfig" ? null : "boardConfig"),
+        s: () => setActiveModal(prev => prev === "soundConfig" ? null : "soundConfig"),
+        d: () => setActiveModal(prev => prev === "difficulty" ? null : "difficulty"),
+        q: () => setActiveModal(prev => prev === "shortcut" ? null : "shortcut"),
+    });
 
 	const initGame = async (
 		num: BoardNumber,
@@ -132,7 +144,7 @@ const Game = () => {
 
 					if (data.gameOver) {
 						setWinner(data.gameState.winner);
-						setShowWinnerModal(true);
+						setActiveModal('winner');
 						playWinSound(sfxMute);
 					}
 				} else if ("error" in data) {
@@ -163,7 +175,7 @@ const Game = () => {
 					setCurrentPlayer(data.gameState.currentPlayer);
 					setGameHistory(data.gameState.gameHistory);
 					setWinner("");
-					setShowWinnerModal(false);
+					setActiveModal(null);
 				} else if ("error" in data) {
 					toast.error(data.error || "Failed to reset game");
 				} else {
@@ -226,7 +238,7 @@ const Game = () => {
 					setGameHistory(data.gameState.gameHistory);
 					if (data.gameOver) {
 						setWinner(data.gameState.winner);
-						setShowWinnerModal(true);
+						setActiveModal('winner');
 						playWinSound(sfxMute);
 					}
 				} else if ("error" in data) {
@@ -371,7 +383,7 @@ const Game = () => {
 						</SettingButton>
 						<SettingButton
 							onClick={() => {
-								setShowBoardConfig(true);
+								setActiveModal('boardConfig');
 								setIsMenuOpen(false);
 							}}
 							disabled={isUpdatingConfig}>
@@ -411,14 +423,14 @@ const Game = () => {
 						</SettingButton>
 						<SettingButton
 							onClick={() => {
-								setShowDifficultyModal(true);
+								setActiveModal('difficulty');
 								setIsMenuOpen(false);
 							}}>
 							AI Level: {difficulty}
 						</SettingButton>
 						<SettingButton
 							onClick={() => {
-								setShowSoundConfig(true);
+								setActiveModal('soundConfig');
 								setIsMenuOpen(false);
 							}}>
 							Adjust Sound
@@ -427,42 +439,46 @@ const Game = () => {
 							Main Menu
 						</SettingButton>
 						<SettingButton onClick={toggleMenu}>Return to Game</SettingButton>
+						<SettingButton onClick={() => { setActiveModal('shortcut'); setIsMenuOpen(false) }}>Keyboard Shortcuts</SettingButton>
 					</SettingContainer>
 				</SettingOverlay>
 			)}
 
 			<WinnerModal
-				visible={showWinnerModal}
+				visible={activeModal === 'winner'}
 				winner={winner}
 				onPlayAgain={() => {
-					setShowWinnerModal(false);
+					setActiveModal(null);
 					handleReset();
 				}}
 				onMenu={() => {
-					setShowWinnerModal(false);
+					setActiveModal(null);
 					router.push("/");
 				}}
 			/>
 
 			<BoardConfigModal
-				visible={showBoardConfig}
+				visible={activeModal === 'boardConfig'}
 				currentBoards={numberOfBoards}
 				currentSize={boardSize}
 				onConfirm={handleBoardConfigChange}
-				onCancel={() => setShowBoardConfig(false)}
+				onCancel={() => setActiveModal(null)}
 			/>
-
+			<ShortcutModal
+                visible={activeModal === 'shortcut'}
+                onClose={() => setActiveModal(null)}
+            />
 			<DifficultyModal
-				visible={showDifficultyModal}
+				visible={activeModal === 'difficulty'}
 				onSelect={(level: DifficultyLevel) => {
 					handleDifficultyChange(level);
-					setShowDifficultyModal(false);
+					setActiveModal(null);
 				}}
-				onClose={() => setShowDifficultyModal(false)}
+				onClose={() => setActiveModal(null)}
 			/>
 			<SoundConfigModal
-				visible={showSoundConfig}
-				onClose={() => setShowSoundConfig(false)}
+				visible={activeModal === 'soundConfig'}
+				onClose={() => setActiveModal(null)}
 			/>
 		</GameLayout>
 	);
