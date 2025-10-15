@@ -32,5 +32,8 @@
 		}
 	},
 	"todo-tree.general.tags": ["TODO", "FIXME"],
-	"todo-tree.highlights.enabled": true
+	"todo-tree.highlights.enabled": true,
+	"[yaml]": {
+		"editor.defaultFormatter": "redhat.vscode-yaml"
+	}
 }
