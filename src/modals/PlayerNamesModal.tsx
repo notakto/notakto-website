@@ -30,7 +30,7 @@ const PlayerNamesModal = ({
 	useEffect(() => {
 		setPlayer1(initialNames[0] || "Player 1");
 		setPlayer2(initialNames[1] || "Player 2");
-	}, [initialNames]);
+	},[initialNames]);
 
 	const handleSubmit = () => {
 		if (!canShowToast()) return;
