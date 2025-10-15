@@ -75,7 +75,6 @@ const LiveMode = () => {
 			socket.disconnect();
 		};
 	}, []);
-	
 	useEffect(() => {
 		document.title =
 			gameState === "playing"
