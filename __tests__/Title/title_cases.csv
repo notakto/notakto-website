@@ -1,10 +1,10 @@
 Test ID,Condition,Expected Title,Priority
-1,No board yet, name modal open,Notakto,Low
+1,No board yet, name modal open,Home | Notakto,Low
 2,Boards loaded, Player 1's turn,Player 1's Turn | Notakto,High
 3,Boards loaded, Player 2's turn,Player 2's Turn | Notakto,High
 4,Settings menu opened,Setting | Notakto,Medium
 5,Winner modal open, Player 1 won,Player 1 Won!! | Notakto,High
 6,Winner modal open, Player 2 won,Player 2 Won!! | Notakto,High
 7,After winner modal closes (Rematch clicked),Player 1's Turn | Notakto,Critical
-8,After main menu click,Notakto,Medium
-9,After resetting names,Notakto,Low
+8,After main menu click,Home | Notakto,Medium
+9,After resetting names,Home | Notakto,Low
