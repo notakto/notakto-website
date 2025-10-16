@@ -26,12 +26,7 @@ const PlayerNamesModal = ({
 
 	useEffect(() => {
 		if (visible) {
-			const previousTitle = document.title;
 			document.title = "vs Player | Notakto";
-
-			return () => {
-				document.title = previousTitle;
-			};
 		}
 	}, [visible]);
 
