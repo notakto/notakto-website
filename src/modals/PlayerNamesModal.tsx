@@ -11,6 +11,8 @@ import PlayerNameModalTitle from "@/components/ui/Title/PlayerNameModalTitle";
 import { TOAST_DURATION, TOAST_IDS } from "@/constants/toast";
 import type { PlayerNamesModalProps } from "@/services/types";
 
+const MAX_PLAYER_NAME_LENGTH = 15;
+
 const PlayerNamesModal = ({
 	visible,
 	onSubmit,
@@ -63,17 +65,31 @@ const PlayerNamesModal = ({
 			<PlayerNameModalContainer>
 				<PlayerNameModalTitle text="Enter Player Names" />
 				<PlayerNameFormContainer>
-					<PlayerInput
-						value={player1}
-						onChange={(e) => setPlayer1(e.target.value)}
-						placeholder="Player 1 Name"
-					/>
+					<div>
+						<PlayerInput
+							value={player1}
+							onChange={(e) => setPlayer1(e.target.value)}
+							placeholder="Player 1 Name"
+							maxLength={MAX_PLAYER_NAME_LENGTH}
+						/>
+						{/* ✅ Character counter - right aligned */}
+						<div className="text-xl text-white mt-1 text-right">
+							{player1.length}/{MAX_PLAYER_NAME_LENGTH} characters
+						</div>
+					</div>
 
-					<PlayerInput
-						value={player2}
-						onChange={(e) => setPlayer2(e.target.value)}
-						placeholder="Player 2 Name"
-					/>
+					<div>
+						<PlayerInput
+							value={player2}
+							onChange={(e) => setPlayer2(e.target.value)}
+							placeholder="Player 2 Name"
+							maxLength={MAX_PLAYER_NAME_LENGTH}
+						/>
+						{/* ✅ Character counter - right aligned */}
+						<div className="text-xl text-white mt-1 text-right">
+							{player2.length}/{MAX_PLAYER_NAME_LENGTH} characters
+						</div>
+					</div>
 				</PlayerNameFormContainer>
 
 				<PlayerStartButton onClick={handleSubmit}>Start Game</PlayerStartButton>
