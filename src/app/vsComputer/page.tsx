@@ -322,23 +322,37 @@ const Game = () => {
 	};
 	useEffect(() => {
 		let title = "vs Computer | Notakto";
-
+		// Priority 1: Settings menu is open
 		if (isMenuOpen) {
 			title = "Settings | Notakto";
-		} else if (showWinnerModal) {
-			if (winner === "Player 1") title = "You Won! | Notakto";
-			else if (winner === "Player 2") title = "Computer Won! | Notakto";
-			else title = "Game Over | Notakto";
-		} else if (boards.length > 0 && sessionId) {
-			title = "vs Computer | Notakto";
+		}
+		// Priority 2: Winner modal is showing
+		else if (showWinnerModal) {
+			if (winner === "Player 1") {
+				title = "You Won! | Notakto";
+			} else if (winner === "Player 2") {
+				title = "Computer Won! | Notakto";
+			} else {
+				title = "Game Over | Notakto";
+			}
+		}
+		// Priority 3: Game is active - show current turn
+		else if (currentPlayer === 1) {
+			title = "Your Turn | Notakto";
 		} else {
-			title =
-				currentPlayer === 1
-					? "Your Turn | Notakto"
-					: "Computer's Turn | Notakto";
+			title = "Computer's Turn | Notakto";
 		}
 		document.title = title;
-	}, [boards, sessionId, currentPlayer, showWinnerModal, winner, isMenuOpen]);
+	}, [currentPlayer, showWinnerModal, winner, isMenuOpen]);
+
+	// Separate effect to track currentPlayer changes and catch computer's turn
+	useEffect(() => {
+		if (currentPlayer === 2) {
+			console.log("🤖 COMPUTER'S TURN DETECTED! Player:", currentPlayer);
+		} else {
+			console.log("👤 YOUR TURN! Player:", currentPlayer);
+		}
+	}, [currentPlayer]);
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <intentionally run only on mount to initialize game once>
 	useEffect(() => {
 		initGame(numberOfBoards, boardSize, difficulty);
