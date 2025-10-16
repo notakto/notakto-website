@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import Board from "@/app/vsComputer/Board";
-import { useToastCooldown } from "@/components/hooks/useToastCooldown";
+// import { useToastCooldown } from "@/components/hooks/useToastCooldown";
 import SettingBar from "@/components/ui/Buttons/SettingBar";
 import { SettingButton } from "@/components/ui/Buttons/SettingButton";
 import BoardContainer from "@/components/ui/Containers/Board/BoardContainer";
@@ -17,7 +17,7 @@ import SettingOverlay from "@/components/ui/Containers/Settings/SettingOverlay";
 import GameLayout from "@/components/ui/Layout/GameLayout";
 import PlayerTurnTitle from "@/components/ui/Title/PlayerTurnTitle";
 import StatLabel from "@/components/ui/Title/StatLabel";
-import { TOAST_DURATION } from "@/constants/toast";
+// import { TOAST_DURATION } from "@/constants/toast";
 import BoardConfigModal from "@/modals/BoardConfigModal";
 import DifficultyModal from "@/modals/DifficultyModal";
 import SoundConfigModal from "@/modals/SoundConfigModal";
@@ -31,7 +31,7 @@ import {
 	updateConfig,
 } from "@/services/game-apis";
 import { isBoardDead } from "@/services/logic";
-import { handleBuyCoins } from "@/services/payment";
+// import { handleBuyCoins } from "@/services/payment";
 import { playMoveSound, playWinSound } from "@/services/sounds";
 import { useCoins, useSound, useUser, useXP } from "@/services/store";
 import type {
@@ -70,11 +70,11 @@ const Game = () => {
 
 	const { sfxMute } = useSound();
 	const Coins = useCoins((state) => state.coins);
-	const setCoins = useCoins((state) => state.setCoins);
+	// const setCoins = useCoins((state) => state.setCoins);
 	const XP = useXP((state) => state.XP);
 	const user = useUser((state) => state.user);
 	const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
-	const { canShowToast, resetCooldown } = useToastCooldown(TOAST_DURATION);
+	// const { canShowToast, resetCooldown } = useToastCooldown(TOAST_DURATION);
 	const router = useRouter();
 
 	const initGame = async (
@@ -396,16 +396,22 @@ const Game = () => {
 							Skip a Move (200 coins)
 						</SettingButton>
 						<SettingButton
-							onClick={() =>
-								handleBuyCoins(
-									setIsProcessingPayment,
-									canShowToast,
-									resetCooldown,
-									setCoins,
-									Coins,
-								)
-							}
-							disabled={isProcessingPayment}
+							//Blocking the current functions since we need it disabled until the feature comes up right
+							// DO NOT DELETE THIS COMMENTS
+
+							// onClick={() =>
+							// 	handleBuyCoins(
+							// 		setIsProcessingPayment,
+							// 		canShowToast,
+							// 		resetCooldown,
+							// 		setCoins,
+							// 		Coins,
+							// 	)
+							// }
+							// disabled={isProcessingPayment}
+
+							disabled={true} // make it gray + non-clickable
+							title="Currently not available" // native tooltip
 							loading={isProcessingPayment}>
 							Buy Coins (100)
 						</SettingButton>
