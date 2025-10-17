@@ -62,7 +62,7 @@ const PlayerNamesModal = ({
 							maxLength={MAX_PLAYER_NAME_LENGTH}
 						/>
 						{/* ✅ Character counter - right aligned */}
-						<div className="text-xl text-white mt-1 text-right">
+						<div className="text-xl text-blue-800 mt-1 text-right">
 							{player1.length}/{MAX_PLAYER_NAME_LENGTH} characters
 						</div>
 					</div>
@@ -75,7 +75,7 @@ const PlayerNamesModal = ({
 							maxLength={MAX_PLAYER_NAME_LENGTH}
 						/>
 						{/* ✅ Character counter - right aligned */}
-						<div className="text-xl text-white mt-1 text-right">
+						<div className="text-xl text-blue-800 mt-1 text-right">
 							{player2.length}/{MAX_PLAYER_NAME_LENGTH} characters
 						</div>
 					</div>

@@ -12,7 +12,7 @@ const ShortcutList = ({ shortcuts }: ShortcutListProps) => (
 		{shortcuts.map((shortcut) => (
 			<div key={shortcut.key} className="flex flex-col items-start">
 				<h4 className="font-extrabold text-xl">{shortcut.key}</h4>
-				<p className="text-lg text-gray-300">{shortcut.action}</p>
+				<p className="text-lg text-blue-800">{shortcut.action}</p>
 			</div>
 		))}
 	</div>
