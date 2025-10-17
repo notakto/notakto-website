@@ -225,7 +225,7 @@ const Game = () => {
 				}}
 				onMenu={() => {
 					setActiveModal(null);
-					 router.push("/");
+					router.push("/");
 				}}
 			/>
 			<BoardConfigModal

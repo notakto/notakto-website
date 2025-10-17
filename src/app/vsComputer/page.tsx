@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import Board from "@/app/vsComputer/Board";
 import { useShortcut } from "@/components/hooks/useShortcut";
-import { useToastCooldown } from "@/components/hooks/useToastCooldown";
 // import { useToastCooldown } from "@/components/hooks/useToastCooldown";
 import SettingBar from "@/components/ui/Buttons/SettingBar";
 import { SettingButton } from "@/components/ui/Buttons/SettingButton";
@@ -53,7 +52,7 @@ const Game = () => {
 	const [currentPlayer, setCurrentPlayer] = useState<number>(1);
 	const [winner, setWinner] = useState<string>("");
 	const [numberOfBoards, setNumberOfBoards] = useState<BoardNumber>(3);
-	const [isProcessingPayment, setIsProcessingPayment] =
+	const [isProcessingPayment, _setIsProcessingPayment] =
 		useState<boolean>(false);
 	const [difficulty, setDifficulty] = useState<DifficultyLevel>(1);
 	const [sessionId, setSessionId] = useState<string>("");
@@ -284,7 +283,7 @@ const Game = () => {
 					setBoards(data.gameState.boards);
 					setCurrentPlayer(data.gameState.currentPlayer);
 					setGameHistory(data.gameState.gameHistory);
-					setActiveModal(null)
+					setActiveModal(null);
 				} else if ("error" in data) {
 					toast.error(data.error || "Failed to update config");
 				} else {
