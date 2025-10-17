@@ -33,7 +33,7 @@ export default function ShortcutModal({
 				<ShortcutTitle text="Keyboard Shortcuts" />
 
 				{/* Pending notice */}
-				<div className="bg-yellow-500/50 border border-yellow-600 text-yellow-800 p-3 rounded-lg text-md">
+				<div className="bg-yellow-500/50 border border-yellow-600 text-yellow-800 p-3 rounded-lg text-base">
 					⚠️ NOTE : These shortcuts are for reference only. Implementation is
 					pending, so they won’t work right now.
 				</div>
