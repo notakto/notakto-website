@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 import PlayerNamesModal from "@/modals/PlayerNamesModal";
 import type { PlayerNamesModalProps } from "@/services/types";
@@ -120,37 +120,29 @@ describe("PlayerNamesModal Character Limit Validation", () => {
 
 	/*
 	 * Test Case ID: 14 - Form submission with full-length names (15 chars each)
-	 *
-	 * DISABLED FOR NOW:
-	 * The component is calling toast.dismiss() even on successful submissions
-	 * but our mock doesn't handle it properly. Getting this error:
-	 * "TypeError: toast.dismiss is not a function"
-	 *
-	 * Need to figure out how to mock this correctly or maybe fix the component
-	 * so it doesn't call dismiss on every submission. Pretty annoying bug.
-	 *
-	 * The test itself is fine - just checking that 15 char names work properly
-	 * and the form submits without issues.
 	 */
-	// it("should submit successfully with full-length names (15 chars each)", async () => {
-	//   render(<PlayerNamesModal {...defaultProps} />);
-	//
-	//   const player1Input = screen.getByPlaceholderText("Player 1 Name");
-	//   const player2Input = screen.getByPlaceholderText("Player 2 Name");
-	//   const startButton = screen.getByText("Start Game");
-	//
-	//   const player1Name = "ExactlyFifteen1"; // 15 characters
-	//   const player2Name = "ExactlyFifteen2"; // 15 characters
-	//
-	//   fireEvent.change(player1Input, { target: { value: player1Name } });
-	//   fireEvent.change(player2Input, { target: { value: player2Name } });
-	//
-	//   fireEvent.click(startButton);
-	//
-	//   await waitFor(() => {
-	//     expect(mockOnSubmit).toHaveBeenCalledWith(player1Name, player2Name);
-	//   }, { timeout: 3000 });
-	// });
+	it("should submit successfully with full-length names (15 chars each)", async () => {
+		render(<PlayerNamesModal {...defaultProps} />);
+
+		const player1Input = screen.getByPlaceholderText("Player 1 Name");
+		const player2Input = screen.getByPlaceholderText("Player 2 Name");
+		const startButton = screen.getByText("Start Game");
+
+		const player1Name = "ExactlyFifteen1"; // 15 characters
+		const player2Name = "ExactlyFifteen2"; // 15 characters
+
+		fireEvent.change(player1Input, { target: { value: player1Name } });
+		fireEvent.change(player2Input, { target: { value: player2Name } });
+
+		fireEvent.click(startButton);
+
+		await waitFor(
+			() => {
+				expect(mockOnSubmit).toHaveBeenCalledWith(player1Name, player2Name);
+			},
+			{ timeout: 3000 },
+		);
+	});
 
 	/*
 	 * Test Case ID: 15 - Duplicate name validation with error toast
