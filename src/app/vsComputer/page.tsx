@@ -284,6 +284,7 @@ const Game = () => {
 					setBoards(data.gameState.boards);
 					setCurrentPlayer(data.gameState.currentPlayer);
 					setGameHistory(data.gameState.gameHistory);
+					setActiveModal(null)
 				} else if ("error" in data) {
 					toast.error(data.error || "Failed to update config");
 				} else {
