@@ -1,5 +1,3 @@
-// src/utils/pageShortcuts.ts
-
 export const pageShortcuts: Record<string, { key: string; action: string }[]> =
 	{
 		"/": [
