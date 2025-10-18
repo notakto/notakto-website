@@ -3,12 +3,14 @@ import TutorialContainer from "@/components/ui/Containers/Tutorial/TutorialConta
 import TutorialList from "@/components/ui/List/TutorialList";
 import ModalOverlay from "@/components/ui/Overlays/ModalOverlay";
 import TutorialTitle from "@/components/ui/Title/TutorialTitle";
-import { useTut } from "@/services/store";
 
-const TutorialModal = () => {
-	const { showTut, setShowTut } = useTut();
-	if (!showTut) return null;
+interface TutorialProps {
+	visible: boolean;
+	onClose: () => void;
+}
 
+const TutorialModal = ({ visible, onClose }: TutorialProps) => {
+	if (!visible) return null;
 	const rules = [
 		"Both players use X marks",
 		"Game is played on three 3x3 boards",
@@ -25,9 +27,7 @@ const TutorialModal = () => {
 
 				<TutorialList items={rules} />
 
-				<TutorialButton onClick={() => setShowTut(false)}>
-					Close&nbsp;Tutorial
-				</TutorialButton>
+				<TutorialButton onClick={onClose}>Close&nbsp;Tutorial</TutorialButton>
 			</TutorialContainer>
 		</ModalOverlay>
 	);
