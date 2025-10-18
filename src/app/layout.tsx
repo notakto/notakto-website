@@ -8,7 +8,7 @@ import MusicProvider from "@/components/MusicProvider";
 import { CustomToastContainer } from "@/components/ui/Toasts/CustomToastContainer";
 
 export const metadata: Metadata = {
-	title: "Home | Notakto",
+	title: "Menu | Notakto",
 	description: "No ties, Always a winner",
 	keywords: [
 		"Notakto",
