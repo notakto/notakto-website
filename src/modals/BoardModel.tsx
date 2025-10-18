@@ -16,7 +16,7 @@ const BoardModal: React.FC<BoardProps> = ({
 			<BoardGrid boardSize={boardSize}>
 				{boardState.map((cell, cellIndex) => (
 					<CellModal
-						key={`${boardIndex}-${cellIndex}-${cell}`}
+						key={`${boardIndex}-${cellIndex}-${cell}`}//FIXME: Improve key
 						boardIndex={boardIndex}
 						cellIndex={cellIndex}
 						value={cell}
