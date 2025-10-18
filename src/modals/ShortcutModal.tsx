@@ -1,10 +1,12 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { ShortcutButton } from "@/components/ui/Buttons/ShortcutButton";
 import ShortcutContainer from "@/components/ui/Containers/Shortcut/ShortcutContainer";
 import ShortcutList from "@/components/ui/List/ShortcutList";
 import ModalOverlay from "@/components/ui/Overlays/ModalOverlay";
 import ShortcutTitle from "@/components/ui/Title/ShortcutTitle";
+import { pageShortcuts } from "@/utils/pageShortcut";
 
 type ShortcutModalProps = {
 	visible: boolean;
@@ -15,19 +17,10 @@ export default function ShortcutModal({
 	visible,
 	onClose,
 }: ShortcutModalProps) {
+	const pathname = usePathname();
+    const shortcuts = pageShortcuts[pathname] || [];
+	
 	if (!visible) return null;
-
-	const shortcuts = [
-		{ key: "Esc", action: "Close the modal" },
-		{ key: "R", action: "Reset the game" },
-		{ key: "N", action: "Reset player names" },
-		{ key: "C", action: "Open game configuration" },
-		{ key: "M", action: "Go to main menu" },
-		{ key: "S", action: "Adjust sound" },
-		{ key: "Q", action: "Open keyboard shortcuts" },
-		{ key: "T", action: "Open tutorial" },
-		{ key: "D", action: "Open difficulty level" },
-	];
 
 	return (
 		<ModalOverlay>
