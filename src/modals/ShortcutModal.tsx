@@ -18,8 +18,8 @@ export default function ShortcutModal({
 	onClose,
 }: ShortcutModalProps) {
 	const pathname = usePathname();
-    const shortcuts = pageShortcuts[pathname] || [];
-	
+	const shortcuts = pageShortcuts[pathname] || [];
+
 	if (!visible) return null;
 
 	return (
