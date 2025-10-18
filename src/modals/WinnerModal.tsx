@@ -7,12 +7,8 @@ import WinnerMessage from "@/components/ui/Title/WinnerMessage";
 import WinnerTitle from "@/components/ui/Title/WinnerTitle";
 import type { WinnerModalProps } from "@/services/types";
 
-const WinnerModal = ({ visible, winner, onPlayAgain }: WinnerModalProps) => {
-	const router = useRouter();
+const WinnerModal = ({ visible, winner, onPlayAgain ,onMenu }: WinnerModalProps) => {
 	if (!visible) return null;
-	const exitToMenu = () => {
-		router.push("/");
-	};
 	return (
 		<ModalOverlay>
 			<WinnerContainer>
@@ -22,7 +18,7 @@ const WinnerModal = ({ visible, winner, onPlayAgain }: WinnerModalProps) => {
 				/>
 				<WinnerAction>
 					<WinnerButton onClick={onPlayAgain}>Play Again</WinnerButton>
-					<WinnerButton onClick={exitToMenu}>Main Menu</WinnerButton>
+					<WinnerButton onClick={onMenu}>Main Menu</WinnerButton>
 				</WinnerAction>
 			</WinnerContainer>
 		</ModalOverlay>

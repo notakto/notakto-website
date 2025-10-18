@@ -54,7 +54,6 @@ const Game = () => {
 			return setIsMenuOpen(false);
 		},
 		m: () => {
-			if (!initialSetupDone) return router.push("/");
 			router.push("/");
 		},
 		r: () => {
