@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 export const metadata = {
 	title: "vsComputer | Notakto",
 	description:
-		"Challenge the Notakto AI in Player vs Computer mode! Play X-only Tic Tac Toe against a smart opponent and improve your strategy.",
+		"Challenge the AI in Notakto — the unique X-only tic-tac-toe game! Test your strategy against computer opponents of varying difficulty.",
 };
 
 export default function vsComputerLayout({
