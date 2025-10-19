@@ -11,6 +11,7 @@ export const pageShortcuts: Record<string, { key: string; action: string }[]> =
 			{ key: "M", action: "Go to main menu" },
 			{ key: "R", action: "Reset the game" },
 			{ key: "C", action: "Open game configuration" },
+			{ key: "N", action: "Toggle player names" },
 			{ key: "S", action: "Adjust sound" },
 			{ key: "Q", action: "Open keyboard shortcuts" },
 		],
