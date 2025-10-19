@@ -6,7 +6,7 @@ import ShortcutContainer from "@/components/ui/Containers/Shortcut/ShortcutConta
 import ShortcutList from "@/components/ui/List/ShortcutList";
 import ModalOverlay from "@/components/ui/Overlays/ModalOverlay";
 import ShortcutTitle from "@/components/ui/Title/ShortcutTitle";
-import { pageShortcuts } from "@/utils/pageShortcut";
+import { pageShortcuts } from "@/services/pageShortcut";
 
 type ShortcutModalProps = {
 	visible: boolean;
