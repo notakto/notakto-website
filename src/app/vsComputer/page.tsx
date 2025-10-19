@@ -91,7 +91,8 @@ const Game = () => {
 			setActiveModal((prev) => (prev === "difficulty" ? null : "difficulty")),
 		q: () =>
 			setActiveModal((prev) => (prev === "shortcut" ? null : "shortcut")),
-	});
+	},isMenuOpen // disabled condition
+	);
 
 	const initGame = async (
 		num: BoardNumber,

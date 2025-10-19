@@ -54,6 +54,7 @@ const Game = () => {
 			return setIsMenuOpen(false);
 		},
 		m: () => {
+			if (!initialSetupDone) return;
 			router.push("/");
 		},
 		r: () => {
@@ -75,7 +76,8 @@ const Game = () => {
 			if (!initialSetupDone) return;
 			setActiveModal((prev) => (prev === "shortcut" ? null : "shortcut"));
 		},
-	});
+	},isMenuOpen // disabled option
+	);
 
 	const makeMove = (boardIndex: number, cellIndex: number) => {
 		if (
