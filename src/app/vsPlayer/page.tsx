@@ -59,7 +59,8 @@ const Game = () => {
 				router.push("/");
 			},
 			r: () => {
-				if (initialSetupDone) resetGame(numberOfBoards, boardSize);
+				if (!initialSetupDone) return;
+				resetGame(numberOfBoards, boardSize);
 			},
 			n: () => {
 				if (!initialSetupDone) return;
