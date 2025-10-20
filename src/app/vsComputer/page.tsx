@@ -76,22 +76,29 @@ const Game = () => {
 	// const { canShowToast, resetCooldown } = useToastCooldown(TOAST_DURATION);
 	const router = useRouter();
 
-	useShortcut({
-		escape: () => {
-			if (activeModal) return setActiveModal(null);
-			return setIsMenuOpen(false);
+	useShortcut(
+		{
+			escape: () => {
+				if (activeModal) return setActiveModal(null);
+				return setIsMenuOpen(false);
+			},
+			m: () => router.push("/"),
+			r: () => handleReset(),
+			c: () =>
+				setActiveModal((prev) =>
+					prev === "boardConfig" ? null : "boardConfig",
+				),
+			s: () =>
+				setActiveModal((prev) =>
+					prev === "soundConfig" ? null : "soundConfig",
+				),
+			d: () =>
+				setActiveModal((prev) => (prev === "difficulty" ? null : "difficulty")),
+			q: () =>
+				setActiveModal((prev) => (prev === "shortcut" ? null : "shortcut")),
 		},
-		m: () => router.push("/"),
-		r: () => handleReset(),
-		c: () =>
-			setActiveModal((prev) => (prev === "boardConfig" ? null : "boardConfig")),
-		s: () =>
-			setActiveModal((prev) => (prev === "soundConfig" ? null : "soundConfig")),
-		d: () =>
-			setActiveModal((prev) => (prev === "difficulty" ? null : "difficulty")),
-		q: () =>
-			setActiveModal((prev) => (prev === "shortcut" ? null : "shortcut")),
-	});
+		isMenuOpen, // disabled condition
+	);
 
 	const initGame = async (
 		num: BoardNumber,

@@ -47,35 +47,44 @@ const Game = () => {
 	const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 	const router = useRouter();
 
-	useShortcut({
-		escape: () => {
-			if (!initialSetupDone && !gameStarted) return;
-			if (activeModal) return setActiveModal(null);
-			return setIsMenuOpen(false);
+	useShortcut(
+		{
+			escape: () => {
+				if (!initialSetupDone && !gameStarted) return;
+				if (activeModal) return setActiveModal(null);
+				return setIsMenuOpen(false);
+			},
+			m: () => {
+				if (!initialSetupDone) return;
+				router.push("/");
+			},
+			r: () => {
+				if (!initialSetupDone) return;
+				resetGame(numberOfBoards, boardSize);
+			},
+			n: () => {
+				if (!initialSetupDone) return;
+				setActiveModal((prev) => (prev === "names" ? null : "names"));
+			},
+			c: () => {
+				if (!initialSetupDone) return;
+				setActiveModal((prev) =>
+					prev === "boardConfig" ? null : "boardConfig",
+				);
+			},
+			s: () => {
+				if (!initialSetupDone) return;
+				setActiveModal((prev) =>
+					prev === "soundConfig" ? null : "soundConfig",
+				);
+			},
+			q: () => {
+				if (!initialSetupDone) return;
+				setActiveModal((prev) => (prev === "shortcut" ? null : "shortcut"));
+			},
 		},
-		m: () => {
-			router.push("/");
-		},
-		r: () => {
-			if (initialSetupDone) resetGame(numberOfBoards, boardSize);
-		},
-		n: () => {
-			if (!initialSetupDone) return;
-			setActiveModal((prev) => (prev === "names" ? null : "names"));
-		},
-		c: () => {
-			if (!initialSetupDone) return;
-			setActiveModal((prev) => (prev === "boardConfig" ? null : "boardConfig"));
-		},
-		s: () => {
-			if (!initialSetupDone) return;
-			setActiveModal((prev) => (prev === "soundConfig" ? null : "soundConfig"));
-		},
-		q: () => {
-			if (!initialSetupDone) return;
-			setActiveModal((prev) => (prev === "shortcut" ? null : "shortcut"));
-		},
-	});
+		isMenuOpen, // disabled option
+	);
 
 	const makeMove = (boardIndex: number, cellIndex: number) => {
 		if (
