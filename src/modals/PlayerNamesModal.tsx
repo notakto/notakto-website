@@ -53,33 +53,42 @@ const PlayerNamesModal = ({
 		<ModalOverlay>
 			<PlayerNameModalContainer>
 				<PlayerNameModalTitle text="Enter Player Names" />
-				<PlayerNameFormContainer>
-					<div>
+					<form>
+					<fieldset className="mb-4">
+						<legend className="sr-only">Player 1 Name</legend>
+						<label htmlFor="player1" className="block text-white mb-1">
+						Player 1
+						</label>
 						<PlayerInput
+							id="player1"
 							value={player1}
 							onChange={(e) => setPlayer1(e.target.value)}
 							placeholder="Player 1 Name"
 							maxLength={MAX_PLAYER_NAME_LENGTH}
 						/>
 						{/* ✅ Character counter - right aligned */}
-						<div className="text-xl text-white mt-1 text-right">
+						<small className="text-xl text-white mt-1 text-right">
 							{player1.length}/{MAX_PLAYER_NAME_LENGTH} characters
-						</div>
-					</div>
-
-					<div>
+						</small>
+					</fieldset>
+					<fieldset className="mb-4">
+						<legend className="sr-only">Player 2 Name</legend>
+						<label htmlFor="player2" className="block text-white mb-1">
+						Player 2
+						</label>
 						<PlayerInput
+							id="player2"
 							value={player2}
 							onChange={(e) => setPlayer2(e.target.value)}
 							placeholder="Player 2 Name"
 							maxLength={MAX_PLAYER_NAME_LENGTH}
 						/>
 						{/* ✅ Character counter - right aligned */}
-						<div className="text-xl text-white mt-1 text-right">
+						<small className="text-xl text-white mt-1 text-right">
 							{player2.length}/{MAX_PLAYER_NAME_LENGTH} characters
-						</div>
-					</div>
-				</PlayerNameFormContainer>
+						</small>
+					</fieldset>
+				</form>
 
 				<PlayerStartButton onClick={handleSubmit}>Start Game</PlayerStartButton>
 			</PlayerNameModalContainer>
