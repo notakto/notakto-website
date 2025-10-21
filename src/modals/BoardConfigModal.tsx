@@ -9,65 +9,65 @@ import BoardConfigOptions from "@/components/ui/Containers/BoardConfig/BoardConf
 import ModalOverlay from "@/components/ui/Overlays/ModalOverlay";
 import BoardConfigTitle from "@/components/ui/Title/BoardConfigTitle";
 import type {
-	BoardConfigModalProps,
-	BoardNumber,
-	BoardSize,
+  BoardConfigModalProps,
+  BoardNumber,
+  BoardSize,
 } from "@/services/types";
 
 const BoardConfigModal = ({
-	visible,
-	currentBoards,
-	currentSize,
-	onConfirm,
-	onCancel,
+  visible,
+  currentBoards,
+  currentSize,
+  onConfirm,
+  onCancel,
 }: BoardConfigModalProps) => {
-	const [selectedBoards, setSelectedBoards] =
-		useState<BoardNumber>(currentBoards);
-	const [selectedSize, setSelectedSize] = useState<BoardSize>(currentSize);
-	const BoardNumbers: BoardNumber[] = [1, 2, 3, 4, 5];
-	const BoardSizes: BoardSize[] = [2, 3, 4, 5];
-	if (!visible) return null;
+  const [selectedBoards, setSelectedBoards] =
+    useState<BoardNumber>(currentBoards);
+  const [selectedSize, setSelectedSize] = useState<BoardSize>(currentSize);
+  const BoardNumbers: BoardNumber[] = [1, 2, 3, 4, 5];
+  const BoardSizes: BoardSize[] = [2, 3, 4, 5];
+  if (!visible) return null;
 
-	return (
-		<ModalOverlay>
-			<BoardConfigContainer>
-				<BoardConfigTitle text="Number of Boards" />
-				<BoardConfigOptions>
-					{BoardNumbers.map((num) => (
-						<BoardConfigButton
-							key={num}
-							label={num}
-							isActive={selectedBoards === num}
-							onClick={() => setSelectedBoards(num)}
-						/>
-					))}
-				</BoardConfigOptions>
+  return (
+    <ModalOverlay>
+      <BoardConfigContainer>
+        <BoardConfigTitle text="Number of Boards" />
+        <BoardConfigOptions>
+          {BoardNumbers.map((num) => (
+            <BoardConfigButton
+              key={num}
+              label={num}
+              isActive={selectedBoards === num}
+              onClick={() => setSelectedBoards(num)}
+            />
+          ))}
+        </BoardConfigOptions>
 
-				<BoardConfigTitle text="Board Size" />
+        <BoardConfigTitle text="Board Size" />
 
-				<BoardConfigOptions>
-					{BoardSizes.map((size) => (
-						<BoardConfigButton
-							key={size}
-							label={`${size}x${size}`}
-							isActive={selectedSize === size}
-							onClick={() => setSelectedSize(size)}
-						/>
-					))}
-				</BoardConfigOptions>
+        <BoardConfigOptions>
+          {BoardSizes.map((size) => (
+            <BoardConfigButton
+              key={size}
+              label={`${size}x${size}`}
+              isActive={selectedSize === size}
+              onClick={() => setSelectedSize(size)}
+            />
+          ))}
+        </BoardConfigOptions>
 
-				<BoardConfigAction>
-					<BoardActionButton onClick={onCancel}>Cancel</BoardActionButton>
+        <BoardConfigAction>
+          <BoardActionButton onClick={onCancel}>Cancel</BoardActionButton>
 
-					<BoardActionButton
-						onClick={() => onConfirm(selectedBoards, selectedSize)}
-					>
-						Apply
-					</BoardActionButton>
-				</BoardConfigAction>
-			</BoardConfigContainer>
-		</ModalOverlay>
-	);
+          <BoardActionButton
+            onClick={() => onConfirm(selectedBoards, selectedSize)}
+          >
+            Apply
+          </BoardActionButton>
+        </BoardConfigAction>
+      </BoardConfigContainer>
+    </ModalOverlay>
+  );
 };
 
 export default BoardConfigModal;
