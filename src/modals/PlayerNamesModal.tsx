@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useToastCooldown } from "@/components/hooks/useToastCooldown";
 import { PlayerStartButton } from "@/components/ui/Buttons/PlayerStartButton";
-import PlayerNameFormContainer from "@/components/ui/Containers/PlayerNameModal/PlayerNameFormContainer";
 import PlayerNameModalContainer from "@/components/ui/Containers/PlayerNameModal/PlayerNameModalContainer";
 import { PlayerInput } from "@/components/ui/Inputs/PlayerInput";
 import ModalOverlay from "@/components/ui/Overlays/ModalOverlay";
