@@ -90,6 +90,7 @@ const LiveMode = () => {
                       onClick={() => handleMove(boardIndex, cellIndex)}
                       disabled={!isMyTurn || board.blocked || cell !== ""}
                       className="w-1/3 h-1/3 border border-gray-300 flex items-center justify-center bg-black"
+                      aria-label={`Board ${boardIndex + 1} cell ${cellIndex + 1} ${cell ? `occupied by ${cell}` : 'empty'}`}
                     >
                       <span className="text-[100px] text-red-600">{cell}</span>
                     </button>

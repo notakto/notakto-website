@@ -15,9 +15,10 @@ export function SettingButton({
 }: SettingButtonProps) {
     return (
         <button
+            type ="button"
             disabled={disabled || loading}
             className={clsx(
-                "w-full sm:w-[45%] py-4 text-white text-[30px] rounded transition-colors",
+                "w-full sm:w-[45%] py-4 text-white text-[30px] rounded transition-colors focus:outline-none focus:ring-2 focus:ring-blue-400",
                 disabled || loading
                     ? "bg-gray-600 cursor-not-allowed"
                     : "bg-blue-600 hover:bg-blue-700",
@@ -27,7 +28,8 @@ export function SettingButton({
             {...props}
         >
             {loading && (
-                <span className="animate-spin h-5 w-5 border-2 border-white border-t-transparent rounded-full" />
+                <span className="animate-spin h-5 w-5 border-2 border-white border-t-transparent rounded-full"
+                aria-hidden="true" />
             )}
             {/* Children = Buy coins 100 which is wrapped by Setting Button */}
             {loading ? "Processing..." : children}

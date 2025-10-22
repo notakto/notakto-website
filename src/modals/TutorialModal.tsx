@@ -21,8 +21,9 @@ const TutorialModal = () => {
         </p>
 
         <button
+          type="button"
           onClick={()=>setShowTut(false)}
-          className="bg-red-600 text-white text-xl px-6 py-3 rounded text-center w-full"
+          className="bg-red-600 text-white text-xl px-6 py-3 rounded text-center w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
         >
           Close&nbsp;&nbsp;&nbsp;Tutorial
         </button>

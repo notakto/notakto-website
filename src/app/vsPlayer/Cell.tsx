@@ -10,6 +10,7 @@ const Cell: React.FC<CellProps> = ({ boardIndex, cellIndex, value, onPress, disa
         "relative border border-gray-300  flex items-center justify-center aspect-square",
         disabled ? 'bg-gray-800' : 'bg-black hover:bg-gray-900'
       )}
+      aria-label={`Board ${boardIndex + 1} cell ${cellIndex + 1} ${value ? `occupied by ${value}` : 'empty'}`}
     >
       <div className="absolute inset-0 flex items-center justify-center">
         <span

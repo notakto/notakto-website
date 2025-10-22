@@ -5,7 +5,7 @@ export function BoardActionButton({
 }: ButtonHTMLAttributes<HTMLButtonElement>) {
     return (
         <button
-            className={"flex-1 py-3 bg-blue-600 text-white text-xl hover:bg-blue-700"}
+            className={"flex-1 py-3 bg-blue-600 text-white text-xl hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400"}
             {...props}
         />
     );
