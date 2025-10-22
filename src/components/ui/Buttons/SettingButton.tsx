@@ -16,7 +16,7 @@ export function SettingButton({
 }: SettingButtonProps) {
     return (
         <button
-            type ="button"
+            type="button"
             disabled={disabled || loading}
             className={clsx(
                 "w-full sm:w-[45%] py-4 text-white text-[30px] rounded transition-colors focus:outline-none focus:ring-2 focus:ring-blue-400",
