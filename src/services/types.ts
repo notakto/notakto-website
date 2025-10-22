@@ -149,6 +149,8 @@ export type PlayerButtonModalType =
 	| "boardConfig"
 	| "soundConfig"
 	| "shortcut"
+	| "resetConfirmation" // <-- ADDED
+	| "exitConfirmation" // <-- ADDED
 	| null;
 
 export type ComputerButtonModalType =
@@ -157,6 +159,8 @@ export type ComputerButtonModalType =
 	| "soundConfig"
 	| "difficulty"
 	| "shortcut"
+	| "resetConfirmation" // <-- ADDED
+	| "exitConfirmation" // <-- ADDED
 	| null;
 
 // UI component props

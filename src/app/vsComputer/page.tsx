@@ -24,6 +24,7 @@ import DifficultyModal from "@/modals/DifficultyModal";
 import ShortcutModal from "@/modals/ShortcutModal";
 import SoundConfigModal from "@/modals/SoundConfigModal";
 import WinnerModal from "@/modals/WinnerModal";
+import ConfirmationModal from "@/modals/ConfirmationModal"; // <-- 1. IMPORT NEW MODAL
 import {
 	createGame,
 	makeMove,
@@ -82,8 +83,10 @@ const Game = () => {
 				if (activeModal) return setActiveModal(null);
 				return setIsMenuOpen(false);
 			},
-			m: () => router.push("/"),
-			r: () => handleReset(),
+			// --- 2. UPDATE SHORTCUTS ---
+			m: () => setActiveModal("exitConfirmation"),
+			r: () => setActiveModal("resetConfirmation"),
+			// --------------------------
 			c: () =>
 				setActiveModal((prev) =>
 					prev === "boardConfig" ? null : "boardConfig",
@@ -504,6 +507,30 @@ const Game = () => {
 				visible={activeModal === "soundConfig"}
 				onClose={() => setActiveModal(null)}
 			/>
+
+			{/* --- 3. ADD NEW MODALS --- */}
+			<ConfirmationModal
+				visible={activeModal === "resetConfirmation"}
+				title="Reset Game?"
+				message="Are you sure you want to reset the current game?"
+				onConfirm={() => {
+					handleReset();
+					setActiveModal(null);
+				}}
+				onCancel={() => setActiveModal(null)}
+				confirmText="Yes, Reset"
+			/>
+			<ConfirmationModal
+				visible={activeModal === "exitConfirmation"}
+				title="Exit to Menu?"
+				message="Are you sure you want to exit? Your current game will be lost."
+				onConfirm={() => {
+					router.push("/");
+				}}
+				onCancel={() => setActiveModal(null)}
+				confirmText="Yes, Exit"
+			/>
+			{/* --- END OF NEW MODALS --- */}
 		</GameLayout>
 	);
 };

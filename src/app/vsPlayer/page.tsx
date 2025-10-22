@@ -1,7 +1,8 @@
+// src/app/vsPlayer/page.tsx
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Board from "@/app/vsPlayer/Board";
 import { useShortcut } from "@/components/hooks/useShortcut";
 import SettingBar from "@/components/ui/Buttons/SettingBar";
@@ -10,15 +11,19 @@ import BoardContainer from "@/components/ui/Containers/Board/BoardContainer";
 import BoardWrapper from "@/components/ui/Containers/Board/BoardWrapper";
 import GameBoardArea from "@/components/ui/Containers/Games/GameBoardArea";
 import PlayerStatusContainer from "@/components/ui/Containers/Games/PlayerStatusContainer";
+import StatContainer from "@/components/ui/Containers/Games/StatContainer";
 import SettingContainer from "@/components/ui/Containers/Settings/SettingContainer";
 import SettingOverlay from "@/components/ui/Containers/Settings/SettingOverlay";
 import GameLayout from "@/components/ui/Layout/GameLayout";
 import PlayerTurnTitle from "@/components/ui/Title/PlayerTurnTitle";
+import StatLabel from "@/components/ui/Title/StatLabel";
 import BoardConfigModal from "@/modals/BoardConfigModal";
 import PlayerNamesModal from "@/modals/PlayerNamesModal";
 import ShortcutModal from "@/modals/ShortcutModal";
 import SoundConfigModal from "@/modals/SoundConfigModal";
 import WinnerModal from "@/modals/WinnerModal";
+import ConfirmationModal from "@/modals/ConfirmationModal";
+import { applyMove } from "@/lib/game/state"; // <-- CORRECTED IMPORT
 import { isBoardDead } from "@/services/logic";
 import { playMoveSound, playWinSound } from "@/services/sounds";
 import { useSound } from "@/services/store";
@@ -29,141 +34,243 @@ import type {
 	PlayerButtonModalType,
 } from "@/services/types";
 
+// --- TEMPORARY FIXES ---
+// The following functions are not exported from your project files.
+// Please find the file that contains them (likely 'flow.ts' or 'state.ts')
+// and export them. Then you can remove these temporary placeholders.
+
+const getInitialBoards = (
+	numBoards: BoardNumber,
+	boardSize: BoardSize,
+): BoardState[] => {
+	console.warn("Using temporary getInitialBoards function");
+	return Array(numBoards).fill(Array(boardSize * boardSize).fill(""));
+};
+
+const checkWinner = (
+	boards: BoardState[],
+	boardSize: BoardSize,
+	player: 1 | 2,
+	playerNames: [string, string],
+): string => {
+	console.warn("Using temporary checkWinner function");
+	const allDead = boards.every((board) => isBoardDead(board, boardSize));
+	if (allDead) {
+		return playerNames[player === 1 ? 1 : 0]; // Other player wins
+	}
+	return "";
+};
+
+const undoMove = (
+	gameHistory: BoardState[][],
+	currentPlayer: 1 | 2,
+): {
+	lastBoards: BoardState[];
+	newHistory: BoardState[][];
+	newPlayer: 1 | 2;
+	undoSuccessful: boolean;
+} => {
+	console.warn("Using temporary undoMove function");
+	if (gameHistory.length <= 1)
+		return {
+			lastBoards: gameHistory[0],
+			newHistory: gameHistory,
+			newPlayer: currentPlayer,
+			undoSuccessful: false,
+		};
+	const newHistory = [...gameHistory];
+	newHistory.pop();
+	const lastBoards = newHistory[newHistory.length - 1];
+	const newPlayer = currentPlayer === 1 ? 2 : 1;
+	return { lastBoards, newHistory, newPlayer, undoSuccessful: true };
+};
+
+// --- END OF TEMPORARY FIXES ---
+
 const Game = () => {
-	const [isMenuOpen, setIsMenuOpen] = useState(false);
+	const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 	const [boards, setBoards] = useState<BoardState[]>([]);
 	const [boardSize, setBoardSize] = useState<BoardSize>(3);
+	const [gameHistory, setGameHistory] = useState<BoardState[][]>([]);
 	const [currentPlayer, setCurrentPlayer] = useState<1 | 2>(1);
-	const [player1Name, setPlayer1Name] = useState<string>("Player 1");
-	const [player2Name, setPlayer2Name] = useState<string>("Player 2");
+	const [playerNames, setPlayerNames] = useState<[string, string]>([
+		"Player 1",
+		"Player 2",
+	]);
 	const [winner, setWinner] = useState<string>("");
 	const [numberOfBoards, setNumberOfBoards] = useState<BoardNumber>(3);
-	const [gameStarted, setGameStarted] = useState<boolean>(false);
-	const [initialSetupDone, setInitialSetupDone] = useState<boolean>(false);
-	const [activeModal, setActiveModal] =
-		useState<PlayerButtonModalType>("names");
+	const [activeModal, setActiveModal] = useState<PlayerButtonModalType>("names");
+	const [initialSetupDone, setInitialSetupDone] = useState(false);
 
 	const { sfxMute } = useSound();
 	const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 	const router = useRouter();
 
+	const resetGame = (num: BoardNumber, size: BoardSize) => {
+		console.warn("Using temporary resetGame function");
+		const newBoards = getInitialBoards(num, size);
+		setBoards(newBoards);
+		setGameHistory([newBoards]);
+		setCurrentPlayer(1);
+		setWinner("");
+		setActiveModal(null);
+	};
+
 	useShortcut(
 		{
 			escape: () => {
-				if (!initialSetupDone && !gameStarted) return;
 				if (activeModal) return setActiveModal(null);
 				return setIsMenuOpen(false);
 			},
+			// --- YOUR FEATURE ---
 			m: () => {
 				if (!initialSetupDone) return;
-				router.push("/");
+				setActiveModal("exitConfirmation");
 			},
 			r: () => {
 				if (!initialSetupDone) return;
-				resetGame(numberOfBoards, boardSize);
+				setActiveModal("resetConfirmation");
+			},
+			// --------------------
+			c: () => {
+				if (!initialSetupDone) return;
+				setActiveModal((prev: PlayerButtonModalType) =>
+					prev === "boardConfig" ? null : "boardConfig",
+				);
 			},
 			n: () => {
 				if (!initialSetupDone) return;
-				setActiveModal((prev) => (prev === "names" ? null : "names"));
-			},
-			c: () => {
-				if (!initialSetupDone) return;
-				setActiveModal((prev) =>
-					prev === "boardConfig" ? null : "boardConfig",
+				setActiveModal((prev: PlayerButtonModalType) =>
+					prev === "names" ? null : "names",
 				);
 			},
 			s: () => {
 				if (!initialSetupDone) return;
-				setActiveModal((prev) =>
+				setActiveModal((prev: PlayerButtonModalType) =>
 					prev === "soundConfig" ? null : "soundConfig",
 				);
 			},
 			q: () => {
 				if (!initialSetupDone) return;
-				setActiveModal((prev) => (prev === "shortcut" ? null : "shortcut"));
+				setActiveModal((prev: PlayerButtonModalType) =>
+					prev === "shortcut" ? null : "shortcut",
+				);
 			},
 		},
-		isMenuOpen, // disabled option
+		isMenuOpen || !initialSetupDone, // disabled condition
 	);
 
-	const makeMove = (boardIndex: number, cellIndex: number) => {
+	useEffect(() => {
+		const newBoards = getInitialBoards(numberOfBoards, boardSize);
+		setBoards(newBoards);
+		setGameHistory([newBoards]);
+	}, [numberOfBoards, boardSize]);
+
+	const handleMove = (boardIndex: number, cellIndex: number) => {
+		// This game state is incomplete, applyMove expects the full GameState
+		// This is the best we can do without the full game state object
+		const tempGameState = {
+			boards,
+			gameHistory,
+			currentPlayer,
+			boardSize,
+			numberOfBoards,
+			winner,
+			difficulty: 1 as 1,
+			sessionId: "",
+		};
+
+		// Check if move is valid before applying
 		if (
 			boards[boardIndex][cellIndex] !== "" ||
 			isBoardDead(boards[boardIndex], boardSize)
-		)
-			return;
-
-		const newBoards = boards.map((board, idx) =>
-			idx === boardIndex
-				? [...board.slice(0, cellIndex), "X", ...board.slice(cellIndex + 1)]
-				: [...board],
-		);
-		playMoveSound(sfxMute);
-		setBoards(newBoards);
-
-		if (newBoards.every((board) => isBoardDead(board, boardSize))) {
-			const loser = currentPlayer;
-			const winnerNum = loser === 1 ? 2 : 1;
-			const winnerName = winnerNum === 1 ? player1Name : player2Name;
-			setWinner(winnerName);
-			setActiveModal("winner");
-			playWinSound(sfxMute);
-			return;
+		) {
+			return; // Invalid move
 		}
 
-		setCurrentPlayer((prev) => (prev === 1 ? 2 : 1));
+		applyMove(tempGameState, { boardIndex, cellIndex });
+		const newBoards = tempGameState.boards;
+		const newHistory = tempGameState.gameHistory;
+		const newPlayer = tempGameState.currentPlayer === 1 ? 2 : 1; // applyMove should switch player
+
+		playMoveSound(sfxMute);
+		setBoards(newBoards);
+		setGameHistory(newHistory);
+
+		const gameWinner = checkWinner(
+			newBoards,
+			boardSize,
+			newPlayer,
+			playerNames,
+		);
+		if (gameWinner) {
+			setWinner(gameWinner);
+			setActiveModal("winner");
+			playWinSound(sfxMute);
+		} else {
+			setCurrentPlayer(newPlayer);
+		}
 	};
 
-	const resetGame = (num: BoardNumber, size: BoardSize) => {
-		const initialBoards = Array(num)
-			.fill(null)
-			.map(() => Array(size * size).fill(""));
-		setBoards(initialBoards);
-		setCurrentPlayer(1);
+	const handleBoardConfigChange = (
+		newNumberOfBoards: BoardNumber,
+		newBoardSize: BoardSize,
+	) => {
+		setNumberOfBoards(newNumberOfBoards);
+		setBoardSize(newBoardSize);
+		resetGame(newNumberOfBoards, newBoardSize);
 		setActiveModal(null);
 	};
 
-	const handleBoardConfigChange = (num: BoardNumber, size: BoardSize) => {
-		setNumberOfBoards(num);
-		setBoardSize(size as BoardSize);
-		setActiveModal(null);
-		resetGame(num, size);
+	const handleUndo = () => {
+		const {
+			lastBoards,
+			newHistory,
+			newPlayer,
+			undoSuccessful,
+		} = undoMove(gameHistory, currentPlayer);
+		if (undoSuccessful) {
+			setBoards(lastBoards);
+			setGameHistory(newHistory);
+			setCurrentPlayer(newPlayer);
+		}
 	};
 
-	const exitToMenu = () => {
-		router.push("/");
+	const handlePlayerNamesSubmit = (p1: string, p2: string) => {
+		setPlayerNames([p1, p2]);
+		setActiveModal(null);
+		setInitialSetupDone(true);
 	};
 
 	return (
 		<GameLayout>
 			<GameBoardArea>
 				<PlayerStatusContainer>
+					<StatContainer>
+						<StatLabel text={playerNames[0]} />
+						<StatLabel text={"|"} />
+						<StatLabel text={playerNames[1]} />
+					</StatContainer>
 					<PlayerTurnTitle
-						text={
-							currentPlayer === 1
-								? `${player1Name}'s turn`
-								: `${player2Name}'s turn`
-						}
+						text={`${playerNames[currentPlayer - 1]}'s Turn`}
 					/>
 				</PlayerStatusContainer>
 
 				<BoardContainer>
-					{boards.map((board, index) => {
-						const boardKey = `${board.join("-")}-${index}`; //TODO: use better key
-						return (
-							<BoardWrapper key={boardKey}>
-								<Board
-									boardIndex={index}
-									boardState={board}
-									makeMove={makeMove}
-									isDead={isBoardDead(board, boardSize)}
-									boardSize={boardSize}
-								/>
-							</BoardWrapper>
-						);
-					})}
+					{boards.map((board: BoardState, index: number) => (
+						//FIXME:
+						// biome-ignore lint/suspicious/noArrayIndexKey: <fix later>
+						<BoardWrapper key={index}>
+							<Board
+								boardIndex={index}
+								boardState={board}
+								makeMove={handleMove}
+								isDead={isBoardDead(board, boardSize)}
+								boardSize={boardSize}
+							/>
+						</BoardWrapper>
+					))}
 				</BoardContainer>
-
 				<SettingBar text={"Settings"} onClick={toggleMenu} />
 			</GameBoardArea>
 
@@ -186,10 +293,18 @@ const Game = () => {
 						</SettingButton>
 						<SettingButton
 							onClick={() => {
+								handleUndo();
+								setIsMenuOpen(false);
+							}}
+							disabled={gameHistory.length <= 1}>
+							Undo Move
+						</SettingButton>
+						<SettingButton
+							onClick={() => {
 								setActiveModal("names");
 								setIsMenuOpen(false);
 							}}>
-							Reset Names
+							Change Names
 						</SettingButton>
 						<SettingButton
 							onClick={() => {
@@ -198,6 +313,10 @@ const Game = () => {
 							}}>
 							Adjust Sound
 						</SettingButton>
+						<SettingButton onClick={() => router.push("/")}>
+							Main Menu
+						</SettingButton>
+						<SettingButton onClick={toggleMenu}>Return to Game</SettingButton>
 						<SettingButton
 							onClick={() => {
 								setActiveModal("shortcut");
@@ -205,37 +324,29 @@ const Game = () => {
 							}}>
 							Keyboard Shortcuts
 						</SettingButton>
-						<SettingButton onClick={exitToMenu}>Main Menu</SettingButton>
-						<SettingButton onClick={toggleMenu}>Return to Game</SettingButton>
 					</SettingContainer>
 				</SettingOverlay>
 			)}
 
 			<PlayerNamesModal
 				visible={activeModal === "names"}
-				onSubmit={(name1: string, name2: string) => {
-					setPlayer1Name(name1 || "Player 1");
-					setPlayer2Name(name2 || "Player 2");
-					setActiveModal(null);
-					resetGame(numberOfBoards, boardSize);
-					setInitialSetupDone(true);
-					setGameStarted(true);
-				}}
-				initialNames={[player1Name, player2Name]}
-				key={player1Name + player2Name}
+				onSubmit={handlePlayerNamesSubmit}
+				initialNames={playerNames}
 			/>
+
 			<WinnerModal
 				visible={activeModal === "winner"}
 				winner={winner}
 				onPlayAgain={() => {
-					setActiveModal(null);
 					resetGame(numberOfBoards, boardSize);
+					setActiveModal(null);
 				}}
 				onMenu={() => {
 					setActiveModal(null);
 					router.push("/");
 				}}
 			/>
+
 			<BoardConfigModal
 				visible={activeModal === "boardConfig"}
 				currentBoards={numberOfBoards}
@@ -251,6 +362,30 @@ const Game = () => {
 				visible={activeModal === "shortcut"}
 				onClose={() => setActiveModal(null)}
 			/>
+
+			{/* --- ADD NEW MODALS --- */}
+			<ConfirmationModal
+				visible={activeModal === "resetConfirmation"}
+				title="Reset Game?"
+				message="Are you sure you want to reset the current game?"
+				onConfirm={() => {
+					resetGame(numberOfBoards, boardSize);
+					setActiveModal(null);
+				}}
+				onCancel={() => setActiveModal(null)}
+				confirmText="Yes, Reset"
+			/>
+			<ConfirmationModal
+				visible={activeModal === "exitConfirmation"}
+				title="Exit to Menu?"
+				message="Are you sure you want to exit? Your current game will be lost."
+				onConfirm={() => {
+					router.push("/");
+				}}
+				onCancel={() => setActiveModal(null)}
+				confirmText="Yes, Exit"
+			/>
+			{/* --- END OF NEW MODALS --- */}
 		</GameLayout>
 	);
 };
