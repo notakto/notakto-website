@@ -39,7 +39,7 @@ export function CustomToastContainer({
             pauseOnHover={pauseOnHover}     // The Toast Notification pauses on hover
             closeButton={(props) => (       // Close (X) button to manually close the toast
                 <button
-                    type = "button"
+                    type="button"
                     onClick={props.closeToast}
                     className={`absolute top-1 flex items-center justify-center right-1 h-[25px] w-[25px] text-white ${vt323.className} border-1 rounded-full hover:text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-400`}
                     aria-label="close"
