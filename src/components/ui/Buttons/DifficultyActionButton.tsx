@@ -1,13 +1,14 @@
 import clsx from "clsx";
 
-interface DifficultyActionProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-    variant?: "level" | "cancel";
+interface DifficultyActionProps
+	extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+	variant?: "level" | "cancel";
 }
 
 export function DifficultyActionButton({
-    variant = "level",
-    children,
-    ...props
+	variant = "level",
+	children,
+	...props
 }: DifficultyActionProps) {
     return (
         <button

@@ -1,9 +1,9 @@
-import { ButtonHTMLAttributes } from "react";
 import clsx from "clsx";
+import type { ButtonHTMLAttributes } from "react";
 
 export function WinnerButton({
-    className, // pulls out className separately
-    ...props
+	className, // pulls out className separately
+	...props
 }: ButtonHTMLAttributes<HTMLButtonElement>) {
     return (
         <button

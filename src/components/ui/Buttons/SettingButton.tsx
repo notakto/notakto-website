@@ -1,17 +1,18 @@
-import { ButtonHTMLAttributes, ReactNode } from "react";
 import clsx from "clsx";
+import type { ButtonHTMLAttributes, ReactNode } from "react";
 
-interface SettingButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> { // a custom prop you added to handle loading state
-    loading?: boolean;
-    children: ReactNode; // accept any react child 
+interface SettingButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+	// a custom prop you added to handle loading state
+	loading?: boolean;
+	children: ReactNode; // accept any react child
 }
 
 export function SettingButton({
-    className,
-    disabled = false,
-    loading = false,
-    children,
-    ...props
+	className,
+	disabled = false,
+	loading = false,
+	children,
+	...props
 }: SettingButtonProps) {
     return (
         <button

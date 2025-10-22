@@ -199,4 +199,10 @@ Thanks again for being part of Notakto! 🎮
 [9]: https://github.com/rakshitg600/notakto-website/issues
 [10]: https://github.com/Rakshitg600/notakto-website/issues/13
 [11]: https://docs.docker.com/desktop/
+## 📚 Additional Resources
+...
+- [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
+- [The Complete Guide to Readable Code][12]
+...
+[12]: https://fellow.ai/blog/the-complete-guide-to-readable-code/
 

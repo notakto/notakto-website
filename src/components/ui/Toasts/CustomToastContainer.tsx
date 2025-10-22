@@ -1,30 +1,31 @@
-'use client';
+"use client";
 
-import { ToastContainer, ToastContainerProps, CloseButton } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, type ToastContainerProps } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { VT323 } from "next/font/google";
+import { TOAST_DURATION } from "@/constants/toast";
 
 const vt323 = VT323({
-    weight: "400",
-    subsets: ["latin"],
+	weight: "400",
+	subsets: ["latin"],
 });
 
-type CustomToastContainerProps = Omit<ToastContainerProps, 'toastClassName'> & {
-    toastClassName?: ToastContainerProps['toastClassName'];
+type CustomToastContainerProps = Omit<ToastContainerProps, "toastClassName"> & {
+	toastClassName?: ToastContainerProps["toastClassName"];
 };
 
 export function CustomToastContainer({
-    position = "top-center",
-    autoClose = 4000,
-    hideProgressBar = false,
-    newestOnTop = false,
-    closeOnClick = false,
-    pauseOnFocusLoss = false,
-    draggable = true,
-    pauseOnHover = true,
-    closeButton = false,
-    toastClassName,
-    ...rest
+	position = "top-center",
+	autoClose = TOAST_DURATION,
+	hideProgressBar = false,
+	newestOnTop = false,
+	closeOnClick = false,
+	pauseOnFocusLoss = false,
+	draggable = true,
+	pauseOnHover = true,
+	closeButton = false,
+	toastClassName,
+	...rest
 }: CustomToastContainerProps = {}) {
     return (
         <ToastContainer //many more props available
