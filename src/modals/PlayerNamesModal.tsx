@@ -68,7 +68,7 @@ const PlayerNamesModal = ({
 					</div>
 
         <button
-          type = "button"
+          type="button"
           onClick={handleSubmit}
           className="bg-blue-600 text-white text-3xl w-full py-3 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
         >
