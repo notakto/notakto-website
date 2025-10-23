@@ -1,11 +1,12 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 import Menu from "@/app/Menu";
-import type { tutStore, userStore } from "@/services/store";
+import type { userStore } from "@/services/store";
 
 // Mock dependencies used in Menu
 vi.mock("next/navigation", () => ({
 	useRouter: () => ({ push: vi.fn() }),
+	usePathname: () => "/",
 }));
 
 vi.mock("@/services/firebase", () => ({
@@ -16,8 +17,6 @@ vi.mock("@/services/firebase", () => ({
 vi.mock("@/services/store", () => ({
 	useUser: <T,>(selector: (state: userStore) => T) =>
 		selector({ user: null, setUser: vi.fn() }),
-	useTut: <T,>(selector: (state: tutStore) => T) =>
-		selector({ showTut: false, setShowTut: vi.fn() }),
 	useSound: () => ({
 		bgMute: false,
 		bgVolume: 0.5,

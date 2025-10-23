@@ -7,5 +7,5 @@ interface BoardConfigActionProps {
 export default function BoardConfigAction({
 	children,
 }: BoardConfigActionProps) {
-	return <div className="flex gap-4 pt-2">{children}</div>;
+	return <menu className="flex gap-4 pt-2">{children}</menu>;
 }

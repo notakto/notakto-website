@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Board from "@/app/vsPlayer/Board";
+import { useShortcut } from "@/components/hooks/useShortcut";
 import SettingBar from "@/components/ui/Buttons/SettingBar";
 import { SettingButton } from "@/components/ui/Buttons/SettingButton";
 import BoardContainer from "@/components/ui/Containers/Board/BoardContainer";
@@ -15,12 +16,18 @@ import GameLayout from "@/components/ui/Layout/GameLayout";
 import PlayerTurnTitle from "@/components/ui/Title/PlayerTurnTitle";
 import BoardConfigModal from "@/modals/BoardConfigModal";
 import PlayerNamesModal from "@/modals/PlayerNamesModal";
+import ShortcutModal from "@/modals/ShortcutModal";
 import SoundConfigModal from "@/modals/SoundConfigModal";
 import WinnerModal from "@/modals/WinnerModal";
 import { isBoardDead } from "@/services/logic";
 import { playMoveSound, playWinSound } from "@/services/sounds";
 import { useSound } from "@/services/store";
-import type { BoardNumber, BoardSize, BoardState } from "@/services/types";
+import type {
+	BoardNumber,
+	BoardSize,
+	BoardState,
+	PlayerButtonModalType,
+} from "@/services/types";
 
 const Game = () => {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -29,16 +36,55 @@ const Game = () => {
 	const [currentPlayer, setCurrentPlayer] = useState<1 | 2>(1);
 	const [player1Name, setPlayer1Name] = useState<string>("Player 1");
 	const [player2Name, setPlayer2Name] = useState<string>("Player 2");
-	const [showNameModal, setShowNameModal] = useState<boolean>(true);
 	const [winner, setWinner] = useState<string>("");
-	const [showWinnerModal, setShowWinnerModal] = useState<boolean>(false);
 	const [numberOfBoards, setNumberOfBoards] = useState<BoardNumber>(3);
-	const [showBoardConfig, setShowBoardConfig] = useState<boolean>(false);
-	const [showSoundConfig, setShowSoundConfig] = useState<boolean>(false);
+	const [gameStarted, setGameStarted] = useState<boolean>(false);
+	const [initialSetupDone, setInitialSetupDone] = useState<boolean>(false);
+	const [activeModal, setActiveModal] =
+		useState<PlayerButtonModalType>("names");
 
 	const { sfxMute } = useSound();
 	const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 	const router = useRouter();
+
+	useShortcut(
+		{
+			escape: () => {
+				if (!initialSetupDone && !gameStarted) return;
+				if (activeModal) return setActiveModal(null);
+				return setIsMenuOpen(false);
+			},
+			m: () => {
+				if (!initialSetupDone) return;
+				router.push("/");
+			},
+			r: () => {
+				if (!initialSetupDone) return;
+				resetGame(numberOfBoards, boardSize);
+			},
+			n: () => {
+				if (!initialSetupDone) return;
+				setActiveModal((prev) => (prev === "names" ? null : "names"));
+			},
+			c: () => {
+				if (!initialSetupDone) return;
+				setActiveModal((prev) =>
+					prev === "boardConfig" ? null : "boardConfig",
+				);
+			},
+			s: () => {
+				if (!initialSetupDone) return;
+				setActiveModal((prev) =>
+					prev === "soundConfig" ? null : "soundConfig",
+				);
+			},
+			q: () => {
+				if (!initialSetupDone) return;
+				setActiveModal((prev) => (prev === "shortcut" ? null : "shortcut"));
+			},
+		},
+		isMenuOpen, // disabled option
+	);
 
 	const makeMove = (boardIndex: number, cellIndex: number) => {
 		if (
@@ -60,7 +106,7 @@ const Game = () => {
 			const winnerNum = loser === 1 ? 2 : 1;
 			const winnerName = winnerNum === 1 ? player1Name : player2Name;
 			setWinner(winnerName);
-			setShowWinnerModal(true);
+			setActiveModal("winner");
 			playWinSound(sfxMute);
 			return;
 		}
@@ -74,13 +120,13 @@ const Game = () => {
 			.map(() => Array(size * size).fill(""));
 		setBoards(initialBoards);
 		setCurrentPlayer(1);
-		setShowWinnerModal(false);
+		setActiveModal(null);
 	};
 
 	const handleBoardConfigChange = (num: BoardNumber, size: BoardSize) => {
 		setNumberOfBoards(num);
 		setBoardSize(size as BoardSize);
-		setShowBoardConfig(false);
+		setActiveModal(null);
 		resetGame(num, size);
 	};
 
@@ -133,24 +179,31 @@ const Game = () => {
 						</SettingButton>
 						<SettingButton
 							onClick={() => {
-								setShowBoardConfig(!showBoardConfig);
+								setActiveModal("boardConfig");
 								setIsMenuOpen(false);
 							}}>
 							Game Configuration
 						</SettingButton>
 						<SettingButton
 							onClick={() => {
-								setShowNameModal(true);
+								setActiveModal("names");
 								setIsMenuOpen(false);
 							}}>
 							Reset Names
 						</SettingButton>
 						<SettingButton
 							onClick={() => {
-								setShowSoundConfig(true);
+								setActiveModal("soundConfig");
 								setIsMenuOpen(false);
 							}}>
 							Adjust Sound
+						</SettingButton>
+						<SettingButton
+							onClick={() => {
+								setActiveModal("shortcut");
+								setIsMenuOpen(false);
+							}}>
+							Keyboard Shortcuts
 						</SettingButton>
 						<SettingButton onClick={exitToMenu}>Main Menu</SettingButton>
 						<SettingButton onClick={toggleMenu}>Return to Game</SettingButton>
@@ -159,37 +212,44 @@ const Game = () => {
 			)}
 
 			<PlayerNamesModal
-				visible={showNameModal}
+				visible={activeModal === "names"}
 				onSubmit={(name1: string, name2: string) => {
 					setPlayer1Name(name1 || "Player 1");
 					setPlayer2Name(name2 || "Player 2");
-					setShowNameModal(false);
+					setActiveModal(null);
 					resetGame(numberOfBoards, boardSize);
+					setInitialSetupDone(true);
+					setGameStarted(true);
 				}}
 				initialNames={[player1Name, player2Name]}
 				key={player1Name + player2Name}
 			/>
 			<WinnerModal
-				visible={showWinnerModal}
+				visible={activeModal === "winner"}
 				winner={winner}
 				onPlayAgain={() => {
-					setShowWinnerModal(false);
+					setActiveModal(null);
 					resetGame(numberOfBoards, boardSize);
 				}}
 				onMenu={() => {
-					setShowWinnerModal(false);
+					setActiveModal(null);
+					router.push("/");
 				}}
 			/>
 			<BoardConfigModal
-				visible={showBoardConfig}
+				visible={activeModal === "boardConfig"}
 				currentBoards={numberOfBoards}
 				currentSize={boardSize}
 				onConfirm={handleBoardConfigChange}
-				onCancel={() => setShowBoardConfig(false)}
+				onCancel={() => setActiveModal(null)}
 			/>
 			<SoundConfigModal
-				visible={showSoundConfig}
-				onClose={() => setShowSoundConfig(false)}
+				visible={activeModal === "soundConfig"}
+				onClose={() => setActiveModal(null)}
+			/>
+			<ShortcutModal
+				visible={activeModal === "shortcut"}
+				onClose={() => setActiveModal(null)}
 			/>
 		</GameLayout>
 	);
