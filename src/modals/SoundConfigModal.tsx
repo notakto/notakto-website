@@ -1,13 +1,6 @@
 "use client";
 import { SoundConfigButton } from "@/components/ui/Buttons/SoundConfigButton";
 import { SoundMuteButton } from "@/components/ui/Buttons/SoundMuteButton";
-import SoundConfigContainer from "@/components/ui/Containers/SoundConfig/SoundConfigContainer";
-import SoundConfigControls from "@/components/ui/Containers/SoundConfig/SoundConfigControls";
-import SoundConfigSection from "@/components/ui/Containers/SoundConfig/SoundConfigSection";
-import { SoundConfigSlider } from "@/components/ui/Inputs/SoundConfigSlider";
-import ModalOverlay from "@/components/ui/Overlays/ModalOverlay";
-import SoundConfigLabel from "@/components/ui/Title/SoundConfigLabel";
-import SoundConfigTitle from "@/components/ui/Title/SoundConfigTitle";
 import { useSound } from "@/services/store";
 
 type SoundConfigModalProps = {
@@ -39,51 +32,54 @@ export default function SoundConfigModal({
 
 	if (!visible) return null;
 	return (
-		<ModalOverlay>
-			<SoundConfigContainer>
-				<SoundConfigTitle text="Sound Configuration" />
-				<SoundConfigSection>
-					<SoundConfigLabel
-						label="Background Music"
-						htmlFor="bg-music-slider"
-					/>
-					{/* FIXME:*/
-					/** biome-ignore lint/correctness/useUniqueElementIds: <will take care later> */}
-					<SoundConfigSlider
-						id="bg-music-slider"
+		<div className="fixed inset-0 bg-black/80 flex justify-center items-center z-50">
+			<div className="bg-black p-6 w-[90%] max-w-xl space-y-6  text-center text-white">
+				<h2 className="text-red-500 text-[35px]">Sound Configuration</h2>
+
+				{/* Background Music */}
+				<div className="my-4 flex items-center justify-between">
+					<label className="text-red-500 text-2xl flex-1 text-left">
+						Background Music
+					</label>
+					<input
+						type="range"
+						min="0"
+						max="100"
 						value={Math.round(bgVolume * 100)}
 						onChange={(e) => setBgVolume(Number(e.target.value) / 100)}
+						className="flex-2 mx-2 accent-[#0055ff]"
 					/>
 					<SoundMuteButton onClick={() => setBgMute(!bgMute)}>
 						{bgMute ? "Unmute" : "Mute"}
 					</SoundMuteButton>
-				</SoundConfigSection>
+				</div>
 
-				<SoundConfigSection>
-					<SoundConfigLabel
-						label="Player Move Sound"
-						htmlFor="player-move-slider"
-					/>
-					{/*FIXME:*/
-					/** biome-ignore lint/correctness/useUniqueElementIds: <will take care later> */}
-					<SoundConfigSlider
-						id="player-move-slider"
+				{/* Player Move */}
+				<div className="my-4 flex items-center justify-between">
+					<label className="text-red-500 text-2xl flex-1 text-left">
+						Player Move Sound
+					</label>
+					<input
+						type="range"
+						min="0"
+						max="100"
 						value={Math.round(sfxVolume * 100)}
 						onChange={(e) => setSfxVolume(Number(e.target.value) / 100)}
+						className="flex-2 mx-2 accent-[#0055ff]"
 					/>
 					<SoundMuteButton onClick={() => setSfxMute(!sfxMute)}>
 						{sfxMute ? "Unmute" : "Mute"}
 					</SoundMuteButton>
-				</SoundConfigSection>
+				</div>
 
 				{/* Controls */}
-				<SoundConfigControls>
+				<div className="mt-6 flex flex-wrap gap-3 justify-center">
 					<SoundConfigButton onClick={resetSounds}>
 						Reset Sounds
 					</SoundConfigButton>
 					<SoundConfigButton onClick={onClose}>Return</SoundConfigButton>
-				</SoundConfigControls>
-			</SoundConfigContainer>
-		</ModalOverlay>
+				</div>
+			</div>
+		</div>
 	);
 }

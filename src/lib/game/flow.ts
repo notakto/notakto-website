@@ -1,8 +1,8 @@
 import { makeAIMove } from "@/lib/game/makeAImove";
 import { handleRewards } from "@/lib/game/rewards";
 import { applyMove, isGameOver, switchPlayer } from "@/lib/game/state";
-import { isValidMove } from "@/lib/game/validators";
 import { gameSessions } from "@/lib/game-sessions";
+import { isValidMove } from "./validators";
 
 export async function handlePlayerMove(
 	sessionId: string,

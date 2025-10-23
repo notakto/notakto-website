@@ -12,11 +12,15 @@ type SoundStore = {
 	setSfxMute: (mute: boolean) => void;
 	setSfxVolume: (vol: number) => void;
 };
-export type userStore = {
+type userStore = {
 	user: User | null;
-	setUser: (newUser: User | null) => void;
+	setUser: (newUser: any) => void;
 };
 
+type tutStore = {
+	showTut: boolean;
+	setShowTut: (newShowTut: boolean) => void;
+};
 type CoinStore = {
 	coins: number;
 	setCoins: (newCoins: number) => void;
@@ -49,6 +53,10 @@ export const useUser = create<userStore>((set) => ({
 	setUser: (newUser) => set({ user: newUser }),
 }));
 
+export const useTut = create<tutStore>((set) => ({
+	showTut: false,
+	setShowTut: (newShowTut) => set({ showTut: newShowTut }),
+}));
 export const useCoins = create<CoinStore>((set, get) => ({
 	coins: 0,
 	setCoins: (newCoins: number) => set({ coins: newCoins }),

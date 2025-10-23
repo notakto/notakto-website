@@ -2,16 +2,9 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useToastCooldown } from "@/components/hooks/useToastCooldown";
-import { PlayerStartButton } from "@/components/ui/Buttons/PlayerStartButton";
-import PlayerNameFormContainer from "@/components/ui/Containers/PlayerNameModal/PlayerNameFormContainer";
-import PlayerNameModalContainer from "@/components/ui/Containers/PlayerNameModal/PlayerNameModalContainer";
 import { PlayerInput } from "@/components/ui/Inputs/PlayerInput";
-import ModalOverlay from "@/components/ui/Overlays/ModalOverlay";
-import PlayerNameModalTitle from "@/components/ui/Title/PlayerNameModalTitle";
 import { TOAST_DURATION, TOAST_IDS } from "@/constants/toast";
-import type { PlayerNamesModalProps } from "@/services/types";
-
-const MAX_PLAYER_NAME_LENGTH = 15;
+import type { PlayerNamesModalProps } from "../services/types";
 
 const PlayerNamesModal = ({
 	visible,
@@ -38,52 +31,40 @@ const PlayerNamesModal = ({
 				autoClose: TOAST_DURATION,
 				onClose: resetCooldown, // reset cooldown if closed early
 			});
-			triggerToastCooldown();
+
 			return;
 		}
-		toast.dismiss(TOAST_IDS.PlayerNames.Duplicate);
-		resetCooldown();
-
 		onSubmit(player1 || "Player 1", player2 || "Player 2");
 	};
 
 	if (!visible) return null;
 
 	return (
-		<ModalOverlay>
-			<PlayerNameModalContainer>
-				<PlayerNameModalTitle text="Enter Player Names" />
-				<PlayerNameFormContainer>
-					<div>
-						<PlayerInput
-							value={player1}
-							onChange={(e) => setPlayer1(e.target.value)}
-							placeholder="Player 1 Name"
-							maxLength={MAX_PLAYER_NAME_LENGTH}
-						/>
-						{/* ✅ Character counter - right aligned */}
-						<div className="text-xl text-white mt-1 text-right">
-							{player1.length}/{MAX_PLAYER_NAME_LENGTH} characters
-						</div>
-					</div>
+		<div className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center">
+			<div className="bg-black w-[80%] max-w-md p-6 text-center shadow-lg">
+				<h2 className="text-red-500 text-3xl mb-6">Enter Player Names</h2>
+				<div className="mb-6 gap-4 flex flex-col">
+					<PlayerInput
+						value={player1}
+						onChange={(e) => setPlayer1(e.target.value)}
+						placeholder="Player 1 Name"
+					/>
 
-					<div>
-						<PlayerInput
-							value={player2}
-							onChange={(e) => setPlayer2(e.target.value)}
-							placeholder="Player 2 Name"
-							maxLength={MAX_PLAYER_NAME_LENGTH}
-						/>
-						{/* ✅ Character counter - right aligned */}
-						<div className="text-xl text-white mt-1 text-right">
-							{player2.length}/{MAX_PLAYER_NAME_LENGTH} characters
-						</div>
-					</div>
-				</PlayerNameFormContainer>
+					<PlayerInput
+						value={player2}
+						onChange={(e) => setPlayer2(e.target.value)}
+						placeholder="Player 2 Name"
+					/>
+				</div>
 
-				<PlayerStartButton onClick={handleSubmit}>Start Game</PlayerStartButton>
-			</PlayerNameModalContainer>
-		</ModalOverlay>
+				<button
+					onClick={handleSubmit}
+					className="bg-blue-600 text-white text-3xl w-full py-3 hover:bg-blue-700"
+				>
+					Start Game
+				</button>
+			</div>
+		</div>
 	);
 };
 

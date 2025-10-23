@@ -3,25 +3,11 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import Board from "@/app/vsComputer/Board";
-import { useShortcut } from "@/components/hooks/useShortcut";
-// import { useToastCooldown } from "@/components/hooks/useToastCooldown";
-import SettingBar from "@/components/ui/Buttons/SettingBar";
+import { useToastCooldown } from "@/components/hooks/useToastCooldown";
 import { SettingButton } from "@/components/ui/Buttons/SettingButton";
-import BoardContainer from "@/components/ui/Containers/Board/BoardContainer";
-import BoardWrapper from "@/components/ui/Containers/Board/BoardWrapper";
-import GameBoardArea from "@/components/ui/Containers/Games/GameBoardArea";
-import PlayerStatusContainer from "@/components/ui/Containers/Games/PlayerStatusContainer";
-import StatContainer from "@/components/ui/Containers/Games/StatContainer";
-import SettingContainer from "@/components/ui/Containers/Settings/SettingContainer";
-import SettingOverlay from "@/components/ui/Containers/Settings/SettingOverlay";
-import GameLayout from "@/components/ui/Layout/GameLayout";
-import PlayerTurnTitle from "@/components/ui/Title/PlayerTurnTitle";
-import StatLabel from "@/components/ui/Title/StatLabel";
-// import { TOAST_DURATION } from "@/constants/toast";
+import { TOAST_DURATION } from "@/constants/toast";
 import BoardConfigModal from "@/modals/BoardConfigModal";
 import DifficultyModal from "@/modals/DifficultyModal";
-import ShortcutModal from "@/modals/ShortcutModal";
 import SoundConfigModal from "@/modals/SoundConfigModal";
 import WinnerModal from "@/modals/WinnerModal";
 import {
@@ -33,26 +19,31 @@ import {
 	updateConfig,
 } from "@/services/game-apis";
 import { isBoardDead } from "@/services/logic";
-// import { handleBuyCoins } from "@/services/payment";
+import { handleBuyCoins } from "@/services/payment";
 import { playMoveSound, playWinSound } from "@/services/sounds";
 import { useCoins, useSound, useUser, useXP } from "@/services/store";
 import type {
 	BoardNumber,
 	BoardSize,
 	BoardState,
-	ComputerButtonModalType,
 	DifficultyLevel,
 } from "@/services/types";
+import Board from "./Board";
 
 const Game = () => {
 	const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 	const [boards, setBoards] = useState<BoardState[]>([]);
 	const [boardSize, setBoardSize] = useState<BoardSize>(3);
-	const [, setGameHistory] = useState<BoardState[][]>([]);
+	const [gameHistory, setGameHistory] = useState<BoardState[][]>([]);
 	const [currentPlayer, setCurrentPlayer] = useState<number>(1);
 	const [winner, setWinner] = useState<string>("");
+	const [showWinnerModal, setShowWinnerModal] = useState<boolean>(false);
 	const [numberOfBoards, setNumberOfBoards] = useState<BoardNumber>(3);
-	const [isProcessingPayment, _setIsProcessingPayment] =
+	const [showBoardConfig, setShowBoardConfig] = useState<boolean>(false);
+	const [showSoundConfig, setShowSoundConfig] = useState<boolean>(false);
+	const [isProcessingPayment, setIsProcessingPayment] =
+		useState<boolean>(false);
+	const [showDifficultyModal, setShowDifficultyModal] =
 		useState<boolean>(false);
 	const [difficulty, setDifficulty] = useState<DifficultyLevel>(1);
 	const [sessionId, setSessionId] = useState<string>("");
@@ -65,40 +56,16 @@ const Game = () => {
 	const [isUpdatingConfig, setIsUpdatingConfig] = useState<boolean>(false);
 	const [isUpdatingDifficulty, setIsUpdatingDifficulty] =
 		useState<boolean>(false);
-	const [activeModal, setActiveModal] = useState<ComputerButtonModalType>(null);
 
 	const { sfxMute } = useSound();
 	const Coins = useCoins((state) => state.coins);
-	// const setCoins = useCoins((state) => state.setCoins);
+	const setCoins = useCoins((state) => state.setCoins);
 	const XP = useXP((state) => state.XP);
 	const user = useUser((state) => state.user);
 	const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
-	// const { canShowToast, resetCooldown } = useToastCooldown(TOAST_DURATION);
+	const { canShowToast, triggerToastCooldown, resetCooldown } =
+		useToastCooldown(TOAST_DURATION);
 	const router = useRouter();
-
-	useShortcut(
-		{
-			escape: () => {
-				if (activeModal) return setActiveModal(null);
-				return setIsMenuOpen(false);
-			},
-			m: () => router.push("/"),
-			r: () => handleReset(),
-			c: () =>
-				setActiveModal((prev) =>
-					prev === "boardConfig" ? null : "boardConfig",
-				),
-			s: () =>
-				setActiveModal((prev) =>
-					prev === "soundConfig" ? null : "soundConfig",
-				),
-			d: () =>
-				setActiveModal((prev) => (prev === "difficulty" ? null : "difficulty")),
-			q: () =>
-				setActiveModal((prev) => (prev === "shortcut" ? null : "shortcut")),
-		},
-		isMenuOpen, // disabled condition
-	);
 
 	const initGame = async (
 		num: BoardNumber,
@@ -129,7 +96,7 @@ const Game = () => {
 				router.push("/");
 			}
 		} catch (error) {
-			toast.error(`Error initializing game: ${error}`);
+			toast.error("Error initializing game");
 			router.push("/");
 		} finally {
 			setIsInitializing(false);
@@ -155,7 +122,7 @@ const Game = () => {
 
 					if (data.gameOver) {
 						setWinner(data.gameState.winner);
-						setActiveModal("winner");
+						setShowWinnerModal(true);
 						playWinSound(sfxMute);
 					}
 				} else if ("error" in data) {
@@ -168,7 +135,7 @@ const Game = () => {
 				router.push("/");
 			}
 		} catch (error) {
-			toast.error(`Error making move ${error}`);
+			toast.error("Error making move");
 		} finally {
 			setIsProcessing(false);
 		}
@@ -186,7 +153,7 @@ const Game = () => {
 					setCurrentPlayer(data.gameState.currentPlayer);
 					setGameHistory(data.gameState.gameHistory);
 					setWinner("");
-					setActiveModal(null);
+					setShowWinnerModal(false);
 				} else if ("error" in data) {
 					toast.error(data.error || "Failed to reset game");
 				} else {
@@ -197,7 +164,7 @@ const Game = () => {
 				router.push("/");
 			}
 		} catch (error) {
-			toast.error(`Error resetting game ${error}`);
+			toast.error("Error resetting game");
 		} finally {
 			setIsResetting(false);
 		}
@@ -227,7 +194,7 @@ const Game = () => {
 				router.push("/");
 			}
 		} catch (error) {
-			toast.error(`Error undoing move: ${error}`);
+			toast.error("Error undoing move");
 		} finally {
 			setIsUndoing(false);
 		}
@@ -249,7 +216,7 @@ const Game = () => {
 					setGameHistory(data.gameState.gameHistory);
 					if (data.gameOver) {
 						setWinner(data.gameState.winner);
-						setActiveModal("winner");
+						setShowWinnerModal(true);
 						playWinSound(sfxMute);
 					}
 				} else if ("error" in data) {
@@ -262,7 +229,7 @@ const Game = () => {
 				router.push("/");
 			}
 		} catch (error) {
-			toast.error(`Error skipping move: ${error}`);
+			toast.error("Error skipping move");
 		} finally {
 			setIsSkipping(false);
 		}
@@ -290,7 +257,6 @@ const Game = () => {
 					setBoards(data.gameState.boards);
 					setCurrentPlayer(data.gameState.currentPlayer);
 					setGameHistory(data.gameState.gameHistory);
-					setActiveModal(null);
 				} else if ("error" in data) {
 					toast.error(data.error || "Failed to update config");
 				} else {
@@ -302,7 +268,6 @@ const Game = () => {
 			}
 		} catch (error) {
 			toast.error("Error updating config");
-			console.error("Error updating config:", error);
 		} finally {
 			setIsUpdatingConfig(false);
 		}
@@ -328,46 +293,44 @@ const Game = () => {
 					setGameHistory(data.gameState.gameHistory);
 				} else if ("error" in data) {
 					toast.error(data.error || "Failed to update difficulty");
-					console.error("Error updating difficulty:", data.error);
 				} else {
 					toast.error("Unexpected response from server");
-					console.error("Unexpected response from server");
 				}
 			} else {
 				toast.error("User not authenticated");
 				router.push("/");
 			}
 		} catch (error) {
-			toast.error(`Error updating difficulty: ${error}`);
-			console.error("Error updating difficulty:", error);
+			toast.error("Error updating difficulty");
 		} finally {
 			setIsUpdatingDifficulty(false);
 		}
 	};
 
-	// biome-ignore lint/correctness/useExhaustiveDependencies: <intentionally run only on mount to initialize game once>
 	useEffect(() => {
 		initGame(numberOfBoards, boardSize, difficulty);
 	}, []);
 
 	return (
-		<GameLayout>
-			<GameBoardArea>
-				<PlayerStatusContainer>
-					<StatContainer>
-						<StatLabel text={`Coins: ${Coins}`} />
-						<StatLabel text={`| XP: ${XP}`} />
-					</StatContainer>
-					<PlayerTurnTitle
-						text={currentPlayer === 1 ? "Your Turn" : "Computer's Turn"}
-					/>
-				</PlayerStatusContainer>
+		<div className="flex flex-col min-h-screen bg-black bg-[url('/background.png')] bg-no-repeat bg-cover bg-center relative">
+			<div className="flex-1">
+				<div className="flex flex-col items-center px-6 py-4 -mb-8">
+					<div className="flex flex-row justify-center items-center -mt-2">
+						<span className="text-red-600 text-[35px] ">Coins: {Coins}</span>
+						<span className="text-red-600 text-[35px] "> | XP: {XP}</span>
+					</div>
+					<h2 className="text-red-600 text-[80px] mb-5 text-center">
+						{currentPlayer === 1 ? "Your Turn" : "Computer's Turn"}
+					</h2>
+				</div>
 
-				<BoardContainer>
+				<div className="flex flex-wrap justify-center gap-4 p-4 w-full mb-20">
 					{boards.map((board, index) => (
-						//FIXME:
-						// biome-ignore lint/suspicious/noArrayIndexKey: <fix later>
-						<BoardWrapper key={index}>
+						<div
+							key={index}
+							className="w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.3%-1.5rem)]"
+							style={{ maxWidth: "400px" }}
+						>
 							<Board
 								boardIndex={index}
 								boardState={board}
@@ -375,30 +338,37 @@ const Game = () => {
 								isDead={isBoardDead(board, boardSize)}
 								boardSize={boardSize}
 							/>
-						</BoardWrapper>
+						</div>
 					))}
-				</BoardContainer>
-				<SettingBar text={"Settings"} onClick={toggleMenu} />
-			</GameBoardArea>
+				</div>
+
+				<div className="absolute bottom-0 left-0 right-0 flex justify-center items-center bg-blue-600 px-6 py-2 mt-2">
+					<button onClick={toggleMenu} className="text-white text-[35px]">
+						Settings
+					</button>
+				</div>
+			</div>
 
 			{isMenuOpen && (
-				<SettingOverlay>
-					<SettingContainer>
+				<div className="fixed top-0 left-0 w-screen h-screen bg-black bg-opacity-60 z-[9999] flex items-center justify-center px-4 overflow-y-auto">
+					<div className="flex flex-wrap justify-center gap-4 max-w-4xl py-8">
 						<SettingButton
 							onClick={() => {
 								handleReset();
 								setIsMenuOpen(false);
 							}}
 							disabled={isResetting}
-							loading={isResetting}>
+							loading={isResetting}
+						>
 							Reset
 						</SettingButton>
 						<SettingButton
 							onClick={() => {
-								setActiveModal("boardConfig");
+								setShowBoardConfig(true);
 								setIsMenuOpen(false);
 							}}
-							disabled={isUpdatingConfig}>
+							disabled={isUpdatingConfig}
+						>
 							Game Configuration
 						</SettingButton>
 						<SettingButton
@@ -407,7 +377,8 @@ const Game = () => {
 								setIsMenuOpen(false);
 							}}
 							disabled={Coins < 100 || isUndoing}
-							loading={isUndoing}>
+							loading={isUndoing}
+						>
 							Undo (100 coins)
 						</SettingButton>
 						<SettingButton
@@ -416,95 +387,84 @@ const Game = () => {
 								setIsMenuOpen(false);
 							}}
 							disabled={Coins < 200 || isSkipping}
-							loading={isSkipping}>
+							loading={isSkipping}
+						>
 							Skip a Move (200 coins)
 						</SettingButton>
 						<SettingButton
-							//Blocking the current functions since we need it disabled until the feature comes up right
-							// DO NOT DELETE THIS COMMENTS
-
-							// onClick={() =>
-							// 	handleBuyCoins(
-							// 		setIsProcessingPayment,
-							// 		canShowToast,
-							// 		resetCooldown,
-							// 		setCoins,
-							// 		Coins,
-							// 	)
-							// }
-							// disabled={isProcessingPayment}
-
-							disabled={true} // make it gray + non-clickable
-							title="Currently not available" // native tooltip
-							loading={isProcessingPayment}>
+							onClick={() =>
+								handleBuyCoins(
+									setIsProcessingPayment,
+									canShowToast,
+									triggerToastCooldown,
+									resetCooldown,
+									setCoins,
+									Coins,
+								)
+							}
+							disabled={isProcessingPayment}
+							loading={isProcessingPayment}
+						>
 							Buy Coins (100)
 						</SettingButton>
 						<SettingButton
 							onClick={() => {
-								setActiveModal("difficulty");
+								setShowDifficultyModal(true);
 								setIsMenuOpen(false);
-							}}>
+							}}
+						>
 							AI Level: {difficulty}
 						</SettingButton>
 						<SettingButton
 							onClick={() => {
-								setActiveModal("soundConfig");
+								setShowSoundConfig(true);
 								setIsMenuOpen(false);
-							}}>
+							}}
+						>
 							Adjust Sound
 						</SettingButton>
 						<SettingButton onClick={() => router.push("/")}>
 							Main Menu
 						</SettingButton>
 						<SettingButton onClick={toggleMenu}>Return to Game</SettingButton>
-						<SettingButton
-							onClick={() => {
-								setActiveModal("shortcut");
-								setIsMenuOpen(false);
-							}}>
-							Keyboard Shortcuts
-						</SettingButton>
-					</SettingContainer>
-				</SettingOverlay>
+					</div>
+				</div>
 			)}
 
 			<WinnerModal
-				visible={activeModal === "winner"}
+				visible={showWinnerModal}
 				winner={winner}
 				onPlayAgain={() => {
-					setActiveModal(null);
+					setShowWinnerModal(false);
 					handleReset();
 				}}
 				onMenu={() => {
-					setActiveModal(null);
+					setShowWinnerModal(false);
 					router.push("/");
 				}}
 			/>
 
 			<BoardConfigModal
-				visible={activeModal === "boardConfig"}
+				visible={showBoardConfig}
 				currentBoards={numberOfBoards}
 				currentSize={boardSize}
 				onConfirm={handleBoardConfigChange}
-				onCancel={() => setActiveModal(null)}
+				onCancel={() => setShowBoardConfig(false)}
 			/>
-			<ShortcutModal
-				visible={activeModal === "shortcut"}
-				onClose={() => setActiveModal(null)}
-			/>
+
 			<DifficultyModal
-				visible={activeModal === "difficulty"}
+				visible={showDifficultyModal}
 				onSelect={(level: DifficultyLevel) => {
 					handleDifficultyChange(level);
-					setActiveModal(null);
+					setShowDifficultyModal(false);
 				}}
-				onClose={() => setActiveModal(null)}
+				onClose={() => setShowDifficultyModal(false)}
 			/>
 			<SoundConfigModal
-				visible={activeModal === "soundConfig"}
-				onClose={() => setActiveModal(null)}
+				visible={showSoundConfig}
+				onClose={() => setShowSoundConfig(false)}
 			/>
-		</GameLayout>
+		</div>
 	);
 };
 

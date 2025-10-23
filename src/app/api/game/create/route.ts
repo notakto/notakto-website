@@ -3,7 +3,6 @@ import { gameSessions } from "@/lib/game-sessions";
 
 export async function POST(request: NextRequest) {
 	try {
-		//VULNERABILITY: type safety needed here else it can be violated by recieving long/big numbers, maybe use zod
 		const { numberOfBoards, boardSize, difficulty } = await request.json();
 		const sessionId = Math.random().toString(36).substring(2);
 

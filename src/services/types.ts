@@ -87,7 +87,7 @@ export type DifficultyModalProps = {
 };
 export type BoardConfigModalProps = {
 	visible: boolean;
-	currentBoards: BoardNumber;
+	currentBoards: number;
 	currentSize: BoardSize;
 	onConfirm: (num: BoardNumber, size: BoardSize) => void;
 	onCancel: () => void;
@@ -142,22 +142,6 @@ export interface errorResponse {
 	success: false;
 	error: string;
 }
-
-export type PlayerButtonModalType =
-	| "names"
-	| "winner"
-	| "boardConfig"
-	| "soundConfig"
-	| "shortcut"
-	| null;
-
-export type ComputerButtonModalType =
-	| "winner"
-	| "boardConfig"
-	| "soundConfig"
-	| "difficulty"
-	| "shortcut"
-	| null;
 
 // UI component props
 export interface AnimatedTitleProps {

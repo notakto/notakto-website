@@ -1,6 +1,10 @@
 "use client";
 
-import { ToastContainer, type ToastContainerProps } from "react-toastify";
+import {
+	CloseButton,
+	ToastContainer,
+	type ToastContainerProps,
+} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { VT323 } from "next/font/google";
 import { TOAST_DURATION } from "@/constants/toast";
@@ -41,10 +45,10 @@ export function CustomToastContainer({
 				props, // Close (X) button to manually close the toast
 			) => (
 				<button
-					type="button"
 					onClick={props.closeToast}
 					className={`absolute top-1 flex items-center justify-center right-1 h-[25px] w-[25px] text-white ${vt323.className} border-1 rounded-full hover:text-slate-200`}
-					aria-label="close">
+					aria-label="close"
+				>
 					X
 				</button>
 			)}

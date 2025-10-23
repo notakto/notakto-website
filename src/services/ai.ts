@@ -1,5 +1,5 @@
 // ai.ts
-import type { BoardSize, BoardState, DifficultyLevel } from "@/services/types";
+import type { BoardSize, BoardState, DifficultyLevel } from "./types";
 
 //
 // ——— Helpers for win detection —————————————————————————————————————
@@ -8,9 +8,7 @@ const winPatternsCache = new Map<number, number[][]>();
 
 function getWinPatterns(size: number): number[][] {
 	if (winPatternsCache.has(size)) {
-		const cached = winPatternsCache.get(size);
-		if (cached) return cached;
-		return [];
+		return winPatternsCache.get(size)!;
 	}
 	const patterns: number[][] = [];
 
@@ -52,17 +50,7 @@ function getCellValue(cellIndex: number, boardSize: number): number {
 		}
 		cellValueCache.set(boardSize, m);
 	}
-	const boardMap = cellValueCache.get(boardSize);
-	if (!boardMap) {
-		throw new Error(`No cell value map found for board size ${boardSize}`);
-	}
-	const value = boardMap.get(cellIndex);
-	if (value === undefined) {
-		throw new Error(
-			`No cell value found for cell index ${cellIndex} on board size ${boardSize}`,
-		);
-	}
-	return value;
+	return cellValueCache.get(boardSize)!.get(cellIndex)!;
 }
 
 //

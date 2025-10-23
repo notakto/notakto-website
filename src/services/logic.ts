@@ -1,4 +1,4 @@
-import type { BoardState } from "@/services/types";
+import type { BoardState } from "./types";
 
 export const isBoardDead = (board: BoardState, boardSize: number) => {
 	const size = boardSize;

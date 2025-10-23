@@ -17,7 +17,8 @@ export function DifficultyActionButton({
 				variant === "level" && "bg-blue-600 hover:bg-blue-700 my-2",
 				variant === "cancel" && "bg-red-600 hover:bg-red-700 mt-4",
 			)}
-			{...props}>
+			{...props}
+		>
 			{children}
 		</button>
 	);

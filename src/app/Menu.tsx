@@ -3,7 +3,6 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "react-toastify";
-import { useShortcut } from "@/components/hooks/useShortcut";
 import { useToastCooldown } from "@/components/hooks/useToastCooldown";
 import { MenuButton } from "@/components/ui/Buttons/MenuButton";
 import MenuButtonContainer from "@/components/ui/Containers/Menu/MenuButtonContainer";
@@ -12,34 +11,23 @@ import { MenuTitle } from "@/components/ui/Title/MenuTitle";
 import { TOAST_DURATION, TOAST_IDS } from "@/constants/toast";
 import ShortcutModal from "@/modals/ShortcutModal";
 import SoundConfigModal from "@/modals/SoundConfigModal";
-import TutorialModal from "@/modals/TutorialModal";
 import { signInWithGoogle, signOutUser } from "@/services/firebase";
-import { useUser } from "@/services/store";
+import { useTut, useUser } from "@/services/store";
 
-type ModalType = "soundConfig" | "shortcut" | "tutorial" | null;
 const Menu = () => {
 	const user = useUser((state) => state.user);
 	const setUser = useUser((state) => state.setUser);
+	const setShowTut = useTut((state) => state.setShowTut);
 
 	const router = useRouter();
-	const { canShowToast, resetCooldown } = useToastCooldown(TOAST_DURATION);
-	const [activeModal, setActiveModal] = useState<ModalType>(null);
-
-	useShortcut({
-		escape: () => setActiveModal(null),
-		s: () =>
-			setActiveModal((prev) => (prev === "soundConfig" ? null : "soundConfig")),
-		q: () =>
-			setActiveModal((prev) => (prev === "shortcut" ? null : "shortcut")),
-		t: () =>
-			setActiveModal((prev) => (prev === "tutorial" ? null : "tutorial")),
-	});
+	const { canShowToast, triggerToastCooldown, resetCooldown } =
+		useToastCooldown(TOAST_DURATION);
+	const [showSoundConfig, setShowSoundConfig] = useState<boolean>(false);
+	const [showShortcutConfig, setshowShortcutConfig] = useState<boolean>(false);
 
 	const handleSignIn = async () => {
 		try {
 			await signInWithGoogle();
-			toast.dismiss(TOAST_IDS.User.SignInError);
-			resetCooldown();
 		} catch (error) {
 			console.error("Sign in error:", error);
 		}
@@ -84,31 +72,24 @@ const Menu = () => {
 					{" "}
 					Live Match{" "}
 				</MenuButton>
-				<MenuButton onClick={() => setActiveModal("tutorial")}>
-					{" "}
-					Tutorial{" "}
-				</MenuButton>
+				<MenuButton onClick={() => setShowTut(true)}> Tutorial </MenuButton>
 				<MenuButton onClick={user ? handleSignOut : handleSignIn}>
 					{user ? "Sign Out" : "Sign in"}
 				</MenuButton>
-				<MenuButton onClick={() => setActiveModal("soundConfig")}>
+				<MenuButton onClick={() => setShowSoundConfig(!showSoundConfig)}>
 					Adjust Sound
 				</MenuButton>
-				<MenuButton onClick={() => setActiveModal("shortcut")}>
+				<MenuButton onClick={() => setshowShortcutConfig(!showShortcutConfig)}>
 					Keyboard Shortcuts
 				</MenuButton>
 			</MenuButtonContainer>
 			<SoundConfigModal
-				visible={activeModal === "soundConfig"}
-				onClose={() => setActiveModal(null)}
+				visible={showSoundConfig}
+				onClose={() => setShowSoundConfig(false)}
 			/>
 			<ShortcutModal
-				visible={activeModal === "shortcut"}
-				onClose={() => setActiveModal(null)}
-			/>
-			<TutorialModal
-				visible={activeModal === "tutorial"}
-				onClose={() => setActiveModal(null)}
+				visible={showShortcutConfig}
+				onClose={() => setshowShortcutConfig(false)}
 			/>
 		</MenuContainer>
 	);

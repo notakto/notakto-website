@@ -1,6 +1,6 @@
 import clsx from "clsx";
-import Cell from "@/app/vsPlayer/Cell";
-import type { BoardProps } from "@/services/types";
+import type { BoardProps } from "../../services/types";
+import Cell from "./Cell";
 
 const Board: React.FC<BoardProps> = ({
 	boardIndex,
@@ -16,10 +16,11 @@ const Board: React.FC<BoardProps> = ({
 				style={{
 					gridTemplateColumns: `repeat(${boardSize}, minmax(0, 1fr))`,
 					aspectRatio: "1/1",
-				}}>
+				}}
+			>
 				{boardState.map((cell, cellIndex) => (
 					<Cell
-						key={`${boardIndex}-${cellIndex}-${cell}`} // TODO: Improve key
+						key={cellIndex}
 						boardIndex={boardIndex}
 						cellIndex={cellIndex}
 						value={cell}

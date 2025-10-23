@@ -1,7 +1,6 @@
 import { findBestMove, updateBoards } from "@/services/ai";
-import type { GameState } from "@/services/types";
 
-export function makeAIMove(gameState: GameState) {
+export function makeAIMove(gameState: any) {
 	const move = findBestMove(
 		gameState.boards,
 		gameState.difficulty,

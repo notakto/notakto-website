@@ -18,6 +18,8 @@ const ClientSideInit = (): null => {
 	const setUser = useUser(
 		(state): ((newUser: User | null) => void) => state.setUser,
 	);
+	useCoins((state): number => state.coins);
+	useXP((state): number => state.XP);
 
 	// Load user
 	useEffect((): (() => void) => {
@@ -31,7 +33,7 @@ const ClientSideInit = (): null => {
 			},
 		);
 		return (): void => unsubscribe();
-	}, [setCoins, setUser, setXP]);
+	}, []);
 	useEffect((): (() => void) | undefined => {
 		if (!user) {
 			console.log("No user, skipping Firestore listener setup.");
@@ -59,7 +61,7 @@ const ClientSideInit = (): null => {
 		);
 
 		return (): void => unsubscribe();
-	}, [user, setCoins, setXP]);
+	}, [user]);
 	return null;
 };
 export default ClientSideInit;

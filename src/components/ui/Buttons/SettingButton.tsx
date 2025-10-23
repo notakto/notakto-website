@@ -25,7 +25,8 @@ export function SettingButton({
 				loading && "flex justify-center items-center gap-2", //  only applied if loading
 				className,
 			)}
-			{...props}>
+			{...props}
+		>
 			{loading && (
 				<span className="animate-spin h-5 w-5 border-2 border-white border-t-transparent rounded-full" />
 			)}

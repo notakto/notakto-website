@@ -16,12 +16,6 @@ export async function POST(request: NextRequest) {
 			return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
 		}
 		const { sessionId } = await request.json();
-		if (!sessionId) {
-			return NextResponse.json(
-				{ error: "Session ID is required" },
-				{ status: 400 },
-			);
-		}
 		const gameState = gameSessions.get(sessionId);
 
 		if (!gameState) {

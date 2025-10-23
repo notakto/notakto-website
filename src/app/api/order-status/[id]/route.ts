@@ -1,13 +1,10 @@
 import axios from "axios";
 import { type NextRequest, NextResponse } from "next/server";
 
-export async function GET(req: NextRequest) {
-	const COINBASE_API_KEY = process.env.COINBASE_API_KEY;
-	if (!COINBASE_API_KEY) {
-		return NextResponse.json({ status: "missing_api_key" }, { status: 500 });
-	}
-	const COINBASE_API_URL = "https://api.commerce.coinbase.com/charges";
+const COINBASE_API_KEY = process.env.COINBASE_API_KEY!;
+const COINBASE_API_URL = "https://api.commerce.coinbase.com/charges";
 
+export async function GET(req: NextRequest) {
 	try {
 		const chargeId = req.nextUrl.pathname.split("/").pop(); // gets the [id] from URL
 
@@ -26,8 +23,11 @@ export async function GET(req: NextRequest) {
 		const latestStatus = timeline[timeline.length - 1]?.status.toLowerCase();
 
 		return NextResponse.json({ status: latestStatus });
-	} catch (error) {
-		console.error("Error checking payment status:", error);
+	} catch (error: any) {
+		console.error(
+			"Error checking payment status:",
+			error.response?.data || error.message,
+		);
 		return NextResponse.json({ status: "unknown" }, { status: 500 });
 	}
 }

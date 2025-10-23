@@ -4,6 +4,7 @@ import { TOAST_DURATION, TOAST_IDS } from "@/constants/toast";
 export const handleBuyCoins = async (
 	setIsProcessingPayment: (val: boolean) => void,
 	canShowToast: () => boolean,
+	triggerToastCooldown: () => void,
 	resetCooldown: () => void,
 	setCoins: (val: number) => void,
 	Coins: number,
@@ -42,10 +43,6 @@ export const handleBuyCoins = async (
 				data.chargeId,
 				paymentWindow,
 				() => {
-					toast.dismiss(TOAST_IDS.Payment.Failure);
-					toast.dismiss(TOAST_IDS.Payment.PopupBlocked);
-					resetCooldown();
-
 					if (canShowToast()) {
 						toast("✅ Payment successful! 100 coins added to your account.", {
 							toastId: TOAST_IDS.Payment.Success,
@@ -74,7 +71,7 @@ export const handleBuyCoins = async (
 		}
 	} catch (error) {
 		if (canShowToast()) {
-			toast(`Payment processing failed: ${error}`, {
+			toast("Payment processing failed", {
 				toastId: TOAST_IDS.Payment.Failure,
 				autoClose: TOAST_DURATION,
 				onClose: resetCooldown,

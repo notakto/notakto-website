@@ -8,7 +8,7 @@ import type {
 	skipMoveResponse,
 	undoMoveResponse,
 	updateConfigResponse,
-} from "@/services/types";
+} from "./types";
 
 const API_BASE = "/api/game";
 

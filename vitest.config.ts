@@ -1,17 +1,12 @@
 /// <reference types="vitest" />
-import path from "node:path";
+
 import { defineConfig } from "vitest/config";
 
 export default defineConfig({
-	resolve: {
-		alias: {
-			"@": path.resolve(__dirname, "src"),
-		},
-	},
 	test: {
-		globals: true,
-		environment: "jsdom",
-		setupFiles: "./vitest.setup.ts",
+		globals: true, // allows Jest-like `describe`, `it`, `expect`
+		environment: "jsdom", // simulate browser for React
+		setupFiles: "./vitest.setup.ts", // like jest.setup.js
 		coverage: {
 			provider: "v8",
 			reporter: ["text", "html"],

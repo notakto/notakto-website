@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import "@/app/globals.css";
+import "./globals.css";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { VT323 } from "next/font/google";
@@ -8,7 +8,7 @@ import MusicProvider from "@/components/MusicProvider";
 import { CustomToastContainer } from "@/components/ui/Toasts/CustomToastContainer";
 
 export const metadata: Metadata = {
-	title: "Menu | Notakto",
+	title: "Notakto",
 	description: "No ties, Always a winner",
 	keywords: [
 		"Notakto",
@@ -38,7 +38,8 @@ export default function RootLayout({
 				<script
 					async
 					src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4854199776978392"
-					crossOrigin="anonymous"></script>
+					crossOrigin="anonymous"
+				></script>
 				<meta
 					name="google-site-verification"
 					content="lxHtpLX2cDKFEAAabqQ3-9IY-ckiw3KvqM3Z1kNPxRo"
