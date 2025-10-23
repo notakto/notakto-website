@@ -10,7 +10,9 @@ import {
 import { getFirestore } from "firebase/firestore";
 
 const isProduction = process.env.NODE_ENV === "production";
-console.log(`[Firebase] Using ${isProduction ? "production" : "development"} config.`);
+console.log(
+	`[Firebase] Using ${isProduction ? "production" : "development"} config.`,
+);
 
 const devConfig = {
 	apiKey: "AIzaSyAFRKoQm30ekwQQOeunqB3X6D26wOP8huk",
@@ -61,4 +63,3 @@ export const signOutUser = async () => {
 export const onAuthStateChangedListener = (
 	callback: (user: User | null) => void,
 ): (() => void) => onAuthStateChanged(auth, callback);
-
