@@ -17,13 +17,13 @@ import SettingOverlay from "@/components/ui/Containers/Settings/SettingOverlay";
 import GameLayout from "@/components/ui/Layout/GameLayout";
 import PlayerTurnTitle from "@/components/ui/Title/PlayerTurnTitle";
 import StatLabel from "@/components/ui/Title/StatLabel";
+import { applyMove } from "@/lib/game/state"; // <-- CORRECTED IMPORT
 import BoardConfigModal from "@/modals/BoardConfigModal";
+import ConfirmationModal from "@/modals/ConfirmationModal";
 import PlayerNamesModal from "@/modals/PlayerNamesModal";
 import ShortcutModal from "@/modals/ShortcutModal";
 import SoundConfigModal from "@/modals/SoundConfigModal";
 import WinnerModal from "@/modals/WinnerModal";
-import ConfirmationModal from "@/modals/ConfirmationModal";
-import { applyMove } from "@/lib/game/state"; // <-- CORRECTED IMPORT
 import { isBoardDead } from "@/services/logic";
 import { playMoveSound, playWinSound } from "@/services/sounds";
 import { useSound } from "@/services/store";
@@ -99,7 +99,8 @@ const Game = () => {
 	]);
 	const [winner, setWinner] = useState<string>("");
 	const [numberOfBoards, setNumberOfBoards] = useState<BoardNumber>(3);
-	const [activeModal, setActiveModal] = useState<PlayerButtonModalType>("names");
+	const [activeModal, setActiveModal] =
+		useState<PlayerButtonModalType>("names");
 	const [initialSetupDone, setInitialSetupDone] = useState(false);
 
 	const { sfxMute } = useSound();
@@ -223,12 +224,10 @@ const Game = () => {
 	};
 
 	const handleUndo = () => {
-		const {
-			lastBoards,
-			newHistory,
-			newPlayer,
-			undoSuccessful,
-		} = undoMove(gameHistory, currentPlayer);
+		const { lastBoards, newHistory, newPlayer, undoSuccessful } = undoMove(
+			gameHistory,
+			currentPlayer,
+		);
 		if (undoSuccessful) {
 			setBoards(lastBoards);
 			setGameHistory(newHistory);
@@ -251,9 +250,7 @@ const Game = () => {
 						<StatLabel text={"|"} />
 						<StatLabel text={playerNames[1]} />
 					</StatContainer>
-					<PlayerTurnTitle
-						text={`${playerNames[currentPlayer - 1]}'s Turn`}
-					/>
+					<PlayerTurnTitle text={`${playerNames[currentPlayer - 1]}'s Turn`} />
 				</PlayerStatusContainer>
 
 				<BoardContainer>
