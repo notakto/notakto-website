@@ -1,4 +1,3 @@
-"use client";
 import BoardGrid from "@/components/ui/Board/BoardGrid";
 import Cell from "@/components/ui/Cell/Cell";
 import SingleBoardContainer from "@/components/ui/Containers/Board/SingleBoardContainer";
