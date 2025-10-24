@@ -51,11 +51,5 @@ jobs:
         run: pnpm test
 
       - name: Build application using .env
-        run: |
-          # Load .env file safely (handles multiline values)
-          set -a
-          source <(cat .env | sed 's/\r$//')
-          set +a
-
-          pnpm build
+        run: pnpm build
 
