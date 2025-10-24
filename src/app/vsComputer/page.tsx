@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import Board from "@/app/vsComputer/Board";
+import Board from "@/components/ui/Board/Board";
 import { useShortcut } from "@/components/hooks/useShortcut";
 // import { useToastCooldown } from "@/components/hooks/useToastCooldown";
 import SettingBar from "@/components/ui/Buttons/SettingBar";

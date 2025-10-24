@@ -1,5 +1,7 @@
-import clsx from "clsx";
-import Cell from "@/app/vsPlayer/Cell";
+"use client";
+import BoardGrid from "@/components/ui/Board/BoardGrid";
+import SingleBoardContainer from "@/components/ui/Containers/Board/SingleBoardContainer";
+import Cell from "@/components/ui/Cell/Cell";
 import type { BoardProps } from "@/services/types";
 
 const Board: React.FC<BoardProps> = ({
@@ -10,16 +12,11 @@ const Board: React.FC<BoardProps> = ({
 	boardSize,
 }) => {
 	return (
-		<div className={clsx("flex-1 p-2 max-w-full", isDead && "opacity-60")}>
-			<div
-				className="grid gap-1 w-full"
-				style={{
-					gridTemplateColumns: `repeat(${boardSize}, minmax(0, 1fr))`,
-					aspectRatio: "1/1",
-				}}>
+		<SingleBoardContainer isDead={isDead}>
+			<BoardGrid boardSize={boardSize}>
 				{boardState.map((cell, cellIndex) => (
 					<Cell
-						key={`${boardIndex}-${cellIndex}-${cell}`} // TODO: Improve key
+						key={`${boardIndex}-${cellIndex}-${cell}`} //FIXME: Improve key
 						boardIndex={boardIndex}
 						cellIndex={cellIndex}
 						value={cell}
@@ -28,8 +25,8 @@ const Board: React.FC<BoardProps> = ({
 						boardSize={boardSize}
 					/>
 				))}
-			</div>
-		</div>
+			</BoardGrid>
+		</SingleBoardContainer>
 	);
 };
 
