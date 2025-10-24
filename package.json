@@ -15,7 +15,8 @@
 		"coverage": "vitest run --coverage",
 		"prepare": "lefthook install",
 		"dev:local": "concurrently --kill-others --prefix \"[{name}]\" --names \"NEXT.JS,SOCKET\" \"pnpm dev\" \"cd notakto-socket-server && pnpm start\"",
-		"install:all": "pnpm install && cd notakto-socket-server && pnpm install"
+		"install:all": "pnpm install && cd notakto-socket-server && pnpm install",
+		"postinstall": "node -e \"const fs=require('fs'); if(!fs.existsSync('.env')) fs.copyFileSync('.env.example','.env');\""
 	},
 	"dependencies": {
 		"@tailwindcss/postcss": "^4.1.12",
