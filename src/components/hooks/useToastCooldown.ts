@@ -1,24 +1,25 @@
-import { useRef, useCallback } from "react";
+import { useCallback, useRef } from "react";
+import { TOAST_DURATION } from "@/constants/toast";
 
-export function useToastCooldown(cooldown: number = 4000) {
-  const cooldownTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const isOnCooldown = useRef(false);
+export function useToastCooldown(cooldown: number = TOAST_DURATION) {
+	const cooldownTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+	const isOnCooldown = useRef(false);
 
-  const canShowToast = useCallback(() => !isOnCooldown.current, []);
+	const canShowToast = useCallback(() => !isOnCooldown.current, []);
 
-  const triggerToastCooldown = useCallback(() => {
-    isOnCooldown.current = true;
+	const triggerToastCooldown = useCallback(() => {
+		isOnCooldown.current = true;
 
-    if (cooldownTimer.current) clearTimeout(cooldownTimer.current);
-    cooldownTimer.current = setTimeout(() => {
-      isOnCooldown.current = false;
-    }, cooldown);
-  }, [cooldown]);
+		if (cooldownTimer.current) clearTimeout(cooldownTimer.current);
+		cooldownTimer.current = setTimeout(() => {
+			isOnCooldown.current = false;
+		}, cooldown);
+	}, [cooldown]);
 
-  const resetCooldown = useCallback(() => {
-    if (cooldownTimer.current) clearTimeout(cooldownTimer.current);
-    isOnCooldown.current = false;
-  }, []);
+	const resetCooldown = useCallback(() => {
+		if (cooldownTimer.current) clearTimeout(cooldownTimer.current);
+		isOnCooldown.current = false;
+	}, []);
 
-  return { canShowToast, triggerToastCooldown, resetCooldown };
+	return { canShowToast, triggerToastCooldown, resetCooldown };
 }
