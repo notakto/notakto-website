@@ -38,9 +38,15 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+        env:
+          CI: true
+          npm_config_ignore_scripts: true
 
       - name: Install socket server dependencies
         run: cd notakto-socket-server && pnpm install --frozen-lockfile
+        env:
+          CI: true
+          npm_config_ignore_scripts: true
 
       - name: Run Biome CI
         run: |
