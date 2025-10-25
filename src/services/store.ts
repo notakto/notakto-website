@@ -1,6 +1,11 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import type { CoinStore, SoundStore, UserStore, XPStore } from "@/services/types";
+import type {
+	CoinStore,
+	SoundStore,
+	UserStore,
+	XPStore,
+} from "@/services/types";
 
 export const useSound = create<SoundStore>()(
 	persist(

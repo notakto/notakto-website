@@ -104,7 +104,7 @@ export interface BaseComponentProps {
 
 export interface BaseButtonProps
 	extends ButtonHTMLAttributes<HTMLButtonElement> {
-	children: ReactNode;
+	children?: ReactNode;
 }
 
 export interface BaseModalProps {
@@ -473,5 +473,4 @@ export type updateConfigResponse = UpdateConfigResponse;
 export type undoMoveResponse = UndoMoveResponse;
 export type skipMoveResponse = SkipMoveResponse;
 export type errorResponse = ErrorResponse;
-export type userStore = UserStore;
 export type TutorialProps = TutorialModalProps;
