@@ -213,6 +213,7 @@ const Game = () => {
 
 			<PlayerNamesModal
 				visible={activeModal === "names"}
+				onClose={() => setActiveModal(null)}
 				onSubmit={(name1: string, name2: string) => {
 					setPlayer1Name(name1 || "Player 1");
 					setPlayer2Name(name2 || "Player 2");
@@ -227,6 +228,7 @@ const Game = () => {
 			<WinnerModal
 				visible={activeModal === "winner"}
 				winner={winner}
+				onClose={() => setActiveModal(null)}
 				onPlayAgain={() => {
 					setActiveModal(null);
 					resetGame(numberOfBoards, boardSize);
@@ -240,6 +242,7 @@ const Game = () => {
 				visible={activeModal === "boardConfig"}
 				currentBoards={numberOfBoards}
 				currentSize={boardSize}
+				onClose={() => setActiveModal(null)}
 				onConfirm={handleBoardConfigChange}
 				onCancel={() => setActiveModal(null)}
 			/>
