@@ -1,8 +1,4 @@
-import type { ReactNode } from "react";
-
-interface ShortcutContainerProps {
-	children: ReactNode;
-}
+import type { ShortcutContainerProps } from "@/services/types";
 
 export default function ShortcutContainer({
 	children,

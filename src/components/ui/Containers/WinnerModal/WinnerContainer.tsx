@@ -1,8 +1,4 @@
-import type { ReactNode } from "react";
-
-interface WinnerContainerProps {
-	children: ReactNode;
-}
+import type { WinnerContainerProps } from "@/services/types";
 
 export default function WinnerContainer({ children }: WinnerContainerProps) {
 	return (

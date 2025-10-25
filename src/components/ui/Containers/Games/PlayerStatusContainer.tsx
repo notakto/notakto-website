@@ -1,8 +1,4 @@
-import type { ReactNode } from "react";
-
-interface PlayerStatusContainerProps {
-	children: ReactNode;
-}
+import type { PlayerStatusContainerProps } from "@/services/types";
 
 export default function PlayerStatusContainer({
 	children,

@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
-import type { userStore } from "@/services/store";
+import type { UserStore } from "@/services/types";
 
 // Required mocks
 vi.mock("next/navigation", () => ({
@@ -14,7 +14,7 @@ vi.mock("@/services/firebase", () => ({
 }));
 
 vi.mock("@/services/store", () => ({
-	useUser: <T,>(selector: (state: userStore) => T) =>
+	useUser: <T,>(selector: (state: UserStore) => T) =>
 		selector({ user: null, setUser: vi.fn() }),
 	useSound: () => ({
 		bgMute: false,

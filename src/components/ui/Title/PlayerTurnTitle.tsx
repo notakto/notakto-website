@@ -1,9 +1,5 @@
 "use client";
-
-interface PlayerTurnTitleProps {
-	variant?: "normal" | "live";
-	text: string;
-}
+import type { PlayerTurnTitleProps } from "@/services/types";
 
 const PlayerTurnTitle = ({
 	variant = "normal",

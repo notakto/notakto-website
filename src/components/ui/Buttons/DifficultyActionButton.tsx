@@ -1,9 +1,5 @@
 import clsx from "clsx";
-
-interface DifficultyActionProps
-	extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-	variant?: "level" | "cancel";
-}
+import type { DifficultyActionProps } from "@/services/types";
 
 export function DifficultyActionButton({
 	variant = "level",

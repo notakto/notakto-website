@@ -1,11 +1,4 @@
-interface Shortcut {
-	key: string;
-	action: string;
-}
-
-interface ShortcutListProps {
-	shortcuts: Shortcut[];
-}
+import type { ShortcutListProps } from "@/services/types";
 
 const ShortcutList = ({ shortcuts }: ShortcutListProps) => (
 	<div className="grid grid-cols-2 gap-4 text-left">

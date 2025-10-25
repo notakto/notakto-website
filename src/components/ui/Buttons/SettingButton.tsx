@@ -1,11 +1,5 @@
 import clsx from "clsx";
-import type { ButtonHTMLAttributes, ReactNode } from "react";
-
-interface SettingButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-	// a custom prop you added to handle loading state
-	loading?: boolean;
-	children: ReactNode; // accept any react child
-}
+import type { SettingButtonProps } from "@/services/types";
 
 export function SettingButton({
 	className,

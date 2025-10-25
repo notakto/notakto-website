@@ -9,11 +9,7 @@ import ModalOverlay from "@/components/ui/Overlays/ModalOverlay";
 import SoundConfigLabel from "@/components/ui/Title/SoundConfigLabel";
 import SoundConfigTitle from "@/components/ui/Title/SoundConfigTitle";
 import { useSound } from "@/services/store";
-
-type SoundConfigModalProps = {
-	visible: boolean;
-	onClose: () => void;
-};
+import type { SoundConfigModalProps } from "@/services/types";
 
 export default function SoundConfigModal({
 	visible,

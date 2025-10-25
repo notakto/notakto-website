@@ -1,9 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-
-type ShortcutHandler = (event: KeyboardEvent) => void;
-type ShortcutMap = Record<string, ShortcutHandler>;
+import type { ShortcutMap } from "@/services/types";
 
 export function useShortcut(shortcuts: ShortcutMap, disabled: boolean = false) {
 	useEffect(() => {

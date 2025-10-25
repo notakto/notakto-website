@@ -1,11 +1,5 @@
 import clsx from "clsx";
-import type { ReactNode } from "react";
-
-interface CellButtonProps {
-	children: ReactNode;
-	onClick: () => void;
-	disabled: boolean;
-}
+import type { CellButtonProps } from "@/services/types";
 
 export default function CellButton({
 	children,

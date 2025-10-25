@@ -1,32 +1,6 @@
-import type { User } from "firebase/auth";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-
-type SoundStore = {
-	bgMute: boolean;
-	bgVolume: number;
-	sfxMute: boolean;
-	sfxVolume: number;
-	setBgMute: (mute: boolean) => void;
-	setBgVolume: (vol: number) => void;
-	setSfxMute: (mute: boolean) => void;
-	setSfxVolume: (vol: number) => void;
-};
-export type userStore = {
-	user: User | null;
-	setUser: (newUser: User | null) => void;
-};
-
-type CoinStore = {
-	coins: number;
-	setCoins: (newCoins: number) => void;
-	optimisticAddCoins: (amount: number) => void;
-};
-type XPStore = {
-	XP: number;
-	setXP: (newXP: number) => void;
-	optimisticAddXP: (amount: number) => void;
-};
+import type { CoinStore, SoundStore, UserStore, XPStore } from "@/services/types";
 
 export const useSound = create<SoundStore>()(
 	persist(
@@ -44,7 +18,7 @@ export const useSound = create<SoundStore>()(
 	),
 );
 
-export const useUser = create<userStore>((set) => ({
+export const useUser = create<UserStore>((set) => ({
 	user: null,
 	setUser: (newUser) => set({ user: newUser }),
 }));

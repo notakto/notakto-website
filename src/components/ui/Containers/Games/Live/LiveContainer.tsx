@@ -1,8 +1,4 @@
-import type { ReactNode } from "react";
-
-interface LiveContainerProps {
-	children: ReactNode;
-}
+import type { LiveContainerProps } from "@/services/types";
 
 export default function LiveContainer({ children }: LiveContainerProps) {
 	return (

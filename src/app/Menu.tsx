@@ -15,15 +15,15 @@ import SoundConfigModal from "@/modals/SoundConfigModal";
 import TutorialModal from "@/modals/TutorialModal";
 import { signInWithGoogle, signOutUser } from "@/services/firebase";
 import { useUser } from "@/services/store";
+import type { MenuModalType } from "@/services/types";
 
-type ModalType = "soundConfig" | "shortcut" | "tutorial" | null;
 const Menu = () => {
 	const user = useUser((state) => state.user);
 	const setUser = useUser((state) => state.setUser);
 
 	const router = useRouter();
 	const { canShowToast, resetCooldown } = useToastCooldown(TOAST_DURATION);
-	const [activeModal, setActiveModal] = useState<ModalType>(null);
+	const [activeModal, setActiveModal] = useState<MenuModalType>(null);
 
 	useShortcut({
 		escape: () => setActiveModal(null),

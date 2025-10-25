@@ -1,10 +1,5 @@
 import clsx from "clsx";
-import type { ReactNode } from "react";
-
-interface SingleBoardContainerProps {
-	children: ReactNode;
-	isDead: boolean;
-}
+import type { SingleBoardContainerProps } from "@/services/types";
 
 export default function SingleBoardContainer({
 	children,

@@ -1,8 +1,4 @@
-import type { ReactNode } from "react";
-
-interface SettingOverlayProps {
-	children: ReactNode;
-}
+import type { SettingOverlayProps } from "@/services/types";
 
 export default function SettingOverlay({ children }: SettingOverlayProps) {
 	return (

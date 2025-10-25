@@ -1,10 +1,5 @@
 import clsx from "clsx";
-import type { ReactNode } from "react";
-
-interface BoardLiveContainerProps {
-	blocked: boolean;
-	children: ReactNode;
-}
+import type { BoardLiveContainerProps } from "@/services/types";
 
 const BoardLiveContainer = ({ blocked, children }: BoardLiveContainerProps) => (
 	<div

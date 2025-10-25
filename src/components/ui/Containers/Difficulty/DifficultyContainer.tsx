@@ -1,8 +1,4 @@
-import type { ReactNode } from "react";
-
-interface DifficultyContainerProps {
-	children: ReactNode;
-}
+import type { DifficultyContainerProps } from "@/services/types";
 
 export default function DifficultyContainer({
 	children,

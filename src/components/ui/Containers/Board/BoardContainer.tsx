@@ -1,8 +1,4 @@
-import type { ReactNode } from "react";
-
-interface BoardContainerProps {
-	children: ReactNode;
-}
+import type { BoardContainerProps } from "@/services/types";
 
 export default function BoardContainer({ children }: BoardContainerProps) {
 	return (

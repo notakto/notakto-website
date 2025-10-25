@@ -1,8 +1,4 @@
-import type { ButtonHTMLAttributes } from "react";
-
-interface ExitBarProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-	text: string;
-}
+import type { ExitBarProps } from "@/services/types";
 export default function ExitBar({ text, ...props }: ExitBarProps) {
 	return (
 		<div className="w-full bg-red-600 py-3 text-center mt-auto">
