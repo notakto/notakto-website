@@ -7,5 +7,5 @@ interface DifficultyContainerProps {
 export default function DifficultyContainer({
 	children,
 }: DifficultyContainerProps) {
-	return <div className="bg-black w-full max-w-md p-6">{children}</div>;
+	return <section className="bg-black w-full max-w-md p-6">{children}</section>;
 }

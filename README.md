@@ -10,7 +10,7 @@
 Thanks to these amazing people for contributing to **Notakto**:
 
 <a href="https://github.com/Rakshitg600/notakto-website/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=Rakshitg600/notakto-website" />
+  <img src="https://contrib.rocks/image?repo=Rakshitg600/notakto-website" alt="Contributors to Notakto GitHub repository" />
 </a>
 
 ## :question: What's Notakto?
