@@ -1,3 +1,4 @@
+import { beforeEach } from "node:test";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 import PlayerNamesModal from "@/modals/PlayerNamesModal";
@@ -35,17 +36,10 @@ describe("PlayerNamesModal Character Limit Validation", () => {
 		onSubmit: mockOnSubmit,
 		initialNames: ["Player 1", "Player 2"],
 	};
-	// Test Case ID: 4 - Character counter shows 15/15
-	it("should show '15/15 characters' when Player 1 is at maximum", () => {
-		render(<PlayerNamesModal {...defaultProps} />);
-
-		const player1Input = screen.getByPlaceholderText("Player 1 Name");
-		const testString = "ExactlyFifteen1"; // 15 characters
-
-		fireEvent.change(player1Input, { target: { value: testString } });
-
-		expect(screen.getByText("15/15 characters")).toBeInTheDocument();
+	beforeEach(() => {
+		mockOnSubmit.mockClear();
 	});
+
 	// Test Case ID: 1 - Accept exactly 15 characters in Player 1
 	it("should accept exactly 15 characters in Player 1 input field", () => {
 		render(<PlayerNamesModal {...defaultProps} />);
@@ -80,6 +74,18 @@ describe("PlayerNamesModal Character Limit Validation", () => {
 		expect(screen.getByText("10/15 characters")).toBeInTheDocument();
 	});
 
+	// Test Case ID: 4 - Character counter shows 15/15
+	it("should show '15/15 characters' when Player 1 is at maximum", () => {
+		render(<PlayerNamesModal {...defaultProps} />);
+
+		const player1Input = screen.getByPlaceholderText("Player 1 Name");
+		const testString = "ExactlyFifteen1"; // 15 characters
+
+		fireEvent.change(player1Input, { target: { value: testString } });
+
+		expect(screen.getByText("15/15 characters")).toBeInTheDocument();
+	});
+
 	// Test Case ID: 6 - Accept exactly 15 characters in Player 2
 	it("should accept exactly 15 characters in Player 2 input field", () => {
 		render(<PlayerNamesModal {...defaultProps} />);
@@ -106,16 +112,26 @@ describe("PlayerNamesModal Character Limit Validation", () => {
 	it("should show '8/15 characters' when Player 2 has 8 characters", () => {
 		render(<PlayerNamesModal {...defaultProps} />);
 
-		const player2Input = screen.getByPlaceholderText("Player 2 Name");
-		const testString = "EightChr"; // 8 characters
+		const player1Input = screen.getByPlaceholderText(
+			"Player 1 Name",
+		) as HTMLInputElement;
+		const player2Input = screen.getByPlaceholderText(
+			"Player 2 Name",
+		) as HTMLInputElement;
 
+		// Type 5 characters in Player 1 (so Player 1 will show "5/15 characters")
+		fireEvent.change(player1Input, { target: { value: "Hello" } });
+		expect(screen.getByText("5/15 characters")).toBeInTheDocument();
+
+		// Type 8 characters in Player 2
+		const testString = "EightChr"; // 8 characters
 		fireEvent.change(player2Input, { target: { value: testString } });
 
-		// Using getAllByText since there are multiple counters on the page
-		const characterCounters = screen.getAllByText("8/15 characters");
-		expect(characterCounters.length).toBeGreaterThan(0);
+		// Now we know "8/15 characters" must be from Player 2
+		expect(screen.getByText("8/15 characters")).toBeInTheDocument();
+		// Player 1 should still show 5/15
+		expect(screen.getByText("5/15 characters")).toBeInTheDocument();
 	});
-
 	/*
 	 * Test Case ID: 14 - Form submission with full-length names (15 chars each)
 	 */
