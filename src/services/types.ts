@@ -296,12 +296,10 @@ export interface SettingButtonProps extends BaseButtonProps {
 
 export interface SettingBarProps extends BaseButtonProps {
 	text: string;
-	onClick: () => void;
 }
 
 export interface ExitBarProps extends BaseButtonProps {
 	text: string;
-	onClick: () => void;
 }
 
 export interface CellButtonProps extends BaseButtonProps {}
@@ -309,7 +307,6 @@ export interface CellButtonProps extends BaseButtonProps {}
 export interface BoardConfigButtonProps extends BaseButtonProps {
 	label: string | number;
 	isActive: boolean;
-	onClick: () => void;
 }
 
 export interface DifficultyActionProps extends BaseButtonProps {
@@ -381,10 +378,11 @@ export type MenuModalType = "soundConfig" | "shortcut" | "tutorial" | null;
 // UTILITY TYPES FOR COMMON PATTERNS
 
 // Make all properties optional except specified ones
-export type PartialExcept<T, K extends keyof T> = Partial<T> & Pick<T, K>;
+export type PartialExcept<T, K extends keyof T> = Partial<Omit<T, K>> &
+	Required<Pick<T, K>>;
 
 // Make all properties required except specified ones
-export type RequiredExcept<T, K extends keyof T> = Required<T> &
+export type RequiredExcept<T, K extends keyof T> = Required<Omit<T, K>> &
 	Partial<Pick<T, K>>;
 
 // Extract only function properties from a type
