@@ -6,6 +6,7 @@ import { VT323 } from "next/font/google";
 import ClientSideInit from "@/app/ClientSideInit";
 import MusicProvider from "@/components/MusicProvider";
 import { CustomToastContainer } from "@/components/ui/Toasts/CustomToastContainer";
+import { ShortcutProvider } from "@/context/ShortcutContext"; // <-- IMPORT THE PROVIDER
 
 export const metadata: Metadata = {
 	title: "Menu | Notakto",
@@ -46,12 +47,15 @@ export default function RootLayout({
 				<meta name="monetag" content="31cbc3974b21341db36f756db33d15d6"></meta>
 			</head>
 			<body>
-				<MusicProvider />
-				{children}
-				<CustomToastContainer />
-				<Analytics />
-				<SpeedInsights />
-				<ClientSideInit />
+				{/* WRAP EVERYTHING WITH THE PROVIDER */}
+				<ShortcutProvider>
+					<MusicProvider />
+					{children}
+					<CustomToastContainer />
+					<Analytics />
+					<SpeedInsights />
+					<ClientSideInit />
+				</ShortcutProvider>
 			</body>
 		</html>
 	);

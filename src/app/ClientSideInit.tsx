@@ -1,12 +1,12 @@
 "use client";
 
-// For applying global client-side effects like auth state monitoring and background music
-
 import type { User } from "firebase/auth";
 import { doc, onSnapshot } from "firebase/firestore";
+import { usePathname } from "next/navigation";
 import { useEffect } from "react";
-// Firebase module
+import { useShortcut } from "@/components/hooks/useShortcut";
 import { firestore, onAuthStateChangedListener } from "@/services/firebase";
+import { pageShortcuts } from "@/services/pageShortcut";
 import { useCoins, useUser, useXP } from "@/services/store";
 
 const ClientSideInit = (): null => {
@@ -18,6 +18,11 @@ const ClientSideInit = (): null => {
 	const setUser = useUser(
 		(state): ((newUser: User | null) => void) => state.setUser,
 	);
+
+	// Register the shortcuts for the current page with the ShortcutManager
+	const pathname = usePathname();
+	const shortcuts = pageShortcuts[pathname] || {};
+	useShortcut(shortcuts);
 
 	// Load user
 	useEffect((): (() => void) => {
@@ -43,7 +48,6 @@ const ClientSideInit = (): null => {
 		const unsubscribe = onSnapshot(
 			userRef,
 			(docSnap): void => {
-				//websocket that monitors db and pushes changes to client
 				if (docSnap.exists()) {
 					const data = docSnap.data();
 					setCoins(data.coins ?? 1000);

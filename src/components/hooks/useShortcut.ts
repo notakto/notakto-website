@@ -1,32 +1,22 @@
 "use client";
 
 import { useEffect } from "react";
+import { ShortcutManager } from "@/services/ShortcutManager";
 
-type ShortcutHandler = (event: KeyboardEvent) => void;
-type ShortcutMap = Record<string, ShortcutHandler>;
+type ShortcutMap = Record<string, (event: KeyboardEvent) => void>;
 
-export function useShortcut(shortcuts: ShortcutMap, disabled: boolean = false) {
+/**
+ * A React hook to register a map of shortcuts with the global ShortcutManager.
+ * This hook does NOT add or remove event listeners itself.
+ */
+export function useShortcut(shortcuts: ShortcutMap) {
 	useEffect(() => {
-		const handleKeyDown = (e: KeyboardEvent) => {
-			const key = e.key.toLowerCase();
-			if (disabled && key !== "escape") return;
+		ShortcutManager.registerShortcuts(shortcuts);
 
-			const el = e.target as HTMLElement | null;
-			const tag = el?.tagName?.toLowerCase();
-
-			// ignore if composing, holding modifiers, or typing in an input
-			if (e.isComposing || e.repeat || e.ctrlKey || e.metaKey || e.altKey)
-				return;
-			if (tag === "input" || tag === "textarea" || el?.isContentEditable)
-				return;
-
-			if (shortcuts[key]) {
-				e.preventDefault();
-				shortcuts[key](e);
-			}
+		// When the component unmounts, clear its shortcuts from the manager
+		// to prevent them from firing on other pages.
+		return () => {
+			ShortcutManager.registerShortcuts({});
 		};
-
-		window.addEventListener("keydown", handleKeyDown);
-		return () => window.removeEventListener("keydown", handleKeyDown);
-	}, [shortcuts, disabled]);
+	}, [shortcuts]);
 }
