@@ -2,7 +2,7 @@
 // Using TypeScript utility types to reduce duplication and improve maintainability
 
 import type { User } from "firebase/auth";
-import type { ButtonHTMLAttributes, ReactNode } from "react";
+import type { ButtonHTMLAttributes, MouseEventHandler, ReactNode } from "react";
 import type { ToastContainerProps } from "react-toastify";
 
 // CORE GAME TYPES
@@ -279,7 +279,7 @@ export interface BoardLiveContainerProps extends BaseComponentProps {
 
 export interface BoardCellProps {
 	value: string;
-	onClick: () => void;
+	onClick: MouseEventHandler<HTMLButtonElement>;
 	disabled: boolean;
 }
 
