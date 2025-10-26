@@ -375,26 +375,6 @@ export type ComputerButtonModalType =
 
 export type MenuModalType = "soundConfig" | "shortcut" | "tutorial" | null;
 
-// UTILITY TYPES FOR COMMON PATTERNS
-
-// Make all properties optional except specified ones
-export type PartialExcept<T, K extends keyof T> = Partial<Omit<T, K>> &
-	Required<Pick<T, K>>;
-
-// Make all properties required except specified ones
-export type RequiredExcept<T, K extends keyof T> = Required<Omit<T, K>> &
-	Partial<Pick<T, K>>;
-
-// Extract only function properties from a type
-export type FunctionProperties<T> = {
-	[K in keyof T]: T[K] extends (...args: never[]) => unknown ? T[K] : never;
-};
-
-// Extract only non-function properties from a type
-export type NonFunctionProperties<T> = {
-	[K in keyof T]: T[K] extends (...args: never[]) => unknown ? never : T[K];
-};
-
 // TYPE GUARDS
 
 export function isErrorResponse(response: unknown): response is ErrorResponse {
