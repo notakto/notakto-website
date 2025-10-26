@@ -109,7 +109,7 @@ export interface BaseButtonProps
 
 export interface BaseModalProps {
 	visible: boolean;
-	onClose: () => void;
+	onClose?: () => void;
 }
 
 // Game-related component props

@@ -471,7 +471,6 @@ const Game = () => {
 			<WinnerModal
 				visible={activeModal === "winner"}
 				winner={winner}
-				onClose={() => setActiveModal(null)}
 				onPlayAgain={() => {
 					setActiveModal(null);
 					handleReset();
@@ -486,7 +485,6 @@ const Game = () => {
 				visible={activeModal === "boardConfig"}
 				currentBoards={numberOfBoards}
 				currentSize={boardSize}
-				onClose={() => setActiveModal(null)}
 				onConfirm={handleBoardConfigChange}
 				onCancel={() => setActiveModal(null)}
 			/>
