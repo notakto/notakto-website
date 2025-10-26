@@ -47,7 +47,6 @@ export default function RootLayout({
 				<meta name="monetag" content="31cbc3974b21341db36f756db33d15d6"></meta>
 			</head>
 			<body>
-				{/* WRAP EVERYTHING WITH THE PROVIDER */}
 				<ShortcutProvider>
 					<MusicProvider />
 					{children}
