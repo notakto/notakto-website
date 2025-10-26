@@ -1,7 +1,7 @@
 ID,Priority,Test Category,Steps,Expected Result,Completed
-1,High,Character Limit Validation,Type exactly 15 characters in Player 1 input field,All 15 characters are accepted and displayed,No
-2,High,Character Limit Validation,Try to type the 16th character in Player 1 input,"16th character is blocked, input remains at 15 chars",No
-3,High,Character Counter Display,Type 10 characters in Player 1 input,"Character counter shows ""10/15 characters""",No
+1,High,Character Limit Validation,Type exactly 15 characters in Player 1 input field,All 15 characters are accepted and displayed,Yes
+2,High,Character Limit Validation,Try to type the 16th character in Player 1 input,"16th character is blocked, input remains at 15 chars",Yes
+3,High,Character Counter Display,Type 10 characters in Player 1 input,"Character counter shows ""10/15 characters""",Yes
 4,High,Character Counter Display,Fill Player 1 input to maximum (15 chars),"Character counter shows ""15/15 characters""",Yes
 5,Medium,Paste Behavior,Paste text longer than 15 characters into Player 1 input,Text is truncated to 15 characters only,No
 6,High,Player 2 Validation,Type exactly 15 characters in Player 2 input field,All 15 characters are accepted and displayed,Yes

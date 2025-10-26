@@ -46,6 +46,39 @@ describe("PlayerNamesModal Character Limit Validation", () => {
 
 		expect(screen.getByText("15/15 characters")).toBeInTheDocument();
 	});
+	// Test Case ID: 1 - Accept exactly 15 characters in Player 1
+	it("should accept exactly 15 characters in Player 1 input field", () => {
+		render(<PlayerNamesModal {...defaultProps} />);
+
+		const player1Input = screen.getByPlaceholderText("Player 1 Name");
+		const testString = "ExactlyFifteen1"; // 15 characters
+
+		fireEvent.change(player1Input, { target: { value: testString } });
+
+		expect(player1Input).toHaveValue(testString);
+		expect(testString.length).toBe(15);
+	});
+
+	// Test Case ID: 2 - Block 16th character in Player 1
+	it("should enforce maxLength of 15 on Player 1 input", () => {
+		render(<PlayerNamesModal {...defaultProps} />);
+
+		const player1Input = screen.getByPlaceholderText("Player 1 Name");
+
+		expect(player1Input).toHaveAttribute("maxLength", "15");
+	});
+
+	// Test Case ID: 3 - Character counter shows 10/15
+	it("should show '10/15 characters' when Player 1 has 10 characters", () => {
+		render(<PlayerNamesModal {...defaultProps} />);
+
+		const player1Input = screen.getByPlaceholderText("Player 1 Name");
+		const testString = "TenCharact"; // 10 characters
+
+		fireEvent.change(player1Input, { target: { value: testString } });
+
+		expect(screen.getByText("10/15 characters")).toBeInTheDocument();
+	});
 
 	// Test Case ID: 6 - Accept exactly 15 characters in Player 2
 	it("should accept exactly 15 characters in Player 2 input field", () => {
