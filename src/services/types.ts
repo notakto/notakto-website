@@ -466,11 +466,42 @@ export const BOARD_COUNTS = {
 // LEGACY TYPE ALIASES (for backward compatibility)
 
 // Keep these for backward compatibility during migration
+/**
+ * @deprecated Use NewGameResponse instead.
+ */
 export type newGame = NewGameResponse;
+
+/**
+ * @deprecated Use MakeMoveResponse instead.
+ */
 export type makeMoveResponse = MakeMoveResponse;
+
+/**
+ * @deprecated Use ResetGameResponse instead.
+ */
 export type resetGameResponse = ResetGameResponse;
+
+/**
+ * @deprecated Use UpdateConfigResponse instead.
+ */
 export type updateConfigResponse = UpdateConfigResponse;
+
+/**
+ * @deprecated Use UndoMoveResponse instead.
+ */
 export type undoMoveResponse = UndoMoveResponse;
+
+/**
+ * @deprecated Use SkipMoveResponse instead.
+ */
 export type skipMoveResponse = SkipMoveResponse;
+
+/**
+ * @deprecated Use ErrorResponse instead.
+ */
 export type errorResponse = ErrorResponse;
+
+/**
+ * @deprecated Use TutorialModalProps instead.
+ */
 export type TutorialProps = TutorialModalProps;
