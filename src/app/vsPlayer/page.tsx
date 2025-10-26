@@ -2,8 +2,8 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import Board from "@/app/vsPlayer/Board";
 import { useShortcut } from "@/components/hooks/useShortcut";
+import Board from "@/components/ui/Board/Board";
 import SettingBar from "@/components/ui/Buttons/SettingBar";
 import { SettingButton } from "@/components/ui/Buttons/SettingButton";
 import BoardContainer from "@/components/ui/Containers/Board/BoardContainer";
