@@ -389,52 +389,57 @@ export type RequiredExcept<T, K extends keyof T> = Required<T> &
 
 // Extract only function properties from a type
 export type FunctionProperties<T> = {
-	[K in keyof T]: T[K] extends (...args: any[]) => any ? T[K] : never;
+	[K in keyof T]: T[K] extends (...args: never[]) => unknown
+		? T[K]
+		: never;
 };
 
 // Extract only non-function properties from a type
 export type NonFunctionProperties<T> = {
-	[K in keyof T]: T[K] extends (...args: any[]) => any ? never : T[K];
+	[K in keyof T]: T[K] extends (...args: never[]) => unknown ? never : T[K];
 };
 
 // TYPE GUARDS
 
 export function isErrorResponse(response: unknown): response is ErrorResponse {
+	if (response == null || typeof response !== "object") return false;
+	
+	const obj = response as Record<string, unknown>;
 	return (
-		response != null &&
-		typeof response === "object" &&
-		"success" in response &&
-		(response as any).success === false &&
-		"error" in response &&
-		typeof (response as any).error === "string"
+		"success" in obj &&
+		obj.success === false &&
+		"error" in obj &&
+		typeof obj.error === "string"
 	);
 }
 
 export function isGameStateResponse(
 	response: unknown,
 ): response is GameStateResponse {
+	if (response == null || typeof response !== "object") return false;
+	
+	const obj = response as Record<string, unknown>;
 	return (
-		response != null &&
-		typeof response === "object" &&
-		"success" in response &&
-		(response as any).success === true &&
-		"gameState" in response &&
-		(response as any).gameState
+		"success" in obj &&
+		obj.success === true &&
+		"gameState" in obj &&
+		obj.gameState != null
 	);
 }
 
 export function isMakeMoveResponse(
 	response: unknown,
 ): response is MakeMoveResponse {
+	if (response == null || typeof response !== "object") return false;
+	
+	const obj = response as Record<string, unknown>;
 	return (
-		response != null &&
-		typeof response === "object" &&
-		"success" in response &&
-		(response as any).success === true &&
-		"gameState" in response &&
-		(response as any).gameState &&
-		"gameOver" in response &&
-		typeof (response as any).gameOver === "boolean"
+		"success" in obj &&
+		obj.success === true &&
+		"gameState" in obj &&
+		obj.gameState != null &&
+		"gameOver" in obj &&
+		typeof obj.gameOver === "boolean"
 	);
 }
 
