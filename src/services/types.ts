@@ -389,9 +389,7 @@ export type RequiredExcept<T, K extends keyof T> = Required<T> &
 
 // Extract only function properties from a type
 export type FunctionProperties<T> = {
-	[K in keyof T]: T[K] extends (...args: never[]) => unknown
-		? T[K]
-		: never;
+	[K in keyof T]: T[K] extends (...args: never[]) => unknown ? T[K] : never;
 };
 
 // Extract only non-function properties from a type
@@ -403,7 +401,7 @@ export type NonFunctionProperties<T> = {
 
 export function isErrorResponse(response: unknown): response is ErrorResponse {
 	if (response == null || typeof response !== "object") return false;
-	
+
 	const obj = response as Record<string, unknown>;
 	return (
 		"success" in obj &&
@@ -417,7 +415,7 @@ export function isGameStateResponse(
 	response: unknown,
 ): response is GameStateResponse {
 	if (response == null || typeof response !== "object") return false;
-	
+
 	const obj = response as Record<string, unknown>;
 	return (
 		"success" in obj &&
@@ -431,7 +429,7 @@ export function isMakeMoveResponse(
 	response: unknown,
 ): response is MakeMoveResponse {
 	if (response == null || typeof response !== "object") return false;
-	
+
 	const obj = response as Record<string, unknown>;
 	return (
 		"success" in obj &&
