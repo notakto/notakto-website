@@ -20,10 +20,11 @@ const ClientSideInit = (): null => {
 	);
 
 	// Register the shortcuts for the current page with the ShortcutManager
-	const pathname = usePathname();
-	const shortcuts = pageShortcuts[pathname] || {};
-	useShortcut(shortcuts);
-
+	// const pathname = usePathname();
+	// const shortcuts = pageShortcuts[pathname] || {};
+	// useShortcut(shortcuts);
+	// commented out the above lines in case we need a registry handler later in future we can implement a clear solution for this 
+	
 	// Load user
 	useEffect((): (() => void) => {
 		const unsubscribe = onAuthStateChangedListener(
