@@ -12,7 +12,7 @@ ID,Priority,Test Category,Steps,Expected Result,Completed
 11,Medium,Special Characters,Type special characters (@#$%^&*) up to 15 chars in Player 1,Special characters are accepted within limit,No
 12,Medium,Numbers and Letters,Type mix of numbers and letters (Player123abc) in Player 2,Mixed alphanumeric input accepted within limit,No
 13,Low,Spaces,"Type ""Player One"" (with space) in Player 1 input","Spaces count toward character limit, accepted",No
-14,High,Form Submission,Fill both inputs with 15 chars each and submit,Form submits successfully with full-length names,No
+14,High,Form Submission,Fill both inputs with 15 chars each and submit,Form submits successfully with full-length names,Yes
 15,High,Duplicate Name Validation,Enter same 15-char name in both Player 1 and Player 2,"Duplicate name error toast appears, submission blocked",No
 16,Medium,UI Layout,Enter 15 characters in both inputs,"UI layout remains responsive, no overflow issues",No
 17,Medium,Character Counter Position,Check character counter placement for both inputs,"Counters appear on right side, properly aligned",No
