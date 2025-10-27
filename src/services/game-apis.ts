@@ -10,7 +10,32 @@ import type {
 	updateConfigResponse,
 } from "@/services/types";
 
-const API_BASE = "/api/game";
+const API_BASE = "http://localhost:1323/v1";
+
+export async function signIn(idToken: string) {
+	try {
+		const response = await fetch(`${API_BASE}/sign-in`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${idToken}`,
+			},
+		});
+
+		const data = await response.json().catch(() => ({}));
+
+		if (!response.ok) {
+			return {
+				success: false,
+				error: data.message || `HTTP ${response.status}`,
+			};
+		}
+		return data;
+	} catch (error) {
+		console.error("sign in error:", error);
+		return { success: false, error: "Network or CORS error" };
+	}
+}
 
 export async function createGame(
 	numberOfBoards: number,
@@ -19,7 +44,7 @@ export async function createGame(
 	idToken: string,
 ): Promise<newGame | errorResponse> {
 	try {
-		const response = await fetch(`${API_BASE}/create`, {
+		const response = await fetch(`${API_BASE}/create-game`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -27,7 +52,11 @@ export async function createGame(
 			},
 			body: JSON.stringify({ numberOfBoards, boardSize, difficulty }),
 		});
-		return await response.json();
+		const res = await response.json();
+		console.log("Create game API response:", res);
+		console.log("Create game API status:", response.status);
+		console.log("Create game API ok:", response.ok);
+		return res;
 	} catch (error) {
 		console.error("Create game API error:", error);
 		return { success: false, error: "Failed to create game" };

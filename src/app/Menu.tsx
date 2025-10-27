@@ -14,9 +14,10 @@ import ShortcutModal from "@/modals/ShortcutModal";
 import SoundConfigModal from "@/modals/SoundConfigModal";
 import TutorialModal from "@/modals/TutorialModal";
 import { signInWithGoogle, signOutUser } from "@/services/firebase";
+import { signIn } from "@/services/game-apis";
 import { useUser } from "@/services/store";
 
-type ModalType = "soundConfig" | "shortcut" | "tutorial" | null;
+type ModalType = "soundConfig" | "shortcut" | "tutorial" | "profile" | null;
 const Menu = () => {
 	const user = useUser((state) => state.user);
 	const setUser = useUser((state) => state.setUser);
@@ -37,7 +38,14 @@ const Menu = () => {
 
 	const handleSignIn = async () => {
 		try {
-			await signInWithGoogle();
+			const user = await signInWithGoogle(); // ✅ get user directly
+			const idToken = await user.getIdToken(); // ✅ guaranteed to exist
+
+			if (!idToken) throw new Error("Failed to get ID token");
+
+			const response = await signIn(idToken);
+
+			console.log("Sign-in successful:", response);
 			toast.dismiss(TOAST_IDS.User.SignInError);
 			resetCooldown();
 		} catch (error) {
@@ -96,6 +104,12 @@ const Menu = () => {
 				</MenuButton>
 				<MenuButton onClick={() => setActiveModal("shortcut")}>
 					Keyboard Shortcuts
+				</MenuButton>
+				{
+					//TODO: Merge Profile Button into Sign In Button and give sign out option there
+				}
+				<MenuButton onClick={() => setActiveModal("profile")}>
+					Profile
 				</MenuButton>
 			</MenuButtonContainer>
 			<SoundConfigModal
