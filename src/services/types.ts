@@ -64,25 +64,6 @@ export interface SkipMoveResponse extends GameStateResponse {
 	gameOver?: boolean;
 }
 
-// PAYMENT API RESPONSE INTERFACES
-
-export interface PaymentResponse extends BaseApiResponse {
-	paymentUrl: string;
-	chargeId: string;
-}
-
-export interface PaymentStatusResponse {
-	status: "paid" | "confirmed" | "expired" | "canceled" | "pending";
-}
-
-// DATABASE API RESPONSE INTERFACES
-
-export interface DatabaseResponse {
-	success: boolean;
-	status: number;
-	error?: unknown;
-}
-
 // ZUSTAND STORE TYPES
 
 export interface SoundStore {
@@ -393,76 +374,3 @@ export type ComputerButtonModalType =
 	| null;
 
 export type MenuModalType = "soundConfig" | "shortcut" | "tutorial" | null;
-
-// TYPE GUARDS
-
-export function isErrorResponse(response: unknown): response is ErrorResponse {
-	if (response == null || typeof response !== "object") return false;
-
-	const obj = response as Record<string, unknown>;
-	return (
-		"success" in obj &&
-		obj.success === false &&
-		"error" in obj &&
-		typeof obj.error === "string"
-	);
-}
-
-export function isGameStateResponse(
-	response: unknown,
-): response is GameStateResponse {
-	if (response == null || typeof response !== "object") return false;
-
-	const obj = response as Record<string, unknown>;
-	return (
-		"success" in obj &&
-		obj.success === true &&
-		"gameState" in obj &&
-		obj.gameState != null
-	);
-}
-
-export function isMakeMoveResponse(
-	response: unknown,
-): response is MakeMoveResponse {
-	if (response == null || typeof response !== "object") return false;
-
-	const obj = response as Record<string, unknown>;
-	return (
-		"success" in obj &&
-		obj.success === true &&
-		"gameState" in obj &&
-		obj.gameState != null &&
-		"gameOver" in obj &&
-		typeof obj.gameOver === "boolean"
-	);
-}
-
-export function isPaymentResponse(
-	response: unknown,
-): response is PaymentResponse {
-	if (response == null || typeof response !== "object") return false;
-
-	const obj = response as Record<string, unknown>;
-	return (
-		"success" in obj &&
-		obj.success === true &&
-		"paymentUrl" in obj &&
-		typeof obj.paymentUrl === "string" &&
-		"chargeId" in obj &&
-		typeof obj.chargeId === "string"
-	);
-}
-
-export function isPaymentStatusResponse(
-	response: unknown,
-): response is PaymentStatusResponse {
-	if (response == null || typeof response !== "object") return false;
-
-	const obj = response as Record<string, unknown>;
-	return (
-		"status" in obj &&
-		typeof obj.status === "string" &&
-		["paid", "confirmed", "expired", "canceled", "pending"].includes(obj.status)
-	);
-}

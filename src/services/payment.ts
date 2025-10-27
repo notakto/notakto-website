@@ -1,6 +1,5 @@
 import { toast } from "react-toastify";
 import { TOAST_DURATION, TOAST_IDS } from "@/constants/toast";
-import { isPaymentResponse, isPaymentStatusResponse } from "@/services/types";
 
 export const handleBuyCoins = async (
 	setIsProcessingPayment: (val: boolean) => void,
@@ -25,7 +24,7 @@ export const handleBuyCoins = async (
 
 		const data = await response.json();
 
-		if (isPaymentResponse(data)) {
+		if (data.success) {
 			const paymentWindow = window.open(data.paymentUrl, "_blank");
 
 			if (!paymentWindow) {
@@ -103,18 +102,14 @@ export const checkPaymentStatus = async (
 			const response = await fetch(`/api/order-status/${chargeId}`);
 			const data = await response.json();
 
-			if (isPaymentStatusResponse(data)) {
-				if (data.status === "paid" || data.status === "confirmed") {
-					clearInterval(intervalId);
-					paymentWindow?.close();
-					onSuccess();
-				} else if (data.status === "expired" || data.status === "canceled") {
-					clearInterval(intervalId);
-					paymentWindow?.close();
-					onFailure("Payment expired or failed.");
-				}
-			} else {
-				console.error("Invalid payment status response:", data);
+			if (data.status === "paid" || data.status === "confirmed") {
+				clearInterval(intervalId);
+				paymentWindow?.close();
+				onSuccess();
+			} else if (data.status === "expired" || data.status === "canceled") {
+				clearInterval(intervalId);
+				paymentWindow?.close();
+				onFailure("Payment expired or failed.");
 			}
 		} catch (err) {
 			console.error("Failed to check payment status:", err);
