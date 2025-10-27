@@ -143,6 +143,22 @@ export interface errorResponse {
 	error: string;
 }
 
+export type PlayerButtonModalType =
+	| "names"
+	| "winner"
+	| "boardConfig"
+	| "soundConfig"
+	| "shortcut"
+	| null;
+
+export type ComputerButtonModalType =
+	| "winner"
+	| "boardConfig"
+	| "soundConfig"
+	| "difficulty"
+	| "shortcut"
+	| null;
+
 // UI component props
 export interface AnimatedTitleProps {
 	text: string;

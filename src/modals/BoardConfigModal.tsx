@@ -26,6 +26,7 @@ const BoardConfigModal = ({
 	const [selectedSize, setSelectedSize] = useState<BoardSize>(currentSize);
 	const BoardNumbers: BoardNumber[] = [1, 2, 3, 4, 5];
 	const BoardSizes: BoardSize[] = [2, 3, 4, 5];
+
 	if (!visible) return null;
 
 	return (
@@ -34,12 +35,13 @@ const BoardConfigModal = ({
 				<BoardConfigTitle text="Number of Boards" />
 				<BoardConfigOptions>
 					{BoardNumbers.map((num) => (
-						<BoardConfigButton
-							key={num}
-							label={num}
-							isActive={selectedBoards === num}
-							onClick={() => setSelectedBoards(num)}
-						/>
+						<li key={num}>
+							<BoardConfigButton
+								label={num}
+								isActive={selectedBoards === num}
+								onClick={() => setSelectedBoards(num)}
+							/>
+						</li>
 					))}
 				</BoardConfigOptions>
 
@@ -47,12 +49,13 @@ const BoardConfigModal = ({
 
 				<BoardConfigOptions>
 					{BoardSizes.map((size) => (
-						<BoardConfigButton
-							key={size}
-							label={`${size}x${size}`}
-							isActive={selectedSize === size}
-							onClick={() => setSelectedSize(size)}
-						/>
+						<li key={size}>
+							<BoardConfigButton
+								label={`${size}x${size}`}
+								isActive={selectedSize === size}
+								onClick={() => setSelectedSize(size)}
+							/>
+						</li>
 					))}
 				</BoardConfigOptions>
 
