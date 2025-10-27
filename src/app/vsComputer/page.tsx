@@ -43,6 +43,11 @@ import type {
 	ComputerButtonModalType,
 	DifficultyLevel,
 } from "@/services/types";
+import {
+	isErrorResponse,
+	isGameStateResponse,
+	isMakeMoveResponse,
+} from "@/services/types";
 
 const Game = () => {
 	const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
@@ -111,7 +116,7 @@ const Game = () => {
 		try {
 			if (user) {
 				const data = await createGame(num, size, diff, await user.getIdToken());
-				if (data.success && data.gameState) {
+				if (isGameStateResponse(data)) {
 					setSessionId(data.sessionId);
 					setBoards(data.gameState.boards);
 					setCurrentPlayer(data.gameState.currentPlayer);
@@ -119,8 +124,8 @@ const Game = () => {
 					setNumberOfBoards(data.gameState.numberOfBoards);
 					setDifficulty(data.gameState.difficulty);
 					setGameHistory(data.gameState.gameHistory);
-				} else if ("error" in data) {
-					toast.error(data.error || "Failed to create game");
+				} else if (isErrorResponse(data)) {
+					toast.error(data.error);
 				} else {
 					toast.error("Unexpected response from server");
 				}
@@ -147,7 +152,7 @@ const Game = () => {
 					cellIndex,
 					await user.getIdToken(),
 				);
-				if (data.success) {
+				if (isMakeMoveResponse(data)) {
 					setBoards(data.gameState.boards);
 					setCurrentPlayer(data.gameState.currentPlayer);
 					setGameHistory(data.gameState.gameHistory);
@@ -158,8 +163,8 @@ const Game = () => {
 						setActiveModal("winner");
 						playWinSound(sfxMute);
 					}
-				} else if ("error" in data) {
-					toast.error(data.error || "Invalid move");
+				} else if (isErrorResponse(data)) {
+					toast.error(data.error);
 				} else {
 					toast.error("Unexpected response from server");
 				}
@@ -181,14 +186,14 @@ const Game = () => {
 		try {
 			if (user) {
 				const data = await resetGame(sessionId, await user.getIdToken());
-				if (data.success) {
+				if (isGameStateResponse(data)) {
 					setBoards(data.gameState.boards);
 					setCurrentPlayer(data.gameState.currentPlayer);
 					setGameHistory(data.gameState.gameHistory);
 					setWinner("");
 					setActiveModal(null);
-				} else if ("error" in data) {
-					toast.error(data.error || "Failed to reset game");
+				} else if (isErrorResponse(data)) {
+					toast.error(data.error);
 				} else {
 					toast.error("Unexpected response from server");
 				}
@@ -213,12 +218,12 @@ const Game = () => {
 		try {
 			if (user) {
 				const data = await undoMove(sessionId, await user.getIdToken());
-				if (data.success) {
+				if (isGameStateResponse(data)) {
 					setBoards(data.gameState.boards);
 					setCurrentPlayer(data.gameState.currentPlayer);
 					setGameHistory(data.gameState.gameHistory);
-				} else if ("error" in data) {
-					toast.error(data.error || "Failed to undo move");
+				} else if (isErrorResponse(data)) {
+					toast.error(data.error);
 				} else {
 					toast.error("Unexpected response from server");
 				}
@@ -243,7 +248,7 @@ const Game = () => {
 		try {
 			if (user) {
 				const data = await skipMove(sessionId, await user.getIdToken());
-				if (data.success) {
+				if (isGameStateResponse(data)) {
 					setBoards(data.gameState.boards);
 					setCurrentPlayer(data.gameState.currentPlayer);
 					setGameHistory(data.gameState.gameHistory);
@@ -252,8 +257,8 @@ const Game = () => {
 						setActiveModal("winner");
 						playWinSound(sfxMute);
 					}
-				} else if ("error" in data) {
-					toast.error(data.error || "Failed to skip move");
+				} else if (isErrorResponse(data)) {
+					toast.error(data.error);
 				} else {
 					toast.error("Unexpected response from server");
 				}
@@ -284,15 +289,15 @@ const Game = () => {
 					difficulty,
 					await user.getIdToken(),
 				);
-				if (data.success) {
+				if (isGameStateResponse(data)) {
 					setNumberOfBoards(newNumberOfBoards);
 					setBoardSize(newBoardSize);
 					setBoards(data.gameState.boards);
 					setCurrentPlayer(data.gameState.currentPlayer);
 					setGameHistory(data.gameState.gameHistory);
 					setActiveModal(null);
-				} else if ("error" in data) {
-					toast.error(data.error || "Failed to update config");
+				} else if (isErrorResponse(data)) {
+					toast.error(data.error);
 				} else {
 					toast.error("Unexpected response from server");
 				}
@@ -321,13 +326,13 @@ const Game = () => {
 					level,
 					await user.getIdToken(),
 				);
-				if (data.success) {
+				if (isGameStateResponse(data)) {
 					setDifficulty(level);
 					setBoards(data.gameState.boards);
 					setCurrentPlayer(data.gameState.currentPlayer);
 					setGameHistory(data.gameState.gameHistory);
-				} else if ("error" in data) {
-					toast.error(data.error || "Failed to update difficulty");
+				} else if (isErrorResponse(data)) {
+					toast.error(data.error);
 					console.error("Error updating difficulty:", data.error);
 				} else {
 					toast.error("Unexpected response from server");

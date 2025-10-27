@@ -64,6 +64,25 @@ export interface SkipMoveResponse extends GameStateResponse {
 	gameOver?: boolean;
 }
 
+// PAYMENT API RESPONSE INTERFACES
+
+export interface PaymentResponse extends BaseApiResponse {
+	paymentUrl: string;
+	chargeId: string;
+}
+
+export interface PaymentStatusResponse {
+	status: "paid" | "confirmed" | "expired" | "canceled" | "pending";
+}
+
+// DATABASE API RESPONSE INTERFACES
+
+export interface DatabaseResponse {
+	success: boolean;
+	status: number;
+	error?: unknown;
+}
+
 // ZUSTAND STORE TYPES
 
 export interface SoundStore {
@@ -419,70 +438,31 @@ export function isMakeMoveResponse(
 	);
 }
 
-// CONSTANTS AND ENUMS
-export const GAME_MODES = {
-	VS_COMPUTER: "vsComputer",
-	VS_PLAYER: "vsPlayer",
-	LIVE_MATCH: "liveMatch",
-} as const;
+export function isPaymentResponse(
+	response: unknown,
+): response is PaymentResponse {
+	if (response == null || typeof response !== "object") return false;
 
-export const DIFFICULTY_LEVELS = {
-	EASY: 1,
-	MEDIUM: 3,
-	HARD: 5,
-} as const;
+	const obj = response as Record<string, unknown>;
+	return (
+		"success" in obj &&
+		obj.success === true &&
+		"paymentUrl" in obj &&
+		typeof obj.paymentUrl === "string" &&
+		"chargeId" in obj &&
+		typeof obj.chargeId === "string"
+	);
+}
 
-export const BOARD_SIZES = {
-	SMALL: 2,
-	MEDIUM: 3,
-	LARGE: 4,
-	XLARGE: 5,
-} as const;
+export function isPaymentStatusResponse(
+	response: unknown,
+): response is PaymentStatusResponse {
+	if (response == null || typeof response !== "object") return false;
 
-export const BOARD_COUNTS = {
-	MIN: 1,
-	MAX: 5,
-} as const;
-
-// LEGACY TYPE ALIASES (for backward compatibility)
-
-// Keep these for backward compatibility during migration
-/**
- * @deprecated Use NewGameResponse instead.
- */
-export type newGame = NewGameResponse;
-
-/**
- * @deprecated Use MakeMoveResponse instead.
- */
-export type makeMoveResponse = MakeMoveResponse;
-
-/**
- * @deprecated Use ResetGameResponse instead.
- */
-export type resetGameResponse = ResetGameResponse;
-
-/**
- * @deprecated Use UpdateConfigResponse instead.
- */
-export type updateConfigResponse = UpdateConfigResponse;
-
-/**
- * @deprecated Use UndoMoveResponse instead.
- */
-export type undoMoveResponse = UndoMoveResponse;
-
-/**
- * @deprecated Use SkipMoveResponse instead.
- */
-export type skipMoveResponse = SkipMoveResponse;
-
-/**
- * @deprecated Use ErrorResponse instead.
- */
-export type errorResponse = ErrorResponse;
-
-/**
- * @deprecated Use TutorialModalProps instead.
- */
-export type TutorialProps = TutorialModalProps;
+	const obj = response as Record<string, unknown>;
+	return (
+		"status" in obj &&
+		typeof obj.status === "string" &&
+		["paid", "confirmed", "expired", "canceled", "pending"].includes(obj.status)
+	);
+}
