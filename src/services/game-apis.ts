@@ -1,3 +1,5 @@
+import z, { ZodError } from "zod";
+import { type SignInResponse, SignInResponseSchema } from "@/services/schema";
 import type {
 	BoardSize,
 	DifficultyLevel,
@@ -11,6 +13,41 @@ import type {
 } from "@/services/types";
 
 const API_BASE = "/api/game";
+
+export async function signIn(idToken: string): Promise<SignInResponse> {
+	const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/sign-in`, {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+			Authorization: `Bearer ${idToken}`,
+		},
+	});
+
+	if (!res.ok) {
+		let details = "";
+		try {
+			const errJson = await res.json();
+			details = errJson.message ?? JSON.stringify(errJson);
+		} catch {
+			details = await res.text();
+		}
+		throw new Error(`Sign-in failed (${res.status}): ${details}`);
+	}
+
+	const json = await res.json();
+
+	try {
+		const data = SignInResponseSchema.parse(json);
+		return data;
+	} catch (err) {
+		if (err instanceof ZodError) {
+			const tree = z.treeifyError(err);
+			console.error("Zod validation errors:", tree);
+			throw new Error("Invalid response format from server");
+		}
+		throw err;
+	}
+}
 
 export async function createGame(
 	numberOfBoards: number,
