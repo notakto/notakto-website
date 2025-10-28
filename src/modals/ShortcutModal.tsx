@@ -7,11 +7,7 @@ import ShortcutList from "@/components/ui/List/ShortcutList";
 import ModalOverlay from "@/components/ui/Overlays/ModalOverlay";
 import ShortcutTitle from "@/components/ui/Title/ShortcutTitle";
 import { pageShortcuts } from "@/services/pageShortcut";
-
-type ShortcutModalProps = {
-	visible: boolean;
-	onClose: () => void;
-};
+import type { ShortcutModalProps } from "@/services/types";
 
 export default function ShortcutModal({
 	visible,

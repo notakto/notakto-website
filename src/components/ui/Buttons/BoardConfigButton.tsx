@@ -1,11 +1,5 @@
 import clsx from "clsx";
-import type { ReactNode } from "react";
-
-interface BoardConfigButtonProps {
-	label: ReactNode; // text shown inside
-	isActive: boolean; // whether this button is selected
-	onClick: () => void; // action when clicked
-}
+import type { BoardConfigButtonProps } from "@/services/types";
 export const BoardConfigButton = ({
 	label,
 	isActive,

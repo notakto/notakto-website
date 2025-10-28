@@ -1,13 +1,13 @@
 import type {
 	BoardSize,
 	DifficultyLevel,
-	errorResponse,
-	makeMoveResponse,
-	newGame,
-	resetGameResponse,
-	skipMoveResponse,
-	undoMoveResponse,
-	updateConfigResponse,
+	ErrorResponse,
+	MakeMoveResponse,
+	NewGameResponse,
+	ResetGameResponse,
+	SkipMoveResponse,
+	UndoMoveResponse,
+	UpdateConfigResponse,
 } from "@/services/types";
 
 const API_BASE = "/api/game";
@@ -17,7 +17,7 @@ export async function createGame(
 	boardSize: BoardSize,
 	difficulty: DifficultyLevel,
 	idToken: string,
-): Promise<newGame | errorResponse> {
+): Promise<NewGameResponse | ErrorResponse> {
 	try {
 		const response = await fetch(`${API_BASE}/create`, {
 			method: "POST",
@@ -39,7 +39,7 @@ export async function makeMove(
 	boardIndex: number,
 	cellIndex: number,
 	idToken: string,
-): Promise<makeMoveResponse | errorResponse> {
+): Promise<MakeMoveResponse | ErrorResponse> {
 	try {
 		const response = await fetch(`${API_BASE}/move`, {
 			method: "POST",
@@ -59,7 +59,7 @@ export async function makeMove(
 export async function resetGame(
 	sessionId: string,
 	idToken: string,
-): Promise<resetGameResponse | errorResponse> {
+): Promise<ResetGameResponse | ErrorResponse> {
 	try {
 		const response = await fetch(`${API_BASE}/reset`, {
 			method: "POST",
@@ -82,7 +82,7 @@ export async function updateConfig(
 	boardSize: BoardSize,
 	difficulty: DifficultyLevel,
 	idToken: string,
-): Promise<updateConfigResponse | errorResponse> {
+): Promise<UpdateConfigResponse | ErrorResponse> {
 	try {
 		const response = await fetch(`${API_BASE}/config`, {
 			method: "POST",
@@ -107,7 +107,7 @@ export async function updateConfig(
 export async function undoMove(
 	sessionId: string,
 	idToken: string,
-): Promise<undoMoveResponse | errorResponse> {
+): Promise<UndoMoveResponse | ErrorResponse> {
 	try {
 		const response = await fetch(`${API_BASE}/undo`, {
 			method: "POST",
@@ -127,7 +127,7 @@ export async function undoMove(
 export async function skipMove(
 	sessionId: string,
 	idToken: string,
-): Promise<skipMoveResponse | errorResponse> {
+): Promise<SkipMoveResponse | ErrorResponse> {
 	try {
 		const response = await fetch(`${API_BASE}/skip`, {
 			method: "POST",

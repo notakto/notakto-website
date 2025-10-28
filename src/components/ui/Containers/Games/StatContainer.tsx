@@ -1,8 +1,4 @@
-import type { ReactNode } from "react";
-
-interface StatContainerProps {
-	children: ReactNode;
-}
+import type { StatContainerProps } from "@/services/types";
 
 export default function StatContainer({ children }: StatContainerProps) {
 	return (

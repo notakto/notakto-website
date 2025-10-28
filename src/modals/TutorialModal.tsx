@@ -3,13 +3,9 @@ import TutorialContainer from "@/components/ui/Containers/Tutorial/TutorialConta
 import TutorialList from "@/components/ui/List/TutorialList";
 import ModalOverlay from "@/components/ui/Overlays/ModalOverlay";
 import TutorialTitle from "@/components/ui/Title/TutorialTitle";
+import type { TutorialModalProps } from "@/services/types";
 
-interface TutorialProps {
-	visible: boolean;
-	onClose: () => void;
-}
-
-const TutorialModal = ({ visible, onClose }: TutorialProps) => {
+const TutorialModal = ({ visible, onClose }: TutorialModalProps) => {
 	if (!visible) return null;
 	const rules = [
 		"Both players use X marks",

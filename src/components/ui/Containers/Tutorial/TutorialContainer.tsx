@@ -1,8 +1,4 @@
-import type { ReactNode } from "react";
-
-interface TutorialContainerProps {
-	children: ReactNode;
-}
+import type { TutorialContainerProps } from "@/services/types";
 
 export default function TutorialContainer({
 	children,

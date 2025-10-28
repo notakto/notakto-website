@@ -1,8 +1,4 @@
-import type { ReactNode } from "react";
-
-interface BoardConfigOptionsProps {
-	children: ReactNode;
-}
+import type { BoardConfigOptionsProps } from "@/services/types";
 
 export default function BoardConfigOptions({
 	children,

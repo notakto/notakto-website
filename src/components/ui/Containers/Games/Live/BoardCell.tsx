@@ -1,8 +1,4 @@
-interface BoardCellProps {
-	value: string;
-	onClick: () => void;
-	disabled: boolean;
-}
+import type { BoardCellProps } from "@/services/types";
 
 const BoardCell = ({ value, onClick, disabled }: BoardCellProps) => (
 	<button

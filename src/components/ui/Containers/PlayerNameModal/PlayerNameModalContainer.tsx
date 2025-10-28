@@ -1,8 +1,4 @@
-import type { ReactNode } from "react";
-
-interface PlayerNameContainerProps {
-	children: ReactNode;
-}
+import type { PlayerNameContainerProps } from "@/services/types";
 
 export default function PlayerNameModalContainer({
 	children,

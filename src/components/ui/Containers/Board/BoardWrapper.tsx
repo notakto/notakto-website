@@ -1,8 +1,4 @@
-import type { ReactNode } from "react";
-
-interface BoardWrapperProps {
-	children: ReactNode;
-}
+import type { BoardWrapperProps } from "@/services/types";
 
 export default function BoardWrapper({ children }: BoardWrapperProps) {
 	return (

@@ -1,6 +1,4 @@
-interface CellValueDisplayProps {
-	value: string | null;
-}
+import type { CellValueDisplayProps } from "@/services/types";
 
 export default function CellValueDisplay({ value }: CellValueDisplayProps) {
 	if (!value) return null;

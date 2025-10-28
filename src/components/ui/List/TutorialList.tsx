@@ -1,6 +1,4 @@
-interface TutorialListProps {
-	items: string[];
-}
+import type { TutorialListProps } from "@/services/types";
 
 const TutorialList = ({ items }: TutorialListProps) => (
 	<ul className="text-white text-lg leading-6 mb-6 whitespace-pre-line">

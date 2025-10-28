@@ -1,18 +1,15 @@
 "use client";
 
-import { ToastContainer, type ToastContainerProps } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { VT323 } from "next/font/google";
 import { TOAST_DURATION } from "@/constants/toast";
+import type { CustomToastContainerProps } from "@/services/types";
 
 const vt323 = VT323({
 	weight: "400",
 	subsets: ["latin"],
 });
-
-type CustomToastContainerProps = Omit<ToastContainerProps, "toastClassName"> & {
-	toastClassName?: ToastContainerProps["toastClassName"];
-};
 
 export function CustomToastContainer({
 	position = "top-center",

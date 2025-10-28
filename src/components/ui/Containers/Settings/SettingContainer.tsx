@@ -1,8 +1,4 @@
-import type { ReactNode } from "react";
-
-interface SettingContainerProps {
-	children: ReactNode;
-}
+import type { SettingContainerProps } from "@/services/types";
 
 export default function SettingContainer({ children }: SettingContainerProps) {
 	return (

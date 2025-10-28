@@ -1,11 +1,4 @@
-interface Shortcut {
-	key: string;
-	action: string;
-}
-
-interface ShortcutListProps {
-	shortcuts: Shortcut[];
-}
+import type { ShortcutListProps } from "@/services/types";
 
 const ShortcutList = ({ shortcuts }: ShortcutListProps) => (
 	<section>

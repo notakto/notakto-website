@@ -1,9 +1,4 @@
-import type { ReactNode } from "react";
-
-interface BoardGridProps {
-	children: ReactNode;
-	boardSize: number;
-}
+import type { BoardGridProps } from "@/services/types";
 
 export default function BoardGrid({ children, boardSize }: BoardGridProps) {
 	return (

@@ -1,8 +1,4 @@
-import type { ReactNode } from "react";
-
-interface PlayerNameFormProps {
-	children: ReactNode;
-}
+import type { PlayerNameFormProps } from "@/services/types";
 
 export default function PlayerNameFormContainer({
 	children,

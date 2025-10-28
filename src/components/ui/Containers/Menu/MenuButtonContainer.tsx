@@ -1,8 +1,4 @@
-import type { ReactNode } from "react";
-
-interface MenuButtonContainerProps {
-	children: ReactNode;
-}
+import type { MenuButtonContainerProps } from "@/services/types";
 
 export default function MenuButtonContainer({
 	children,

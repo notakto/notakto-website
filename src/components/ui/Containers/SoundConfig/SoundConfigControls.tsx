@@ -1,8 +1,4 @@
-import type { ReactNode } from "react";
-
-interface SoundConfigControlsProps {
-	children: ReactNode;
-}
+import type { SoundConfigControlsProps } from "@/services/types";
 
 export default function SoundConfigControls({
 	children,
