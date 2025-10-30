@@ -1,4 +1,3 @@
-// src/app/vsPlayer/page.tsx
 "use client";
 
 import { useRouter } from "next/navigation";
@@ -17,7 +16,7 @@ import SettingOverlay from "@/components/ui/Containers/Settings/SettingOverlay";
 import GameLayout from "@/components/ui/Layout/GameLayout";
 import PlayerTurnTitle from "@/components/ui/Title/PlayerTurnTitle";
 import StatLabel from "@/components/ui/Title/StatLabel";
-import { applyMove } from "@/lib/game/state"; // <-- CORRECTED IMPORT
+import { applyMove } from "@/lib/game/state";
 import BoardConfigModal from "@/modals/BoardConfigModal";
 import ConfirmationModal from "@/modals/ConfirmationModal";
 import PlayerNamesModal from "@/modals/PlayerNamesModal";
@@ -34,17 +33,13 @@ import type {
 	PlayerButtonModalType,
 } from "@/services/types";
 
-// --- TEMPORARY FIXES ---
-// The following functions are not exported from your project files.
-// Please find the file that contains them (likely 'flow.ts' or 'state.ts')
-// and export them. Then you can remove these temporary placeholders.
-
 const getInitialBoards = (
 	numBoards: BoardNumber,
 	boardSize: BoardSize,
 ): BoardState[] => {
-	console.warn("Using temporary getInitialBoards function");
-	return Array(numBoards).fill(Array(boardSize * boardSize).fill(""));
+	return Array.from({ length: numBoards }, () =>
+		Array(boardSize * boardSize).fill(""),
+	);
 };
 
 const checkWinner = (
@@ -53,10 +48,9 @@ const checkWinner = (
 	player: 1 | 2,
 	playerNames: [string, string],
 ): string => {
-	console.warn("Using temporary checkWinner function");
 	const allDead = boards.every((board) => isBoardDead(board, boardSize));
 	if (allDead) {
-		return playerNames[player === 1 ? 1 : 0]; // Other player wins
+		return playerNames[player === 1 ? 1 : 0];
 	}
 	return "";
 };
@@ -70,7 +64,6 @@ const undoMove = (
 	newPlayer: 1 | 2;
 	undoSuccessful: boolean;
 } => {
-	console.warn("Using temporary undoMove function");
 	if (gameHistory.length <= 1)
 		return {
 			lastBoards: gameHistory[0],
@@ -84,8 +77,6 @@ const undoMove = (
 	const newPlayer = currentPlayer === 1 ? 2 : 1;
 	return { lastBoards, newHistory, newPlayer, undoSuccessful: true };
 };
-
-// --- END OF TEMPORARY FIXES ---
 
 const Game = () => {
 	const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
@@ -108,7 +99,6 @@ const Game = () => {
 	const router = useRouter();
 
 	const resetGame = (num: BoardNumber, size: BoardSize) => {
-		console.warn("Using temporary resetGame function");
 		const newBoards = getInitialBoards(num, size);
 		setBoards(newBoards);
 		setGameHistory([newBoards]);
@@ -123,7 +113,6 @@ const Game = () => {
 				if (activeModal) return setActiveModal(null);
 				return setIsMenuOpen(false);
 			},
-			// --- YOUR FEATURE ---
 			m: () => {
 				if (!initialSetupDone) return;
 				setActiveModal("exitConfirmation");
@@ -132,7 +121,6 @@ const Game = () => {
 				if (!initialSetupDone) return;
 				setActiveModal("resetConfirmation");
 			},
-			// --------------------
 			c: () => {
 				if (!initialSetupDone) return;
 				setActiveModal((prev: PlayerButtonModalType) =>
@@ -158,7 +146,7 @@ const Game = () => {
 				);
 			},
 		},
-		isMenuOpen || !initialSetupDone, // disabled condition
+		isMenuOpen || !initialSetupDone || activeModal !== null,
 	);
 
 	useEffect(() => {
@@ -168,8 +156,6 @@ const Game = () => {
 	}, [numberOfBoards, boardSize]);
 
 	const handleMove = (boardIndex: number, cellIndex: number) => {
-		// This game state is incomplete, applyMove expects the full GameState
-		// This is the best we can do without the full game state object
 		const tempGameState = {
 			boards,
 			gameHistory,
@@ -181,18 +167,17 @@ const Game = () => {
 			sessionId: "",
 		};
 
-		// Check if move is valid before applying
 		if (
 			boards[boardIndex][cellIndex] !== "" ||
 			isBoardDead(boards[boardIndex], boardSize)
 		) {
-			return; // Invalid move
+			return;
 		}
 
 		applyMove(tempGameState, { boardIndex, cellIndex });
 		const newBoards = tempGameState.boards;
 		const newHistory = tempGameState.gameHistory;
-		const newPlayer = tempGameState.currentPlayer === 1 ? 2 : 1; // applyMove should switch player
+		const newPlayer = tempGameState.currentPlayer === 1 ? 2 : 1;
 
 		playMoveSound(sfxMute);
 		setBoards(newBoards);
@@ -255,7 +240,6 @@ const Game = () => {
 
 				<BoardContainer>
 					{boards.map((board: BoardState, index: number) => (
-						//FIXME:
 						// biome-ignore lint/suspicious/noArrayIndexKey: <fix later>
 						<BoardWrapper key={index}>
 							<Board
@@ -360,7 +344,6 @@ const Game = () => {
 				onClose={() => setActiveModal(null)}
 			/>
 
-			{/* --- ADD NEW MODALS --- */}
 			<ConfirmationModal
 				visible={activeModal === "resetConfirmation"}
 				title="Reset Game?"
@@ -382,7 +365,6 @@ const Game = () => {
 				onCancel={() => setActiveModal(null)}
 				confirmText="Yes, Exit"
 			/>
-			{/* --- END OF NEW MODALS --- */}
 		</GameLayout>
 	);
 };

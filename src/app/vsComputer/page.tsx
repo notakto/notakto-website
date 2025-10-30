@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import Board from "@/app/vsComputer/Board";
 import { useShortcut } from "@/components/hooks/useShortcut";
-// import { useToastCooldown } from "@/components/hooks/useToastCooldown";
 import SettingBar from "@/components/ui/Buttons/SettingBar";
 import { SettingButton } from "@/components/ui/Buttons/SettingButton";
 import BoardContainer from "@/components/ui/Containers/Board/BoardContainer";
@@ -18,9 +17,8 @@ import SettingOverlay from "@/components/ui/Containers/Settings/SettingOverlay";
 import GameLayout from "@/components/ui/Layout/GameLayout";
 import PlayerTurnTitle from "@/components/ui/Title/PlayerTurnTitle";
 import StatLabel from "@/components/ui/Title/StatLabel";
-// import { TOAST_DURATION } from "@/constants/toast";
 import BoardConfigModal from "@/modals/BoardConfigModal";
-import ConfirmationModal from "@/modals/ConfirmationModal"; // <-- 1. IMPORT NEW MODAL
+import ConfirmationModal from "@/modals/ConfirmationModal";
 import DifficultyModal from "@/modals/DifficultyModal";
 import ShortcutModal from "@/modals/ShortcutModal";
 import SoundConfigModal from "@/modals/SoundConfigModal";
@@ -34,7 +32,6 @@ import {
 	updateConfig,
 } from "@/services/game-apis";
 import { isBoardDead } from "@/services/logic";
-// import { handleBuyCoins } from "@/services/payment";
 import { playMoveSound, playWinSound } from "@/services/sounds";
 import { useCoins, useSound, useUser, useXP } from "@/services/store";
 import type {
@@ -70,11 +67,9 @@ const Game = () => {
 
 	const { sfxMute } = useSound();
 	const Coins = useCoins((state) => state.coins);
-	// const setCoins = useCoins((state) => state.setCoins);
 	const XP = useXP((state) => state.XP);
 	const user = useUser((state) => state.user);
 	const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
-	// const { canShowToast, resetCooldown } = useToastCooldown(TOAST_DURATION);
 	const router = useRouter();
 
 	useShortcut(
@@ -83,10 +78,8 @@ const Game = () => {
 				if (activeModal) return setActiveModal(null);
 				return setIsMenuOpen(false);
 			},
-			// --- 2. UPDATE SHORTCUTS ---
 			m: () => setActiveModal("exitConfirmation"),
 			r: () => setActiveModal("resetConfirmation"),
-			// --------------------------
 			c: () =>
 				setActiveModal((prev) =>
 					prev === "boardConfig" ? null : "boardConfig",
@@ -100,7 +93,7 @@ const Game = () => {
 			q: () =>
 				setActiveModal((prev) => (prev === "shortcut" ? null : "shortcut")),
 		},
-		isMenuOpen, // disabled condition
+		isMenuOpen || activeModal !== null,
 	);
 
 	const initGame = async (
@@ -368,7 +361,6 @@ const Game = () => {
 
 				<BoardContainer>
 					{boards.map((board, index) => (
-						//FIXME:
 						// biome-ignore lint/suspicious/noArrayIndexKey: <fix later>
 						<BoardWrapper key={index}>
 							<Board
@@ -423,22 +415,8 @@ const Game = () => {
 							Skip a Move (200 coins)
 						</SettingButton>
 						<SettingButton
-							//Blocking the current functions since we need it disabled until the feature comes up right
-							// DO NOT DELETE THIS COMMENTS
-
-							// onClick={() =>
-							// 	handleBuyCoins(
-							// 		setIsProcessingPayment,
-							// 		canShowToast,
-							// 		resetCooldown,
-							// 		setCoins,
-							// 		Coins,
-							// 	)
-							// }
-							// disabled={isProcessingPayment}
-
-							disabled={true} // make it gray + non-clickable
-							title="Currently not available" // native tooltip
+							disabled={true}
+							title="Currently not available"
 							loading={isProcessingPayment}>
 							Buy Coins (100)
 						</SettingButton>
@@ -508,7 +486,6 @@ const Game = () => {
 				onClose={() => setActiveModal(null)}
 			/>
 
-			{/* --- 3. ADD NEW MODALS --- */}
 			<ConfirmationModal
 				visible={activeModal === "resetConfirmation"}
 				title="Reset Game?"
@@ -530,7 +507,6 @@ const Game = () => {
 				onCancel={() => setActiveModal(null)}
 				confirmText="Yes, Exit"
 			/>
-			{/* --- END OF NEW MODALS --- */}
 		</GameLayout>
 	);
 };

@@ -24,7 +24,6 @@ const ConfirmationModal = ({
 	if (!visible) return null;
 
 	return (
-		// FIX: Remove the 'onClick' prop. This component is not clickable.
 		<ModalOverlay>
 			<div className="p-8 bg-white rounded-lg shadow-xl w-11/12 max-w-md">
 				<MenuTitle text={title} />
