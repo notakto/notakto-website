@@ -4,6 +4,14 @@ export default function SoundConfigSection({
 	children,
 }: SoundConfigSectionProps) {
 	return (
-		<div className="my-4 flex items-center justify-between">{children}</div>
+		<div
+			className="
+				my-4 flex items-center justify-between
+				/* Mobile responsiveness */
+				max-[407px]:flex-col max-[407px]:items-start max-[407px]:gap-3
+			"
+		>
+			{children}
+		</div>
 	);
 }
