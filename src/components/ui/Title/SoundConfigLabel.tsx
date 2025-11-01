@@ -5,9 +5,7 @@ const SoundConfigLabel = ({ label, htmlFor }: SoundConfigLabelProps) => (
 		htmlFor={htmlFor}
 		className="
 			text-red-500 text-2xl flex-1 text-left
-			max-[407px]:text-[1.5rem]
-		"
-	>
+			max-[407px]:text-[1.5rem]">
 		{label}
 	</label>
 );

@@ -7,9 +7,7 @@ export default function SoundConfigSection({
 		<div
 			className="
 				my-4 flex items-center justify-between
-				/* Mobile responsiveness */
-				max-[407px]:flex-col max-[407px]:items-start max-[407px]:gap-3
-			"
+				max-[407px]:flex-col max-[407px]:items-start max-[407px]:gap-y-2"
 		>
 			{children}
 		</div>
