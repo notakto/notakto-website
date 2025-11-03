@@ -1,6 +1,6 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import Confetti from "react-confetti";
 import { WinnerButton } from "@/components/ui/Buttons/WinnerButton";
@@ -63,16 +63,14 @@ const WinnerModal = ({
 						type: "spring",
 						stiffness: 200,
 						damping: 12,
-					}}
-				>
+					}}>
 					<WinnerTitle text="🎉 Game Over!" />
 				</motion.div>
 
 				<motion.div
 					initial={{ y: 10, opacity: 0 }}
 					animate={{ y: 0, opacity: 1 }}
-					transition={{ delay: 0.2, duration: 0.5 }}
-				>
+					transition={{ delay: 0.2, duration: 0.5 }}>
 					<WinnerMessage
 						text={winner === "You" ? "You Won!! 🏆🎊" : `${winner} Wins! 🎯`}
 					/>
@@ -81,8 +79,7 @@ const WinnerModal = ({
 				<motion.div
 					initial={{ opacity: 0, y: 20 }}
 					animate={{ opacity: 1, y: 0 }}
-					transition={{ delay: 0.6, duration: 0.6 }}
-				>
+					transition={{ delay: 0.6, duration: 0.6 }}>
 					<WinnerAction>
 						<WinnerButton onClick={onPlayAgain}>Play Again</WinnerButton>
 						<WinnerButton onClick={onMenu}>Main Menu</WinnerButton>
