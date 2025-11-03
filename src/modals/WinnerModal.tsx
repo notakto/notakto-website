@@ -1,7 +1,8 @@
 "use client";
+
+import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import Confetti from "react-confetti";
-import { motion, AnimatePresence } from "framer-motion";
 import { WinnerButton } from "@/components/ui/Buttons/WinnerButton";
 import WinnerAction from "@/components/ui/Containers/WinnerModal/WinnerAction";
 import WinnerContainer from "@/components/ui/Containers/WinnerModal/WinnerContainer";
