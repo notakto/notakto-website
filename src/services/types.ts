@@ -76,6 +76,14 @@ export interface SoundStore {
 	setSfxMute: (mute: boolean) => void;
 	setSfxVolume: (vol: number) => void;
 }
+export interface ProfileStore {
+	name: string;
+	email: string;
+	pic: string;
+	setName: (name: string) => void;
+	setEmail: (email: string) => void;
+	setPic: (pic: string) => void;
+}
 
 export interface UserStore {
 	user: User | null;
