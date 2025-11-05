@@ -13,9 +13,13 @@ import type {
 } from "@/services/types";
 
 const API_BASE = "/api/game";
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export async function signIn(idToken: string): Promise<SignInResponse> {
-	const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/sign-in`, {
+	if (!API_URL) {
+		throw new Error("API URL is not defined");
+	}
+	const res = await fetch(`${API_URL}/sign-in`, {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
