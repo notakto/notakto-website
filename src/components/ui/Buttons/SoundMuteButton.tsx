@@ -6,10 +6,10 @@ export function SoundMuteButton({
 	return (
 		<button
 			{...props}
-			className="
+			className={`
 				bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 w-[67px] text-lg
-				max-[407px]:w-[90px]
-			"
+				max-[407px]:w-[60px] max-[407px]:text-base max-[407px]:py-1
+			`}
 		/>
 	);
 }

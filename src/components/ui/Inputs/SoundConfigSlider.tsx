@@ -11,10 +11,10 @@ export function SoundConfigSlider({
 			type="range"
 			min="0"
 			max="100"
-			className="
+			className={`
 				flex-2 mx-2 accent-[#0055ff]
-				max-[407px]:w-[90%] max-[407px]:mx-0
-			"
+				max-[407px]:w-[60%] max-[407px]:mx-1
+			`}
 		/>
 	);
 }
