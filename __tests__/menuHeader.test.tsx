@@ -27,6 +27,15 @@ vi.mock("@/services/store", () => ({
 		setSfxMute: vi.fn(),
 		setSfxVolume: vi.fn(),
 	}),
+	useProfile: () => ({
+		name: "Test User",
+		email: "test@example.com",
+		profilePic: "https://example.com/avatar.png",
+		setName: vi.fn(),
+		setEmail: vi.fn(),
+		setProfilePic: vi.fn(),
+		resetProfile: vi.fn(),
+	}),
 }));
 
 vi.mock("@/components/hooks/useToastCooldown", () => ({
