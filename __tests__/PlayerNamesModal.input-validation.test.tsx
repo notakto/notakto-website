@@ -1,4 +1,5 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { beforeEach } from "node:test";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 import PlayerNamesModal from "@/modals/PlayerNamesModal";
 import type { PlayerNamesModalProps } from "@/services/types";
@@ -35,6 +36,9 @@ describe("PlayerNamesModal Character Limit Validation", () => {
 		onSubmit: mockOnSubmit,
 		initialNames: ["Player 1", "Player 2"],
 	};
+	beforeEach(() => {
+		mockOnSubmit.mockClear();
+	});
 
 	// Test Case ID: 1 - Accept exactly 15 characters in Player 1
 	it("should accept exactly 15 characters in Player 1 input field", () => {
@@ -69,6 +73,91 @@ describe("PlayerNamesModal Character Limit Validation", () => {
 
 		expect(screen.getByText("10/15 characters")).toBeInTheDocument();
 	});
+
+	// Test Case ID: 4 - Character counter shows 15/15
+	it("should show '15/15 characters' when Player 1 is at maximum", () => {
+		render(<PlayerNamesModal {...defaultProps} />);
+
+		const player1Input = screen.getByPlaceholderText("Player 1 Name");
+		const testString = "ExactlyFifteen1"; // 15 characters
+
+		fireEvent.change(player1Input, { target: { value: testString } });
+
+		expect(screen.getByText("15/15 characters")).toBeInTheDocument();
+	});
+
+	// Test Case ID: 6 - Accept exactly 15 characters in Player 2
+	it("should accept exactly 15 characters in Player 2 input field", () => {
+		render(<PlayerNamesModal {...defaultProps} />);
+
+		const player2Input = screen.getByPlaceholderText("Player 2 Name");
+		const testString = "ExactlyFifteen2"; // 15 characters
+
+		fireEvent.change(player2Input, { target: { value: testString } });
+
+		expect(player2Input).toHaveValue(testString);
+		expect(testString.length).toBe(15);
+	});
+
+	// Test Case ID: 7 - Block 16th character in Player 2
+	it("should enforce maxLength of 15 on Player 2 input", () => {
+		render(<PlayerNamesModal {...defaultProps} />);
+
+		const player2Input = screen.getByPlaceholderText("Player 2 Name");
+
+		expect(player2Input).toHaveAttribute("maxLength", "15");
+	});
+
+	// Test Case ID: 8 - Character counter for Player 2
+	it("should show '8/15 characters' when Player 2 has 8 characters", () => {
+		render(<PlayerNamesModal {...defaultProps} />);
+
+		const player1Input = screen.getByPlaceholderText(
+			"Player 1 Name",
+		) as HTMLInputElement;
+		const player2Input = screen.getByPlaceholderText(
+			"Player 2 Name",
+		) as HTMLInputElement;
+
+		// Type 5 characters in Player 1 (so Player 1 will show "5/15 characters")
+		fireEvent.change(player1Input, { target: { value: "Hello" } });
+		expect(screen.getByText("5/15 characters")).toBeInTheDocument();
+
+		// Type 8 characters in Player 2
+		const testString = "EightChr"; // 8 characters
+		fireEvent.change(player2Input, { target: { value: testString } });
+
+		// Now we know "8/15 characters" must be from Player 2
+		expect(screen.getByText("8/15 characters")).toBeInTheDocument();
+		// Player 1 should still show 5/15
+		expect(screen.getByText("5/15 characters")).toBeInTheDocument();
+	});
+	/*
+	 * Test Case ID: 14 - Form submission with full-length names (15 chars each)
+	 */
+	it("should submit successfully with full-length names (15 chars each)", async () => {
+		render(<PlayerNamesModal {...defaultProps} />);
+
+		const player1Input = screen.getByPlaceholderText("Player 1 Name");
+		const player2Input = screen.getByPlaceholderText("Player 2 Name");
+		const startButton = screen.getByText("Start Game");
+
+		const player1Name = "ExactlyFifteen1"; // 15 characters
+		const player2Name = "ExactlyFifteen2"; // 15 characters
+
+		fireEvent.change(player1Input, { target: { value: player1Name } });
+		fireEvent.change(player2Input, { target: { value: player2Name } });
+
+		fireEvent.click(startButton);
+
+		await waitFor(
+			() => {
+				expect(mockOnSubmit).toHaveBeenCalledWith(player1Name, player2Name);
+			},
+			{ timeout: 3000 },
+		);
+	});
+
 	// Just some basic tests to make sure the modal shows up when it should
 	it("should not render when visible is false", () => {
 		render(<PlayerNamesModal {...defaultProps} visible={false} />);
