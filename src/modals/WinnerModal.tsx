@@ -56,35 +56,17 @@ const WinnerModal = ({
 			/>
 
 			<WinnerContainer>
-				<motion.div
-					initial={{ scale: 0, rotate: -15, opacity: 0 }}
-					animate={{ scale: 1.1, rotate: 0, opacity: 1 }}
-					transition={{
-						type: "spring",
-						stiffness: 200,
-						damping: 12,
-					}}>
-					<WinnerTitle text="🎉 Game Over!" />
-				</motion.div>
+				{/* No motion animation, just static text */}
+				<WinnerTitle text="Game Over!" />
 
-				<motion.div
-					initial={{ y: 10, opacity: 0 }}
-					animate={{ y: 0, opacity: 1 }}
-					transition={{ delay: 0.2, duration: 0.5 }}>
-					<WinnerMessage
-						text={winner === "You" ? "You Won!! 🏆🎊" : `${winner} Wins! 🎯`}
-					/>
-				</motion.div>
+				<WinnerMessage
+					text={winner === "You" ? "You Won!!" : `${winner} Wins!`}
+				/>
 
-				<motion.div
-					initial={{ opacity: 0, y: 20 }}
-					animate={{ opacity: 1, y: 0 }}
-					transition={{ delay: 0.6, duration: 0.6 }}>
-					<WinnerAction>
-						<WinnerButton onClick={onPlayAgain}>Play Again</WinnerButton>
-						<WinnerButton onClick={onMenu}>Main Menu</WinnerButton>
-					</WinnerAction>
-				</motion.div>
+				<WinnerAction>
+					<WinnerButton onClick={onPlayAgain}>Play Again</WinnerButton>
+					<WinnerButton onClick={onMenu}>Main Menu</WinnerButton>
+				</WinnerAction>
 			</WinnerContainer>
 		</ModalOverlay>
 	);
