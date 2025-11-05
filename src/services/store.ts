@@ -50,6 +50,6 @@ export const useProfile = create<ProfileStore>()(
 			setEmail: (email) => set({ email }),
 			setPic: (pic) => set({ pic }),
 		}),
-		{ name: "sound-settings" },
+		{ name: "profile-settings" },
 	),
 );
