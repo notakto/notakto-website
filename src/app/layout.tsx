@@ -4,7 +4,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { VT323 } from "next/font/google";
 import ClientSideInit from "@/app/ClientSideInit";
-import MusicProvider from "@/components/MusicProvider";
+import MusicProvider from "@/components/providers/MusicProvider";
 import { CustomToastContainer } from "@/components/ui/Toasts/CustomToastContainer";
 
 export const metadata: Metadata = {
