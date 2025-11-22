@@ -15,6 +15,7 @@ import SettingOverlay from "@/components/ui/Containers/Settings/SettingOverlay";
 import GameLayout from "@/components/ui/Layout/GameLayout";
 import PlayerTurnTitle from "@/components/ui/Title/PlayerTurnTitle";
 import BoardConfigModal from "@/modals/BoardConfigModal";
+import ConfirmationModal from "@/modals/ConfirmationModal";
 import PlayerNamesModal from "@/modals/PlayerNamesModal";
 import ShortcutModal from "@/modals/ShortcutModal";
 import SoundConfigModal from "@/modals/SoundConfigModal";
@@ -28,7 +29,6 @@ import type {
 	BoardState,
 	PlayerButtonModalType,
 } from "@/services/types";
-import ConfirmationModal from "@/modals/ConfirmationModal";
 
 const Game = () => {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);

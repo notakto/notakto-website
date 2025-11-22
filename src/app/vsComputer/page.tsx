@@ -20,6 +20,7 @@ import PlayerTurnTitle from "@/components/ui/Title/PlayerTurnTitle";
 import StatLabel from "@/components/ui/Title/StatLabel";
 // import { TOAST_DURATION } from "@/constants/toast";
 import BoardConfigModal from "@/modals/BoardConfigModal";
+import ConfirmationModal from "@/modals/ConfirmationModal";
 import DifficultyModal from "@/modals/DifficultyModal";
 import ShortcutModal from "@/modals/ShortcutModal";
 import SoundConfigModal from "@/modals/SoundConfigModal";
@@ -43,7 +44,6 @@ import type {
 	ComputerButtonModalType,
 	DifficultyLevel,
 } from "@/services/types";
-import ConfirmationModal from "@/modals/ConfirmationModal";
 
 const Game = () => {
 	const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
