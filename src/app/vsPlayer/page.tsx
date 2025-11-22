@@ -28,6 +28,7 @@ import type {
 	BoardState,
 	PlayerButtonModalType,
 } from "@/services/types";
+import ConfirmationModal from "@/modals/ConfirmationModal";
 
 const Game = () => {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -56,11 +57,13 @@ const Game = () => {
 			},
 			m: () => {
 				if (!initialSetupDone) return;
-				router.push("/");
+				// router.push("/");
+				setActiveModal("exitConfirmation");
 			},
 			r: () => {
 				if (!initialSetupDone) return;
-				resetGame(numberOfBoards, boardSize);
+				// resetGame(numberOfBoards, boardSize);
+				setActiveModal("resetConfirmation");
 			},
 			n: () => {
 				if (!initialSetupDone) return;
@@ -250,6 +253,27 @@ const Game = () => {
 			<ShortcutModal
 				visible={activeModal === "shortcut"}
 				onClose={() => setActiveModal(null)}
+			/>
+			<ConfirmationModal
+				visible={activeModal === "resetConfirmation"}
+				title="Reset Game?"
+				message="Are you sure you want to reset the current game?"
+				onConfirm={() => {
+					resetGame(numberOfBoards, boardSize);
+					setActiveModal(null);
+				}}
+				onCancel={() => setActiveModal(null)}
+				confirmText="Yes, Reset"
+			/>
+			<ConfirmationModal
+				visible={activeModal === "exitConfirmation"}
+				title="Exit to Menu?"
+				message="Are you sure you want to exit? Your current game will be lost."
+				onConfirm={() => {
+					router.push("/");
+				}}
+				onCancel={() => setActiveModal(null)}
+				confirmText="Yes, Exit"
 			/>
 		</GameLayout>
 	);

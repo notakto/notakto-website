@@ -43,6 +43,7 @@ import type {
 	ComputerButtonModalType,
 	DifficultyLevel,
 } from "@/services/types";
+import ConfirmationModal from "@/modals/ConfirmationModal";
 
 const Game = () => {
 	const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
@@ -82,8 +83,8 @@ const Game = () => {
 				if (activeModal) return setActiveModal(null);
 				return setIsMenuOpen(false);
 			},
-			m: () => router.push("/"),
-			r: () => handleReset(),
+			m: () => setActiveModal("exitConfirmation"),
+			r: () => setActiveModal("resetConfirmation"),
 			c: () =>
 				setActiveModal((prev) =>
 					prev === "boardConfig" ? null : "boardConfig",
@@ -503,6 +504,27 @@ const Game = () => {
 			<SoundConfigModal
 				visible={activeModal === "soundConfig"}
 				onClose={() => setActiveModal(null)}
+			/>
+			<ConfirmationModal
+				visible={activeModal === "resetConfirmation"}
+				title="Reset Game?"
+				message="Are you sure you want to reset the current game?"
+				onConfirm={() => {
+					handleReset();
+					setActiveModal(null);
+				}}
+				onCancel={() => setActiveModal(null)}
+				confirmText="Yes, Reset"
+			/>
+			<ConfirmationModal
+				visible={activeModal === "exitConfirmation"}
+				title="Exit to Menu?"
+				message="Are you sure you want to exit? Your current game will be lost."
+				onConfirm={() => {
+					router.push("/");
+				}}
+				onCancel={() => setActiveModal(null)}
+				confirmText="Yes, Exit"
 			/>
 		</GameLayout>
 	);

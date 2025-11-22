@@ -371,6 +371,8 @@ export type PlayerButtonModalType =
 	| "boardConfig"
 	| "soundConfig"
 	| "shortcut"
+	| "resetConfirmation"
+	| "exitConfirmation"
 	| null;
 
 export type ComputerButtonModalType =
@@ -379,6 +381,8 @@ export type ComputerButtonModalType =
 	| "soundConfig"
 	| "difficulty"
 	| "shortcut"
+	| "resetConfirmation"
+	| "exitConfirmation"
 	| null;
 
 export type MenuModalType = "soundConfig" | "shortcut" | "tutorial" | null;
