@@ -1,4 +1,3 @@
-
 import ModalOverlay from "@/components/ui/Overlays/ModalOverlay";
 
 interface ConfirmationModalProps {
@@ -29,13 +28,13 @@ const ConfirmationModal = ({
 				<p className="my-6 text-center text-lg text-white">{message}</p>
 				<div className="flex justify-center gap-4">
 					<button
-                        type="button"
+						type="button"
 						className="bg-blue-600 hover:bg-blue-700 text-white px-12 py-3 text-xl w-full mt-4"
 						onClick={onConfirm}>
 						{confirmText}
 					</button>
 					<button
-                        type="button"
+						type="button"
 						className="bg-blue-600 hover:bg-blue-700 text-white px-12 py-3 text-xl w-full mt-4"
 						onClick={onCancel}>
 						{cancelText}
