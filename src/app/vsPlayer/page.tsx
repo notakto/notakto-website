@@ -43,6 +43,7 @@ const Game = () => {
 	const [initialSetupDone, setInitialSetupDone] = useState<boolean>(false);
 	const [activeModal, setActiveModal] =
 		useState<PlayerButtonModalType>("names");
+	const [hasMoveHappened, setHasMoveHappened] = useState(false);
 
 	const { sfxMute } = useSound();
 	const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
@@ -56,12 +57,12 @@ const Game = () => {
 				return setIsMenuOpen(false);
 			},
 			m: () => {
-				if (!initialSetupDone) return;
+				if (!initialSetupDone || activeModal === "winner") return;
 				// router.push("/");
 				setActiveModal("exitConfirmation");
 			},
 			r: () => {
-				if (!initialSetupDone) return;
+				if (!initialSetupDone || !hasMoveHappened) return;
 				// resetGame(numberOfBoards, boardSize);
 				setActiveModal("resetConfirmation");
 			},
@@ -90,6 +91,9 @@ const Game = () => {
 	);
 
 	const makeMove = (boardIndex: number, cellIndex: number) => {
+		if (!hasMoveHappened) {
+			setHasMoveHappened(true);
+		}
 		if (
 			boards[boardIndex][cellIndex] !== "" ||
 			isBoardDead(boards[boardIndex], boardSize)
