@@ -77,47 +77,51 @@ const Game = () => {
 	// const { canShowToast, resetCooldown } = useToastCooldown(TOAST_DURATION);
 	const router = useRouter();
 
-useShortcut(
-	{
-		escape: () => {
-			if ( activeModal === "winner") return;
+	useShortcut(
+		{
+			escape: () => {
+				if (activeModal === "winner") return;
 
-			if (activeModal) return setActiveModal(null);
-			return setIsMenuOpen(false);
-		},
+				if (activeModal) return setActiveModal(null);
+				return setIsMenuOpen(false);
+			},
 
-		m: () => {
-			if (activeModal === "winner") return;
-			setActiveModal("exitConfirmation");
-		},
+			m: () => {
+				if (activeModal === "winner") return;
+				setActiveModal("exitConfirmation");
+			},
 
-		r: () => {
-			if (activeModal === "winner") return;
-			setActiveModal("resetConfirmation");
-		},
+			r: () => {
+				if (activeModal === "winner") return;
+				setActiveModal("resetConfirmation");
+			},
 
-		c: () => {
-			if (activeModal === "winner") return;
-			setActiveModal(prev => prev === "boardConfig" ? null : "boardConfig");
-		},
+			c: () => {
+				if (activeModal === "winner") return;
+				setActiveModal((prev) =>
+					prev === "boardConfig" ? null : "boardConfig",
+				);
+			},
 
-		s: () => {
-			if ( activeModal === "winner") return;
-			setActiveModal(prev => prev === "soundConfig" ? null : "soundConfig");
-		},
+			s: () => {
+				if (activeModal === "winner") return;
+				setActiveModal((prev) =>
+					prev === "soundConfig" ? null : "soundConfig",
+				);
+			},
 
-		d: () => {
-			if (activeModal === "winner") return;
-			setActiveModal(prev => prev === "difficulty" ? null : "difficulty");
-		},
+			d: () => {
+				if (activeModal === "winner") return;
+				setActiveModal((prev) => (prev === "difficulty" ? null : "difficulty"));
+			},
 
-		q: () => {
-			if (activeModal === "winner") return;
-			setActiveModal(prev => prev === "shortcut" ? null : "shortcut");
+			q: () => {
+				if (activeModal === "winner") return;
+				setActiveModal((prev) => (prev === "shortcut" ? null : "shortcut"));
+			},
 		},
-	},
-	isMenuOpen
-);
+		isMenuOpen,
+	);
 
 	const initGame = async (
 		num: BoardNumber,

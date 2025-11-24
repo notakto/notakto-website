@@ -52,7 +52,8 @@ const Game = () => {
 	useShortcut(
 		{
 			escape: () => {
-				if (!initialSetupDone && !gameStarted || activeModal === "winner") return;
+				if ((!initialSetupDone && !gameStarted) || activeModal === "winner")
+					return;
 				if (activeModal) return setActiveModal(null);
 				return setIsMenuOpen(false);
 			},
@@ -84,7 +85,7 @@ const Game = () => {
 				);
 			},
 			q: () => {
-				if (!initialSetupDone|| activeModal === "winner") return;
+				if (!initialSetupDone || activeModal === "winner") return;
 				setActiveModal((prev) => (prev === "shortcut" ? null : "shortcut"));
 			},
 		},
