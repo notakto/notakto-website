@@ -77,29 +77,47 @@ const Game = () => {
 	// const { canShowToast, resetCooldown } = useToastCooldown(TOAST_DURATION);
 	const router = useRouter();
 
-	useShortcut(
-		{
-			escape: () => {
-				if (activeModal) return setActiveModal(null);
-				return setIsMenuOpen(false);
-			},
-			m: () => setActiveModal("exitConfirmation"),
-			r: () => setActiveModal("resetConfirmation"),
-			c: () =>
-				setActiveModal((prev) =>
-					prev === "boardConfig" ? null : "boardConfig",
-				),
-			s: () =>
-				setActiveModal((prev) =>
-					prev === "soundConfig" ? null : "soundConfig",
-				),
-			d: () =>
-				setActiveModal((prev) => (prev === "difficulty" ? null : "difficulty")),
-			q: () =>
-				setActiveModal((prev) => (prev === "shortcut" ? null : "shortcut")),
+useShortcut(
+	{
+		escape: () => {
+			if ( activeModal === "winner") return;
+
+			if (activeModal) return setActiveModal(null);
+			return setIsMenuOpen(false);
 		},
-		isMenuOpen, // disabled condition
-	);
+
+		m: () => {
+			if (activeModal === "winner") return;
+			setActiveModal("exitConfirmation");
+		},
+
+		r: () => {
+			if (activeModal === "winner") return;
+			setActiveModal("resetConfirmation");
+		},
+
+		c: () => {
+			if (activeModal === "winner") return;
+			setActiveModal(prev => prev === "boardConfig" ? null : "boardConfig");
+		},
+
+		s: () => {
+			if ( activeModal === "winner") return;
+			setActiveModal(prev => prev === "soundConfig" ? null : "soundConfig");
+		},
+
+		d: () => {
+			if (activeModal === "winner") return;
+			setActiveModal(prev => prev === "difficulty" ? null : "difficulty");
+		},
+
+		q: () => {
+			if (activeModal === "winner") return;
+			setActiveModal(prev => prev === "shortcut" ? null : "shortcut");
+		},
+	},
+	isMenuOpen
+);
 
 	const initGame = async (
 		num: BoardNumber,

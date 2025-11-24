@@ -52,7 +52,7 @@ const Game = () => {
 	useShortcut(
 		{
 			escape: () => {
-				if (!initialSetupDone && !gameStarted) return;
+				if (!initialSetupDone && !gameStarted || activeModal === "winner") return;
 				if (activeModal) return setActiveModal(null);
 				return setIsMenuOpen(false);
 			},
@@ -62,7 +62,8 @@ const Game = () => {
 				setActiveModal("exitConfirmation");
 			},
 			r: () => {
-				if (!initialSetupDone || !hasMoveHappened) return;
+				if (!initialSetupDone || !hasMoveHappened || activeModal === "winner")
+					return;
 				// resetGame(numberOfBoards, boardSize);
 				setActiveModal("resetConfirmation");
 			},
@@ -71,19 +72,19 @@ const Game = () => {
 				setActiveModal((prev) => (prev === "names" ? null : "names"));
 			},
 			c: () => {
-				if (!initialSetupDone) return;
+				if (!initialSetupDone || activeModal === "winner") return;
 				setActiveModal((prev) =>
 					prev === "boardConfig" ? null : "boardConfig",
 				);
 			},
 			s: () => {
-				if (!initialSetupDone) return;
+				if (!initialSetupDone || activeModal === "winner") return;
 				setActiveModal((prev) =>
 					prev === "soundConfig" ? null : "soundConfig",
 				);
 			},
 			q: () => {
-				if (!initialSetupDone) return;
+				if (!initialSetupDone|| activeModal === "winner") return;
 				setActiveModal((prev) => (prev === "shortcut" ? null : "shortcut"));
 			},
 		},
