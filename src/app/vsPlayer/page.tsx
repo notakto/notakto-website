@@ -69,7 +69,7 @@ const Game = () => {
 				setActiveModal("resetConfirmation");
 			},
 			n: () => {
-				if (!initialSetupDone) return;
+				if (!initialSetupDone || activeModal === "winner") return;
 				setActiveModal((prev) => (prev === "names" ? null : "names"));
 			},
 			c: () => {
