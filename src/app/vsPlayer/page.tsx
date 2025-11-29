@@ -60,7 +60,8 @@ const Game = () => {
 			m: () => {
 				if (!initialSetupDone || activeModal === "winner") return;
 				setActiveModal((prev) =>
-					prev === "exitConfirmation" ? null : "exitConfirmation");
+					prev === "exitConfirmation" ? null : "exitConfirmation",
+				);
 			},
 			r: () => {
 				if (!initialSetupDone || !hasMoveHappened || activeModal === "winner")
