@@ -206,6 +206,7 @@ const Game = () => {
 	};
 
 	const handleReset = async () => {
+		
 		if (isResetting) return;
 		setIsResetting(true);
 
