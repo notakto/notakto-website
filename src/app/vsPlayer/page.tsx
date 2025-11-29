@@ -59,15 +59,16 @@ const Game = () => {
 			},
 			m: () => {
 				if (!initialSetupDone || activeModal === "winner") return;
-				// router.push("/");
-				setActiveModal("exitConfirmation");
+				setActiveModal((prev) =>
+					prev === "exitConfirmation" ? null : "exitConfirmation");
 			},
 			r: () => {
 				if (!initialSetupDone || !hasMoveHappened || activeModal === "winner")
 					return;
-				setHasMoveHappened(false);
-				// resetGame(numberOfBoards, boardSize);
-				setActiveModal("resetConfirmation");
+
+				setActiveModal((prev) =>
+					prev === "resetConfirmation" ? null : "resetConfirmation",
+				);
 			},
 			n: () => {
 				if (!initialSetupDone || activeModal === "winner") return;
@@ -131,6 +132,7 @@ const Game = () => {
 		setBoards(initialBoards);
 		setCurrentPlayer(1);
 		setActiveModal(null);
+		setHasMoveHappened(false);
 	};
 
 	const handleBoardConfigChange = (num: BoardNumber, size: BoardSize) => {

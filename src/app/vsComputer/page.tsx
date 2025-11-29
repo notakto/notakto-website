@@ -67,6 +67,7 @@ const Game = () => {
 	const [isUpdatingDifficulty, setIsUpdatingDifficulty] =
 		useState<boolean>(false);
 	const [activeModal, setActiveModal] = useState<ComputerButtonModalType>(null);
+	const [hasMoveHappened, setHasMoveHappened] = useState(false);
 
 	const { sfxMute } = useSound();
 	const Coins = useCoins((state) => state.coins);
@@ -88,12 +89,16 @@ const Game = () => {
 
 			m: () => {
 				if (activeModal === "winner") return;
-				setActiveModal("exitConfirmation");
+				setActiveModal((prev) =>
+					prev === "exitConfirmation" ? null : "exitConfirmation",
+				);
 			},
 
 			r: () => {
-				if (activeModal === "winner") return;
-				setActiveModal("resetConfirmation");
+				if (activeModal === "winner" || !hasMoveHappened) return;
+				setActiveModal((prev) =>
+					prev === "resetConfirmation" ? null : "resetConfirmation",
+				);
 			},
 
 			c: () => {
@@ -162,6 +167,9 @@ const Game = () => {
 	const handleMove = async (boardIndex: number, cellIndex: number) => {
 		if (isProcessing) return;
 		setIsProcessing(true);
+		if (!hasMoveHappened) {
+			setHasMoveHappened(true);
+		}
 		try {
 			if (user) {
 				const data = await makeMove(
@@ -198,6 +206,7 @@ const Game = () => {
 	};
 
 	const handleReset = async () => {
+		setHasMoveHappened(false);
 		if (isResetting) return;
 		setIsResetting(true);
 
