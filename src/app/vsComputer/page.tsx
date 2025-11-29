@@ -206,7 +206,7 @@ const Game = () => {
 	};
 
 	const handleReset = async () => {
-		setHasMoveHappened(false);
+		
 		if (isResetting) return;
 		setIsResetting(true);
 
@@ -214,6 +214,7 @@ const Game = () => {
 			if (user) {
 				const data = await resetGame(sessionId, await user.getIdToken());
 				if (data.success) {
+					setHasMoveHappened(false);
 					setBoards(data.gameState.boards);
 					setCurrentPlayer(data.gameState.currentPlayer);
 					setGameHistory(data.gameState.gameHistory);
