@@ -65,6 +65,7 @@ const Game = () => {
 			r: () => {
 				if (!initialSetupDone || !hasMoveHappened || activeModal === "winner")
 					return;
+				setHasMoveHappened(false);
 				// resetGame(numberOfBoards, boardSize);
 				setActiveModal("resetConfirmation");
 			},
