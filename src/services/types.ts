@@ -321,13 +321,6 @@ export interface DifficultyActionProps extends BaseButtonProps {
 	variant: "level" | "cancel";
 }
 
-// Title and text components
-export interface AnimatedTitleProps {
-	text: string;
-	className?: string;
-	textClassName?: string;
-}
-
 export interface PlayerTurnTitleProps {
 	variant?: "normal" | "live";
 	text: string;
