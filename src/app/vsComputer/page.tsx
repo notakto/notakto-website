@@ -20,6 +20,7 @@ import PlayerTurnTitle from "@/components/ui/Title/PlayerTurnTitle";
 import StatLabel from "@/components/ui/Title/StatLabel";
 // import { TOAST_DURATION } from "@/constants/toast";
 import BoardConfigModal from "@/modals/BoardConfigModal";
+import ConfirmationModal from "@/modals/ConfirmationModal";
 import DifficultyModal from "@/modals/DifficultyModal";
 import ShortcutModal from "@/modals/ShortcutModal";
 import SoundConfigModal from "@/modals/SoundConfigModal";
@@ -66,6 +67,7 @@ const Game = () => {
 	const [isUpdatingDifficulty, setIsUpdatingDifficulty] =
 		useState<boolean>(false);
 	const [activeModal, setActiveModal] = useState<ComputerButtonModalType>(null);
+	const [hasMoveHappened, setHasMoveHappened] = useState(false);
 
 	const { sfxMute } = useSound();
 	const Coins = useCoins((state) => state.coins);
@@ -79,25 +81,51 @@ const Game = () => {
 	useShortcut(
 		{
 			escape: () => {
+				if (activeModal === "winner") return;
+
 				if (activeModal) return setActiveModal(null);
 				return setIsMenuOpen(false);
 			},
-			m: () => router.push("/"),
-			r: () => handleReset(),
-			c: () =>
+
+			m: () => {
+				if (activeModal === "winner") return;
+				setActiveModal((prev) =>
+					prev === "exitConfirmation" ? null : "exitConfirmation",
+				);
+			},
+
+			r: () => {
+				if (activeModal === "winner" || !hasMoveHappened) return;
+				setActiveModal((prev) =>
+					prev === "resetConfirmation" ? null : "resetConfirmation",
+				);
+			},
+
+			c: () => {
+				if (activeModal === "winner") return;
 				setActiveModal((prev) =>
 					prev === "boardConfig" ? null : "boardConfig",
-				),
-			s: () =>
+				);
+			},
+
+			s: () => {
+				if (activeModal === "winner") return;
 				setActiveModal((prev) =>
 					prev === "soundConfig" ? null : "soundConfig",
-				),
-			d: () =>
-				setActiveModal((prev) => (prev === "difficulty" ? null : "difficulty")),
-			q: () =>
-				setActiveModal((prev) => (prev === "shortcut" ? null : "shortcut")),
+				);
+			},
+
+			d: () => {
+				if (activeModal === "winner") return;
+				setActiveModal((prev) => (prev === "difficulty" ? null : "difficulty"));
+			},
+
+			q: () => {
+				if (activeModal === "winner") return;
+				setActiveModal((prev) => (prev === "shortcut" ? null : "shortcut"));
+			},
 		},
-		isMenuOpen, // disabled condition
+		isMenuOpen,
 	);
 
 	const initGame = async (
@@ -139,6 +167,9 @@ const Game = () => {
 	const handleMove = async (boardIndex: number, cellIndex: number) => {
 		if (isProcessing) return;
 		setIsProcessing(true);
+		if (!hasMoveHappened) {
+			setHasMoveHappened(true);
+		}
 		try {
 			if (user) {
 				const data = await makeMove(
@@ -182,6 +213,7 @@ const Game = () => {
 			if (user) {
 				const data = await resetGame(sessionId, await user.getIdToken());
 				if (data.success) {
+					setHasMoveHappened(false);
 					setBoards(data.gameState.boards);
 					setCurrentPlayer(data.gameState.currentPlayer);
 					setGameHistory(data.gameState.gameHistory);
@@ -503,6 +535,27 @@ const Game = () => {
 			<SoundConfigModal
 				visible={activeModal === "soundConfig"}
 				onClose={() => setActiveModal(null)}
+			/>
+			<ConfirmationModal
+				visible={activeModal === "resetConfirmation"}
+				title="Reset Game?"
+				message="Are you sure you want to reset the current game?"
+				onConfirm={() => {
+					handleReset();
+					setActiveModal(null);
+				}}
+				onCancel={() => setActiveModal(null)}
+				confirmText="Yes, Reset"
+			/>
+			<ConfirmationModal
+				visible={activeModal === "exitConfirmation"}
+				title="Exit to Menu?"
+				message="Are you sure you want to exit? Your current game will be lost."
+				onConfirm={() => {
+					router.push("/");
+				}}
+				onCancel={() => setActiveModal(null)}
+				confirmText="Yes, Exit"
 			/>
 		</GameLayout>
 	);

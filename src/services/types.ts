@@ -76,6 +76,14 @@ export interface SoundStore {
 	setSfxMute: (mute: boolean) => void;
 	setSfxVolume: (vol: number) => void;
 }
+export interface ProfileStore {
+	name: string;
+	email: string;
+	pic: string;
+	setName: (name: string) => void;
+	setEmail: (email: string) => void;
+	setPic: (pic: string) => void;
+}
 
 export interface UserStore {
 	user: User | null;
@@ -313,13 +321,6 @@ export interface DifficultyActionProps extends BaseButtonProps {
 	variant: "level" | "cancel";
 }
 
-// Title and text components
-export interface AnimatedTitleProps {
-	text: string;
-	className?: string;
-	textClassName?: string;
-}
-
 export interface PlayerTurnTitleProps {
 	variant?: "normal" | "live";
 	text: string;
@@ -363,6 +364,8 @@ export type PlayerButtonModalType =
 	| "boardConfig"
 	| "soundConfig"
 	| "shortcut"
+	| "resetConfirmation"
+	| "exitConfirmation"
 	| null;
 
 export type ComputerButtonModalType =
@@ -371,6 +374,8 @@ export type ComputerButtonModalType =
 	| "soundConfig"
 	| "difficulty"
 	| "shortcut"
+	| "resetConfirmation"
+	| "exitConfirmation"
 	| null;
 
 export type MenuModalType = "soundConfig" | "shortcut" | "tutorial" | null;

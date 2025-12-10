@@ -2,6 +2,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import type {
 	CoinStore,
+	ProfileStore,
 	SoundStore,
 	UserStore,
 	XPStore,
@@ -38,3 +39,17 @@ export const useXP = create<XPStore>((set, get) => ({
 	setXP: (newXP: number) => set({ XP: newXP }),
 	optimisticAddXP: (amount: number) => set({ XP: get().XP + amount }),
 }));
+
+export const useProfile = create<ProfileStore>()(
+	persist(
+		(set) => ({
+			name: "player",
+			email: "empty@empty.empty",
+			pic: "empty.empty",
+			setName: (name) => set({ name }),
+			setEmail: (email) => set({ email }),
+			setPic: (pic) => set({ pic }),
+		}),
+		{ name: "profile-settings" },
+	),
+);
