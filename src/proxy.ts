@@ -1,7 +1,7 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
-export async function middleware(req: NextRequest) {
+export async function proxy(req: NextRequest) {
 	console.log("Request headers:", req.headers);
 	const { pathname } = req.nextUrl;
 

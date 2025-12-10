@@ -13,9 +13,7 @@ const nextConfig: NextConfig = {
 		optimizePackageImports: ["@mui/material", "@mui/icons-material"],
 	},
 	compress: true,
-	webpack: (config) => {
-		return config;
-	},
+	turbopack: {},
 };
 
 export default nextConfig;
