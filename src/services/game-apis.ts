@@ -1,5 +1,9 @@
 import z, { ZodError } from "zod";
-import { type SignInResponse, SignInResponseSchema } from "@/services/schema";
+import {
+	CreateGameResponseSchema,
+	type SignInResponse,
+	SignInResponseSchema,
+} from "@/services/schema";
 import type {
 	BoardSize,
 	DifficultyLevel,
@@ -60,7 +64,7 @@ export async function createGame(
 	idToken: string,
 ): Promise<NewGameResponse | ErrorResponse> {
 	try {
-		const response = await fetch(`${API_BASE}/create`, {
+		const response = await fetch(`${API_URL}/create-game`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -68,7 +72,21 @@ export async function createGame(
 			},
 			body: JSON.stringify({ numberOfBoards, boardSize, difficulty }),
 		});
-		return await response.json();
+		if (!response.ok) {
+			const text = await response.text().catch(() => "");
+			return {
+				success: false,
+				error: `Create game failed: ${response.status} ${response.statusText} ${text}`,
+			};
+		}
+		const json = await response.json();
+
+		const parsed = CreateGameResponseSchema.safeParse(json);
+		if (!parsed.success) {
+			return { success: false, error: "Invalid response format" };
+		}
+
+		return { success: true, ...parsed.data } as NewGameResponse;
 	} catch (error) {
 		console.error("Create game API error:", error);
 		return { success: false, error: "Failed to create game" };

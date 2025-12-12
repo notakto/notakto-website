@@ -38,9 +38,17 @@ export interface ErrorResponse {
 	error: string;
 }
 
-export interface NewGameResponse extends BaseApiResponse {
+export interface NewGameResponse {
+	success: true;
 	sessionId: string;
-	gameState: GameState;
+	uid: string;
+	boards: number[];
+	winner: boolean;
+	boardSize: number;
+	numberOfBoards: number;
+	difficulty: number;
+	gameover: boolean;
+	createdAt: string;
 }
 
 export interface GameStateResponse extends BaseApiResponse {
