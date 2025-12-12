@@ -12,7 +12,7 @@
 	"type": "module",
 	"description": "",
 	"dependencies": {
-		"dotenv": "^16.4.7",
+		"dotenv": "^16.6.1",
 		"express": "^4.21.2",
 		"socket.io": "^4.8.1"
 	},
