@@ -9,3 +9,17 @@ export const SignInResponseSchema = z.object({
 });
 
 export type SignInResponse = z.infer<typeof SignInResponseSchema>;
+
+export const CreateGameResponseSchema = z.object({
+	sessionId: z.string(),
+	uid: z.string(),
+	boards: z.array(z.number().int()),
+	winner: z.boolean(),
+	boardSize: z.number().int(),
+	numberOfBoards: z.number().int(),
+	difficulty: z.number().int(),
+	gameover: z.boolean(),
+	createdAt: z.string(),
+});
+
+export type CreateGameResponse = z.infer<typeof CreateGameResponseSchema>;

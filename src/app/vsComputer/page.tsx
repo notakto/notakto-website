@@ -43,6 +43,8 @@ import type {
 	BoardState,
 	ComputerButtonModalType,
 	DifficultyLevel,
+	ErrorResponse,
+	NewGameResponse,
 } from "@/services/types";
 
 const Game = () => {
@@ -139,19 +141,20 @@ const Game = () => {
 		try {
 			if (user) {
 				const data = await createGame(num, size, diff, await user.getIdToken());
-				if (data.success && data.gameState) {
-					setSessionId(data.sessionId);
-					setBoards(data.gameState.boards);
-					setCurrentPlayer(data.gameState.currentPlayer);
-					setBoardSize(data.gameState.boardSize);
-					setNumberOfBoards(data.gameState.numberOfBoards);
-					setDifficulty(data.gameState.difficulty);
-					setGameHistory(data.gameState.gameHistory);
-				} else if ("error" in data) {
-					toast.error(data.error || "Failed to create game");
-				} else {
-					toast.error("Unexpected response from server");
+				// handle API-level errors (ErrorResponse)
+				if (!data || (data as ErrorResponse).success === false) {
+					const err = (data as ErrorResponse) ?? {
+						success: false,
+						error: "Unknown error",
+					};
+					toast.error(`Failed to create game: ${err.error}`);
+					return;
 				}
+
+				// At this point `data` is NewGameResponse
+				const resp = data as NewGameResponse;
+				setSessionId(resp.sessionId);
+				console.log(resp);
 			} else {
 				toast.error("User not authenticated");
 				router.push("/");
