@@ -18,7 +18,6 @@ import SettingOverlay from "@/components/ui/Containers/Settings/SettingOverlay";
 import GameLayout from "@/components/ui/Layout/GameLayout";
 import PlayerTurnTitle from "@/components/ui/Title/PlayerTurnTitle";
 import StatLabel from "@/components/ui/Title/StatLabel";
-// import { TOAST_DURATION } from "@/constants/toast";
 import BoardConfigModal from "@/modals/BoardConfigModal";
 import ConfirmationModal from "@/modals/ConfirmationModal";
 import DifficultyModal from "@/modals/DifficultyModal";
@@ -33,8 +32,7 @@ import {
 	undoMove,
 	updateConfig,
 } from "@/services/game-apis";
-import { isBoardDead } from "@/services/logic";
-// import { handleBuyCoins } from "@/services/payment";
+import { convertBoard, isBoardDead } from "@/services/logic";
 import { playMoveSound, playWinSound } from "@/services/sounds";
 import { useCoins, useSound, useUser, useXP } from "@/services/store";
 import type {
@@ -153,7 +151,18 @@ const Game = () => {
 
 				// At this point `data` is NewGameResponse
 				const resp = data as NewGameResponse;
+				const newBoards = convertBoard(
+					resp.boards,
+					resp.numberOfBoards,
+					resp.boardSize,
+				);
 				setSessionId(resp.sessionId);
+				setBoards(newBoards);
+				setCurrentPlayer(1);
+				setBoardSize(resp.boardSize);
+				setNumberOfBoards(resp.numberOfBoards);
+				setDifficulty(resp.difficulty);
+				setGameHistory([newBoards]);
 				console.log(resp);
 			} else {
 				toast.error("User not authenticated");
