@@ -43,8 +43,6 @@ export default function SoundConfigModal({
 						label="Background Music"
 						htmlFor="bg-music-slider"
 					/>
-					{/* FIXME:*/
-					/** biome-ignore lint/correctness/useUniqueElementIds: <will take care later> */}
 					<SoundConfigSlider
 						id="bg-music-slider"
 						value={Math.round(bgVolume * 100)}
@@ -60,8 +58,6 @@ export default function SoundConfigModal({
 						label="Player Move Sound"
 						htmlFor="player-move-slider"
 					/>
-					{/*FIXME:*/
-					/** biome-ignore lint/correctness/useUniqueElementIds: <will take care later> */}
 					<SoundConfigSlider
 						id="player-move-slider"
 						value={Math.round(sfxVolume * 100)}
