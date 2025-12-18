@@ -6,6 +6,7 @@ import {
 } from "@/services/schema";
 import type {
 	BoardSize,
+	BoardState,
 	DifficultyLevel,
 	ErrorResponse,
 	MakeMoveResponse,
@@ -87,6 +88,35 @@ export async function createGame(
 		}
 
 		return { success: true, ...parsed.data } as NewGameResponse;
+	} catch (error) {
+		console.error("Create game API error:", error);
+		return { success: false, error: "Failed to create game" };
+	}
+}
+export async function createSession(
+	sessionId: string,
+	boards: BoardState[],
+	numberOfBoards: number,
+	boardSize: BoardSize,
+	difficulty: DifficultyLevel,
+	idToken: string,
+): Promise<NewGameResponse | ErrorResponse> {
+	try {
+		const response = await fetch(`${API_BASE}/create`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${idToken}`,
+			},
+			body: JSON.stringify({
+				sessionId,
+				boards,
+				numberOfBoards,
+				boardSize,
+				difficulty,
+			}),
+		});
+		return await response.json();
 	} catch (error) {
 		console.error("Create game API error:", error);
 		return { success: false, error: "Failed to create game" };

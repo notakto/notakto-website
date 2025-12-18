@@ -26,6 +26,7 @@ import SoundConfigModal from "@/modals/SoundConfigModal";
 import WinnerModal from "@/modals/WinnerModal";
 import {
 	createGame,
+	createSession,
 	makeMove,
 	resetGame,
 	skipMove,
@@ -163,7 +164,16 @@ const Game = () => {
 				setNumberOfBoards(resp.numberOfBoards);
 				setDifficulty(resp.difficulty);
 				setGameHistory([newBoards]);
+				const res = await createSession(
+					resp.sessionId,
+					newBoards,
+					resp.numberOfBoards,
+					resp.boardSize,
+					resp.difficulty,
+					await user.getIdToken(),
+				);
 				console.log(resp);
+				console.log(res);
 			} else {
 				toast.error("User not authenticated");
 				router.push("/");
