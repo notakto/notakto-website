@@ -44,9 +44,9 @@ export interface NewGameResponse {
 	uid: string;
 	boards: number[];
 	winner: boolean;
-	boardSize: number;
-	numberOfBoards: number;
-	difficulty: number;
+	boardSize: BoardSize;
+	numberOfBoards: BoardNumber;
+	difficulty: DifficultyLevel;
 	gameover: boolean;
 	createdAt: string;
 }

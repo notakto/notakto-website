@@ -14,3 +14,30 @@ export const isBoardDead = (board: BoardState, boardSize: number) => {
 	);
 	return diag1.every((c) => c === "X") || diag2.every((c) => c === "X");
 };
+export function convertBoard(
+	board: number[],
+	numberOfBoards: number,
+	boardSize: number,
+): string[][] {
+	const n = board.length;
+	const bs = boardSize * boardSize;
+	const maxi = numberOfBoards * bs;
+
+	// initialize ans[numberOfBoards][bs] with ""
+	const ans: string[][] = Array.from({ length: numberOfBoards }, () =>
+		Array(bs).fill(""),
+	);
+
+	for (let i = 0; i < n; i++) {
+		if (board[i] < 0 || board[i] >= maxi) {
+			console.log("invalid");
+			return [];
+		}
+
+		const boardIndex = Math.floor(board[i] / bs);
+		const cellIndex = board[i] % bs;
+		ans[boardIndex][cellIndex] = "X";
+	}
+
+	return ans;
+}
