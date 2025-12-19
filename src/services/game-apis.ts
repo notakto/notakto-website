@@ -64,6 +64,9 @@ export async function createGame(
 	difficulty: DifficultyLevel,
 	idToken: string,
 ): Promise<NewGameResponse | ErrorResponse> {
+	if (!API_URL) {
+		return { success: false, error: "API_URL not defined" };
+	}
 	try {
 		const response = await fetch(`${API_URL}/create-game`, {
 			method: "POST",

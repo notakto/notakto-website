@@ -157,6 +157,10 @@ const Game = () => {
 					resp.numberOfBoards,
 					resp.boardSize,
 				);
+				if (newBoards.length === 0) {
+					toast.error("Failed to initialize game boards");
+					return;
+				}
 				setSessionId(resp.sessionId);
 				setBoards(newBoards);
 				setCurrentPlayer(1);
@@ -172,8 +176,14 @@ const Game = () => {
 					resp.difficulty,
 					await user.getIdToken(),
 				);
-				console.log(resp);
-				console.log(res);
+				if (!res || (res as ErrorResponse).success === false) {
+					const err = (res as ErrorResponse) ?? {
+						success: false,
+						error: "Unknown error",
+					};
+					toast.error(`Failed to register action : ${err.error}`);
+					return;
+				}
 			} else {
 				toast.error("User not authenticated");
 				router.push("/");
