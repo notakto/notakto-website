@@ -4,7 +4,18 @@ import { gameSessions } from "@/lib/game-sessions";
 
 const CreateGameRequestSchema = z.object({
 	sessionId: z.string().min(1).max(256),
-	boards: z.array(z.array(z.string())).min(1).max(5),
+	boards: z
+		.array(z.array(z.string()).min(1).max(25))
+		.min(1)
+		.max(5)
+		.refine(
+			(boards) => {
+				// Validate all boards have consistent size matching boardSize^2
+				const expectedLength = boards.length > 0 ? boards[0].length : 0;
+				return boards.every((board) => board.length === expectedLength);
+			},
+			{ message: "All boards must have the same size" },
+		),
 	numberOfBoards: z.union([
 		z.literal(1),
 		z.literal(2),

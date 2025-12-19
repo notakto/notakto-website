@@ -152,22 +152,22 @@ const Game = () => {
 
 				// At this point `data` is NewGameResponse
 				const resp = data as NewGameResponse;
-				const newBoards = convertBoard(
-					resp.boards,
-					resp.numberOfBoards,
-					resp.boardSize,
-				);
+				let newBoards: BoardState[];
+				try {
+					newBoards = convertBoard(
+						resp.boards,
+						resp.numberOfBoards,
+						resp.boardSize,
+					);
+				} catch (error) {
+					toast.error(`Failed to initialize game boards: ${error}`);
+					return;
+				}
+
 				if (newBoards.length === 0) {
 					toast.error("Failed to initialize game boards");
 					return;
 				}
-				setSessionId(resp.sessionId);
-				setBoards(newBoards);
-				setCurrentPlayer(1);
-				setBoardSize(resp.boardSize);
-				setNumberOfBoards(resp.numberOfBoards);
-				setDifficulty(resp.difficulty);
-				setGameHistory([newBoards]);
 				const res = await createSession(
 					resp.sessionId,
 					newBoards,
@@ -184,6 +184,13 @@ const Game = () => {
 					toast.error(`Failed to register action : ${err.error}`);
 					return;
 				}
+				setSessionId(resp.sessionId);
+				setBoards(newBoards);
+				setCurrentPlayer(1);
+				setBoardSize(resp.boardSize);
+				setNumberOfBoards(resp.numberOfBoards);
+				setDifficulty(resp.difficulty);
+				setGameHistory([newBoards]);
 			} else {
 				toast.error("User not authenticated");
 				router.push("/");
