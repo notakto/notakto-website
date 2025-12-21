@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
 import { useShortcut } from "@/components/hooks/useShortcut";
 import Board from "@/components/ui/Board/Board";
@@ -34,6 +34,7 @@ import {
 	updateConfig,
 } from "@/services/game-apis";
 import { convertBoard, isBoardDead } from "@/services/logic";
+import type { MakeMoveResponse } from "@/services/schema";
 import { playMoveSound, playWinSound } from "@/services/sounds";
 import { useCoins, useSound, useUser, useXP } from "@/services/store";
 import type {
@@ -60,7 +61,7 @@ const Game = () => {
 	const [sessionId, setSessionId] = useState<string>("");
 
 	const [isProcessing, setIsProcessing] = useState<boolean>(false);
-	const [isInitializing, setIsInitializing] = useState(false);
+	const hasInitializedRef = useRef(false);
 	const [isResetting, setIsResetting] = useState<boolean>(false);
 	const [isUndoing, setIsUndoing] = useState<boolean>(false);
 	const [isSkipping, setIsSkipping] = useState<boolean>(false);
@@ -134,8 +135,7 @@ const Game = () => {
 		size: BoardSize,
 		diff: DifficultyLevel,
 	) => {
-		if (isInitializing) return;
-		setIsInitializing(true);
+		hasInitializedRef.current = true;
 
 		try {
 			if (user) {
@@ -199,7 +199,7 @@ const Game = () => {
 			toast.error(`Error initializing game: ${error}`);
 			router.push("/");
 		} finally {
-			setIsInitializing(false);
+			hasInitializedRef.current = false;
 		}
 	};
 
@@ -217,21 +217,36 @@ const Game = () => {
 					cellIndex,
 					await user.getIdToken(),
 				);
-				if (data.success) {
-					setBoards(data.gameState.boards);
-					setCurrentPlayer(data.gameState.currentPlayer);
-					setGameHistory(data.gameState.gameHistory);
-					playMoveSound(sfxMute);
+				if (!data || (data as ErrorResponse).success === false) {
+					const err = (data as ErrorResponse) ?? {
+						success: false,
+						error: "Unknown error",
+					};
+					toast.error(`Failed to make move: ${err.error}`);
+					return;
+				}
+				const resp = data as MakeMoveResponse;
+				let newBoards: BoardState[];
+				try {
+					newBoards = convertBoard(resp.boards, numberOfBoards, boardSize);
+				} catch (error) {
+					toast.error(`Failed to initialize game boards: ${error}`);
+					return;
+				}
 
-					if (data.gameOver) {
-						setWinner(data.gameState.winner);
-						setActiveModal("winner");
-						playWinSound(sfxMute);
-					}
-				} else if ("error" in data) {
-					toast.error(data.error || "Invalid move");
+				if (newBoards.length === 0) {
+					toast.error("Failed to initialize game boards");
+					return;
+				}
+				setBoards(newBoards);
+				setCurrentPlayer(1);
+				setGameHistory((prev) => [...prev, newBoards]);
+				if (resp.gameover) {
+					setWinner("Computer");
+					setActiveModal("winner");
+					playWinSound(sfxMute);
 				} else {
-					toast.error("Unexpected response from server");
+					playMoveSound(sfxMute);
 				}
 			} else {
 				toast.error("User not authenticated");
@@ -418,6 +433,10 @@ const Game = () => {
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <intentionally run only on mount to initialize game once>
 	useEffect(() => {
+		if (hasInitializedRef.current) return;
+		hasInitializedRef.current = true;
+
+		console.log("Initializing game...");
 		initGame(numberOfBoards, boardSize, difficulty);
 	}, []);
 

@@ -23,3 +23,13 @@ export const CreateGameResponseSchema = z.object({
 });
 
 export type CreateGameResponse = z.infer<typeof CreateGameResponseSchema>;
+
+export const MakeMoveResponseSchema = z.object({
+	boards: z.array(z.number().int()),
+	gameover: z.boolean(),
+	winner: z.boolean(),
+	coinsRewarded: z.number().int(),
+	xpRewarded: z.number().int(),
+});
+
+export type MakeMoveResponse = z.infer<typeof MakeMoveResponseSchema>;

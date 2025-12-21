@@ -1,6 +1,7 @@
 import { ZodError, z } from "zod";
 import {
 	CreateGameResponseSchema,
+	MakeMoveResponseSchema,
 	type SignInResponse,
 	SignInResponseSchema,
 } from "@/services/schema";
@@ -9,7 +10,7 @@ import type {
 	BoardState,
 	DifficultyLevel,
 	ErrorResponse,
-	MakeMoveResponse,
+	MakeMoveResult,
 	NewGameResponse,
 	ResetGameResponse,
 	SkipMoveResponse,
@@ -131,9 +132,12 @@ export async function makeMove(
 	boardIndex: number,
 	cellIndex: number,
 	idToken: string,
-): Promise<MakeMoveResponse | ErrorResponse> {
+): Promise<MakeMoveResult> {
+	if (!API_URL) {
+		return { success: false, error: "API_URL not defined" };
+	}
 	try {
-		const response = await fetch(`${API_BASE}/move`, {
+		const response = await fetch(`${API_URL}/make-move`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -141,7 +145,21 @@ export async function makeMove(
 			},
 			body: JSON.stringify({ sessionId, boardIndex, cellIndex }),
 		});
-		return await response.json();
+		if (!response.ok) {
+			const text = await response.text().catch(() => "");
+			return {
+				success: false,
+				error: `Make move failed: ${response.status} ${response.statusText} ${text}`,
+			};
+		}
+		const json = await response.json();
+
+		const parsed = MakeMoveResponseSchema.safeParse(json);
+		if (!parsed.success) {
+			return { success: false, error: "Invalid response format" };
+		}
+
+		return { success: true, ...parsed.data };
 	} catch (error) {
 		console.error("Make move API error:", error);
 		return { success: false, error: "Failed to make move" };

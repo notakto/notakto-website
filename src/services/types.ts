@@ -4,6 +4,7 @@
 import type { User } from "firebase/auth";
 import type { ButtonHTMLAttributes, MouseEventHandler, ReactNode } from "react";
 import type { ToastContainerProps } from "react-toastify";
+import type { MakeMoveResponse } from "@/services/schema";
 
 // CORE GAME TYPES
 
@@ -50,15 +51,13 @@ export interface NewGameResponse {
 	gameover: boolean;
 	createdAt: string;
 }
+export type MakeMoveResult =
+	| ({ success: true } & MakeMoveResponse)
+	| ErrorResponse;
 
 export interface GameStateResponse extends BaseApiResponse {
 	gameState: GameState;
 }
-
-export interface MakeMoveResponse extends GameStateResponse {
-	gameOver: boolean;
-}
-
 export interface ResetGameResponse extends GameStateResponse {}
 
 export interface UpdateConfigResponse extends BaseApiResponse {
