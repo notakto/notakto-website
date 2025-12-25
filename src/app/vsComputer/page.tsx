@@ -5,7 +5,6 @@ import { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
 import { useShortcut } from "@/components/hooks/useShortcut";
 import Board from "@/components/ui/Board/Board";
-// import { useToastCooldown } from "@/components/hooks/useToastCooldown";
 import SettingBar from "@/components/ui/Buttons/SettingBar";
 import { SettingButton } from "@/components/ui/Buttons/SettingButton";
 import BoardContainer from "@/components/ui/Containers/Board/BoardContainer";
@@ -73,7 +72,8 @@ const Game = () => {
 
 	const { sfxMute } = useSound();
 	const Coins = useCoins((state) => state.coins);
-	// const setCoins = useCoins((state) => state.setCoins);
+	const setCoins = useCoins((state) => state.setCoins);
+	const setXP = useXP((state) => state.setXP);
 	const XP = useXP((state) => state.XP);
 	const user = useUser((state) => state.user);
 	const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
@@ -135,8 +135,6 @@ const Game = () => {
 		size: BoardSize,
 		diff: DifficultyLevel,
 	) => {
-		hasInitializedRef.current = true;
-
 		try {
 			if (user) {
 				const data = await createGame(num, size, diff, await user.getIdToken());
@@ -198,8 +196,6 @@ const Game = () => {
 		} catch (error) {
 			toast.error(`Error initializing game: ${error}`);
 			router.push("/");
-		} finally {
-			hasInitializedRef.current = false;
 		}
 	};
 
@@ -242,7 +238,13 @@ const Game = () => {
 				setCurrentPlayer(1);
 				setGameHistory((prev) => [...prev, newBoards]);
 				if (resp.gameover) {
-					setWinner("Computer");
+					if (resp.winner === true) {
+						setWinner("You");
+						setCoins(Coins + resp.coinsRewarded);
+					} else {
+						setWinner("Computer");
+					}
+					setXP(XP + resp.xpRewarded);
 					setActiveModal("winner");
 					playWinSound(sfxMute);
 				} else {
