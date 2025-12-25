@@ -33,3 +33,10 @@ export const MakeMoveResponseSchema = z.object({
 });
 
 export type MakeMoveResponse = z.infer<typeof MakeMoveResponseSchema>;
+
+export const QuitGameResponseSchema = z.object({
+	success: z.boolean(),
+	error: z.string().optional(),
+});
+
+export type QuitGameResponse = z.infer<typeof QuitGameResponseSchema>;

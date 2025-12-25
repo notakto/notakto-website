@@ -58,7 +58,9 @@ export type MakeMoveResult =
 export interface GameStateResponse extends BaseApiResponse {
 	gameState: GameState;
 }
-export interface ResetGameResponse extends GameStateResponse {}
+export interface QuitGameResponse {
+	success: boolean;
+}
 
 export interface UpdateConfigResponse extends BaseApiResponse {
 	sessionId: string;

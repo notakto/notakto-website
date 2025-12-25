@@ -2,6 +2,7 @@ import { ZodError, z } from "zod";
 import {
 	CreateGameResponseSchema,
 	MakeMoveResponseSchema,
+	QuitGameResponseSchema,
 	type SignInResponse,
 	SignInResponseSchema,
 } from "@/services/schema";
@@ -12,7 +13,7 @@ import type {
 	ErrorResponse,
 	MakeMoveResult,
 	NewGameResponse,
-	ResetGameResponse,
+	QuitGameResponse,
 	SkipMoveResponse,
 	UndoMoveResponse,
 	UpdateConfigResponse,
@@ -166,12 +167,15 @@ export async function makeMove(
 	}
 }
 
-export async function resetGame(
+export async function quitGame(
 	sessionId: string,
 	idToken: string,
-): Promise<ResetGameResponse | ErrorResponse> {
+): Promise<QuitGameResponse | ErrorResponse> {
+	if (!API_URL) {
+		return { success: false, error: "API_URL not defined" };
+	}
 	try {
-		const response = await fetch(`${API_BASE}/reset`, {
+		const response = await fetch(`${API_URL}/quit-game`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -179,7 +183,14 @@ export async function resetGame(
 			},
 			body: JSON.stringify({ sessionId }),
 		});
-		return await response.json();
+		const json = await response.json();
+
+		const parsed = QuitGameResponseSchema.safeParse(json);
+		if (!parsed.success) {
+			return { success: false, error: "Invalid response format" };
+		}
+
+		return { ...parsed.data } as QuitGameResponse;
 	} catch (error) {
 		console.error("Reset game API error:", error);
 		return { success: false, error: "Failed to reset game" };

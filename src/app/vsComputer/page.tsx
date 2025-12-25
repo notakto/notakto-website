@@ -27,7 +27,7 @@ import {
 	createGame,
 	createSession,
 	makeMove,
-	resetGame,
+	quitGame,
 	skipMove,
 	undoMove,
 	updateConfig,
@@ -266,24 +266,19 @@ const Game = () => {
 		setIsResetting(true);
 
 		try {
-			if (user) {
-				const data = await resetGame(sessionId, await user.getIdToken());
-				if (data.success) {
-					setHasMoveHappened(false);
-					setBoards(data.gameState.boards);
-					setCurrentPlayer(data.gameState.currentPlayer);
-					setGameHistory(data.gameState.gameHistory);
-					setWinner("");
-					setActiveModal(null);
-				} else if ("error" in data) {
-					toast.error(data.error || "Failed to reset game");
-				} else {
-					toast.error("Unexpected response from server");
-				}
-			} else {
+			if (!user) {
 				toast.error("User not authenticated");
 				router.push("/");
+				return;
 			}
+
+			const data = await quitGame(sessionId, await user.getIdToken());
+
+			if (!data.success) {
+				toast.error("Failed to reset game");
+				return;
+			}
+			await initGame(numberOfBoards, boardSize, difficulty);
 		} catch (error) {
 			toast.error(`Error resetting game ${error}`);
 		} finally {
