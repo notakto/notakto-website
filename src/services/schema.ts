@@ -49,3 +49,13 @@ export const GetWalletResponseSchema = z.object({
 });
 
 export type GetWalletResponse = z.infer<typeof GetWalletResponseSchema>;
+
+export const SkipMoveResponseSchema = z.object({
+	boards: z.array(z.number().int()),
+	gameover: z.boolean(),
+	winner: z.boolean(),
+	coinsRewarded: z.number().int(),
+	xpRewarded: z.number().int(),
+});
+
+export type SkipMoveResponse = z.infer<typeof SkipMoveResponseSchema>;

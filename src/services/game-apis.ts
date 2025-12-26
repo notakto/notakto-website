@@ -7,6 +7,7 @@ import {
 	QuitGameResponseSchema,
 	type SignInResponse,
 	SignInResponseSchema,
+	SkipMoveResponseSchema,
 } from "@/services/schema";
 import type {
 	BoardSize,
@@ -16,7 +17,7 @@ import type {
 	MakeMoveResult,
 	NewGameResponse,
 	QuitGameResponse,
-	SkipMoveResponse,
+	SkipMoveResult,
 	UndoMoveResponse,
 } from "@/services/types";
 
@@ -221,9 +222,9 @@ export async function undoMove(
 export async function skipMove(
 	sessionId: string,
 	idToken: string,
-): Promise<SkipMoveResponse | ErrorResponse> {
+): Promise<SkipMoveResult> {
 	try {
-		const response = await fetch(`${API_BASE}/skip`, {
+		const response = await fetch(`${API_URL}/skip-move`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -231,7 +232,21 @@ export async function skipMove(
 			},
 			body: JSON.stringify({ sessionId }),
 		});
-		return await response.json();
+		if (!response.ok) {
+			const text = await response.text().catch(() => "");
+			return {
+				success: false,
+				error: `Skip move failed: ${response.status} ${response.statusText} ${text}`,
+			};
+		}
+		const json = await response.json();
+
+		const parsed = SkipMoveResponseSchema.safeParse(json);
+		if (!parsed.success) {
+			return { success: false, error: "Invalid response format" };
+		}
+
+		return { success: true, ...parsed.data };
 	} catch (error) {
 		console.error("Skip move API error:", error);
 		return { success: false, error: "Failed to skip move" };

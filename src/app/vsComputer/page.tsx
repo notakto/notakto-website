@@ -26,13 +26,14 @@ import WinnerModal from "@/modals/WinnerModal";
 import {
 	createGame,
 	createSession,
+	getWallet,
 	makeMove,
 	quitGame,
 	skipMove,
 	undoMove,
 } from "@/services/game-apis";
 import { convertBoard, isBoardDead } from "@/services/logic";
-import type { MakeMoveResponse } from "@/services/schema";
+import type { MakeMoveResponse, SkipMoveResponse } from "@/services/schema";
 import { playMoveSound, playWinSound } from "@/services/sounds";
 import { useCoins, useSound, useUser, useXP } from "@/services/store";
 import type {
@@ -326,19 +327,47 @@ const Game = () => {
 		try {
 			if (user) {
 				const data = await skipMove(sessionId, await user.getIdToken());
-				if (data.success) {
-					setBoards(data.gameState.boards);
-					setCurrentPlayer(data.gameState.currentPlayer);
-					setGameHistory(data.gameState.gameHistory);
-					if (data.gameOver) {
-						setWinner(data.gameState.winner);
-						setActiveModal("winner");
-						playWinSound(sfxMute);
+				if (!data || (data as ErrorResponse).success === false) {
+					const err = (data as ErrorResponse) ?? {
+						success: false,
+						error: "Unknown error",
+					};
+					toast.error(`Failed to skip move: ${err.error}`);
+					return;
+				}
+				const resp = data as SkipMoveResponse;
+				let newBoards: BoardState[];
+				try {
+					newBoards = convertBoard(resp.boards, numberOfBoards, boardSize);
+				} catch (error) {
+					toast.error(`Failed to initialize game boards: ${error}`);
+					return;
+				}
+
+				if (newBoards.length === 0) {
+					toast.error("Failed to initialize game boards");
+					return;
+				}
+				setBoards(newBoards);
+				setCurrentPlayer(1);
+				setGameHistory((prev) => [...prev, newBoards]);
+				const token = await user.getIdToken();
+				const wallet = await getWallet(token);
+
+				if (wallet.success) {
+					setCoins(wallet.coins);
+					setXP(wallet.xp);
+				}
+				if (resp.gameover) {
+					if (resp.winner === true) {
+						setWinner("You");
+					} else {
+						setWinner("Computer");
 					}
-				} else if ("error" in data) {
-					toast.error(data.error || "Failed to skip move");
+					setActiveModal("winner");
+					playWinSound(sfxMute);
 				} else {
-					toast.error("Unexpected response from server");
+					playMoveSound(sfxMute);
 				}
 			} else {
 				toast.error("User not authenticated");
