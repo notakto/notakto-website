@@ -18,7 +18,6 @@ import type {
 	QuitGameResponse,
 	SkipMoveResponse,
 	UndoMoveResponse,
-	UpdateConfigResponse,
 } from "@/services/types";
 
 const API_BASE = "/api/game";
@@ -196,34 +195,6 @@ export async function quitGame(
 	} catch (error) {
 		console.error("Reset game API error:", error);
 		return { success: false, error: "Failed to reset game" };
-	}
-}
-
-export async function updateConfig(
-	sessionId: string,
-	numberOfBoards: number,
-	boardSize: BoardSize,
-	difficulty: DifficultyLevel,
-	idToken: string,
-): Promise<UpdateConfigResponse | ErrorResponse> {
-	try {
-		const response = await fetch(`${API_BASE}/config`, {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Bearer ${idToken}`,
-			},
-			body: JSON.stringify({
-				sessionId,
-				numberOfBoards,
-				boardSize,
-				difficulty,
-			}),
-		});
-		return await response.json();
-	} catch (error) {
-		console.error("Update config API error:", error);
-		return { success: false, error: "Failed to update config" };
 	}
 }
 

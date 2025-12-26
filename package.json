@@ -13,7 +13,6 @@
 		"test:watch": "vitest",
 		"test:ui": "vitest --ui",
 		"coverage": "vitest run --coverage",
-		"prepare": "lefthook install",
 		"dev:local": "concurrently --kill-others --prefix \"[{name}]\" --names \"NEXT.JS,SOCKET\" \"pnpm dev\" \"cd notakto-socket-server && pnpm start\"",
 		"install:all": "pnpm install && cd notakto-socket-server && pnpm install",
 		"postinstall": "node -e \"const fs=require('fs'); if(!fs.existsSync('.env')) fs.copyFileSync('.env.example','.env');\"",
@@ -51,7 +50,6 @@
 		"concurrently": "^9.2.1",
 		"dotenv": "^17.2.3",
 		"jsdom": "^27.3.0",
-		"lefthook": "^2.0.9",
 		"ts-node": "^10.9.2",
 		"typescript": "^5.9.3",
 		"vitest": "^4.0.15"
