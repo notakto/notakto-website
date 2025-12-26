@@ -8,6 +8,7 @@ import {
 	type SignInResponse,
 	SignInResponseSchema,
 	SkipMoveResponseSchema,
+	UndoMoveResponseSchema,
 } from "@/services/schema";
 import type {
 	BoardSize,
@@ -18,7 +19,7 @@ import type {
 	NewGameResponse,
 	QuitGameResponse,
 	SkipMoveResult,
-	UndoMoveResponse,
+	UndoMoveResult,
 } from "@/services/types";
 
 const API_BASE = "/api/game";
@@ -202,9 +203,12 @@ export async function quitGame(
 export async function undoMove(
 	sessionId: string,
 	idToken: string,
-): Promise<UndoMoveResponse | ErrorResponse> {
+): Promise<UndoMoveResult> {
+	if (!API_URL) {
+		return { success: false, error: "API_URL not defined" };
+	}
 	try {
-		const response = await fetch(`${API_BASE}/undo`, {
+		const response = await fetch(`${API_URL}/undo-move`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -212,7 +216,21 @@ export async function undoMove(
 			},
 			body: JSON.stringify({ sessionId }),
 		});
-		return await response.json();
+		if (!response.ok) {
+			const text = await response.text().catch(() => "");
+			return {
+				success: false,
+				error: `Undo move failed: ${response.status} ${response.statusText} ${text}`,
+			};
+		}
+		const json = await response.json();
+
+		const parsed = UndoMoveResponseSchema.safeParse(json);
+		if (!parsed.success) {
+			return { success: false, error: "Invalid response format" };
+		}
+
+		return { success: true, ...parsed.data };
 	} catch (error) {
 		console.error("Undo move API error:", error);
 		return { success: false, error: "Failed to undo move" };
@@ -223,6 +241,9 @@ export async function skipMove(
 	sessionId: string,
 	idToken: string,
 ): Promise<SkipMoveResult> {
+	if (!API_URL) {
+		return { success: false, error: "API_URL not defined" };
+	}
 	try {
 		const response = await fetch(`${API_URL}/skip-move`, {
 			method: "POST",

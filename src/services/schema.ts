@@ -59,3 +59,9 @@ export const SkipMoveResponseSchema = z.object({
 });
 
 export type SkipMoveResponse = z.infer<typeof SkipMoveResponseSchema>;
+
+export const UndoMoveResponseSchema = z.object({
+	boards: z.array(z.number().int()),
+});
+
+export type UndoMoveResponse = z.infer<typeof UndoMoveResponseSchema>;

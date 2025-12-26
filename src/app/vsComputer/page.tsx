@@ -33,7 +33,11 @@ import {
 	undoMove,
 } from "@/services/game-apis";
 import { convertBoard, isBoardDead } from "@/services/logic";
-import type { MakeMoveResponse, SkipMoveResponse } from "@/services/schema";
+import type {
+	MakeMoveResponse,
+	SkipMoveResponse,
+	UndoMoveResponse,
+} from "@/services/schema";
 import { playMoveSound, playWinSound } from "@/services/sounds";
 import { useCoins, useSound, useUser, useXP } from "@/services/store";
 import type {
@@ -238,14 +242,19 @@ const Game = () => {
 				setBoards(newBoards);
 				setCurrentPlayer(1);
 				setGameHistory((prev) => [...prev, newBoards]);
+				const token = await user.getIdToken();
+				const wallet = await getWallet(token);
+
+				if (wallet.success) {
+					setCoins(wallet.coins);
+					setXP(wallet.xp);
+				}
 				if (resp.gameover) {
 					if (resp.winner === true) {
 						setWinner("You");
-						setCoins(Coins + resp.coinsRewarded);
 					} else {
 						setWinner("Computer");
 					}
-					setXP(XP + resp.xpRewarded);
 					setActiveModal("winner");
 					playWinSound(sfxMute);
 				} else {
@@ -297,14 +306,36 @@ const Game = () => {
 		try {
 			if (user) {
 				const data = await undoMove(sessionId, await user.getIdToken());
-				if (data.success) {
-					setBoards(data.gameState.boards);
-					setCurrentPlayer(data.gameState.currentPlayer);
-					setGameHistory(data.gameState.gameHistory);
-				} else if ("error" in data) {
-					toast.error(data.error || "Failed to undo move");
-				} else {
-					toast.error("Unexpected response from server");
+				if (!data || (data as ErrorResponse).success === false) {
+					const err = (data as ErrorResponse) ?? {
+						success: false,
+						error: "Unknown error",
+					};
+					toast.error(`Failed to undo move: ${err.error}`);
+					return;
+				}
+				const resp = data as UndoMoveResponse;
+				let newBoards: BoardState[];
+				try {
+					newBoards = convertBoard(resp.boards, numberOfBoards, boardSize);
+				} catch (error) {
+					toast.error(`Failed to initialize game boards: ${error}`);
+					return;
+				}
+
+				if (newBoards.length === 0) {
+					toast.error("Failed to initialize game boards");
+					return;
+				}
+				setBoards(newBoards);
+				setCurrentPlayer(1);
+				setGameHistory((prev) => [...prev, newBoards]);
+				const token = await user.getIdToken();
+				const wallet = await getWallet(token);
+
+				if (wallet.success) {
+					setCoins(wallet.coins);
+					setXP(wallet.xp);
 				}
 			} else {
 				toast.error("User not authenticated");
