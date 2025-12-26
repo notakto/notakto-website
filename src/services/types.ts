@@ -96,7 +96,9 @@ export interface ProfileStore {
 
 export interface UserStore {
 	user: User | null;
+	authReady: boolean;
 	setUser: (newUser: User | null) => void;
+	setAuthReady: (v: boolean) => void;
 }
 
 export interface CoinStore {

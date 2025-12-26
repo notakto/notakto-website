@@ -30,7 +30,6 @@ import {
 	quitGame,
 	skipMove,
 	undoMove,
-	updateConfig,
 } from "@/services/game-apis";
 import { convertBoard, isBoardDead } from "@/services/logic";
 import type { MakeMoveResponse } from "@/services/schema";
@@ -190,6 +189,7 @@ const Game = () => {
 				setDifficulty(resp.difficulty);
 				setGameHistory([newBoards]);
 			} else {
+				console.log("initGame: user not authenticated");
 				toast.error("User not authenticated");
 				router.push("/");
 			}
@@ -359,33 +359,21 @@ const Game = () => {
 		setIsUpdatingConfig(true);
 
 		try {
-			if (user) {
-				const data = await updateConfig(
-					sessionId,
-					newNumberOfBoards,
-					newBoardSize,
-					difficulty,
-					await user.getIdToken(),
-				);
-				if (data.success) {
-					setNumberOfBoards(newNumberOfBoards);
-					setBoardSize(newBoardSize);
-					setBoards(data.gameState.boards);
-					setCurrentPlayer(data.gameState.currentPlayer);
-					setGameHistory(data.gameState.gameHistory);
-					setActiveModal(null);
-				} else if ("error" in data) {
-					toast.error(data.error || "Failed to update config");
-				} else {
-					toast.error("Unexpected response from server");
-				}
-			} else {
+			if (!user) {
 				toast.error("User not authenticated");
 				router.push("/");
+				return;
 			}
+
+			const data = await quitGame(sessionId, await user.getIdToken());
+			console.log(data);
+			if (!data.success) {
+				toast.error("Failed to quit game");
+				return;
+			}
+			await initGame(newNumberOfBoards, newBoardSize, difficulty);
 		} catch (error) {
-			toast.error("Error updating config");
-			console.error("Error updating config:", error);
+			toast.error(`Error updating config: ${error}`);
 		} finally {
 			setIsUpdatingConfig(false);
 		}
@@ -396,46 +384,42 @@ const Game = () => {
 		setIsUpdatingDifficulty(true);
 
 		try {
-			if (user) {
-				const data = await updateConfig(
-					sessionId,
-					numberOfBoards,
-					boardSize,
-					level,
-					await user.getIdToken(),
-				);
-				if (data.success) {
-					setDifficulty(level);
-					setBoards(data.gameState.boards);
-					setCurrentPlayer(data.gameState.currentPlayer);
-					setGameHistory(data.gameState.gameHistory);
-				} else if ("error" in data) {
-					toast.error(data.error || "Failed to update difficulty");
-					console.error("Error updating difficulty:", data.error);
-				} else {
-					toast.error("Unexpected response from server");
-					console.error("Unexpected response from server");
-				}
-			} else {
+			if (!user) {
 				toast.error("User not authenticated");
 				router.push("/");
+				return;
 			}
+
+			const data = await quitGame(sessionId, await user.getIdToken());
+			console.log(data);
+			if (!data.success) {
+				toast.error("Failed to quit game");
+				return;
+			}
+			await initGame(numberOfBoards, boardSize, level);
 		} catch (error) {
-			toast.error(`Error updating difficulty: ${error}`);
-			console.error("Error updating difficulty:", error);
+			toast.error(`Error updating config: ${error}`);
 		} finally {
 			setIsUpdatingDifficulty(false);
 		}
 	};
 
+	const authReady = useUser((s) => s.authReady);
+
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <intentionally run only on mount to initialize game once>
 	useEffect(() => {
+		if (!authReady) return;
+		if (!user) {
+			toast.error("User not authenticated");
+			router.push("/");
+			return;
+		}
+
 		if (hasInitializedRef.current) return;
 		hasInitializedRef.current = true;
 
-		console.log("Initializing game...");
 		initGame(numberOfBoards, boardSize, difficulty);
-	}, []);
+	}, [authReady, user]);
 
 	return (
 		<GameLayout>

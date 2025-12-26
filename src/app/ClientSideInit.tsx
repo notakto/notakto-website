@@ -15,6 +15,9 @@ const ClientSideInit = (): null => {
 	const setUser = useUser(
 		(state): ((newUser: User | null) => void) => state.setUser,
 	);
+	const setAuthReady = useUser(
+		(state): ((v: boolean) => void) => state.setAuthReady,
+	);
 	const setCoins = useCoins(
 		(state): ((newCoins: number) => void) => state.setCoins,
 	);
@@ -25,12 +28,13 @@ const ClientSideInit = (): null => {
 		const unsubscribe = onAuthStateChangedListener(
 			async (usr): Promise<void> => {
 				if (usr) {
-					setUser(usr);
+					setUser(usr ?? null);
+					setAuthReady(true);
 				}
 			},
 		);
 		return (): void => unsubscribe();
-	}, [setUser]);
+	}, [setUser, setAuthReady]);
 	useEffect(() => {
 		if (user != null) {
 			const fetchWallet = async () => {
