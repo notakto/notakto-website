@@ -3,63 +3,57 @@
 // For applying global client-side effects like auth state monitoring and background music
 
 import type { User } from "firebase/auth";
-import { doc, onSnapshot } from "firebase/firestore";
 import { useEffect } from "react";
+import { toast } from "react-toastify";
 // Firebase module
-import { firestore, onAuthStateChangedListener } from "@/services/firebase";
+import { onAuthStateChangedListener } from "@/services/firebase";
+import { getWallet } from "@/services/game-apis";
 import { useCoins, useUser, useXP } from "@/services/store";
 
 const ClientSideInit = (): null => {
 	const user = useUser((state) => state.user);
+	const setUser = useUser(
+		(state): ((newUser: User | null) => void) => state.setUser,
+	);
 	const setCoins = useCoins(
 		(state): ((newCoins: number) => void) => state.setCoins,
 	);
 	const setXP = useXP((state): ((newXP: number) => void) => state.setXP);
-	const setUser = useUser(
-		(state): ((newUser: User | null) => void) => state.setUser,
-	);
 
 	// Load user
 	useEffect((): (() => void) => {
 		const unsubscribe = onAuthStateChangedListener(
 			async (usr): Promise<void> => {
-				setUser(usr);
-				if (!usr) {
-					setCoins(1000);
-					setXP(0);
+				if (usr) {
+					setUser(usr);
 				}
 			},
 		);
 		return (): void => unsubscribe();
-	}, [setCoins, setUser, setXP]);
-	useEffect((): (() => void) | undefined => {
-		if (!user) {
-			console.log("No user, skipping Firestore listener setup.");
-			return;
-		}
-		console.log("Setting up Firestore listener for user:", user.uid);
-		const userRef = doc(firestore, "users", user.uid);
-		console.log("User data:", userRef);
-		const unsubscribe = onSnapshot(
-			userRef,
-			(docSnap): void => {
-				//websocket that monitors db and pushes changes to client
-				if (docSnap.exists()) {
-					const data = docSnap.data();
-					setCoins(data.coins ?? 1000);
-					setXP(data.XP ?? 0);
-				} else {
-					setCoins(1000);
-					setXP(0);
-				}
-			},
-			(err) => {
-				console.error("Firestore user listener error:", err);
-			},
-		);
+	}, [setUser]);
+	useEffect(() => {
+		if (user != null) {
+			const fetchWallet = async () => {
+				try {
+					const token = await user.getIdToken();
+					const wallet = await getWallet(token);
 
-		return (): void => unsubscribe();
+					if (wallet.success) {
+						setCoins(wallet.coins);
+						setXP(wallet.xp);
+					} else {
+						toast.error("get wallet failed");
+					}
+				} catch (err) {
+					console.error("Error fetching wallet:", err);
+					toast.error("Something went wrong while fetching wallet");
+				}
+			};
+
+			fetchWallet();
+		}
 	}, [user, setCoins, setXP]);
+
 	return null;
 };
 export default ClientSideInit;

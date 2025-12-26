@@ -1,6 +1,8 @@
 import { ZodError, z } from "zod";
 import {
 	CreateGameResponseSchema,
+	type GetWalletResponse,
+	GetWalletResponseSchema,
 	MakeMoveResponseSchema,
 	QuitGameResponseSchema,
 	type SignInResponse,
@@ -262,5 +264,39 @@ export async function skipMove(
 	} catch (error) {
 		console.error("Skip move API error:", error);
 		return { success: false, error: "Failed to skip move" };
+	}
+}
+export async function getWallet(
+	idToken: string,
+): Promise<GetWalletResponse | ErrorResponse> {
+	if (!API_URL) {
+		return { success: false, error: "API_URL not defined" };
+	}
+	try {
+		const response = await fetch(`${API_URL}/get-wallet`, {
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${idToken}`,
+			},
+		});
+		if (!response.ok) {
+			const text = await response.text().catch(() => "");
+			return {
+				success: false,
+				error: `get-wallet failed: ${response.status} ${response.statusText} ${text}`,
+			};
+		}
+		const json = await response.json();
+
+		const parsed = GetWalletResponseSchema.safeParse(json);
+		if (!parsed.success) {
+			return { success: false, error: "Invalid response format" };
+		}
+
+		return { ...parsed.data };
+	} catch (error) {
+		console.error(" error:", error);
+		return { success: false, error: "Failed to make move" };
 	}
 }

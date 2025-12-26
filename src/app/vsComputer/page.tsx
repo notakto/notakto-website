@@ -273,7 +273,7 @@ const Game = () => {
 			}
 
 			const data = await quitGame(sessionId, await user.getIdToken());
-
+			console.log(data);
 			if (!data.success) {
 				toast.error("Failed to reset game");
 				return;
