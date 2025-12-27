@@ -25,7 +25,6 @@ import SoundConfigModal from "@/modals/SoundConfigModal";
 import WinnerModal from "@/modals/WinnerModal";
 import {
 	createGame,
-	createSession,
 	getWallet,
 	makeMove,
 	quitGame,
@@ -168,22 +167,6 @@ const Game = () => {
 
 				if (newBoards.length === 0) {
 					toast.error("Failed to initialize game boards");
-					return;
-				}
-				const res = await createSession(
-					resp.sessionId,
-					newBoards,
-					resp.numberOfBoards,
-					resp.boardSize,
-					resp.difficulty,
-					await user.getIdToken(),
-				);
-				if (!res || (res as ErrorResponse).success === false) {
-					const err = (res as ErrorResponse) ?? {
-						success: false,
-						error: "Unknown error",
-					};
-					toast.error(`Failed to register action : ${err.error}`);
 					return;
 				}
 				setSessionId(resp.sessionId);
