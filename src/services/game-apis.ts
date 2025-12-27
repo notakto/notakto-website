@@ -280,6 +280,6 @@ export async function getWallet(
 		return { ...parsed.data };
 	} catch (error) {
 		console.error(" error:", error);
-		return { success: false, error: "Failed to make move" };
+		return { success: false, error: "Failed to fetch wallet" };
 	}
 }
