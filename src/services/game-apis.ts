@@ -155,6 +155,13 @@ export async function quitGame(
 			},
 			body: JSON.stringify({ sessionId }),
 		});
+		if (!response.ok) {
+			const text = await response.text().catch(() => "");
+			return {
+				success: false,
+				error: `Quit game failed: ${response.status} ${response.statusText} ${text}`,
+			};
+		}
 		const json = await response.json();
 
 		const parsed = QuitGameResponseSchema.safeParse(json);
@@ -164,8 +171,8 @@ export async function quitGame(
 
 		return { ...parsed.data } as QuitGameResponse;
 	} catch (error) {
-		console.error("Reset game API error:", error);
-		return { success: false, error: "Failed to reset game" };
+		console.error("Quit game API error:", error);
+		return { success: false, error: "Failed to quit game" };
 	}
 }
 

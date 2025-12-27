@@ -27,9 +27,9 @@ const ClientSideInit = (): null => {
 	useEffect((): (() => void) => {
 		const unsubscribe = onAuthStateChangedListener(
 			async (usr): Promise<void> => {
-				if (usr) {
-					setUser(usr ?? null);
-					setAuthReady(true);
+				setUser(usr);
+				if (!usr) {
+					setAuthReady(false);
 				}
 			},
 		);
@@ -45,18 +45,23 @@ const ClientSideInit = (): null => {
 					if (wallet.success) {
 						setCoins(wallet.coins);
 						setXP(wallet.xp);
+						setAuthReady(true);
 					} else {
 						toast.error("get wallet failed");
+						setAuthReady(false);
 					}
 				} catch (err) {
 					console.error("Error fetching wallet:", err);
 					toast.error("Something went wrong while fetching wallet");
+					setAuthReady(false);
 				}
 			};
 
 			fetchWallet();
+		} else {
+			setAuthReady(false);
 		}
-	}, [user, setCoins, setXP]);
+	}, [user, setCoins, setXP, setAuthReady]);
 
 	return null;
 };

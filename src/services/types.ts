@@ -70,6 +70,7 @@ export interface GameStateResponse extends BaseApiResponse {
 }
 export interface QuitGameResponse {
 	success: boolean;
+	error?: string;
 }
 
 // ZUSTAND STORE TYPES
