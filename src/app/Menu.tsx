@@ -14,8 +14,8 @@ import ShortcutModal from "@/modals/ShortcutModal";
 import SoundConfigModal from "@/modals/SoundConfigModal";
 import TutorialModal from "@/modals/TutorialModal";
 import { signInWithGoogle, signOutUser } from "@/services/firebase";
-import { signIn } from "@/services/game-apis";
-import { useProfile, useUser } from "@/services/store";
+import { getWallet, signIn } from "@/services/game-apis";
+import { useCoins, useProfile, useUser, useXP } from "@/services/store";
 import type { MenuModalType } from "@/services/types";
 
 const Menu = () => {
@@ -24,7 +24,10 @@ const Menu = () => {
 	const setName = useProfile((state) => state.setName);
 	const setEmail = useProfile((state) => state.setEmail);
 	const setPic = useProfile((state) => state.setPic);
-
+	const setCoins = useCoins(
+		(state): ((newCoins: number) => void) => state.setCoins,
+	);
+	const setXP = useXP((state): ((newXP: number) => void) => state.setXP);
 	const router = useRouter();
 	const { canShowToast, resetCooldown } = useToastCooldown(TOAST_DURATION);
 	const [activeModal, setActiveModal] = useState<MenuModalType>(null);
@@ -58,6 +61,13 @@ const Menu = () => {
 			setName(backendUser.name);
 			setEmail(backendUser.email);
 			setPic(backendUser.profile_pic);
+			const wallet = await getWallet(idToken);
+			if (wallet.success) {
+				setCoins(wallet.coins);
+				setXP(wallet.xp);
+			} else {
+				toast.error("get wallet failed");
+			}
 			// Step 5: Dismiss any existing sign-in error toasts
 			toast.dismiss(TOAST_IDS.User.SignInError);
 			resetCooldown();

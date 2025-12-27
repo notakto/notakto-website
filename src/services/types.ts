@@ -4,6 +4,11 @@
 import type { User } from "firebase/auth";
 import type { ButtonHTMLAttributes, MouseEventHandler, ReactNode } from "react";
 import type { ToastContainerProps } from "react-toastify";
+import type {
+	MakeMoveResponse,
+	SkipMoveResponse,
+	UndoMoveResponse,
+} from "@/services/schema";
 
 // CORE GAME TYPES
 
@@ -50,26 +55,22 @@ export interface NewGameResponse {
 	gameover: boolean;
 	createdAt: string;
 }
+export type MakeMoveResult =
+	| ({ success: true } & MakeMoveResponse)
+	| ErrorResponse;
+export type SkipMoveResult =
+	| ({ success: true } & SkipMoveResponse)
+	| ErrorResponse;
+export type UndoMoveResult =
+	| ({ success: true } & UndoMoveResponse)
+	| ErrorResponse;
 
 export interface GameStateResponse extends BaseApiResponse {
 	gameState: GameState;
 }
-
-export interface MakeMoveResponse extends GameStateResponse {
-	gameOver: boolean;
-}
-
-export interface ResetGameResponse extends GameStateResponse {}
-
-export interface UpdateConfigResponse extends BaseApiResponse {
-	sessionId: string;
-	gameState: GameState;
-}
-
-export interface UndoMoveResponse extends UpdateConfigResponse {}
-
-export interface SkipMoveResponse extends GameStateResponse {
-	gameOver?: boolean;
+export interface QuitGameResponse {
+	success: boolean;
+	error?: string;
 }
 
 // ZUSTAND STORE TYPES
@@ -95,7 +96,9 @@ export interface ProfileStore {
 
 export interface UserStore {
 	user: User | null;
+	authReady: boolean;
 	setUser: (newUser: User | null) => void;
+	setAuthReady: (v: boolean) => void;
 }
 
 export interface CoinStore {
