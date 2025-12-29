@@ -225,14 +225,14 @@ const Game = () => {
 				setBoards(newBoards);
 				setCurrentPlayer(1);
 				setGameHistory((prev) => [...prev, newBoards]);
-				const token = await user.getIdToken();
-				const wallet = await getWallet(token);
-
-				if (wallet.success) {
-					setCoins(wallet.coins);
-					setXP(wallet.xp);
-				}
 				if (resp.gameover) {
+					const token = await user.getIdToken();
+					const wallet = await getWallet(token);
+
+					if (wallet.success) {
+						setCoins(wallet.coins);
+						setXP(wallet.xp);
+					}
 					if (resp.winner === true) {
 						setWinner("You");
 					} else {
