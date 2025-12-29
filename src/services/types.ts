@@ -18,20 +18,6 @@ export type DifficultyLevel = 1 | 2 | 3 | 4 | 5;
 export type BoardSize = 2 | 3 | 4 | 5;
 export type BoardNumber = 1 | 2 | 3 | 4 | 5;
 
-// GAME STATE INTERFACES
-
-export interface GameState {
-	boards: BoardState[];
-	currentPlayer: 1 | 2;
-	winner: string;
-	boardSize: BoardSize;
-	numberOfBoards: BoardNumber;
-	difficulty: DifficultyLevel;
-	gameHistory: BoardState[][];
-	sessionId: string;
-	gameOver?: boolean;
-}
-
 // API RESPONSE INTERFACES
 
 export interface BaseApiResponse {
@@ -65,9 +51,6 @@ export type UndoMoveResult =
 	| ({ success: true } & UndoMoveResponse)
 	| ErrorResponse;
 
-export interface GameStateResponse extends BaseApiResponse {
-	gameState: GameState;
-}
 export interface QuitGameResponse {
 	success: boolean;
 	error?: string;
