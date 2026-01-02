@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import ClientSideInit from "@/app/ClientSideInit";
 
 export const metadata = {
 	title: "vsComputer | Notakto",
@@ -11,5 +12,10 @@ export default function vsComputerLayout({
 }: {
 	children: ReactNode;
 }) {
-	return <>{children}</>;
+	return (
+		<>
+			{children}
+			<ClientSideInit />
+		</>
+	);
 }
