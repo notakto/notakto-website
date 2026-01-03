@@ -41,37 +41,24 @@ const Menu = () => {
 
 	const handleSignIn = async () => {
 		try {
-			// Step 1: Firebase popup
-			const credential = await signInWithGoogle();
-			if (!credential) {
-				throw new Error("No credential returned from Google Sign-In");
+			const result = await signInWithGoogle();
+
+			if (!result.success) {
+				throw new Error("Google sign-in failed");
 			}
 
-			// If the sign-in returned a UserCredential it will have a `user` property,
-			// otherwise the returned object might already be a user — guard at runtime.
-			const firebaseUser = (credential as any).user ?? credential;
-			if (!firebaseUser || typeof firebaseUser.getIdToken !== "function") {
-				throw new Error("No Firebase user available to retrieve ID token");
-			}
-
-			// Step 2: Get Firebase ID token
+			const firebaseUser = result.user;
 			const idToken = await firebaseUser.getIdToken();
-
-			// Step 3: Call backend sign-in API
 			const backendUser = await signIn(idToken);
-			// TODO: Use these values in the app as needed and delete these console logs
-			// console.log("Backend user data:", backendUser);
-			// user data should be private
-			console.log("Is New Account:", backendUser.new_account); // returns true if new account
-			// Step 4: Update global user state (TODO)
+
 			setUser(firebaseUser);
 			setName(backendUser.name);
 			setEmail(backendUser.email);
 			setPic(backendUser.profile_pic);
-			// Step 5: Dismiss any existing sign-in error toasts
+
 			toast.dismiss(TOAST_IDS.User.SignInError);
 			resetCooldown();
-		} catch (error) {
+		} catch {
 			if (canShowToast()) {
 				toast("Sign in failed. Please try again.", {
 					toastId: TOAST_IDS.User.SignInError,
@@ -86,7 +73,7 @@ const Menu = () => {
 		try {
 			await signOutUser();
 			setUser(null);
-		} catch (error) {
+		} catch {
 			if (canShowToast()) {
 				toast("Sign out failed. Please try again.", {
 					toastId: TOAST_IDS.User.SignInError,
@@ -113,23 +100,19 @@ const Menu = () => {
 
 	return (
 		<MenuContainer>
-			<MenuTitle text="Notakto"></MenuTitle>
+			<MenuTitle text="Notakto" />
 			<MenuButtonContainer>
 				<MenuButton onClick={() => startGame("vsPlayer")}>
-					{" "}
-					Play vs Player{" "}
+					Play vs Player
 				</MenuButton>
 				<MenuButton onClick={() => startGame("vsComputer")}>
-					{" "}
-					Play vs Computer{" "}
+					Play vs Computer
 				</MenuButton>
 				<MenuButton onClick={() => startGame("liveMatch")}>
-					{" "}
-					Live Match{" "}
+					Live Match
 				</MenuButton>
 				<MenuButton onClick={() => setActiveModal("tutorial")}>
-					{" "}
-					Tutorial{" "}
+					Tutorial
 				</MenuButton>
 				<MenuButton onClick={user ? handleSignOut : handleSignIn}>
 					{user ? "Sign Out" : "Sign in"}
@@ -141,6 +124,7 @@ const Menu = () => {
 					Keyboard Shortcuts
 				</MenuButton>
 			</MenuButtonContainer>
+
 			<SoundConfigModal
 				visible={activeModal === "soundConfig"}
 				onClose={() => setActiveModal(null)}
