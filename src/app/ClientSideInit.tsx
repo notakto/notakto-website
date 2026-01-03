@@ -39,7 +39,8 @@ const ClientSideInit = (): null => {
 		}
 		console.log("Setting up Firestore listener for user:", user.uid);
 		const userRef = doc(firestore, "users", user.uid);
-		console.log("User data:", userRef);
+		// console.log("User data:", userRef);
+		// user data should be private
 		const unsubscribe = onSnapshot(
 			userRef,
 			(docSnap): void => {

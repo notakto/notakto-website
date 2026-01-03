@@ -32,14 +32,11 @@ export async function db(
 		});
 
 		if (!res.ok) {
-			const err = await res.text();
-			console.error("Firestore update failed:", err);
 			throw new Error(`Firestore error: ${res.status}`);
 		}
 
 		return { success: true, status: 200 };
 	} catch (error) {
-		console.error("Database operation failed:", error);
 		return { error: error, status: 500 };
 	}
 }
