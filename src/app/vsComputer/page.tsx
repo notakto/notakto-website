@@ -371,7 +371,7 @@ const Game = () => {
 				toast.error("User not authenticated");
 				router.push("/");
 			}
-		} catch(_error)  {
+		} catch (_error) {
 			toast.error("Error updating config");
 		} finally {
 			setIsUpdatingConfig(false);
@@ -432,7 +432,6 @@ const Game = () => {
 
 				<BoardContainer>
 					{boards.map((board, index) => (
-						
 						// biome-ignore lint/suspicious/noArrayIndexKey: <fix later>
 						<BoardWrapper key={index}>
 							<Board
