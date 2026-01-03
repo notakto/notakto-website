@@ -46,7 +46,6 @@ const Menu = () => {
 			if (!result.success) {
 				throw new Error("Google sign-in failed");
 			}
-
 			const firebaseUser = result.user;
 			const idToken = await firebaseUser.getIdToken();
 			const backendUser = await signIn(idToken);
@@ -68,7 +67,6 @@ const Menu = () => {
 			}
 		}
 	};
-
 	const handleSignOut = async () => {
 		try {
 			await signOutUser();
@@ -83,7 +81,6 @@ const Menu = () => {
 			}
 		}
 	};
-
 	const startGame = (mode: string) => {
 		if ((mode === "liveMatch" || mode === "vsComputer") && !user) {
 			if (canShowToast()) {
