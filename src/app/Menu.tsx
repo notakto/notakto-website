@@ -41,47 +41,53 @@ const Menu = () => {
 
 	const handleSignIn = async () => {
 		try {
-			// Step 1: Firebase popup
-			const user = await signInWithGoogle();
-			if (!user) throw new Error("No user returned from Google Sign-In");
+			const result = await signInWithGoogle();
 
-			// Step 2: Get Firebase ID token
-			const idToken = await user.getIdToken();
-
-			// Step 3: Call backend sign-in API
+			if (!result.success) {
+				throw new Error("Google sign-in failed");
+			}
+			const firebaseUser = result.user;
+			const idToken = await firebaseUser.getIdToken();
 			const backendUser = await signIn(idToken);
-			// TODO: Use these values in the app as needed and delete these console logs
-			console.log("Backend user data:", backendUser);
-			console.log("Is New Account:", backendUser.new_account); // returns true if new account
-			// Step 4: Update global user state (TODO)
-			setUser(user);
+
+			setUser(firebaseUser);
 			setName(backendUser.name);
 			setEmail(backendUser.email);
 			setPic(backendUser.profile_pic);
-			// Step 5: Dismiss any existing sign-in error toasts
+
 			toast.dismiss(TOAST_IDS.User.SignInError);
 			resetCooldown();
-		} catch (error) {
-			console.error("Sign in error:", error);
+		} catch {
+			if (canShowToast()) {
+				toast("Sign in failed. Please try again.", {
+					toastId: TOAST_IDS.User.SignInError,
+					autoClose: TOAST_DURATION,
+					onClose: resetCooldown,
+				});
+			}
 		}
 	};
-
 	const handleSignOut = async () => {
 		try {
 			await signOutUser();
 			setUser(null);
-		} catch (error) {
-			console.error("Sign out error:", error);
+		} catch {
+			if (canShowToast()) {
+				toast("Sign out failed. Please try again.", {
+					toastId: TOAST_IDS.User.SignInError,
+					autoClose: TOAST_DURATION,
+					onClose: resetCooldown,
+				});
+			}
 		}
 	};
-
 	const startGame = (mode: string) => {
 		if ((mode === "liveMatch" || mode === "vsComputer") && !user) {
 			if (canShowToast()) {
 				toast("Please sign in!", {
-					toastId: TOAST_IDS.User.SignInError,
+					toastId: TOAST_IDS.User.AuthRequired,
 					autoClose: TOAST_DURATION,
-					onClose: resetCooldown, // reset cooldown immediately when closed
+					onClose: resetCooldown,
 				});
 			}
 			return;
@@ -91,23 +97,19 @@ const Menu = () => {
 
 	return (
 		<MenuContainer>
-			<MenuTitle text="Notakto"></MenuTitle>
+			<MenuTitle text="Notakto" />
 			<MenuButtonContainer>
 				<MenuButton onClick={() => startGame("vsPlayer")}>
-					{" "}
-					Play vs Player{" "}
+					Play vs Player
 				</MenuButton>
 				<MenuButton onClick={() => startGame("vsComputer")}>
-					{" "}
-					Play vs Computer{" "}
+					Play vs Computer
 				</MenuButton>
 				<MenuButton onClick={() => startGame("liveMatch")}>
-					{" "}
-					Live Match{" "}
+					Live Match
 				</MenuButton>
 				<MenuButton onClick={() => setActiveModal("tutorial")}>
-					{" "}
-					Tutorial{" "}
+					Tutorial
 				</MenuButton>
 				<MenuButton onClick={user ? handleSignOut : handleSignIn}>
 					{user ? "Sign Out" : "Sign in"}
@@ -119,6 +121,7 @@ const Menu = () => {
 					Keyboard Shortcuts
 				</MenuButton>
 			</MenuButtonContainer>
+
 			<SoundConfigModal
 				visible={activeModal === "soundConfig"}
 				onClose={() => setActiveModal(null)}

@@ -1,4 +1,4 @@
-import { ZodError, z } from "zod";
+import { ZodError } from "zod";
 import {
 	CreateGameResponseSchema,
 	type SignInResponse,
@@ -16,13 +16,14 @@ import type {
 	UndoMoveResponse,
 	UpdateConfigResponse,
 } from "@/services/types";
+import { NormalizeApiError } from "@/utils/apiError";
 
 const API_BASE = "/api/game";
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export async function signIn(idToken: string): Promise<SignInResponse> {
 	if (!API_URL) {
-		throw new Error("API URL is not defined");
+		throw new Error("API configuration error");
 	}
 	const res = await fetch(`${API_URL}/sign-in`, {
 		method: "POST",
@@ -33,25 +34,15 @@ export async function signIn(idToken: string): Promise<SignInResponse> {
 	});
 
 	if (!res.ok) {
-		let details = "";
-		try {
-			const errJson = await res.json();
-			details = errJson.message ?? JSON.stringify(errJson);
-		} catch {
-			details = await res.text();
-		}
-		throw new Error(`Sign-in failed (${res.status}): ${details}`);
+		throw new Error("Sign-in failed. Please try again.");
 	}
 
 	const json = await res.json();
 
 	try {
-		const data = SignInResponseSchema.parse(json);
-		return data;
+		return SignInResponseSchema.parse(json);
 	} catch (err) {
 		if (err instanceof ZodError) {
-			const tree = z.treeifyError(err);
-			console.error("Zod validation errors:", tree);
 			throw new Error("Invalid response format from server");
 		}
 		throw err;
@@ -65,7 +56,7 @@ export async function createGame(
 	idToken: string,
 ): Promise<NewGameResponse | ErrorResponse> {
 	if (!API_URL) {
-		return { success: false, error: "API_URL not defined" };
+		return { success: false, error: "API configuration error" };
 	}
 	try {
 		const response = await fetch(`${API_URL}/create-game`, {
@@ -77,11 +68,7 @@ export async function createGame(
 			body: JSON.stringify({ numberOfBoards, boardSize, difficulty }),
 		});
 		if (!response.ok) {
-			const text = await response.text().catch(() => "");
-			return {
-				success: false,
-				error: `Create game failed: ${response.status} ${response.statusText} ${text}`,
-			};
+			return { success: false, error: "Unable to create game" };
 		}
 		const json = await response.json();
 
@@ -92,8 +79,7 @@ export async function createGame(
 
 		return { success: true, ...parsed.data } as NewGameResponse;
 	} catch (error) {
-		console.error("Create game API error:", error);
-		return { success: false, error: "Failed to create game" };
+		return NormalizeApiError(error, "Failed to create game");
 	}
 }
 export async function createSession(
@@ -121,8 +107,7 @@ export async function createSession(
 		});
 		return await response.json();
 	} catch (error) {
-		console.error("Create game API error:", error);
-		return { success: false, error: "Failed to create game" };
+		return NormalizeApiError(error, "Failed to create game");
 	}
 }
 
@@ -143,8 +128,7 @@ export async function makeMove(
 		});
 		return await response.json();
 	} catch (error) {
-		console.error("Make move API error:", error);
-		return { success: false, error: "Failed to make move" };
+		return NormalizeApiError(error, "Failed to make move");
 	}
 }
 
@@ -163,8 +147,7 @@ export async function resetGame(
 		});
 		return await response.json();
 	} catch (error) {
-		console.error("Reset game API error:", error);
-		return { success: false, error: "Failed to reset game" };
+		return NormalizeApiError(error, "Failed to reset game");
 	}
 }
 
@@ -191,8 +174,7 @@ export async function updateConfig(
 		});
 		return await response.json();
 	} catch (error) {
-		console.error("Update config API error:", error);
-		return { success: false, error: "Failed to update config" };
+		return NormalizeApiError(error, "Failed to update configuration");
 	}
 }
 
@@ -211,8 +193,7 @@ export async function undoMove(
 		});
 		return await response.json();
 	} catch (error) {
-		console.error("Undo move API error:", error);
-		return { success: false, error: "Failed to undo move" };
+		return NormalizeApiError(error, "Failed to undo move");
 	}
 }
 
@@ -231,7 +212,6 @@ export async function skipMove(
 		});
 		return await response.json();
 	} catch (error) {
-		console.error("Skip move API error:", error);
-		return { success: false, error: "Failed to skip move" };
+		return NormalizeApiError(error, "Failed to skip move");
 	}
 }
