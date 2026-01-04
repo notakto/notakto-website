@@ -371,8 +371,12 @@ const Game = () => {
 				toast.error("User not authenticated");
 				router.push("/");
 			}
-		} catch (_error) {
-			toast.error("Error updating config");
+		} catch (error) {
+			toast.error(
+				`Error updating config: ${
+					error instanceof Error ? error.message : String(error)
+				}`,
+			);
 		} finally {
 			setIsUpdatingConfig(false);
 		}
