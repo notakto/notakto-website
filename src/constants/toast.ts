@@ -5,7 +5,7 @@ export const TOAST_IDS = {
 	User: {
 		SignInError: "auth/sign-in-error",
 		SignOutError: "user-signout-error",
-    AuthRequired: "user-auth-required",
+		AuthRequired: "user-auth-required",
 	},
 
 	// Player name modal
