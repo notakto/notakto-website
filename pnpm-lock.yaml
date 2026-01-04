@@ -26,9 +26,6 @@ importers:
       firebase:
         specifier: ^12.7.0
         version: 12.7.0
-      logrocket:
-        specifier: ^11.0.0
-        version: 11.0.0
       micro:
         specifier: ^10.0.1
         version: 10.0.1
@@ -1701,9 +1698,6 @@ packages:
 
   lodash.camelcase@4.3.0:
     resolution: {integrity: sha512-TwuEnCnxbc3rAvhf/LbG7tJUDzhqXyFnv3dtzLOPgCG/hODL7WFnsbwktkD7yUV0RrreP/l1PALq/YSg6VvjlA==}
-
-  logrocket@11.0.0:
-    resolution: {integrity: sha512-/WBl2VJ/WVRsveU0PhWcO++XZpKUifRQZwAFqjUyPSwxdy+OFEgKk+W69WSQFM9pejizarXRwmb3Wo7msD75+g==}
 
   long@5.3.2:
     resolution: {integrity: sha512-mNAgZ1GmyNhD7AuqnTG3/VQ26o760+ZYBPKjPvugO8+nLbYfX6TVpJPseBvopbdY+qpZ/lKUnmEc1LeZYS3QAA==}
@@ -3648,8 +3642,6 @@ snapshots:
       lightningcss-win32-x64-msvc: 1.30.2
 
   lodash.camelcase@4.3.0: {}
-
-  logrocket@11.0.0: {}
 
   long@5.3.2: {}
 
