@@ -2,11 +2,6 @@ import type { ErrorResponse } from "@/services/types";
 export type ApiError = ErrorResponse & {
 	code?: number;
 };
-// export type ApiError = {
-// 	success: false;
-// 	error: string;
-// 	code?: number;
-// };
 export function NormalizeApiError(
 	error: unknown,
 	fallbackMessage: string,

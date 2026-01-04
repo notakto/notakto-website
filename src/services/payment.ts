@@ -112,8 +112,6 @@ export const checkPaymentStatus = async (
 				onFailure("Payment expired or failed.");
 			}
 		} catch (error) {
-			console.error("Payment verification failed:", error);
-
 			clearInterval(intervalId);
 			paymentWindow?.close();
 
