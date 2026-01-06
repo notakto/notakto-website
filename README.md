@@ -1,17 +1,64 @@
-# Notakto
+<div align="center">
 
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![Unlicense License][license-shield]][license-url]
+<!-- Animated Game Header -->
+<img src="https://capsule-render.vercel.app/render?type=soft&color=auto&height=200&section=header&text=Notakto&fontSize=80&animation=fadeIn" width="100%" />
 
+<br />
 
-Thanks to these amazing people for contributing to **Notakto**:
+<!-- Game Logic Typing Animation -->
+<a href="https://git.io/typing-svg">
+  <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&pause=1000&color=E74C3C&center=true&vCenter=true&width=435&lines=The+Anti-Tic-Tac-Toe;A+Strategic+Misere+Play+Game;Don't+be+the+one+to+make+three!;Play+Online+Now+🕹️" alt="Typing SVG" />
+</a>
+
+<p align="center">
+  <strong>A modern web implementation of the classic impartial game of strategy.</strong>
+</p>
+
+<!-- Standard Shields Row -->
+<p align="center">
+  <a href="https://github.com/Rakshitg600/notakto-website/graphs/contributors">
+    <img src="https://img.shields.io/github/contributors/Rakshitg600/notakto-website?style=for-the-badge&color=blue" alt="Contributors" />
+  </a>
+  <a href="https://github.com/Rakshitg600/notakto-website/network/members">
+    <img src="https://img.shields.io/github/forks/Rakshitg600/notakto-website?style=for-the-badge&color=green" alt="Forks" />
+  </a>
+  <a href="https://github.com/Rakshitg600/notakto-website/stargazers">
+    <img src="https://img.shields.io/github/stars/Rakshitg600/notakto-website?style=for-the-badge&color=yellow" alt="Stars" />
+  </a>
+  <a href="https://github.com/Rakshitg600/notakto-website/issues">
+    <img src="https://img.shields.io/github/issues/Rakshitg600/notakto-website?style=for-the-badge&color=red" alt="Issues" />
+  </a>
+</p>
+
+---
+
+</div>
+
+### 🎮 What is Notakto?
+Unlike standard Tic-Tac-Toe, **Notakto** is an impartial game where:
+1. Both players use the same symbol (usually an **X**).
+2. The player who completes a straight line of three symbols **loses** (Misere Play).
+3. It's a battle of logic, traps, and spatial awareness!
+
+---
+
+<div align="center">
+
+### 🌟 Hall of Fame (Contributors)
+<p>Big thanks to the developers and strategists who have helped build this game!</p>
 
 <a href="https://github.com/Rakshitg600/notakto-website/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=Rakshitg600/notakto-website" alt="Contributors to Notakto GitHub repository" />
+  <img src="https://contrib.rocks/image?repo=Rakshitg600/notakto-website&columns=10&max=20&anon=true" alt="Contributors" style="border-radius: 10px;" />
 </a>
+
+<br />
+<br />
+
+<p>
+  <img src="https://img.shields.io/badge/License-Unlicense-lightgrey?style=flat-square" />
+</p>
+
+</div>
 
 ## :question: What's Notakto?
 
