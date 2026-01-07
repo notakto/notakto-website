@@ -23,3 +23,45 @@ export const CreateGameResponseSchema = z.object({
 });
 
 export type CreateGameResponse = z.infer<typeof CreateGameResponseSchema>;
+
+export const MakeMoveResponseSchema = z.object({
+	boards: z.array(z.number().int()),
+	gameover: z.boolean(),
+	winner: z.boolean(),
+	coinsRewarded: z.number().int(),
+	xpRewarded: z.number().int(),
+});
+
+export type MakeMoveResponse = z.infer<typeof MakeMoveResponseSchema>;
+
+export const QuitGameResponseSchema = z.object({
+	success: z.boolean(),
+	error: z.string().optional(),
+});
+
+export type QuitGameResponse = z.infer<typeof QuitGameResponseSchema>;
+
+export const GetWalletResponseSchema = z.object({
+	coins: z.number().int(),
+	xp: z.number().int(),
+	success: z.boolean(),
+	error: z.string().optional(),
+});
+
+export type GetWalletResponse = z.infer<typeof GetWalletResponseSchema>;
+
+export const SkipMoveResponseSchema = z.object({
+	boards: z.array(z.number().int()),
+	gameover: z.boolean(),
+	winner: z.boolean(),
+	coinsRewarded: z.number().int(),
+	xpRewarded: z.number().int(),
+});
+
+export type SkipMoveResponse = z.infer<typeof SkipMoveResponseSchema>;
+
+export const UndoMoveResponseSchema = z.object({
+	boards: z.array(z.number().int()),
+});
+
+export type UndoMoveResponse = z.infer<typeof UndoMoveResponseSchema>;

@@ -29,12 +29,7 @@ export function convertBoard(
 	);
 
 	for (let i = 0; i < n; i++) {
-		if (board[i] < 0 || board[i] >= maxi) {
-			console.error(`Invalid board index: ${board[i]} (max: ${maxi - 1})`);
-			throw new Error(
-				`Invalid board index: ${board[i]} must be between 0 and ${maxi - 1}`,
-			);
-		}
+		if (board[i] < 0 || board[i] >= maxi) continue;
 
 		const boardIndex = Math.floor(board[i] / bs);
 		const cellIndex = board[i] % bs;

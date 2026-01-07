@@ -26,7 +26,9 @@ export const useSound = create<SoundStore>()(
 
 export const useUser = create<UserStore>((set) => ({
 	user: null,
+	authReady: false,
 	setUser: (newUser) => set({ user: newUser }),
+	setAuthReady: (v: boolean) => ({ authReady: v }),
 }));
 
 export const useCoins = create<CoinStore>((set, get) => ({

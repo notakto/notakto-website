@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { isBoardDead } from "@/services/ai";
+import { isBoardDead } from "@/services/logic";
 import type { BoardState } from "@/services/types";
 
 describe("isBoardDead", () => {

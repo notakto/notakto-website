@@ -1,11 +1,10 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
 import { useShortcut } from "@/components/hooks/useShortcut";
 import Board from "@/components/ui/Board/Board";
-// import { useToastCooldown } from "@/components/hooks/useToastCooldown";
 import SettingBar from "@/components/ui/Buttons/SettingBar";
 import { SettingButton } from "@/components/ui/Buttons/SettingButton";
 import BoardContainer from "@/components/ui/Containers/Board/BoardContainer";
@@ -26,14 +25,18 @@ import SoundConfigModal from "@/modals/SoundConfigModal";
 import WinnerModal from "@/modals/WinnerModal";
 import {
 	createGame,
-	createSession,
+	getWallet,
 	makeMove,
-	resetGame,
+	quitGame,
 	skipMove,
 	undoMove,
-	updateConfig,
 } from "@/services/game-apis";
 import { convertBoard, isBoardDead } from "@/services/logic";
+import type {
+	MakeMoveResponse,
+	SkipMoveResponse,
+	UndoMoveResponse,
+} from "@/services/schema";
 import { playMoveSound, playWinSound } from "@/services/sounds";
 import { useCoins, useSound, useUser, useXP } from "@/services/store";
 import type {
@@ -60,7 +63,7 @@ const Game = () => {
 	const [sessionId, setSessionId] = useState<string>("");
 
 	const [isProcessing, setIsProcessing] = useState<boolean>(false);
-	const [isInitializing, setIsInitializing] = useState(false);
+	const hasInitializedRef = useRef(false);
 	const [isResetting, setIsResetting] = useState<boolean>(false);
 	const [isUndoing, setIsUndoing] = useState<boolean>(false);
 	const [isSkipping, setIsSkipping] = useState<boolean>(false);
@@ -72,7 +75,8 @@ const Game = () => {
 
 	const { sfxMute } = useSound();
 	const Coins = useCoins((state) => state.coins);
-	// const setCoins = useCoins((state) => state.setCoins);
+	const setCoins = useCoins((state) => state.setCoins);
+	const setXP = useXP((state) => state.setXP);
 	const XP = useXP((state) => state.XP);
 	const user = useUser((state) => state.user);
 	const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
@@ -134,9 +138,6 @@ const Game = () => {
 		size: BoardSize,
 		diff: DifficultyLevel,
 	) => {
-		if (isInitializing) return;
-		setIsInitializing(true);
-
 		try {
 			if (user) {
 				const data = await createGame(num, size, diff, await user.getIdToken());
@@ -168,22 +169,6 @@ const Game = () => {
 					toast.error("Failed to initialize game boards");
 					return;
 				}
-				const res = await createSession(
-					resp.sessionId,
-					newBoards,
-					resp.numberOfBoards,
-					resp.boardSize,
-					resp.difficulty,
-					await user.getIdToken(),
-				);
-				if (!res || (res as ErrorResponse).success === false) {
-					const err = (res as ErrorResponse) ?? {
-						success: false,
-						error: "Unknown error",
-					};
-					toast.error(`Failed to register action : ${err.error}`);
-					return;
-				}
 				setSessionId(resp.sessionId);
 				setBoards(newBoards);
 				setCurrentPlayer(1);
@@ -192,14 +177,13 @@ const Game = () => {
 				setDifficulty(resp.difficulty);
 				setGameHistory([newBoards]);
 			} else {
+				console.log("initGame: user not authenticated");
 				toast.error("User not authenticated");
 				router.push("/");
 			}
 		} catch (error) {
 			toast.error(`Error initializing game: ${error}`);
 			router.push("/");
-		} finally {
-			setIsInitializing(false);
 		}
 	};
 
@@ -217,21 +201,47 @@ const Game = () => {
 					cellIndex,
 					await user.getIdToken(),
 				);
-				if (data.success) {
-					setBoards(data.gameState.boards);
-					setCurrentPlayer(data.gameState.currentPlayer);
-					setGameHistory(data.gameState.gameHistory);
-					playMoveSound(sfxMute);
+				if (!data || (data as ErrorResponse).success === false) {
+					const err = (data as ErrorResponse) ?? {
+						success: false,
+						error: "Unknown error",
+					};
+					toast.error(`Failed to make move: ${err.error}`);
+					return;
+				}
+				const resp = data as MakeMoveResponse;
+				let newBoards: BoardState[];
+				try {
+					newBoards = convertBoard(resp.boards, numberOfBoards, boardSize);
+				} catch (error) {
+					toast.error(`Failed to initialize game boards: ${error}`);
+					return;
+				}
 
-					if (data.gameOver) {
-						setWinner(data.gameState.winner);
-						setActiveModal("winner");
-						playWinSound(sfxMute);
+				if (newBoards.length === 0) {
+					toast.error("Failed to initialize game boards");
+					return;
+				}
+				setBoards(newBoards);
+				setCurrentPlayer(1);
+				setGameHistory((prev) => [...prev, newBoards]);
+				if (resp.gameover) {
+					const token = await user.getIdToken();
+					const wallet = await getWallet(token);
+
+					if (wallet.success) {
+						setCoins(wallet.coins);
+						setXP(wallet.xp);
 					}
-				} else if ("error" in data) {
-					toast.error(data.error || "Invalid move");
+					if (resp.winner === true) {
+						setWinner("You");
+					} else {
+						setWinner("Computer");
+					}
+					setActiveModal("winner");
+					playWinSound(sfxMute);
 				} else {
-					toast.error("Unexpected response from server");
+					playMoveSound(sfxMute);
 				}
 			} else {
 				toast.error("User not authenticated");
@@ -249,24 +259,19 @@ const Game = () => {
 		setIsResetting(true);
 
 		try {
-			if (user) {
-				const data = await resetGame(sessionId, await user.getIdToken());
-				if (data.success) {
-					setHasMoveHappened(false);
-					setBoards(data.gameState.boards);
-					setCurrentPlayer(data.gameState.currentPlayer);
-					setGameHistory(data.gameState.gameHistory);
-					setWinner("");
-					setActiveModal(null);
-				} else if ("error" in data) {
-					toast.error(data.error || "Failed to reset game");
-				} else {
-					toast.error("Unexpected response from server");
-				}
-			} else {
+			if (!user) {
 				toast.error("User not authenticated");
 				router.push("/");
+				return;
 			}
+
+			const data = await quitGame(sessionId, await user.getIdToken());
+			console.log(data);
+			if (!data.success) {
+				toast.error("Failed to reset game");
+				return;
+			}
+			await initGame(numberOfBoards, boardSize, difficulty);
 		} catch (error) {
 			toast.error(`Error resetting game ${error}`);
 		} finally {
@@ -284,14 +289,36 @@ const Game = () => {
 		try {
 			if (user) {
 				const data = await undoMove(sessionId, await user.getIdToken());
-				if (data.success) {
-					setBoards(data.gameState.boards);
-					setCurrentPlayer(data.gameState.currentPlayer);
-					setGameHistory(data.gameState.gameHistory);
-				} else if ("error" in data) {
-					toast.error(data.error || "Failed to undo move");
-				} else {
-					toast.error("Unexpected response from server");
+				if (!data || (data as ErrorResponse).success === false) {
+					const err = (data as ErrorResponse) ?? {
+						success: false,
+						error: "Unknown error",
+					};
+					toast.error(`Failed to undo move: ${err.error}`);
+					return;
+				}
+				const resp = data as UndoMoveResponse;
+				let newBoards: BoardState[];
+				try {
+					newBoards = convertBoard(resp.boards, numberOfBoards, boardSize);
+				} catch (error) {
+					toast.error(`Failed to initialize game boards: ${error}`);
+					return;
+				}
+
+				if (newBoards.length === 0) {
+					toast.error("Failed to initialize game boards");
+					return;
+				}
+				setBoards(newBoards);
+				setCurrentPlayer(1);
+				setGameHistory((prev) => [...prev, newBoards]);
+				const token = await user.getIdToken();
+				const wallet = await getWallet(token);
+
+				if (wallet.success) {
+					setCoins(wallet.coins);
+					setXP(wallet.xp);
 				}
 			} else {
 				toast.error("User not authenticated");
@@ -314,19 +341,47 @@ const Game = () => {
 		try {
 			if (user) {
 				const data = await skipMove(sessionId, await user.getIdToken());
-				if (data.success) {
-					setBoards(data.gameState.boards);
-					setCurrentPlayer(data.gameState.currentPlayer);
-					setGameHistory(data.gameState.gameHistory);
-					if (data.gameOver) {
-						setWinner(data.gameState.winner);
-						setActiveModal("winner");
-						playWinSound(sfxMute);
+				if (!data || (data as ErrorResponse).success === false) {
+					const err = (data as ErrorResponse) ?? {
+						success: false,
+						error: "Unknown error",
+					};
+					toast.error(`Failed to skip move: ${err.error}`);
+					return;
+				}
+				const resp = data as SkipMoveResponse;
+				let newBoards: BoardState[];
+				try {
+					newBoards = convertBoard(resp.boards, numberOfBoards, boardSize);
+				} catch (error) {
+					toast.error(`Failed to initialize game boards: ${error}`);
+					return;
+				}
+
+				if (newBoards.length === 0) {
+					toast.error("Failed to initialize game boards");
+					return;
+				}
+				setBoards(newBoards);
+				setCurrentPlayer(1);
+				setGameHistory((prev) => [...prev, newBoards]);
+				const token = await user.getIdToken();
+				const wallet = await getWallet(token);
+
+				if (wallet.success) {
+					setCoins(wallet.coins);
+					setXP(wallet.xp);
+				}
+				if (resp.gameover) {
+					if (resp.winner === true) {
+						setWinner("You");
+					} else {
+						setWinner("Computer");
 					}
-				} else if ("error" in data) {
-					toast.error(data.error || "Failed to skip move");
+					setActiveModal("winner");
+					playWinSound(sfxMute);
 				} else {
-					toast.error("Unexpected response from server");
+					playMoveSound(sfxMute);
 				}
 			} else {
 				toast.error("User not authenticated");
@@ -347,33 +402,21 @@ const Game = () => {
 		setIsUpdatingConfig(true);
 
 		try {
-			if (user) {
-				const data = await updateConfig(
-					sessionId,
-					newNumberOfBoards,
-					newBoardSize,
-					difficulty,
-					await user.getIdToken(),
-				);
-				if (data.success) {
-					setNumberOfBoards(newNumberOfBoards);
-					setBoardSize(newBoardSize);
-					setBoards(data.gameState.boards);
-					setCurrentPlayer(data.gameState.currentPlayer);
-					setGameHistory(data.gameState.gameHistory);
-					setActiveModal(null);
-				} else if ("error" in data) {
-					toast.error(data.error || "Failed to update config");
-				} else {
-					toast.error("Unexpected response from server");
-				}
-			} else {
+			if (!user) {
 				toast.error("User not authenticated");
 				router.push("/");
+				return;
 			}
+
+			const data = await quitGame(sessionId, await user.getIdToken());
+			console.log(data);
+			if (!data.success) {
+				toast.error("Failed to quit game");
+				return;
+			}
+			await initGame(newNumberOfBoards, newBoardSize, difficulty);
 		} catch (error) {
-			toast.error("Error updating config");
-			console.error("Error updating config:", error);
+			toast.error(`Error updating config: ${error}`);
 		} finally {
 			setIsUpdatingConfig(false);
 		}
@@ -384,42 +427,42 @@ const Game = () => {
 		setIsUpdatingDifficulty(true);
 
 		try {
-			if (user) {
-				const data = await updateConfig(
-					sessionId,
-					numberOfBoards,
-					boardSize,
-					level,
-					await user.getIdToken(),
-				);
-				if (data.success) {
-					setDifficulty(level);
-					setBoards(data.gameState.boards);
-					setCurrentPlayer(data.gameState.currentPlayer);
-					setGameHistory(data.gameState.gameHistory);
-				} else if ("error" in data) {
-					toast.error(data.error || "Failed to update difficulty");
-					console.error("Error updating difficulty:", data.error);
-				} else {
-					toast.error("Unexpected response from server");
-					console.error("Unexpected response from server");
-				}
-			} else {
+			if (!user) {
 				toast.error("User not authenticated");
 				router.push("/");
+				return;
 			}
+
+			const data = await quitGame(sessionId, await user.getIdToken());
+			console.log(data);
+			if (!data.success) {
+				toast.error("Failed to quit game");
+				return;
+			}
+			await initGame(numberOfBoards, boardSize, level);
 		} catch (error) {
-			toast.error(`Error updating difficulty: ${error}`);
-			console.error("Error updating difficulty:", error);
+			toast.error(`Error updating config: ${error}`);
 		} finally {
 			setIsUpdatingDifficulty(false);
 		}
 	};
 
+	const authReady = useUser((s) => s.authReady);
+
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <intentionally run only on mount to initialize game once>
 	useEffect(() => {
+		if (!authReady) return;
+		if (!user) {
+			toast.error("User not authenticated");
+			router.push("/");
+			return;
+		}
+
+		if (hasInitializedRef.current) return;
+		hasInitializedRef.current = true;
+
 		initGame(numberOfBoards, boardSize, difficulty);
-	}, []);
+	}, [authReady, user]);
 
 	return (
 		<GameLayout>

@@ -35,6 +35,14 @@ vi.mock("@/services/store", () => ({
 		setProfilePic: vi.fn(),
 		resetProfile: vi.fn(),
 	}),
+	useCoins: () => ({
+		coins: 1000,
+		setCoins: vi.fn(),
+	}),
+	useXP: () => ({
+		xp: 1000,
+		setXP: vi.fn(),
+	}),
 }));
 
 vi.mock("@/components/hooks/useToastCooldown", () => ({
