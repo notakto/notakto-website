@@ -29,6 +29,7 @@ export function convertBoard(
 	);
 
 	for (let i = 0; i < n; i++) {
+		// Skip invalid indices; -1 is used as a placeholder for skipped moves
 		if (board[i] < 0 || board[i] >= maxi) continue;
 
 		const boardIndex = Math.floor(board[i] / bs);
