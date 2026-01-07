@@ -28,7 +28,7 @@ export const useUser = create<UserStore>((set) => ({
 	user: null,
 	authReady: false,
 	setUser: (newUser) => set({ user: newUser }),
-	setAuthReady: (v: boolean) => ({ authReady: v }),
+	setAuthReady: (v: boolean) => set({ authReady: v }),
 }));
 
 export const useCoins = create<CoinStore>((set, get) => ({
