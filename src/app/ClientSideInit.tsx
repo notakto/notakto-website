@@ -36,6 +36,9 @@ const ClientSideInit = (): null => {
 					// User signed out
 					setUser(null);
 					setAuthReady(false);
+					setName("player");
+					setEmail("empty@empty.empty");
+					setPic("empty.empty");
 					return;
 				}
 
