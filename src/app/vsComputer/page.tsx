@@ -512,7 +512,8 @@ const Game = () => {
 								setActiveModal("boardConfig");
 								setIsMenuOpen(false);
 							}}
-							disabled={isUpdatingConfig}>
+							disabled={isUpdatingConfig}
+							loading={isUpdatingConfig}>
 							Game Configuration
 						</SettingButton>
 						<SettingButton
@@ -599,7 +600,10 @@ const Game = () => {
 				visible={activeModal === "boardConfig"}
 				currentBoards={numberOfBoards}
 				currentSize={boardSize}
-				onConfirm={handleBoardConfigChange}
+				onConfirm={(boards, size) => {
+					handleBoardConfigChange(boards, size);
+					setActiveModal(null);
+				}}
 				onCancel={() => setActiveModal(null)}
 			/>
 			<ShortcutModal
