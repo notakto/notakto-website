@@ -48,9 +48,8 @@ const ClientSideInit = (): null => {
 					return; // Already processing
 				}
 
+				pendingSignInRef.current.set(userId, true);
 				try {
-					pendingSignInRef.current.set(userId, true);
-
 					// Step 1: Get Firebase token
 					const idToken = await firebaseUser.getIdToken();
 
