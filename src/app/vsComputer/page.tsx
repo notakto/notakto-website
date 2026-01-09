@@ -60,7 +60,7 @@ const Game = () => {
 	const [isProcessingPayment, _setIsProcessingPayment] =
 		useState<boolean>(false);
 	const [difficulty, setDifficulty] = useState<DifficultyLevel>(1);
-	const [sessionId, setSessionId] = useState<string>("");
+	const sessionIdRef = useRef<string>("");
 
 	const [isProcessing, setIsProcessing] = useState<boolean>(false);
 	const hasInitializedRef = useRef(false);
@@ -169,7 +169,7 @@ const Game = () => {
 					toast.error("Failed to initialize game boards");
 					return;
 				}
-				setSessionId(resp.sessionId);
+				sessionIdRef.current = resp.sessionId;
 				setBoards(newBoards);
 				setCurrentPlayer(1);
 				setBoardSize(resp.boardSize);
@@ -196,7 +196,7 @@ const Game = () => {
 		try {
 			if (user) {
 				const data = await makeMove(
-					sessionId,
+					sessionIdRef.current,
 					boardIndex,
 					cellIndex,
 					await user.getIdToken(),
@@ -265,7 +265,10 @@ const Game = () => {
 				return;
 			}
 
-			const data = await quitGame(sessionId, await user.getIdToken());
+			const data = await quitGame(
+				sessionIdRef.current,
+				await user.getIdToken(),
+			);
 			console.log(data);
 			if (!data.success) {
 				toast.error("Failed to reset game");
@@ -288,7 +291,10 @@ const Game = () => {
 
 		try {
 			if (user) {
-				const data = await undoMove(sessionId, await user.getIdToken());
+				const data = await undoMove(
+					sessionIdRef.current,
+					await user.getIdToken(),
+				);
 				if (!data || (data as ErrorResponse).success === false) {
 					const err = (data as ErrorResponse) ?? {
 						success: false,
@@ -340,7 +346,10 @@ const Game = () => {
 
 		try {
 			if (user) {
-				const data = await skipMove(sessionId, await user.getIdToken());
+				const data = await skipMove(
+					sessionIdRef.current,
+					await user.getIdToken(),
+				);
 				if (!data || (data as ErrorResponse).success === false) {
 					const err = (data as ErrorResponse) ?? {
 						success: false,
@@ -408,7 +417,10 @@ const Game = () => {
 				return;
 			}
 
-			const data = await quitGame(sessionId, await user.getIdToken());
+			const data = await quitGame(
+				sessionIdRef.current,
+				await user.getIdToken(),
+			);
 			console.log(data);
 			if (!data.success) {
 				toast.error("Failed to quit game");
@@ -433,7 +445,10 @@ const Game = () => {
 				return;
 			}
 
-			const data = await quitGame(sessionId, await user.getIdToken());
+			const data = await quitGame(
+				sessionIdRef.current,
+				await user.getIdToken(),
+			);
 			console.log(data);
 			if (!data.success) {
 				toast.error("Failed to quit game");
