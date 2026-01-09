@@ -464,7 +464,7 @@ const Game = () => {
 
 	const authReady = useUser((s) => s.authReady);
 
-	// biome-ignore lint/correctness/useExhaustiveDependencies: <intentionally run only on mount to initialize game once>
+	// biome-ignore lint/correctness/useExhaustiveDependencies: <initialization guarded by hasInitializedRef to run once after auth>
 	useEffect(() => {
 		if (!authReady) return;
 		if (!user) {
@@ -476,7 +476,18 @@ const Game = () => {
 		if (hasInitializedRef.current) return;
 		hasInitializedRef.current = true;
 
-		initGame(numberOfBoards, boardSize, difficulty);
+		let cancelled = false;
+
+		const init = async () => {
+			await initGame(numberOfBoards, boardSize, difficulty);
+			if (cancelled) return;
+		};
+
+		void init();
+
+		return () => {
+			cancelled = true;
+		};
 	}, [authReady, user]);
 
 	return (
