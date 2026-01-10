@@ -530,13 +530,13 @@ const Game = () => {
 		}
 
 		if (hasInitializedRef.current) return;
-		hasInitializedRef.current = true;
 
 		let cancelled = false;
 
 		const init = async () => {
 			await initGame(numberOfBoards, boardSize, difficulty);
 			if (cancelled) return;
+			hasInitializedRef.current = true;
 		};
 
 		void init();
