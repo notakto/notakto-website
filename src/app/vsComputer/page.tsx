@@ -188,7 +188,16 @@ const Game = () => {
 	};
 
 	const handleMove = async (boardIndex: number, cellIndex: number) => {
-		if (isProcessing) return;
+		if (
+			isProcessing ||
+			isUpdatingConfig ||
+			isUpdatingDifficulty ||
+			isResetting ||
+			isUndoing ||
+			isSkipping
+		) {
+			return;
+		}
 		setIsProcessing(true);
 		if (!hasMoveHappened) {
 			setHasMoveHappened(true);
@@ -255,7 +264,16 @@ const Game = () => {
 	};
 
 	const handleReset = async () => {
-		if (isResetting) return;
+		if (
+			isProcessing ||
+			isUpdatingConfig ||
+			isUpdatingDifficulty ||
+			isResetting ||
+			isUndoing ||
+			isSkipping
+		) {
+			return;
+		}
 		setIsResetting(true);
 
 		try {
@@ -283,8 +301,18 @@ const Game = () => {
 	};
 
 	const handleUndo = async () => {
-		if (isUndoing || Coins < 100) {
-			if (Coins < 100) toast.error("Not enough coins");
+		if (
+			isProcessing ||
+			isUpdatingConfig ||
+			isUpdatingDifficulty ||
+			isResetting ||
+			isUndoing ||
+			isSkipping
+		) {
+			return;
+		}
+		if (Coins < 100) {
+			toast.error("Not enough coins");
 			return;
 		}
 		setIsUndoing(true);
@@ -338,8 +366,18 @@ const Game = () => {
 	};
 
 	const handleSkip = async () => {
-		if (isSkipping || Coins < 200) {
-			if (Coins < 200) toast.error("Not enough coins");
+		if (
+			isProcessing ||
+			isUpdatingConfig ||
+			isUpdatingDifficulty ||
+			isResetting ||
+			isUndoing ||
+			isSkipping
+		) {
+			return;
+		}
+		if (Coins < 200) {
+			toast.error("Not enough coins");
 			return;
 		}
 		setIsSkipping(true);
@@ -407,7 +445,16 @@ const Game = () => {
 		newNumberOfBoards: BoardNumber,
 		newBoardSize: BoardSize,
 	) => {
-		if (isUpdatingConfig) return;
+		if (
+			isProcessing ||
+			isUpdatingConfig ||
+			isUpdatingDifficulty ||
+			isResetting ||
+			isUndoing ||
+			isSkipping
+		) {
+			return;
+		}
 		setIsUpdatingConfig(true);
 
 		try {
@@ -435,7 +482,16 @@ const Game = () => {
 	};
 
 	const handleDifficultyChange = async (level: DifficultyLevel) => {
-		if (isUpdatingDifficulty) return;
+		if (
+			isProcessing ||
+			isUpdatingConfig ||
+			isUpdatingDifficulty ||
+			isResetting ||
+			isUndoing ||
+			isSkipping
+		) {
+			return;
+		}
 		setIsUpdatingDifficulty(true);
 
 		try {
