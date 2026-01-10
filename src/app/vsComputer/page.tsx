@@ -520,7 +520,7 @@ const Game = () => {
 
 	const authReady = useUser((s) => s.authReady);
 
-	// biome-ignore lint/correctness/useExhaustiveDependencies: <initialization guarded by hasInitializedRef to run once after auth>
+	// biome-ignore lint/correctness/useExhaustiveDependencies: <effect runs when authReady or user changes; hasInitializedRef prevents duplicate initialization>
 	useEffect(() => {
 		if (!authReady) return;
 		if (!user) {
