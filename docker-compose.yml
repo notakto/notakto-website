@@ -3,11 +3,16 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      target: runner
+      target: deps
     ports:
       - "3000:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/.next
     environment:
-      - NODE_ENV=production
+      - NODE_ENV=development
+    command: pnpm dev
 
   socket-server:
     build:
@@ -15,8 +20,12 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8000:8000"
+    volumes:
+      - ./notakto-socket-server:/app
+      - /app/node_modules
     environment:
-      - NODE_ENV=production
+      - NODE_ENV=development
+    command: pnpm start
 
 networks:
   app-network:
