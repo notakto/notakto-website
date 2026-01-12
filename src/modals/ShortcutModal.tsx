@@ -1,6 +1,6 @@
 "use client";
 
-import { usePathname } from "next/navigation";
+import { usePathname } from "@/i18n/routing";
 import { useTranslations } from "next-intl";
 import { ShortcutButton } from "@/components/ui/Buttons/ShortcutButton";
 import ShortcutContainer from "@/components/ui/Containers/Shortcut/ShortcutContainer";

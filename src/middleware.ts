@@ -9,7 +9,6 @@ export async function middleware(req: NextRequest) {
 
 	// Protect only /api routes (Logic from previous proxy.ts)
 	if (pathname.startsWith("/api")) {
-		console.log("Request headers:", req.headers);
 		const authHeader = req.headers.get("authorization");
 		if (!authHeader?.startsWith("Bearer ")) {
 			return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
