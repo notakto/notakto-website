@@ -1,12 +1,12 @@
 "use client";
 
-import { usePathname } from "@/i18n/routing";
 import { useTranslations } from "next-intl";
 import { ShortcutButton } from "@/components/ui/Buttons/ShortcutButton";
 import ShortcutContainer from "@/components/ui/Containers/Shortcut/ShortcutContainer";
 import ShortcutList from "@/components/ui/List/ShortcutList";
 import ModalOverlay from "@/components/ui/Overlays/ModalOverlay";
 import ShortcutTitle from "@/components/ui/Title/ShortcutTitle";
+import { usePathname } from "@/i18n/routing";
 import { pageShortcuts } from "@/services/pageShortcut";
 import type { ShortcutModalProps } from "@/services/types";
 
