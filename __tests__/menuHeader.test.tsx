@@ -4,7 +4,28 @@ import Menu from "@/app/Menu";
 import type { UserStore } from "@/services/types";
 
 // Mock dependencies used in Menu
-vi.mock("next/navigation", () => ({
+vi.mock("next-intl", () => ({
+	useLocale: () => "en",
+	useTranslations: (namespace: string) => (key: string) => {
+		const messages: Record<string, Record<string, string>> = {
+			Menu: {
+				title: "Notakto",
+				play_vs_player: "Play vs Player",
+				play_vs_computer: "Play vs Computer",
+				live_match: "Live Match",
+				tutorial: "Tutorial",
+				sign_in: "Sign in",
+				sign_out: "Sign Out",
+				adjust_sound: "Adjust Sound",
+				keyboard_shortcuts: "Keyboard Shortcuts",
+				toast_sign_in: "Please sign in!",
+			},
+		};
+		return messages[namespace]?.[key] || key;
+	},
+}));
+
+vi.mock("@/i18n/routing", () => ({
 	useRouter: () => ({ push: vi.fn() }),
 	usePathname: () => "/",
 }));
@@ -16,7 +37,7 @@ vi.mock("@/services/firebase", () => ({
 
 vi.mock("@/services/store", () => ({
 	useUser: <T,>(selector: (state: UserStore) => T) =>
-		selector({ user: null, setUser: vi.fn() }),
+		selector({ user: null, authReady: false, setUser: vi.fn(), setAuthReady: vi.fn() }),
 	useSound: () => ({
 		bgMute: false,
 		bgVolume: 0.5,
