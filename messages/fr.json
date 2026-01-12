@@ -1,0 +1,50 @@
+{
+  "Menu": {
+    "title": "Notakto",
+    "play_vs_player": "Jouer contre Joueur",
+    "play_vs_computer": "Jouer contre Ordi",
+    "live_match": "Match en direct",
+    "tutorial": "Tutoriel",
+    "sign_in": "Se connecter",
+    "sign_out": "Se déconnecter",
+    "adjust_sound": "Régler le son",
+    "keyboard_shortcuts": "Raccourcis clavier",
+    "toast_sign_in": "Veuillez vous connecter !"
+  },
+  "SoundConfig": {
+    "title": "Configuration du son",
+    "background_music": "Musique de fond",
+    "player_move_sound": "Son du mouvement",
+    "mute": "Muet",
+    "unmute": "Son activé",
+    "reset_sounds": "Réinitialiser les sons",
+    "return": "Retour"
+  },
+  "Shortcuts": {
+    "title": "Raccourcis clavier",
+    "return": "Retour",
+    "actions": {
+      "close_modal": "Fermer la modale",
+      "open_shortcuts": "Ouvrir les raccourcis",
+      "open_tutorial": "Ouvrir le tutoriel",
+      "adjust_sound": "Régler le son",
+      "go_main_menu": "Aller au menu principal",
+      "reset_game": "Réinitialiser le jeu",
+      "open_config": "Ouvrir la configuration",
+      "toggle_names": "Basculer les noms",
+      "open_difficulty": "Ouvrir le niveau de difficulté"
+    }
+  },
+  "Tutorial": {
+    "title": "Comment jouer à Notakto",
+    "close": "Fermer le tutoriel",
+    "rules": {
+      "0": "Les deux joueurs utilisent des X",
+      "1": "Le jeu se joue sur trois plateaux 3x3",
+      "2": "Les joueurs placent des X à tour de rôle",
+      "3": "Tout plateau avec 3 X alignés devient mort",
+      "4": "Le dernier joueur à faire un coup valide perd",
+      "5": "Stratégie : Forcez l'adversaire à faire le dernier coup !"
+    }
+  }
+}

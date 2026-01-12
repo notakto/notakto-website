@@ -1,12 +1,15 @@
-import type { NextRequest } from "next/server";
-import { NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
+import createMiddleware from "next-intl/middleware";
+import { routing } from "@/i18n/routing";
 
-export async function proxy(req: NextRequest) {
-	console.log("Request headers:", req.headers);
+const intlMiddleware = createMiddleware(routing);
+
+export async function middleware(req: NextRequest) {
 	const { pathname } = req.nextUrl;
 
-	// Protect only /api routes
+	// Protect only /api routes (Logic from previous proxy.ts)
 	if (pathname.startsWith("/api")) {
+		console.log("Request headers:", req.headers);
 		const authHeader = req.headers.get("authorization");
 		if (!authHeader?.startsWith("Bearer ")) {
 			return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -48,10 +51,19 @@ export async function proxy(req: NextRequest) {
 		}
 	}
 
-	return NextResponse.next();
+	// For all other routes, use next-intl middleware
+	return intlMiddleware(req);
 }
 
-// Run only on API routes
 export const config = {
-	matcher: ["/api/:path*"],
+	matcher: [
+		// Match API routes
+		"/api/:path*",
+		// Match all pathnames except for
+		// - … if they start with `/api`, `/_next` or `/_vercel`
+		// - … the ones containing a dot (e.g. `favicon.ico`)
+		"/((?!api|_next|_vercel|.*\\..*).*)",
+		// Match string-literal paths for locales
+		"/",
+	],
 };

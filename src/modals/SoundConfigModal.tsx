@@ -1,4 +1,5 @@
 "use client";
+import { useTranslations } from "next-intl";
 import { SoundConfigButton } from "@/components/ui/Buttons/SoundConfigButton";
 import { SoundMuteButton } from "@/components/ui/Buttons/SoundMuteButton";
 import SoundConfigContainer from "@/components/ui/Containers/SoundConfig/SoundConfigContainer";
@@ -25,6 +26,7 @@ export default function SoundConfigModal({
 		setSfxMute,
 		setSfxVolume,
 	} = useSound();
+	const t = useTranslations("SoundConfig");
 
 	const resetSounds = () => {
 		setBgVolume(0.3);
@@ -37,10 +39,10 @@ export default function SoundConfigModal({
 	return (
 		<ModalOverlay>
 			<SoundConfigContainer>
-				<SoundConfigTitle text="Sound Configuration" />
+				<SoundConfigTitle text={t("title")} />
 				<SoundConfigSection>
 					<SoundConfigLabel
-						label="Background Music"
+						label={t("background_music")}
 						htmlFor="bg-music-slider"
 					/>
 					<SoundConfigSlider
@@ -49,13 +51,13 @@ export default function SoundConfigModal({
 						onChange={(e) => setBgVolume(Number(e.target.value) / 100)}
 					/>
 					<SoundMuteButton onClick={() => setBgMute(!bgMute)}>
-						{bgMute ? "Unmute" : "Mute"}
+						{bgMute ? t("unmute") : t("mute")}
 					</SoundMuteButton>
 				</SoundConfigSection>
 
 				<SoundConfigSection>
 					<SoundConfigLabel
-						label="Player Move Sound"
+						label={t("player_move_sound")}
 						htmlFor="player-move-slider"
 					/>
 					<SoundConfigSlider
@@ -64,16 +66,16 @@ export default function SoundConfigModal({
 						onChange={(e) => setSfxVolume(Number(e.target.value) / 100)}
 					/>
 					<SoundMuteButton onClick={() => setSfxMute(!sfxMute)}>
-						{sfxMute ? "Unmute" : "Mute"}
+						{sfxMute ? t("unmute") : t("mute")}
 					</SoundMuteButton>
 				</SoundConfigSection>
 
 				{/* Controls */}
 				<SoundConfigControls>
 					<SoundConfigButton onClick={resetSounds}>
-						Reset Sounds
+						{t("reset_sounds")}
 					</SoundConfigButton>
-					<SoundConfigButton onClick={onClose}>Return</SoundConfigButton>
+					<SoundConfigButton onClick={onClose}>{t("return")}</SoundConfigButton>
 				</SoundConfigControls>
 			</SoundConfigContainer>
 		</ModalOverlay>

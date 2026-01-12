@@ -1,0 +1,50 @@
+{
+  "Menu": {
+    "title": "Notakto",
+    "play_vs_player": "Spielen vs Spieler",
+    "play_vs_computer": "Spielen vs Computer",
+    "live_match": "Live-Spiel",
+    "tutorial": "Anleitung",
+    "sign_in": "Anmelden",
+    "sign_out": "Abmelden",
+    "adjust_sound": "Ton anpassen",
+    "keyboard_shortcuts": "Tastaturkürzel",
+    "toast_sign_in": "Bitte anmelden!"
+  },
+  "SoundConfig": {
+    "title": "Tonkonfiguration",
+    "background_music": "Hintergrundmusik",
+    "player_move_sound": "Spielerzug-Sound",
+    "mute": "Stumm",
+    "unmute": "Ton an",
+    "reset_sounds": "Töne zurücksetzen",
+    "return": "Zurück"
+  },
+  "Shortcuts": {
+    "title": "Tastaturkürzel",
+    "return": "Zurück",
+    "actions": {
+      "close_modal": "Modal schließen",
+      "open_shortcuts": "Kürzel öffnen",
+      "open_tutorial": "Anleitung öffnen",
+      "adjust_sound": "Ton anpassen",
+      "go_main_menu": "Zum Hauptmenü",
+      "reset_game": "Spiel zurücksetzen",
+      "open_config": "Konfiguration öffnen",
+      "toggle_names": "Namen umschalten",
+      "open_difficulty": "Schwierigkeit öffnen"
+    }
+  },
+  "Tutorial": {
+    "title": "Wie man Notakto spielt",
+    "close": "Anleitung schließen",
+    "rules": {
+      "0": "Beide Spieler verwenden X",
+      "1": "Gespielt wird auf drei 3x3-Brettern",
+      "2": "Spieler setzen abwechselnd ein X",
+      "3": "Jedes Brett mit 3 X in einer Reihe ist tot",
+      "4": "Der letzte Spieler, der einen gültigen Zug macht, verliert",
+      "5": "Strategie: Zwinge den Gegner zum letzten Zug!"
+    }
+  }
+}

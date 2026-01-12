@@ -1,0 +1,50 @@
+{
+  "Menu": {
+    "title": "Notakto",
+    "play_vs_player": "Jugar vs Jugador",
+    "play_vs_computer": "Jugar vs Computadora",
+    "live_match": "Partido en Vivo",
+    "tutorial": "Tutorial",
+    "sign_in": "Iniciar sesión",
+    "sign_out": "Cerrar sesión",
+    "adjust_sound": "Ajustar Sonido",
+    "keyboard_shortcuts": "Atajos de Teclado",
+    "toast_sign_in": "¡Por favor inicia sesión!"
+  },
+  "SoundConfig": {
+    "title": "Configuración de Sonido",
+    "background_music": "Música de Fondo",
+    "player_move_sound": "Sonido de Movimiento",
+    "mute": "Silenciar",
+    "unmute": "Activar Sonido",
+    "reset_sounds": "Restablecer Sonidos",
+    "return": "Volver"
+  },
+  "Shortcuts": {
+    "title": "Atajos de Teclado",
+    "return": "Volver",
+    "actions": {
+      "close_modal": "Cerrar el modal",
+      "open_shortcuts": "Abrir atajos de teclado",
+      "open_tutorial": "Abrir tutorial",
+      "adjust_sound": "Ajustar sonido",
+      "go_main_menu": "Ir al menú principal",
+      "reset_game": "Reiniciar el juego",
+      "open_config": "Abrir configuración del juego",
+      "toggle_names": "Alternar nombres de jugadores",
+      "open_difficulty": "Abrir nivel de dificultad"
+    }
+  },
+  "Tutorial": {
+    "title": "Cómo Jugar Notakto",
+    "close": "Cerrar Tutorial",
+    "rules": {
+      "0": "Ambos jugadores usan marcas X",
+      "1": "El juego se juega en tres tableros de 3x3",
+      "2": "Los jugadores alternan colocando X",
+      "3": "Cualquier tablero con 3 X en fila queda muerto",
+      "4": "El último jugador en hacer un movimiento válido pierde",
+      "5": "Estrategia: ¡Obliga al oponente a hacer el último movimiento!"
+    }
+  }
+}

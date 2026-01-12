@@ -1,0 +1,50 @@
+{
+  "Menu": {
+    "title": "Notakto",
+    "play_vs_player": "対人で遊ぶ",
+    "play_vs_computer": "CPUと対戦",
+    "live_match": "ライブマッチ",
+    "tutorial": "チュートリアル",
+    "sign_in": "サインイン",
+    "sign_out": "サインアウト",
+    "adjust_sound": "音量調整",
+    "keyboard_shortcuts": "キーボードショートカット",
+    "toast_sign_in": "サインインしてください！"
+  },
+  "SoundConfig": {
+    "title": "音設定",
+    "background_music": "BGM",
+    "player_move_sound": "指し手音",
+    "mute": "ミュート",
+    "unmute": "ミュート解除",
+    "reset_sounds": "リセット",
+    "return": "戻る"
+  },
+  "Shortcuts": {
+    "title": "キーボードショートカット",
+    "return": "戻る",
+    "actions": {
+      "close_modal": "モーダルを閉じる",
+      "open_shortcuts": "ショートカットを開く",
+      "open_tutorial": "チュートリアルを開く",
+      "adjust_sound": "音量調整",
+      "go_main_menu": "メインメニューへ",
+      "reset_game": "リセット",
+      "open_config": "設定を開く",
+      "toggle_names": "名前表示切替",
+      "open_difficulty": "難易度設定"
+    }
+  },
+  "Tutorial": {
+    "title": "Notaktoの遊び方",
+    "close": "閉じる",
+    "rules": {
+      "0": "両方のプレイヤーがXを使います",
+      "1": "3つの3x3ボードでプレイします",
+      "2": "交互にXを配置します",
+      "3": "Xが3つ並んだボードは「死に」ます",
+      "4": "最後に有効な手を打った人が負けです",
+      "5": "戦略：相手に最後の一手を打たせましょう！"
+    }
+  }
+}

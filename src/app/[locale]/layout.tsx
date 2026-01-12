@@ -3,9 +3,13 @@ import "@/app/globals.css";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { VT323 } from "next/font/google";
+import { notFound } from "next/navigation";
+import { NextIntlClientProvider } from "next-intl";
+import { getMessages } from "next-intl/server";
 import ClientSideInit from "@/app/ClientSideInit";
 import MusicProvider from "@/components/MusicProvider";
 import { CustomToastContainer } from "@/components/ui/Toasts/CustomToastContainer";
+import { routing } from "@/i18n/routing";
 
 export const metadata: Metadata = {
 	title: "Menu | Notakto",
@@ -27,13 +31,24 @@ const vt323 = VT323({
 	subsets: ["latin"],
 });
 
-export default function RootLayout({
+export default async function RootLayout({
 	children,
-}: Readonly<{
+	params,
+}: {
 	children: React.ReactNode;
-}>) {
+	params: Promise<{ locale: string }>;
+}) {
+	const { locale } = await params;
+	// Ensure that the incoming `locale` is valid
+	if (!routing.locales.includes(locale as any)) {
+		notFound();
+	}
+
+	// Providing all messages to the client
+	const messages = await getMessages();
+
 	return (
-		<html lang="en" className={vt323.className}>
+		<html lang={locale} className={vt323.className}>
 			<head>
 				<script
 					async
@@ -46,12 +61,14 @@ export default function RootLayout({
 				<meta name="monetag" content="31cbc3974b21341db36f756db33d15d6"></meta>
 			</head>
 			<body>
-				<MusicProvider />
-				{children}
-				<CustomToastContainer />
-				<Analytics />
-				<SpeedInsights />
-				<ClientSideInit />
+				<NextIntlClientProvider messages={messages}>
+					<MusicProvider />
+					{children}
+					<CustomToastContainer />
+					<Analytics />
+					<SpeedInsights />
+					<ClientSideInit />
+				</NextIntlClientProvider>
 			</body>
 		</html>
 	);

@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import { TutorialButton } from "@/components/ui/Buttons/TutorialButton";
 import TutorialContainer from "@/components/ui/Containers/Tutorial/TutorialContainer";
 import TutorialList from "@/components/ui/List/TutorialList";
@@ -6,24 +7,26 @@ import TutorialTitle from "@/components/ui/Title/TutorialTitle";
 import type { TutorialModalProps } from "@/services/types";
 
 const TutorialModal = ({ visible, onClose }: TutorialModalProps) => {
+	const t = useTranslations("Tutorial");
+
 	if (!visible) return null;
 	const rules = [
-		"Both players use X marks",
-		"Game is played on three 3x3 boards",
-		"Players alternate placing Xs",
-		"Any board with 3 Xs in a row becomes dead",
-		"Last player to make a valid move loses",
-		"Strategy: Force opponent to make final move!",
+		t("rules.0"),
+		t("rules.1"),
+		t("rules.2"),
+		t("rules.3"),
+		t("rules.4"),
+		t("rules.5"),
 	];
 
 	return (
 		<ModalOverlay>
 			<TutorialContainer>
-				<TutorialTitle text="How&nbsp;to&nbsp;Play&nbsp;Notakto" />
+				<TutorialTitle text={t("title")} />
 
 				<TutorialList items={rules} />
 
-				<TutorialButton onClick={onClose}>Close&nbsp;Tutorial</TutorialButton>
+				<TutorialButton onClick={onClose}>{t("close")}</TutorialButton>
 			</TutorialContainer>
 		</ModalOverlay>
 	);
