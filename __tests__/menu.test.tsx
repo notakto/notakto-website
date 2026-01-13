@@ -36,7 +36,12 @@ vi.mock("@/services/firebase", () => ({
 
 vi.mock("@/services/store", () => ({
 	useUser: <T,>(selector: (state: UserStore) => T) =>
-		selector({ user: null, authReady: false, setUser: vi.fn(), setAuthReady: vi.fn() }),
+		selector({
+			user: null,
+			authReady: false,
+			setUser: vi.fn(),
+			setAuthReady: vi.fn(),
+		}),
 	useSound: () => ({
 		bgMute: false,
 		bgVolume: 0.5,

@@ -1,50 +1,50 @@
 {
-  "Menu": {
-    "title": "Notakto",
-    "play_vs_player": "Play vs Player",
-    "play_vs_computer": "Play vs Computer",
-    "live_match": "Live Match",
-    "tutorial": "Tutorial",
-    "sign_in": "Sign in",
-    "sign_out": "Sign Out",
-    "adjust_sound": "Adjust Sound",
-    "keyboard_shortcuts": "Keyboard Shortcuts",
-    "toast_sign_in": "Please sign in!"
-  },
-  "SoundConfig": {
-    "title": "Sound Configuration",
-    "background_music": "Background Music",
-    "player_move_sound": "Player Move Sound",
-    "mute": "Mute",
-    "unmute": "Unmute",
-    "reset_sounds": "Reset Sounds",
-    "return": "Return"
-  },
-  "Shortcuts": {
-    "title": "Keyboard Shortcuts",
-    "return": "Return",
-    "actions": {
-      "close_modal": "Close the modal",
-      "open_shortcuts": "Open keyboard shortcuts",
-      "open_tutorial": "Open tutorial",
-      "adjust_sound": "Adjust sound",
-      "go_main_menu": "Go to main menu",
-      "reset_game": "Reset the game",
-      "open_config": "Open game configuration",
-      "toggle_names": "Toggle player names",
-      "open_difficulty": "Open difficulty level"
-    }
-  },
-  "Tutorial": {
-    "title": "How to Play Notakto",
-    "close": "Close Tutorial",
-    "rules": {
-      "0": "Both players use X marks",
-      "1": "Game is played on three 3x3 boards",
-      "2": "Players alternate placing Xs",
-      "3": "Any board with 3 Xs in a row becomes dead",
-      "4": "Last player to make a valid move loses",
-      "5": "Strategy: Force opponent to make final move!"
-    }
-  }
+	"Menu": {
+		"title": "Notakto",
+		"play_vs_player": "Play vs Player",
+		"play_vs_computer": "Play vs Computer",
+		"live_match": "Live Match",
+		"tutorial": "Tutorial",
+		"sign_in": "Sign in",
+		"sign_out": "Sign Out",
+		"adjust_sound": "Adjust Sound",
+		"keyboard_shortcuts": "Keyboard Shortcuts",
+		"toast_sign_in": "Please sign in!"
+	},
+	"SoundConfig": {
+		"title": "Sound Configuration",
+		"background_music": "Background Music",
+		"player_move_sound": "Player Move Sound",
+		"mute": "Mute",
+		"unmute": "Unmute",
+		"reset_sounds": "Reset Sounds",
+		"return": "Return"
+	},
+	"Shortcuts": {
+		"title": "Keyboard Shortcuts",
+		"return": "Return",
+		"actions": {
+			"close_modal": "Close the modal",
+			"open_shortcuts": "Open keyboard shortcuts",
+			"open_tutorial": "Open tutorial",
+			"adjust_sound": "Adjust sound",
+			"go_main_menu": "Go to main menu",
+			"reset_game": "Reset the game",
+			"open_config": "Open game configuration",
+			"toggle_names": "Toggle player names",
+			"open_difficulty": "Open difficulty level"
+		}
+	},
+	"Tutorial": {
+		"title": "How to Play Notakto",
+		"close": "Close Tutorial",
+		"rules": {
+			"0": "Both players use X marks",
+			"1": "Game is played on three 3x3 boards",
+			"2": "Players alternate placing Xs",
+			"3": "Any board with 3 Xs in a row becomes dead",
+			"4": "Last player to make a valid move loses",
+			"5": "Strategy: Force opponent to make final move!"
+		}
+	}
 }

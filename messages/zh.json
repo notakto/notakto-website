@@ -1,50 +1,50 @@
 {
-  "Menu": {
-    "title": "Notakto",
-    "play_vs_player": "玩家对战",
-    "play_vs_computer": "人机对战",
-    "live_match": "实时比赛",
-    "tutorial": "教程",
-    "sign_in": "登录",
-    "sign_out": "登出",
-    "adjust_sound": "调整声音",
-    "keyboard_shortcuts": "键盘快捷键",
-    "toast_sign_in": "请登录！"
-  },
-  "SoundConfig": {
-    "title": "声音配置",
-    "background_music": "背景音乐",
-    "player_move_sound": "玩家移动音效",
-    "mute": "静音",
-    "unmute": "取消静音",
-    "reset_sounds": "重置声音",
-    "return": "返回"
-  },
-  "Shortcuts": {
-    "title": "键盘快捷键",
-    "return": "返回",
-    "actions": {
-      "close_modal": "关闭模态框",
-      "open_shortcuts": "查看快捷键",
-      "open_tutorial": "打开教程",
-      "adjust_sound": "调整声音",
-      "go_main_menu": "返回主菜单",
-      "reset_game": "重置游戏",
-      "open_config": "打开配置",
-      "toggle_names": "切换名字",
-      "open_difficulty": "打开难度"
-    }
-  },
-  "Tutorial": {
-    "title": "如何玩 Notakto",
-    "close": "关闭教程",
-    "rules": {
-      "0": "双方都使用 X 标记",
-      "1": "游戏在三个 3x3 的棋盘上进行",
-      "2": "玩家轮流放置 X",
-      "3": "任何有 3 个 X 连成一线的棋盘都变为死棋",
-      "4": "最后一个做出有效移动的玩家输掉比赛",
-      "5": "策略：迫使对手做出最后一步！"
-    }
-  }
+	"Menu": {
+		"title": "Notakto",
+		"play_vs_player": "玩家对战",
+		"play_vs_computer": "人机对战",
+		"live_match": "实时比赛",
+		"tutorial": "教程",
+		"sign_in": "登录",
+		"sign_out": "登出",
+		"adjust_sound": "调整声音",
+		"keyboard_shortcuts": "键盘快捷键",
+		"toast_sign_in": "请登录！"
+	},
+	"SoundConfig": {
+		"title": "声音配置",
+		"background_music": "背景音乐",
+		"player_move_sound": "玩家移动音效",
+		"mute": "静音",
+		"unmute": "取消静音",
+		"reset_sounds": "重置声音",
+		"return": "返回"
+	},
+	"Shortcuts": {
+		"title": "键盘快捷键",
+		"return": "返回",
+		"actions": {
+			"close_modal": "关闭模态框",
+			"open_shortcuts": "查看快捷键",
+			"open_tutorial": "打开教程",
+			"adjust_sound": "调整声音",
+			"go_main_menu": "返回主菜单",
+			"reset_game": "重置游戏",
+			"open_config": "打开配置",
+			"toggle_names": "切换名字",
+			"open_difficulty": "打开难度"
+		}
+	},
+	"Tutorial": {
+		"title": "如何玩 Notakto",
+		"close": "关闭教程",
+		"rules": {
+			"0": "双方都使用 X 标记",
+			"1": "游戏在三个 3x3 的棋盘上进行",
+			"2": "玩家轮流放置 X",
+			"3": "任何有 3 个 X 连成一线的棋盘都变为死棋",
+			"4": "最后一个做出有效移动的玩家输掉比赛",
+			"5": "策略：迫使对手做出最后一步！"
+		}
+	}
 }
