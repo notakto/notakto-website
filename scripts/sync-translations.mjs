@@ -79,7 +79,7 @@ function loadTranslations(locale) {
 
 function saveTranslations(locale, data) {
 	const filePath = join(MESSAGES_DIR, `${locale}.json`);
-	const content = JSON.stringify(data, null, "\t");
+	const content = JSON.stringify(data, null, 2);
 	writeFileSync(filePath, content, "utf-8");
 }
 
