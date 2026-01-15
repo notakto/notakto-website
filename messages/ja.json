@@ -1,42 +1,100 @@
 {
+	"BoardConfigModal": {
+		"apply": "適用",
+		"board_size": "ボードサイズ",
+		"cancel": "キャンセル",
+		"number_of_boards": "ボード数"
+	},
+	"ConfirmationModal": {
+		"cancel": "キャンセル",
+		"confirm": "確認",
+		"exit_to_menu_message": "終了してもよろしいですか？現在のゲームは失われます。",
+		"exit_to_menu_title": "メニューに戻りますか？",
+		"reset_game_message": "現在のゲームをリセットしてもよろしいですか？",
+		"reset_game_title": "ゲームをリセットしますか？",
+		"yes_exit": "はい、終了",
+		"yes_reset": "はい、リセット"
+	},
+	"DifficultyModal": {
+		"cancel": "キャンセル",
+		"level": "レベル{level}",
+		"select_difficulty": "難易度を選択"
+	},
+	"Game": {
+		"adjust_sound": "音量調整",
+		"ai_level": "AIレベル: {level}",
+		"buy_coins": "コインを購入（100）",
+		"computer_turn": "コンピューターのターン",
+		"currently_not_available": "現在利用できません",
+		"game_configuration": "ゲーム設定",
+		"keyboard_shortcuts": "キーボードショートカット",
+		"main_menu": "メインメニュー",
+		"opponent_turn": "相手のターン",
+		"player_turn": "{name}のターン",
+		"reset": "リセット",
+		"reset_names": "名前をリセット",
+		"return_to_game": "ゲームに戻る",
+		"settings": "設定",
+		"skip_move": "手をスキップ（200コイン）",
+		"undo_move": "元に戻す（100コイン）",
+		"your_turn": "あなたのターン"
+	},
+	"LiveMatch": {
+		"leave": "退出",
+		"opponent_disconnected": "相手が切断されました！新しいマッチを検索中...",
+		"opponent_turn": "相手のターン",
+		"searching_for_opponent": "相手を検索中...",
+		"you_lost": "あなたの負け！",
+		"you_won": "あなたの勝ち！",
+		"your_turn": "あなたのターン"
+	},
 	"Menu": {
-		"title": "Notakto",
-		"play_vs_player": "対人で遊ぶ",
-		"play_vs_computer": "CPUと対戦",
-		"live_match": "ライブマッチ",
-		"tutorial": "チュートリアル",
-		"sign_in": "サインイン",
-		"sign_out": "サインアウト",
 		"adjust_sound": "音量調整",
 		"keyboard_shortcuts": "キーボードショートカット",
-		"toast_sign_in": "サインインしてください！"
+		"live_match": "ライブマッチ",
+		"play_vs_computer": "CPUと対戦",
+		"play_vs_player": "対人で遊ぶ",
+		"sign_in": "サインイン",
+		"sign_out": "サインアウト",
+		"title": "Notakto",
+		"toast_sign_in": "サインインしてください！",
+		"tutorial": "チュートリアル"
 	},
-	"SoundConfig": {
-		"title": "音設定",
-		"background_music": "BGM",
-		"player_move_sound": "指し手音",
-		"mute": "ミュート",
-		"unmute": "ミュート解除",
-		"reset_sounds": "リセット",
-		"return": "戻る"
+	"PlayerNamesModal": {
+		"characters": "文字",
+		"duplicate_names_error": "プレイヤー1とプレイヤー2は同じ名前を使用できません。",
+		"player_1": "プレイヤー1",
+		"player_1_name": "プレイヤー1の名前",
+		"player_2": "プレイヤー2",
+		"player_2_name": "プレイヤー2の名前",
+		"start_game": "ゲーム開始",
+		"title": "プレイヤー名を入力"
 	},
 	"Shortcuts": {
-		"title": "キーボードショートカット",
-		"return": "戻る",
 		"actions": {
+			"adjust_sound": "音量調整",
 			"close_modal": "モーダルを閉じる",
+			"go_main_menu": "メインメニューへ",
+			"open_config": "設定を開く",
+			"open_difficulty": "難易度設定",
 			"open_shortcuts": "ショートカットを開く",
 			"open_tutorial": "チュートリアルを開く",
-			"adjust_sound": "音量調整",
-			"go_main_menu": "メインメニューへ",
 			"reset_game": "リセット",
-			"open_config": "設定を開く",
-			"toggle_names": "名前表示切替",
-			"open_difficulty": "難易度設定"
-		}
+			"toggle_names": "名前表示切替"
+		},
+		"return": "戻る",
+		"title": "キーボードショートカット"
+	},
+	"SoundConfig": {
+		"background_music": "BGM",
+		"mute": "ミュート",
+		"player_move_sound": "指し手音",
+		"reset_sounds": "リセット",
+		"return": "戻る",
+		"title": "音設定",
+		"unmute": "ミュート解除"
 	},
 	"Tutorial": {
-		"title": "Notaktoの遊び方",
 		"close": "閉じる",
 		"rules": {
 			"0": "両方のプレイヤーがXを使います",
@@ -45,72 +103,14 @@
 			"3": "Xが3つ並んだボードは「死に」ます",
 			"4": "最後に有効な手を打った人が負けです",
 			"5": "戦略：相手に最後の一手を打たせましょう！"
-		}
-	},
-	"Game": {
-		"settings": "設定",
-		"reset": "リセット",
-		"game_configuration": "ゲーム設定",
-		"reset_names": "名前をリセット",
-		"adjust_sound": "音量調整",
-		"keyboard_shortcuts": "キーボードショートカット",
-		"main_menu": "メインメニュー",
-		"return_to_game": "ゲームに戻る",
-		"your_turn": "あなたのターン",
-		"computer_turn": "コンピューターのターン",
-		"player_turn": "{name}のターン",
-		"opponent_turn": "相手のターン",
-		"ai_level": "AIレベル: {level}",
-		"undo_move": "元に戻す（100コイン）",
-		"skip_move": "手をスキップ（200コイン）",
-		"buy_coins": "コインを購入（100）",
-		"currently_not_available": "現在利用できません"
+		},
+		"title": "Notaktoの遊び方"
 	},
 	"WinnerModal": {
 		"game_over": "ゲーム終了！",
-		"you_won": "あなたの勝ち！",
-		"wins": "{name}の勝ち",
+		"main_menu": "メインメニュー",
 		"play_again": "もう一度プレイ",
-		"main_menu": "メインメニュー"
-	},
-	"ConfirmationModal": {
-		"reset_game_title": "ゲームをリセットしますか？",
-		"reset_game_message": "現在のゲームをリセットしてもよろしいですか？",
-		"yes_reset": "はい、リセット",
-		"exit_to_menu_title": "メニューに戻りますか？",
-		"exit_to_menu_message": "終了してもよろしいですか？現在のゲームは失われます。",
-		"yes_exit": "はい、終了",
-		"cancel": "キャンセル",
-		"confirm": "確認"
-	},
-	"PlayerNamesModal": {
-		"title": "プレイヤー名を入力",
-		"player_1_name": "プレイヤー1の名前",
-		"player_2_name": "プレイヤー2の名前",
-		"player_1": "プレイヤー1",
-		"player_2": "プレイヤー2",
-		"characters": "文字",
-		"start_game": "ゲーム開始",
-		"duplicate_names_error": "プレイヤー1とプレイヤー2は同じ名前を使用できません。"
-	},
-	"BoardConfigModal": {
-		"number_of_boards": "ボード数",
-		"board_size": "ボードサイズ",
-		"cancel": "キャンセル",
-		"apply": "適用"
-	},
-	"DifficultyModal": {
-		"select_difficulty": "難易度を選択",
-		"level": "レベル{level}",
-		"cancel": "キャンセル"
-	},
-	"LiveMatch": {
-		"your_turn": "あなたのターン",
-		"opponent_turn": "相手のターン",
-		"searching_for_opponent": "相手を検索中...",
-		"leave": "退出",
-		"you_won": "あなたの勝ち！",
-		"you_lost": "あなたの負け！",
-		"opponent_disconnected": "相手が切断されました！新しいマッチを検索中..."
+		"wins": "{name}の勝ち",
+		"you_won": "あなたの勝ち！"
 	}
 }

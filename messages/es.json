@@ -1,42 +1,100 @@
 {
+	"BoardConfigModal": {
+		"apply": "Aplicar",
+		"board_size": "Tamaño del Tablero",
+		"cancel": "Cancelar",
+		"number_of_boards": "Número de Tableros"
+	},
+	"ConfirmationModal": {
+		"cancel": "Cancelar",
+		"confirm": "Confirmar",
+		"exit_to_menu_message": "¿Estás seguro de que quieres salir? Tu juego actual se perderá.",
+		"exit_to_menu_title": "¿Salir al Menú?",
+		"reset_game_message": "¿Estás seguro de que quieres reiniciar el juego actual?",
+		"reset_game_title": "¿Reiniciar Juego?",
+		"yes_exit": "Sí, Salir",
+		"yes_reset": "Sí, Reiniciar"
+	},
+	"DifficultyModal": {
+		"cancel": "Cancelar",
+		"level": "Nivel {level}",
+		"select_difficulty": "Seleccionar Dificultad"
+	},
+	"Game": {
+		"adjust_sound": "Ajustar Sonido",
+		"ai_level": "Nivel de IA: {level}",
+		"buy_coins": "Comprar Monedas (100)",
+		"computer_turn": "Turno de la Computadora",
+		"currently_not_available": "Actualmente no disponible",
+		"game_configuration": "Configuración del Juego",
+		"keyboard_shortcuts": "Atajos de Teclado",
+		"main_menu": "Menú Principal",
+		"opponent_turn": "Turno del Oponente",
+		"player_turn": "Turno de {name}",
+		"reset": "Reiniciar",
+		"reset_names": "Reiniciar Nombres",
+		"return_to_game": "Volver al Juego",
+		"settings": "Configuración",
+		"skip_move": "Saltar un Movimiento (200 monedas)",
+		"undo_move": "Deshacer (100 monedas)",
+		"your_turn": "Tu Turno"
+	},
+	"LiveMatch": {
+		"leave": "Salir",
+		"opponent_disconnected": "¡Oponente Desconectado! Buscando nueva partida...",
+		"opponent_turn": "Turno del Oponente",
+		"searching_for_opponent": "Buscando oponente...",
+		"you_lost": "¡Perdiste!",
+		"you_won": "¡Ganaste!",
+		"your_turn": "Tu Turno"
+	},
 	"Menu": {
-		"title": "Notakto",
-		"play_vs_player": "Jugar vs Jugador",
-		"play_vs_computer": "Jugar vs Computadora",
-		"live_match": "Partido en Vivo",
-		"tutorial": "Tutorial",
-		"sign_in": "Iniciar sesión",
-		"sign_out": "Cerrar sesión",
 		"adjust_sound": "Ajustar Sonido",
 		"keyboard_shortcuts": "Atajos de Teclado",
-		"toast_sign_in": "¡Por favor inicia sesión!"
+		"live_match": "Partido en Vivo",
+		"play_vs_computer": "Jugar vs Computadora",
+		"play_vs_player": "Jugar vs Jugador",
+		"sign_in": "Iniciar sesión",
+		"sign_out": "Cerrar sesión",
+		"title": "Notakto",
+		"toast_sign_in": "¡Por favor inicia sesión!",
+		"tutorial": "Tutorial"
 	},
-	"SoundConfig": {
-		"title": "Configuración de Sonido",
-		"background_music": "Música de Fondo",
-		"player_move_sound": "Sonido de Movimiento",
-		"mute": "Silenciar",
-		"unmute": "Activar Sonido",
-		"reset_sounds": "Restablecer Sonidos",
-		"return": "Volver"
+	"PlayerNamesModal": {
+		"characters": "caracteres",
+		"duplicate_names_error": "El Jugador 1 y el Jugador 2 no pueden tener el mismo nombre.",
+		"player_1": "Jugador 1",
+		"player_1_name": "Nombre del Jugador 1",
+		"player_2": "Jugador 2",
+		"player_2_name": "Nombre del Jugador 2",
+		"start_game": "Iniciar Juego",
+		"title": "Ingresar Nombres de Jugadores"
 	},
 	"Shortcuts": {
-		"title": "Atajos de Teclado",
-		"return": "Volver",
 		"actions": {
+			"adjust_sound": "Ajustar sonido",
 			"close_modal": "Cerrar el modal",
+			"go_main_menu": "Ir al menú principal",
+			"open_config": "Abrir configuración del juego",
+			"open_difficulty": "Abrir nivel de dificultad",
 			"open_shortcuts": "Abrir atajos de teclado",
 			"open_tutorial": "Abrir tutorial",
-			"adjust_sound": "Ajustar sonido",
-			"go_main_menu": "Ir al menú principal",
 			"reset_game": "Reiniciar el juego",
-			"open_config": "Abrir configuración del juego",
-			"toggle_names": "Alternar nombres de jugadores",
-			"open_difficulty": "Abrir nivel de dificultad"
-		}
+			"toggle_names": "Alternar nombres de jugadores"
+		},
+		"return": "Volver",
+		"title": "Atajos de Teclado"
+	},
+	"SoundConfig": {
+		"background_music": "Música de Fondo",
+		"mute": "Silenciar",
+		"player_move_sound": "Sonido de Movimiento",
+		"reset_sounds": "Restablecer Sonidos",
+		"return": "Volver",
+		"title": "Configuración de Sonido",
+		"unmute": "Activar Sonido"
 	},
 	"Tutorial": {
-		"title": "Cómo Jugar Notakto",
 		"close": "Cerrar Tutorial",
 		"rules": {
 			"0": "Ambos jugadores usan marcas X",
@@ -45,72 +103,14 @@
 			"3": "Cualquier tablero con 3 X en fila queda muerto",
 			"4": "El último jugador en hacer un movimiento válido pierde",
 			"5": "Estrategia: ¡Obliga al oponente a hacer el último movimiento!"
-		}
-	},
-	"Game": {
-		"settings": "Configuración",
-		"reset": "Reiniciar",
-		"game_configuration": "Configuración del Juego",
-		"reset_names": "Reiniciar Nombres",
-		"adjust_sound": "Ajustar Sonido",
-		"keyboard_shortcuts": "Atajos de Teclado",
-		"main_menu": "Menú Principal",
-		"return_to_game": "Volver al Juego",
-		"your_turn": "Tu Turno",
-		"computer_turn": "Turno de la Computadora",
-		"player_turn": "Turno de {name}",
-		"opponent_turn": "Turno del Oponente",
-		"ai_level": "Nivel de IA: {level}",
-		"undo_move": "Deshacer (100 monedas)",
-		"skip_move": "Saltar un Movimiento (200 monedas)",
-		"buy_coins": "Comprar Monedas (100)",
-		"currently_not_available": "Actualmente no disponible"
+		},
+		"title": "Cómo Jugar Notakto"
 	},
 	"WinnerModal": {
 		"game_over": "¡Juego Terminado!",
-		"you_won": "¡Ganaste!",
-		"wins": "{name} gana",
+		"main_menu": "Menú Principal",
 		"play_again": "Jugar de Nuevo",
-		"main_menu": "Menú Principal"
-	},
-	"ConfirmationModal": {
-		"reset_game_title": "¿Reiniciar Juego?",
-		"reset_game_message": "¿Estás seguro de que quieres reiniciar el juego actual?",
-		"yes_reset": "Sí, Reiniciar",
-		"exit_to_menu_title": "¿Salir al Menú?",
-		"exit_to_menu_message": "¿Estás seguro de que quieres salir? Tu juego actual se perderá.",
-		"yes_exit": "Sí, Salir",
-		"cancel": "Cancelar",
-		"confirm": "Confirmar"
-	},
-	"PlayerNamesModal": {
-		"title": "Ingresar Nombres de Jugadores",
-		"player_1_name": "Nombre del Jugador 1",
-		"player_2_name": "Nombre del Jugador 2",
-		"player_1": "Jugador 1",
-		"player_2": "Jugador 2",
-		"characters": "caracteres",
-		"start_game": "Iniciar Juego",
-		"duplicate_names_error": "El Jugador 1 y el Jugador 2 no pueden tener el mismo nombre."
-	},
-	"BoardConfigModal": {
-		"number_of_boards": "Número de Tableros",
-		"board_size": "Tamaño del Tablero",
-		"cancel": "Cancelar",
-		"apply": "Aplicar"
-	},
-	"DifficultyModal": {
-		"select_difficulty": "Seleccionar Dificultad",
-		"level": "Nivel {level}",
-		"cancel": "Cancelar"
-	},
-	"LiveMatch": {
-		"your_turn": "Tu Turno",
-		"opponent_turn": "Turno del Oponente",
-		"searching_for_opponent": "Buscando oponente...",
-		"leave": "Salir",
-		"you_won": "¡Ganaste!",
-		"you_lost": "¡Perdiste!",
-		"opponent_disconnected": "¡Oponente Desconectado! Buscando nueva partida..."
+		"wins": "{name} gana",
+		"you_won": "¡Ganaste!"
 	}
 }

@@ -1,42 +1,100 @@
 {
+	"BoardConfigModal": {
+		"apply": "Aplicar",
+		"board_size": "Tamanho do Tabuleiro",
+		"cancel": "Cancelar",
+		"number_of_boards": "Número de Tabuleiros"
+	},
+	"ConfirmationModal": {
+		"cancel": "Cancelar",
+		"confirm": "Confirmar",
+		"exit_to_menu_message": "Tem certeza de que deseja sair? Seu jogo atual será perdido.",
+		"exit_to_menu_title": "Sair para o Menu?",
+		"reset_game_message": "Tem certeza de que deseja reiniciar o jogo atual?",
+		"reset_game_title": "Reiniciar Jogo?",
+		"yes_exit": "Sim, Sair",
+		"yes_reset": "Sim, Reiniciar"
+	},
+	"DifficultyModal": {
+		"cancel": "Cancelar",
+		"level": "Nível {level}",
+		"select_difficulty": "Selecionar Dificuldade"
+	},
+	"Game": {
+		"adjust_sound": "Ajustar Som",
+		"ai_level": "Nível da IA: {level}",
+		"buy_coins": "Comprar Moedas (100)",
+		"computer_turn": "Vez do Computador",
+		"currently_not_available": "Atualmente indisponível",
+		"game_configuration": "Configuração do Jogo",
+		"keyboard_shortcuts": "Atalhos do Teclado",
+		"main_menu": "Menu Principal",
+		"opponent_turn": "Vez do Oponente",
+		"player_turn": "Vez de {name}",
+		"reset": "Reiniciar",
+		"reset_names": "Reiniciar Nomes",
+		"return_to_game": "Voltar ao Jogo",
+		"settings": "Configurações",
+		"skip_move": "Pular uma Jogada (200 moedas)",
+		"undo_move": "Desfazer (100 moedas)",
+		"your_turn": "Sua Vez"
+	},
+	"LiveMatch": {
+		"leave": "Sair",
+		"opponent_disconnected": "Oponente Desconectado! Procurando nova partida...",
+		"opponent_turn": "Vez do Oponente",
+		"searching_for_opponent": "Procurando oponente...",
+		"you_lost": "Você perdeu!",
+		"you_won": "Você ganhou!",
+		"your_turn": "Sua Vez"
+	},
 	"Menu": {
-		"title": "Notakto",
-		"play_vs_player": "Jogar vs Jogador",
-		"play_vs_computer": "Jogar vs Computador",
-		"live_match": "Partida ao Vivo",
-		"tutorial": "Tutorial",
-		"sign_in": "Entrar",
-		"sign_out": "Sair",
 		"adjust_sound": "Ajustar Som",
 		"keyboard_shortcuts": "Atalhos do Teclado",
-		"toast_sign_in": "Por favor, entre!"
+		"live_match": "Partida ao Vivo",
+		"play_vs_computer": "Jogar vs Computador",
+		"play_vs_player": "Jogar vs Jogador",
+		"sign_in": "Entrar",
+		"sign_out": "Sair",
+		"title": "Notakto",
+		"toast_sign_in": "Por favor, entre!",
+		"tutorial": "Tutorial"
 	},
-	"SoundConfig": {
-		"title": "Configuração de Som",
-		"background_music": "Música de Fundo",
-		"player_move_sound": "Som de Movimento",
-		"mute": "Mudo",
-		"unmute": "Ativar Som",
-		"reset_sounds": "Redefinir Sons",
-		"return": "Voltar"
+	"PlayerNamesModal": {
+		"characters": "caracteres",
+		"duplicate_names_error": "O Jogador 1 e o Jogador 2 não podem ter o mesmo nome.",
+		"player_1": "Jogador 1",
+		"player_1_name": "Nome do Jogador 1",
+		"player_2": "Jogador 2",
+		"player_2_name": "Nome do Jogador 2",
+		"start_game": "Iniciar Jogo",
+		"title": "Inserir Nomes dos Jogadores"
 	},
 	"Shortcuts": {
-		"title": "Atalhos do Teclado",
-		"return": "Voltar",
 		"actions": {
+			"adjust_sound": "Ajustar som",
 			"close_modal": "Fechar modal",
+			"go_main_menu": "Ir ao menu principal",
+			"open_config": "Abrir configuração",
+			"open_difficulty": "Abrir dificuldade",
 			"open_shortcuts": "Abrir atalhos",
 			"open_tutorial": "Abrir tutorial",
-			"adjust_sound": "Ajustar som",
-			"go_main_menu": "Ir ao menu principal",
 			"reset_game": "Reiniciar jogo",
-			"open_config": "Abrir configuração",
-			"toggle_names": "Alternar nomes",
-			"open_difficulty": "Abrir dificuldade"
-		}
+			"toggle_names": "Alternar nomes"
+		},
+		"return": "Voltar",
+		"title": "Atalhos do Teclado"
+	},
+	"SoundConfig": {
+		"background_music": "Música de Fundo",
+		"mute": "Mudo",
+		"player_move_sound": "Som de Movimento",
+		"reset_sounds": "Redefinir Sons",
+		"return": "Voltar",
+		"title": "Configuração de Som",
+		"unmute": "Ativar Som"
 	},
 	"Tutorial": {
-		"title": "Como Jogar Notakto",
 		"close": "Fechar Tutorial",
 		"rules": {
 			"0": "Ambos os jogadores usam X",
@@ -45,72 +103,14 @@
 			"3": "Qualquer tabuleiro com 3 X em linha morre",
 			"4": "O último jogador a fazer um movimento válido perde",
 			"5": "Estratégia: Force o oponente a fazer o último movimento!"
-		}
-	},
-	"Game": {
-		"settings": "Configurações",
-		"reset": "Reiniciar",
-		"game_configuration": "Configuração do Jogo",
-		"reset_names": "Reiniciar Nomes",
-		"adjust_sound": "Ajustar Som",
-		"keyboard_shortcuts": "Atalhos do Teclado",
-		"main_menu": "Menu Principal",
-		"return_to_game": "Voltar ao Jogo",
-		"your_turn": "Sua Vez",
-		"computer_turn": "Vez do Computador",
-		"player_turn": "Vez de {name}",
-		"opponent_turn": "Vez do Oponente",
-		"ai_level": "Nível da IA: {level}",
-		"undo_move": "Desfazer (100 moedas)",
-		"skip_move": "Pular uma Jogada (200 moedas)",
-		"buy_coins": "Comprar Moedas (100)",
-		"currently_not_available": "Atualmente indisponível"
+		},
+		"title": "Como Jogar Notakto"
 	},
 	"WinnerModal": {
 		"game_over": "Fim de Jogo!",
-		"you_won": "Você ganhou!",
-		"wins": "{name} ganha",
+		"main_menu": "Menu Principal",
 		"play_again": "Jogar Novamente",
-		"main_menu": "Menu Principal"
-	},
-	"ConfirmationModal": {
-		"reset_game_title": "Reiniciar Jogo?",
-		"reset_game_message": "Tem certeza de que deseja reiniciar o jogo atual?",
-		"yes_reset": "Sim, Reiniciar",
-		"exit_to_menu_title": "Sair para o Menu?",
-		"exit_to_menu_message": "Tem certeza de que deseja sair? Seu jogo atual será perdido.",
-		"yes_exit": "Sim, Sair",
-		"cancel": "Cancelar",
-		"confirm": "Confirmar"
-	},
-	"PlayerNamesModal": {
-		"title": "Inserir Nomes dos Jogadores",
-		"player_1_name": "Nome do Jogador 1",
-		"player_2_name": "Nome do Jogador 2",
-		"player_1": "Jogador 1",
-		"player_2": "Jogador 2",
-		"characters": "caracteres",
-		"start_game": "Iniciar Jogo",
-		"duplicate_names_error": "O Jogador 1 e o Jogador 2 não podem ter o mesmo nome."
-	},
-	"BoardConfigModal": {
-		"number_of_boards": "Número de Tabuleiros",
-		"board_size": "Tamanho do Tabuleiro",
-		"cancel": "Cancelar",
-		"apply": "Aplicar"
-	},
-	"DifficultyModal": {
-		"select_difficulty": "Selecionar Dificuldade",
-		"level": "Nível {level}",
-		"cancel": "Cancelar"
-	},
-	"LiveMatch": {
-		"your_turn": "Sua Vez",
-		"opponent_turn": "Vez do Oponente",
-		"searching_for_opponent": "Procurando oponente...",
-		"leave": "Sair",
-		"you_won": "Você ganhou!",
-		"you_lost": "Você perdeu!",
-		"opponent_disconnected": "Oponente Desconectado! Procurando nova partida..."
+		"wins": "{name} ganha",
+		"you_won": "Você ganhou!"
 	}
 }

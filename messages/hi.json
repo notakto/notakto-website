@@ -1,42 +1,100 @@
 {
+	"BoardConfigModal": {
+		"apply": "लागू करें",
+		"board_size": "बोर्ड का आकार",
+		"cancel": "रद्द करें",
+		"number_of_boards": "बोर्डों की संख्या"
+	},
+	"ConfirmationModal": {
+		"cancel": "रद्द करें",
+		"confirm": "पुष्टि करें",
+		"exit_to_menu_message": "क्या आप वाकई बाहर जाना चाहते हैं? आपका वर्तमान खेल खो जाएगा।",
+		"exit_to_menu_title": "मेनू पर जाएं?",
+		"reset_game_message": "क्या आप वाकई वर्तमान खेल को रीसेट करना चाहते हैं?",
+		"reset_game_title": "खेल रीसेट करें?",
+		"yes_exit": "हां, बाहर जाएं",
+		"yes_reset": "हां, रीसेट करें"
+	},
+	"DifficultyModal": {
+		"cancel": "रद्द करें",
+		"level": "स्तर {level}",
+		"select_difficulty": "कठिनाई चुनें"
+	},
+	"Game": {
+		"adjust_sound": "ध्वनि समायोजित करें",
+		"ai_level": "AI स्तर: {level}",
+		"buy_coins": "सिक्के खरीदें (100)",
+		"computer_turn": "कंप्यूटर की बारी",
+		"currently_not_available": "वर्तमान में उपलब्ध नहीं",
+		"game_configuration": "खेल कॉन्फ़िगरेशन",
+		"keyboard_shortcuts": "कीबोर्ड शॉर्टकट",
+		"main_menu": "मुख्य मेनू",
+		"opponent_turn": "प्रतिद्वंद्वी की बारी",
+		"player_turn": "{name} की बारी",
+		"reset": "रीसेट करें",
+		"reset_names": "नाम रीसेट करें",
+		"return_to_game": "खेल पर वापस जाएं",
+		"settings": "सेटिंग्स",
+		"skip_move": "एक चाल छोड़ें (200 सिक्के)",
+		"undo_move": "पूर्ववत करें (100 सिक्के)",
+		"your_turn": "आपकी बारी"
+	},
+	"LiveMatch": {
+		"leave": "छोड़ें",
+		"opponent_disconnected": "प्रतिद्वंद्वी डिस्कनेक्ट! नया मैच खोज रहे हैं...",
+		"opponent_turn": "प्रतिद्वंद्वी की बारी",
+		"searching_for_opponent": "प्रतिद्वंद्वी खोज रहे हैं...",
+		"you_lost": "आप हार गए!",
+		"you_won": "आप जीत गए!",
+		"your_turn": "आपकी बारी"
+	},
 	"Menu": {
-		"title": "Notakto",
-		"play_vs_player": "खिलाड़ी बनाम खिलाड़ी",
-		"play_vs_computer": "कंप्यूटर बनाम खेलें",
-		"live_match": "लाइव मैच",
-		"tutorial": "ट्यूटोरियल",
-		"sign_in": "साइन इन करें",
-		"sign_out": "साइन आउट करें",
 		"adjust_sound": "ध्वनि समायोजित करें",
 		"keyboard_shortcuts": "कीबोर्ड शॉर्टकट",
-		"toast_sign_in": "कृपया साइन इन करें!"
+		"live_match": "लाइव मैच",
+		"play_vs_computer": "कंप्यूटर बनाम खेलें",
+		"play_vs_player": "खिलाड़ी बनाम खिलाड़ी",
+		"sign_in": "साइन इन करें",
+		"sign_out": "साइन आउट करें",
+		"title": "Notakto",
+		"toast_sign_in": "कृपया साइन इन करें!",
+		"tutorial": "ट्यूटोरियल"
 	},
-	"SoundConfig": {
-		"title": "ध्वनि विन्यास",
-		"background_music": "पृष्ठभूमि संगीत",
-		"player_move_sound": "चाल की ध्वनि",
-		"mute": "म्यूट करें",
-		"unmute": "अनम्यूट करें",
-		"reset_sounds": "ध्वनि रीसेट करें",
-		"return": "वापस"
+	"PlayerNamesModal": {
+		"characters": "वर्ण",
+		"duplicate_names_error": "खिलाड़ी 1 और खिलाड़ी 2 का नाम समान नहीं हो सकता।",
+		"player_1": "खिलाड़ी 1",
+		"player_1_name": "खिलाड़ी 1 का नाम",
+		"player_2": "खिलाड़ी 2",
+		"player_2_name": "खिलाड़ी 2 का नाम",
+		"start_game": "खेल शुरू करें",
+		"title": "खिलाड़ी के नाम दर्ज करें"
 	},
 	"Shortcuts": {
-		"title": "कीबोर्ड शॉर्टकट",
-		"return": "वापस",
 		"actions": {
+			"adjust_sound": "ध्वनि समायोजित करें",
 			"close_modal": "मोडल बंद करें",
+			"go_main_menu": "मुख्य मेनू पर जाएं",
+			"open_config": "कॉन्फ़िगरेशन खोलें",
+			"open_difficulty": "कठिनाई खोलें",
 			"open_shortcuts": "शॉर्टकट खोलें",
 			"open_tutorial": "ट्यूटोरियल खोलें",
-			"adjust_sound": "ध्वनि समायोजित करें",
-			"go_main_menu": "मुख्य मेनू पर जाएं",
 			"reset_game": "खेल रीसेट करें",
-			"open_config": "कॉन्फ़िगरेशन खोलें",
-			"toggle_names": "नाम टॉगल करें",
-			"open_difficulty": "कठिनाई खोलें"
-		}
+			"toggle_names": "नाम टॉगल करें"
+		},
+		"return": "वापस",
+		"title": "कीबोर्ड शॉर्टकट"
+	},
+	"SoundConfig": {
+		"background_music": "पृष्ठभूमि संगीत",
+		"mute": "म्यूट करें",
+		"player_move_sound": "चाल की ध्वनि",
+		"reset_sounds": "ध्वनि रीसेट करें",
+		"return": "वापस",
+		"title": "ध्वनि विन्यास",
+		"unmute": "अनम्यूट करें"
 	},
 	"Tutorial": {
-		"title": "Notakto कैसे खेलें",
 		"close": "ट्यूटोरियल बंद करें",
 		"rules": {
 			"0": "दोनों खिलाड़ी X का उपयोग करते हैं",
@@ -45,72 +103,14 @@
 			"3": "कोई भी बोर्ड जिसमें 3 X एक पंक्ति में हों, मृत हो जाता है",
 			"4": "अंतिम वैध चाल चलने वाला खिलाड़ी हार जाता है",
 			"5": "रणनीति: प्रतिद्वंद्वी को अंतिम चाल चलने के लिए मजबूर करें!"
-		}
-	},
-	"Game": {
-		"settings": "सेटिंग्स",
-		"reset": "रीसेट करें",
-		"game_configuration": "खेल कॉन्फ़िगरेशन",
-		"reset_names": "नाम रीसेट करें",
-		"adjust_sound": "ध्वनि समायोजित करें",
-		"keyboard_shortcuts": "कीबोर्ड शॉर्टकट",
-		"main_menu": "मुख्य मेनू",
-		"return_to_game": "खेल पर वापस जाएं",
-		"your_turn": "आपकी बारी",
-		"computer_turn": "कंप्यूटर की बारी",
-		"player_turn": "{name} की बारी",
-		"opponent_turn": "प्रतिद्वंद्वी की बारी",
-		"ai_level": "AI स्तर: {level}",
-		"undo_move": "पूर्ववत करें (100 सिक्के)",
-		"skip_move": "एक चाल छोड़ें (200 सिक्के)",
-		"buy_coins": "सिक्के खरीदें (100)",
-		"currently_not_available": "वर्तमान में उपलब्ध नहीं"
+		},
+		"title": "Notakto कैसे खेलें"
 	},
 	"WinnerModal": {
 		"game_over": "खेल समाप्त!",
-		"you_won": "आप जीत गए!",
-		"wins": "{name} जीतता है",
+		"main_menu": "मुख्य मेनू",
 		"play_again": "फिर से खेलें",
-		"main_menu": "मुख्य मेनू"
-	},
-	"ConfirmationModal": {
-		"reset_game_title": "खेल रीसेट करें?",
-		"reset_game_message": "क्या आप वाकई वर्तमान खेल को रीसेट करना चाहते हैं?",
-		"yes_reset": "हां, रीसेट करें",
-		"exit_to_menu_title": "मेनू पर जाएं?",
-		"exit_to_menu_message": "क्या आप वाकई बाहर जाना चाहते हैं? आपका वर्तमान खेल खो जाएगा।",
-		"yes_exit": "हां, बाहर जाएं",
-		"cancel": "रद्द करें",
-		"confirm": "पुष्टि करें"
-	},
-	"PlayerNamesModal": {
-		"title": "खिलाड़ी के नाम दर्ज करें",
-		"player_1_name": "खिलाड़ी 1 का नाम",
-		"player_2_name": "खिलाड़ी 2 का नाम",
-		"player_1": "खिलाड़ी 1",
-		"player_2": "खिलाड़ी 2",
-		"characters": "वर्ण",
-		"start_game": "खेल शुरू करें",
-		"duplicate_names_error": "खिलाड़ी 1 और खिलाड़ी 2 का नाम समान नहीं हो सकता।"
-	},
-	"BoardConfigModal": {
-		"number_of_boards": "बोर्डों की संख्या",
-		"board_size": "बोर्ड का आकार",
-		"cancel": "रद्द करें",
-		"apply": "लागू करें"
-	},
-	"DifficultyModal": {
-		"select_difficulty": "कठिनाई चुनें",
-		"level": "स्तर {level}",
-		"cancel": "रद्द करें"
-	},
-	"LiveMatch": {
-		"your_turn": "आपकी बारी",
-		"opponent_turn": "प्रतिद्वंद्वी की बारी",
-		"searching_for_opponent": "प्रतिद्वंद्वी खोज रहे हैं...",
-		"leave": "छोड़ें",
-		"you_won": "आप जीत गए!",
-		"you_lost": "आप हार गए!",
-		"opponent_disconnected": "प्रतिद्वंद्वी डिस्कनेक्ट! नया मैच खोज रहे हैं..."
+		"wins": "{name} जीतता है",
+		"you_won": "आप जीत गए!"
 	}
 }

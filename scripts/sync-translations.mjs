@@ -16,6 +16,7 @@
 import { readFileSync, writeFileSync, existsSync } from "fs";
 import { join, dirname } from "path";
 import { fileURLToPath } from "url";
+import { translate } from 'google-translate-api-x';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -95,7 +96,7 @@ function sortObjectKeys(obj) {
 	return sorted;
 }
 
-function syncTranslations(checkOnly = false) {
+async function syncTranslations(checkOnly = false) {
 	console.log("🌐 Translation Sync Tool\n");
 
 	// Load all translation files
@@ -133,16 +134,30 @@ function syncTranslations(checkOnly = false) {
 
 				// Add missing keys
 				if (!checkOnly) {
+					console.log(`   🔄 Auto-translating missing keys for ${locale.toUpperCase()}...`);
 					for (const key of missing) {
 						const englishValue = getNestedValue(translations.en, key);
-						// Use English value as placeholder, or empty string
-						const placeholder = englishValue || `[TODO: Translate ${key}]`;
-						setNestedValue(translations[locale], key, placeholder);
+						let translatedValue = englishValue;
+
+						try {
+							if (englishValue && typeof englishValue === 'string') {
+								const res = await translate(englishValue, { from: 'en', to: locale });
+								translatedValue = res.text;
+								// Small delay to be nice to the API
+								await new Promise(resolve => setTimeout(resolve, 100)); 
+							}
+						} catch (error) {
+							console.warn(`      ⚠️  Translation failed for "${key}" (${englishValue}). Using English fallback.`);
+						}
+
+						// Use translated value or fallback
+						const finalValue = translatedValue || `[TODO: Translate ${key}]`;
+						setNestedValue(translations[locale], key, finalValue);
 					}
 					// Sort and save
 					translations[locale] = sortObjectKeys(translations[locale]);
 					saveTranslations(locale, translations[locale]);
-					console.log(`   ✅ Added ${missing.length} missing keys`);
+					console.log(`   ✅ Added and translated ${missing.length} missing keys`);
 				}
 			}
 
@@ -190,5 +205,8 @@ function syncTranslations(checkOnly = false) {
 const args = process.argv.slice(2);
 const checkOnly = args.includes("--check") || args.includes("-c");
 
-syncTranslations(checkOnly);
+syncTranslations(checkOnly).catch(err => {
+	console.error("Fatal error:", err);
+	process.exit(1);
+});
 
