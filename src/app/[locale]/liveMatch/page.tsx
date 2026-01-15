@@ -1,6 +1,6 @@
 "use client";
-import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { io } from "socket.io-client";
@@ -57,14 +57,11 @@ const LiveMode = () => {
 		});
 
 		socket.on("gameOver", (data: { loser: string }) => {
-			toast(
-				data.loser === socket.id ? t("you_lost") : t("you_won"),
-				{
-					toastId: TOAST_IDS.LiveMatch.GameOver,
-					autoClose: TOAST_DURATION,
-					onClose: resetCooldown,
-				},
-			);
+			toast(data.loser === socket.id ? t("you_lost") : t("you_won"), {
+				toastId: TOAST_IDS.LiveMatch.GameOver,
+				autoClose: TOAST_DURATION,
+				onClose: resetCooldown,
+			});
 			resetGame();
 		});
 

@@ -1,7 +1,7 @@
 "use client";
 
-import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
 import { useShortcut } from "@/components/hooks/useShortcut";
@@ -559,11 +559,7 @@ const Game = () => {
 						<StatLabel text={`| XP: ${XP}`} />
 					</StatContainer>
 					<PlayerTurnTitle
-						text={
-							currentPlayer === 1
-								? t("your_turn")
-								: t("computer_turn")
-						}
+						text={currentPlayer === 1 ? t("your_turn") : t("computer_turn")}
 					/>
 				</PlayerStatusContainer>
 

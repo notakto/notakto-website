@@ -1,7 +1,7 @@
 "use client";
 
-import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { useShortcut } from "@/components/hooks/useShortcut";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
