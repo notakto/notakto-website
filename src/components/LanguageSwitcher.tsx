@@ -31,7 +31,7 @@ export default function LanguageSwitcher() {
 	return (
 		<div className="absolute top-4 right-4 z-50">
 			<select
-				defaultValue={locale}
+				value={locale}
 				onChange={onSelectChange}
 				disabled={isPending}
 				className="bg-gray-800 text-white border border-gray-600 rounded px-2 py-1 text-sm font-vt323 hover:bg-gray-700 cursor-pointer"

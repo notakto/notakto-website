@@ -46,5 +46,71 @@
 			"4": "El último jugador en hacer un movimiento válido pierde",
 			"5": "Estrategia: ¡Obliga al oponente a hacer el último movimiento!"
 		}
+	},
+	"Game": {
+		"settings": "Configuración",
+		"reset": "Reiniciar",
+		"game_configuration": "Configuración del Juego",
+		"reset_names": "Reiniciar Nombres",
+		"adjust_sound": "Ajustar Sonido",
+		"keyboard_shortcuts": "Atajos de Teclado",
+		"main_menu": "Menú Principal",
+		"return_to_game": "Volver al Juego",
+		"your_turn": "Tu Turno",
+		"computer_turn": "Turno de la Computadora",
+		"player_turn": "Turno de {name}",
+		"opponent_turn": "Turno del Oponente",
+		"ai_level": "Nivel de IA: {level}",
+		"undo_move": "Deshacer (100 monedas)",
+		"skip_move": "Saltar un Movimiento (200 monedas)",
+		"buy_coins": "Comprar Monedas (100)",
+		"currently_not_available": "Actualmente no disponible"
+	},
+	"WinnerModal": {
+		"game_over": "¡Juego Terminado!",
+		"you_won": "¡Ganaste!",
+		"wins": "{name} gana",
+		"play_again": "Jugar de Nuevo",
+		"main_menu": "Menú Principal"
+	},
+	"ConfirmationModal": {
+		"reset_game_title": "¿Reiniciar Juego?",
+		"reset_game_message": "¿Estás seguro de que quieres reiniciar el juego actual?",
+		"yes_reset": "Sí, Reiniciar",
+		"exit_to_menu_title": "¿Salir al Menú?",
+		"exit_to_menu_message": "¿Estás seguro de que quieres salir? Tu juego actual se perderá.",
+		"yes_exit": "Sí, Salir",
+		"cancel": "Cancelar",
+		"confirm": "Confirmar"
+	},
+	"PlayerNamesModal": {
+		"title": "Ingresar Nombres de Jugadores",
+		"player_1_name": "Nombre del Jugador 1",
+		"player_2_name": "Nombre del Jugador 2",
+		"player_1": "Jugador 1",
+		"player_2": "Jugador 2",
+		"characters": "caracteres",
+		"start_game": "Iniciar Juego",
+		"duplicate_names_error": "El Jugador 1 y el Jugador 2 no pueden tener el mismo nombre."
+	},
+	"BoardConfigModal": {
+		"number_of_boards": "Número de Tableros",
+		"board_size": "Tamaño del Tablero",
+		"cancel": "Cancelar",
+		"apply": "Aplicar"
+	},
+	"DifficultyModal": {
+		"select_difficulty": "Seleccionar Dificultad",
+		"level": "Nivel {level}",
+		"cancel": "Cancelar"
+	},
+	"LiveMatch": {
+		"your_turn": "Tu Turno",
+		"opponent_turn": "Turno del Oponente",
+		"searching_for_opponent": "Buscando oponente...",
+		"leave": "Salir",
+		"you_won": "¡Ganaste!",
+		"you_lost": "¡Perdiste!",
+		"opponent_disconnected": "¡Oponente Desconectado! Buscando nueva partida..."
 	}
 }

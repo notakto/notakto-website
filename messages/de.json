@@ -46,5 +46,71 @@
 			"4": "Der letzte Spieler, der einen gültigen Zug macht, verliert",
 			"5": "Strategie: Zwinge den Gegner zum letzten Zug!"
 		}
+	},
+	"Game": {
+		"settings": "Einstellungen",
+		"reset": "Zurücksetzen",
+		"game_configuration": "Spielkonfiguration",
+		"reset_names": "Namen zurücksetzen",
+		"adjust_sound": "Ton anpassen",
+		"keyboard_shortcuts": "Tastaturkürzel",
+		"main_menu": "Hauptmenü",
+		"return_to_game": "Zurück zum Spiel",
+		"your_turn": "Dein Zug",
+		"computer_turn": "Computer-Zug",
+		"player_turn": "Zug von {name}",
+		"opponent_turn": "Gegner-Zug",
+		"ai_level": "KI-Level: {level}",
+		"undo_move": "Rückgängig (100 Münzen)",
+		"skip_move": "Zug Überspringen (200 Münzen)",
+		"buy_coins": "Münzen Kaufen (100)",
+		"currently_not_available": "Derzeit nicht verfügbar"
+	},
+	"WinnerModal": {
+		"game_over": "Spiel Vorbei!",
+		"you_won": "Du hast gewonnen!",
+		"wins": "{name} gewinnt",
+		"play_again": "Nochmal Spielen",
+		"main_menu": "Hauptmenü"
+	},
+	"ConfirmationModal": {
+		"reset_game_title": "Spiel Zurücksetzen?",
+		"reset_game_message": "Bist du sicher, dass du das aktuelle Spiel zurücksetzen möchtest?",
+		"yes_reset": "Ja, Zurücksetzen",
+		"exit_to_menu_title": "Zum Menü Beenden?",
+		"exit_to_menu_message": "Bist du sicher, dass du beenden möchtest? Dein aktuelles Spiel geht verloren.",
+		"yes_exit": "Ja, Beenden",
+		"cancel": "Abbrechen",
+		"confirm": "Bestätigen"
+	},
+	"PlayerNamesModal": {
+		"title": "Spielernamen Eingeben",
+		"player_1_name": "Spieler 1 Name",
+		"player_2_name": "Spieler 2 Name",
+		"player_1": "Spieler 1",
+		"player_2": "Spieler 2",
+		"characters": "Zeichen",
+		"start_game": "Spiel Starten",
+		"duplicate_names_error": "Spieler 1 und Spieler 2 können nicht denselben Namen haben."
+	},
+	"BoardConfigModal": {
+		"number_of_boards": "Anzahl der Bretter",
+		"board_size": "Brettgröße",
+		"cancel": "Abbrechen",
+		"apply": "Anwenden"
+	},
+	"DifficultyModal": {
+		"select_difficulty": "Schwierigkeit Auswählen",
+		"level": "Level {level}",
+		"cancel": "Abbrechen"
+	},
+	"LiveMatch": {
+		"your_turn": "Dein Zug",
+		"opponent_turn": "Gegner-Zug",
+		"searching_for_opponent": "Suche nach Gegner...",
+		"leave": "Verlassen",
+		"you_won": "Du hast gewonnen!",
+		"you_lost": "Du hast verloren!",
+		"opponent_disconnected": "Gegner Getrennt! Suche nach neuem Match..."
 	}
 }

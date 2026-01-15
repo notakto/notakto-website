@@ -1,4 +1,5 @@
 "use client";
+import { useTranslations } from "next-intl";
 import { DifficultyActionButton } from "@/components/ui/Buttons/DifficultyActionButton";
 import DifficultyContainer from "@/components/ui/Containers/Difficulty/DifficultyContainer";
 import ModalOverlay from "@/components/ui/Overlays/ModalOverlay";
@@ -10,24 +11,25 @@ const DifficultyModal = ({
 	onSelect,
 	onClose,
 }: DifficultyModalProps) => {
+	const t = useTranslations("DifficultyModal");
 	if (!visible) return null;
 	const DifficultyLevels: DifficultyLevel[] = [1, 2, 3, 4, 5];
 	return (
 		<ModalOverlay>
 			<DifficultyContainer>
-				<DifficultyTitle text="Select Difficulty"></DifficultyTitle>
+				<DifficultyTitle text={t("select_difficulty")}></DifficultyTitle>
 
 				{DifficultyLevels.map((level) => (
 					<DifficultyActionButton
 						variant="level"
 						key={level}
 						onClick={() => onSelect(level)}>
-						Level {level}
+						{t("level", { level })}
 					</DifficultyActionButton>
 				))}
 
 				<DifficultyActionButton variant="cancel" onClick={onClose}>
-					Cancel
+					{t("cancel")}
 				</DifficultyActionButton>
 			</DifficultyContainer>
 		</ModalOverlay>

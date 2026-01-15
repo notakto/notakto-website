@@ -46,5 +46,71 @@
 			"4": "最后一个做出有效移动的玩家输掉比赛",
 			"5": "策略：迫使对手做出最后一步！"
 		}
+	},
+	"Game": {
+		"settings": "设置",
+		"reset": "重置",
+		"game_configuration": "游戏配置",
+		"reset_names": "重置名称",
+		"adjust_sound": "调整声音",
+		"keyboard_shortcuts": "键盘快捷键",
+		"main_menu": "主菜单",
+		"return_to_game": "返回游戏",
+		"your_turn": "你的回合",
+		"computer_turn": "电脑的回合",
+		"player_turn": "{name}的回合",
+		"opponent_turn": "对手的回合",
+		"ai_level": "AI等级: {level}",
+		"undo_move": "撤销（100金币）",
+		"skip_move": "跳过一步（200金币）",
+		"buy_coins": "购买金币（100）",
+		"currently_not_available": "目前不可用"
+	},
+	"WinnerModal": {
+		"game_over": "游戏结束！",
+		"you_won": "你赢了！",
+		"wins": "{name}获胜",
+		"play_again": "再玩一次",
+		"main_menu": "主菜单"
+	},
+	"ConfirmationModal": {
+		"reset_game_title": "重置游戏？",
+		"reset_game_message": "您确定要重置当前游戏吗？",
+		"yes_reset": "是的，重置",
+		"exit_to_menu_title": "退出到菜单？",
+		"exit_to_menu_message": "您确定要退出吗？您当前的游戏将丢失。",
+		"yes_exit": "是的，退出",
+		"cancel": "取消",
+		"confirm": "确认"
+	},
+	"PlayerNamesModal": {
+		"title": "输入玩家名称",
+		"player_1_name": "玩家1名称",
+		"player_2_name": "玩家2名称",
+		"player_1": "玩家1",
+		"player_2": "玩家2",
+		"characters": "字符",
+		"start_game": "开始游戏",
+		"duplicate_names_error": "玩家1和玩家2不能使用相同的名称。"
+	},
+	"BoardConfigModal": {
+		"number_of_boards": "棋盘数量",
+		"board_size": "棋盘大小",
+		"cancel": "取消",
+		"apply": "应用"
+	},
+	"DifficultyModal": {
+		"select_difficulty": "选择难度",
+		"level": "等级{level}",
+		"cancel": "取消"
+	},
+	"LiveMatch": {
+		"your_turn": "你的回合",
+		"opponent_turn": "对手的回合",
+		"searching_for_opponent": "正在寻找对手...",
+		"leave": "离开",
+		"you_won": "你赢了！",
+		"you_lost": "你输了！",
+		"opponent_disconnected": "对手已断开连接！正在寻找新比赛..."
 	}
 }

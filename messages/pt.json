@@ -46,5 +46,71 @@
 			"4": "O último jogador a fazer um movimento válido perde",
 			"5": "Estratégia: Force o oponente a fazer o último movimento!"
 		}
+	},
+	"Game": {
+		"settings": "Configurações",
+		"reset": "Reiniciar",
+		"game_configuration": "Configuração do Jogo",
+		"reset_names": "Reiniciar Nomes",
+		"adjust_sound": "Ajustar Som",
+		"keyboard_shortcuts": "Atalhos do Teclado",
+		"main_menu": "Menu Principal",
+		"return_to_game": "Voltar ao Jogo",
+		"your_turn": "Sua Vez",
+		"computer_turn": "Vez do Computador",
+		"player_turn": "Vez de {name}",
+		"opponent_turn": "Vez do Oponente",
+		"ai_level": "Nível da IA: {level}",
+		"undo_move": "Desfazer (100 moedas)",
+		"skip_move": "Pular uma Jogada (200 moedas)",
+		"buy_coins": "Comprar Moedas (100)",
+		"currently_not_available": "Atualmente indisponível"
+	},
+	"WinnerModal": {
+		"game_over": "Fim de Jogo!",
+		"you_won": "Você ganhou!",
+		"wins": "{name} ganha",
+		"play_again": "Jogar Novamente",
+		"main_menu": "Menu Principal"
+	},
+	"ConfirmationModal": {
+		"reset_game_title": "Reiniciar Jogo?",
+		"reset_game_message": "Tem certeza de que deseja reiniciar o jogo atual?",
+		"yes_reset": "Sim, Reiniciar",
+		"exit_to_menu_title": "Sair para o Menu?",
+		"exit_to_menu_message": "Tem certeza de que deseja sair? Seu jogo atual será perdido.",
+		"yes_exit": "Sim, Sair",
+		"cancel": "Cancelar",
+		"confirm": "Confirmar"
+	},
+	"PlayerNamesModal": {
+		"title": "Inserir Nomes dos Jogadores",
+		"player_1_name": "Nome do Jogador 1",
+		"player_2_name": "Nome do Jogador 2",
+		"player_1": "Jogador 1",
+		"player_2": "Jogador 2",
+		"characters": "caracteres",
+		"start_game": "Iniciar Jogo",
+		"duplicate_names_error": "O Jogador 1 e o Jogador 2 não podem ter o mesmo nome."
+	},
+	"BoardConfigModal": {
+		"number_of_boards": "Número de Tabuleiros",
+		"board_size": "Tamanho do Tabuleiro",
+		"cancel": "Cancelar",
+		"apply": "Aplicar"
+	},
+	"DifficultyModal": {
+		"select_difficulty": "Selecionar Dificuldade",
+		"level": "Nível {level}",
+		"cancel": "Cancelar"
+	},
+	"LiveMatch": {
+		"your_turn": "Sua Vez",
+		"opponent_turn": "Vez do Oponente",
+		"searching_for_opponent": "Procurando oponente...",
+		"leave": "Sair",
+		"you_won": "Você ganhou!",
+		"you_lost": "Você perdeu!",
+		"opponent_disconnected": "Oponente Desconectado! Procurando nova partida..."
 	}
 }

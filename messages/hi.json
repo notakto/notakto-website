@@ -46,5 +46,71 @@
 			"4": "अंतिम वैध चाल चलने वाला खिलाड़ी हार जाता है",
 			"5": "रणनीति: प्रतिद्वंद्वी को अंतिम चाल चलने के लिए मजबूर करें!"
 		}
+	},
+	"Game": {
+		"settings": "सेटिंग्स",
+		"reset": "रीसेट करें",
+		"game_configuration": "खेल कॉन्फ़िगरेशन",
+		"reset_names": "नाम रीसेट करें",
+		"adjust_sound": "ध्वनि समायोजित करें",
+		"keyboard_shortcuts": "कीबोर्ड शॉर्टकट",
+		"main_menu": "मुख्य मेनू",
+		"return_to_game": "खेल पर वापस जाएं",
+		"your_turn": "आपकी बारी",
+		"computer_turn": "कंप्यूटर की बारी",
+		"player_turn": "{name} की बारी",
+		"opponent_turn": "प्रतिद्वंद्वी की बारी",
+		"ai_level": "AI स्तर: {level}",
+		"undo_move": "पूर्ववत करें (100 सिक्के)",
+		"skip_move": "एक चाल छोड़ें (200 सिक्के)",
+		"buy_coins": "सिक्के खरीदें (100)",
+		"currently_not_available": "वर्तमान में उपलब्ध नहीं"
+	},
+	"WinnerModal": {
+		"game_over": "खेल समाप्त!",
+		"you_won": "आप जीत गए!",
+		"wins": "{name} जीतता है",
+		"play_again": "फिर से खेलें",
+		"main_menu": "मुख्य मेनू"
+	},
+	"ConfirmationModal": {
+		"reset_game_title": "खेल रीसेट करें?",
+		"reset_game_message": "क्या आप वाकई वर्तमान खेल को रीसेट करना चाहते हैं?",
+		"yes_reset": "हां, रीसेट करें",
+		"exit_to_menu_title": "मेनू पर जाएं?",
+		"exit_to_menu_message": "क्या आप वाकई बाहर जाना चाहते हैं? आपका वर्तमान खेल खो जाएगा।",
+		"yes_exit": "हां, बाहर जाएं",
+		"cancel": "रद्द करें",
+		"confirm": "पुष्टि करें"
+	},
+	"PlayerNamesModal": {
+		"title": "खिलाड़ी के नाम दर्ज करें",
+		"player_1_name": "खिलाड़ी 1 का नाम",
+		"player_2_name": "खिलाड़ी 2 का नाम",
+		"player_1": "खिलाड़ी 1",
+		"player_2": "खिलाड़ी 2",
+		"characters": "वर्ण",
+		"start_game": "खेल शुरू करें",
+		"duplicate_names_error": "खिलाड़ी 1 और खिलाड़ी 2 का नाम समान नहीं हो सकता।"
+	},
+	"BoardConfigModal": {
+		"number_of_boards": "बोर्डों की संख्या",
+		"board_size": "बोर्ड का आकार",
+		"cancel": "रद्द करें",
+		"apply": "लागू करें"
+	},
+	"DifficultyModal": {
+		"select_difficulty": "कठिनाई चुनें",
+		"level": "स्तर {level}",
+		"cancel": "रद्द करें"
+	},
+	"LiveMatch": {
+		"your_turn": "आपकी बारी",
+		"opponent_turn": "प्रतिद्वंद्वी की बारी",
+		"searching_for_opponent": "प्रतिद्वंद्वी खोज रहे हैं...",
+		"leave": "छोड़ें",
+		"you_won": "आप जीत गए!",
+		"you_lost": "आप हार गए!",
+		"opponent_disconnected": "प्रतिद्वंद्वी डिस्कनेक्ट! नया मैच खोज रहे हैं..."
 	}
 }

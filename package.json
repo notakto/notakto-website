@@ -17,7 +17,9 @@
 		"install:all": "pnpm install && cd notakto-socket-server && pnpm install",
 		"postinstall": "node -e \"const fs=require('fs'); if(!fs.existsSync('.env')) fs.copyFileSync('.env.example','.env');\"",
 		"env:check": "node -e \"const fs=require('fs'); const example=Object.keys(require('dotenv').config({path:'.env.example'}).parsed||{}); const current=Object.keys(require('dotenv').config({path:'.env'}).parsed||{}); const missing=example.filter(k=>!current.includes(k)); if(missing.length) {console.warn('⚠️  Missing env vars:',missing.join(', ')); process.exit(1);}\"",
-		"predev": "pnpm env:check"
+		"predev": "pnpm env:check",
+		"i18n:sync": "node scripts/sync-translations.mjs",
+		"i18n:check": "node scripts/sync-translations.mjs --check"
 	},
 	"dependencies": {
 		"@tailwindcss/postcss": "^4.1.18",

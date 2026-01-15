@@ -46,5 +46,71 @@
 			"4": "Last player to make a valid move loses",
 			"5": "Strategy: Force opponent to make final move!"
 		}
+	},
+	"Game": {
+		"settings": "Settings",
+		"reset": "Reset",
+		"game_configuration": "Game Configuration",
+		"reset_names": "Reset Names",
+		"adjust_sound": "Adjust Sound",
+		"keyboard_shortcuts": "Keyboard Shortcuts",
+		"main_menu": "Main Menu",
+		"return_to_game": "Return to Game",
+		"your_turn": "Your Turn",
+		"computer_turn": "Computer's Turn",
+		"player_turn": "{name}'s turn",
+		"opponent_turn": "Opponent's Turn",
+		"ai_level": "AI Level: {level}",
+		"undo_move": "Undo (100 coins)",
+		"skip_move": "Skip a Move (200 coins)",
+		"buy_coins": "Buy Coins (100)",
+		"currently_not_available": "Currently not available"
+	},
+	"WinnerModal": {
+		"game_over": "Game Over!",
+		"you_won": "You won!",
+		"wins": "{name} wins",
+		"play_again": "Play Again",
+		"main_menu": "Main Menu"
+	},
+	"ConfirmationModal": {
+		"reset_game_title": "Reset Game?",
+		"reset_game_message": "Are you sure you want to reset the current game?",
+		"yes_reset": "Yes, Reset",
+		"exit_to_menu_title": "Exit to Menu?",
+		"exit_to_menu_message": "Are you sure you want to exit? Your current game will be lost.",
+		"yes_exit": "Yes, Exit",
+		"cancel": "Cancel",
+		"confirm": "Confirm"
+	},
+	"PlayerNamesModal": {
+		"title": "Enter Player Names",
+		"player_1_name": "Player 1 Name",
+		"player_2_name": "Player 2 Name",
+		"player_1": "Player 1",
+		"player_2": "Player 2",
+		"characters": "characters",
+		"start_game": "Start Game",
+		"duplicate_names_error": "Player 1 and Player 2 cannot have the same name."
+	},
+	"BoardConfigModal": {
+		"number_of_boards": "Number of Boards",
+		"board_size": "Board Size",
+		"cancel": "Cancel",
+		"apply": "Apply"
+	},
+	"DifficultyModal": {
+		"select_difficulty": "Select Difficulty",
+		"level": "Level {level}",
+		"cancel": "Cancel"
+	},
+	"LiveMatch": {
+		"your_turn": "Your Turn",
+		"opponent_turn": "Opponent's Turn",
+		"searching_for_opponent": "Searching for opponent...",
+		"leave": "Leave",
+		"you_won": "You Won!",
+		"you_lost": "You Lost!",
+		"opponent_disconnected": "Opponent Disconnected! Searching for new match..."
 	}
 }

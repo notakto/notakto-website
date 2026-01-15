@@ -1,4 +1,5 @@
 "use client";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { BoardActionButton } from "@/components/ui/Buttons/BoardActionButton";
 // Standardise components
@@ -21,6 +22,7 @@ const BoardConfigModal = ({
 	onConfirm,
 	onCancel,
 }: BoardConfigModalProps) => {
+	const t = useTranslations("BoardConfigModal");
 	const [selectedBoards, setSelectedBoards] =
 		useState<BoardNumber>(currentBoards);
 	const [selectedSize, setSelectedSize] = useState<BoardSize>(currentSize);
@@ -32,7 +34,7 @@ const BoardConfigModal = ({
 	return (
 		<ModalOverlay>
 			<BoardConfigContainer>
-				<BoardConfigTitle text="Number of Boards" />
+				<BoardConfigTitle text={t("number_of_boards")} />
 				<BoardConfigOptions>
 					{BoardNumbers.map((num) => (
 						<li key={num}>
@@ -45,7 +47,7 @@ const BoardConfigModal = ({
 					))}
 				</BoardConfigOptions>
 
-				<BoardConfigTitle text="Board Size" />
+				<BoardConfigTitle text={t("board_size")} />
 
 				<BoardConfigOptions>
 					{BoardSizes.map((size) => (
@@ -60,11 +62,11 @@ const BoardConfigModal = ({
 				</BoardConfigOptions>
 
 				<BoardConfigAction>
-					<BoardActionButton onClick={onCancel}>Cancel</BoardActionButton>
+					<BoardActionButton onClick={onCancel}>{t("cancel")}</BoardActionButton>
 
 					<BoardActionButton
 						onClick={() => onConfirm(selectedBoards, selectedSize)}>
-						Apply
+						{t("apply")}
 					</BoardActionButton>
 				</BoardConfigAction>
 			</BoardConfigContainer>

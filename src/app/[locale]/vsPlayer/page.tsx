@@ -1,8 +1,10 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useShortcut } from "@/components/hooks/useShortcut";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 import Board from "@/components/ui/Board/Board";
 import SettingBar from "@/components/ui/Buttons/SettingBar";
 import { SettingButton } from "@/components/ui/Buttons/SettingButton";
@@ -31,6 +33,9 @@ import type {
 } from "@/services/types";
 
 const Game = () => {
+	const t = useTranslations("Game");
+	const tConfirmation = useTranslations("ConfirmationModal");
+	const tPlayer = useTranslations("PlayerNamesModal");
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	const [boards, setBoards] = useState<BoardState[]>([]);
 	const [boardSize, setBoardSize] = useState<BoardSize>(3);
@@ -152,11 +157,9 @@ const Game = () => {
 			<GameBoardArea>
 				<PlayerStatusContainer>
 					<PlayerTurnTitle
-						text={
-							currentPlayer === 1
-								? `${player1Name}'s turn`
-								: `${player2Name}'s turn`
-						}
+						text={t("player_turn", {
+							name: currentPlayer === 1 ? player1Name : player2Name,
+						})}
 					/>
 				</PlayerStatusContainer>
 
@@ -177,8 +180,9 @@ const Game = () => {
 					})}
 				</BoardContainer>
 
-				<SettingBar text={"Settings"} onClick={toggleMenu} />
+				<SettingBar text={t("settings")} onClick={toggleMenu} />
 			</GameBoardArea>
+			<LanguageSwitcher />
 
 			{isMenuOpen && (
 				<SettingOverlay>
@@ -188,38 +192,40 @@ const Game = () => {
 								resetGame(numberOfBoards, boardSize);
 								setIsMenuOpen(false);
 							}}>
-							Reset
+							{t("reset")}
 						</SettingButton>
 						<SettingButton
 							onClick={() => {
 								setActiveModal("boardConfig");
 								setIsMenuOpen(false);
 							}}>
-							Game Configuration
+							{t("game_configuration")}
 						</SettingButton>
 						<SettingButton
 							onClick={() => {
 								setActiveModal("names");
 								setIsMenuOpen(false);
 							}}>
-							Reset Names
+							{t("reset_names")}
 						</SettingButton>
 						<SettingButton
 							onClick={() => {
 								setActiveModal("soundConfig");
 								setIsMenuOpen(false);
 							}}>
-							Adjust Sound
+							{t("adjust_sound")}
 						</SettingButton>
 						<SettingButton
 							onClick={() => {
 								setActiveModal("shortcut");
 								setIsMenuOpen(false);
 							}}>
-							Keyboard Shortcuts
+							{t("keyboard_shortcuts")}
 						</SettingButton>
-						<SettingButton onClick={exitToMenu}>Main Menu</SettingButton>
-						<SettingButton onClick={toggleMenu}>Return to Game</SettingButton>
+						<SettingButton onClick={exitToMenu}>{t("main_menu")}</SettingButton>
+						<SettingButton onClick={toggleMenu}>
+							{t("return_to_game")}
+						</SettingButton>
 					</SettingContainer>
 				</SettingOverlay>
 			)}
@@ -227,8 +233,8 @@ const Game = () => {
 			<PlayerNamesModal
 				visible={activeModal === "names"}
 				onSubmit={(name1: string, name2: string) => {
-					setPlayer1Name(name1 || "Player 1");
-					setPlayer2Name(name2 || "Player 2");
+					setPlayer1Name(name1 || tPlayer("player_1"));
+					setPlayer2Name(name2 || tPlayer("player_2"));
 					setActiveModal(null);
 					resetGame(numberOfBoards, boardSize);
 					setInitialSetupDone(true);
@@ -266,24 +272,24 @@ const Game = () => {
 			/>
 			<ConfirmationModal
 				visible={activeModal === "resetConfirmation"}
-				title="Reset Game?"
-				message="Are you sure you want to reset the current game?"
+				title={tConfirmation("reset_game_title")}
+				message={tConfirmation("reset_game_message")}
 				onConfirm={() => {
 					resetGame(numberOfBoards, boardSize);
 					setActiveModal(null);
 				}}
 				onCancel={() => setActiveModal(null)}
-				confirmText="Yes, Reset"
+				confirmText={tConfirmation("yes_reset")}
 			/>
 			<ConfirmationModal
 				visible={activeModal === "exitConfirmation"}
-				title="Exit to Menu?"
-				message="Are you sure you want to exit? Your current game will be lost."
+				title={tConfirmation("exit_to_menu_title")}
+				message={tConfirmation("exit_to_menu_message")}
 				onConfirm={() => {
 					router.push("/");
 				}}
 				onCancel={() => setActiveModal(null)}
-				confirmText="Yes, Exit"
+				confirmText={tConfirmation("yes_exit")}
 			/>
 		</GameLayout>
 	);

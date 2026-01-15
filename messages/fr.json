@@ -46,5 +46,71 @@
 			"4": "Le dernier joueur à faire un coup valide perd",
 			"5": "Stratégie : Forcez l'adversaire à faire le dernier coup !"
 		}
+	},
+	"Game": {
+		"settings": "Paramètres",
+		"reset": "Réinitialiser",
+		"game_configuration": "Configuration du Jeu",
+		"reset_names": "Réinitialiser les Noms",
+		"adjust_sound": "Régler le son",
+		"keyboard_shortcuts": "Raccourcis clavier",
+		"main_menu": "Menu Principal",
+		"return_to_game": "Retour au Jeu",
+		"your_turn": "Votre Tour",
+		"computer_turn": "Tour de l'Ordinateur",
+		"player_turn": "Tour de {name}",
+		"opponent_turn": "Tour de l'Adversaire",
+		"ai_level": "Niveau IA : {level}",
+		"undo_move": "Annuler (100 pièces)",
+		"skip_move": "Passer un Coup (200 pièces)",
+		"buy_coins": "Acheter des Pièces (100)",
+		"currently_not_available": "Actuellement indisponible"
+	},
+	"WinnerModal": {
+		"game_over": "Partie Terminée !",
+		"you_won": "Vous avez gagné !",
+		"wins": "{name} gagne",
+		"play_again": "Rejouer",
+		"main_menu": "Menu Principal"
+	},
+	"ConfirmationModal": {
+		"reset_game_title": "Réinitialiser le Jeu ?",
+		"reset_game_message": "Êtes-vous sûr de vouloir réinitialiser la partie actuelle ?",
+		"yes_reset": "Oui, Réinitialiser",
+		"exit_to_menu_title": "Quitter vers le Menu ?",
+		"exit_to_menu_message": "Êtes-vous sûr de vouloir quitter ? Votre partie actuelle sera perdue.",
+		"yes_exit": "Oui, Quitter",
+		"cancel": "Annuler",
+		"confirm": "Confirmer"
+	},
+	"PlayerNamesModal": {
+		"title": "Entrer les Noms des Joueurs",
+		"player_1_name": "Nom du Joueur 1",
+		"player_2_name": "Nom du Joueur 2",
+		"player_1": "Joueur 1",
+		"player_2": "Joueur 2",
+		"characters": "caractères",
+		"start_game": "Commencer la Partie",
+		"duplicate_names_error": "Le Joueur 1 et le Joueur 2 ne peuvent pas avoir le même nom."
+	},
+	"BoardConfigModal": {
+		"number_of_boards": "Nombre de Plateaux",
+		"board_size": "Taille du Plateau",
+		"cancel": "Annuler",
+		"apply": "Appliquer"
+	},
+	"DifficultyModal": {
+		"select_difficulty": "Sélectionner la Difficulté",
+		"level": "Niveau {level}",
+		"cancel": "Annuler"
+	},
+	"LiveMatch": {
+		"your_turn": "Votre Tour",
+		"opponent_turn": "Tour de l'Adversaire",
+		"searching_for_opponent": "Recherche d'un adversaire...",
+		"leave": "Quitter",
+		"you_won": "Vous avez gagné !",
+		"you_lost": "Vous avez perdu !",
+		"opponent_disconnected": "Adversaire Déconnecté ! Recherche d'un nouveau match..."
 	}
 }

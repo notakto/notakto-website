@@ -1,4 +1,5 @@
 "use client";
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useToastCooldown } from "@/components/hooks/useToastCooldown";
@@ -18,22 +19,23 @@ const PlayerNamesModal = ({
 	onSubmit,
 	initialNames = ["Player 1", "Player 2"],
 }: PlayerNamesModalProps) => {
-	const [player1, setPlayer1] = useState(initialNames[0] || "Player 1");
-	const [player2, setPlayer2] = useState(initialNames[1] || "Player 2");
+	const t = useTranslations("PlayerNamesModal");
+	const [player1, setPlayer1] = useState(initialNames[0] || t("player_1"));
+	const [player2, setPlayer2] = useState(initialNames[1] || t("player_2"));
 
 	const { canShowToast, triggerToastCooldown, resetCooldown } =
 		useToastCooldown(TOAST_DURATION);
 
 	useEffect(() => {
-		setPlayer1(initialNames[0] || "Player 1");
-		setPlayer2(initialNames[1] || "Player 2");
-	}, [initialNames]);
+		setPlayer1(initialNames[0] || t("player_1"));
+		setPlayer2(initialNames[1] || t("player_2"));
+	}, [initialNames, t]);
 
 	const handleSubmit = () => {
 		if (!canShowToast()) return;
 
 		if (player1.trim().toLowerCase() === player2.trim().toLowerCase()) {
-			toast("Player 1 and Player 2 cannot have the same name.", {
+			toast(t("duplicate_names_error"), {
 				toastId: TOAST_IDS.PlayerNames.Duplicate,
 				autoClose: TOAST_DURATION,
 				onClose: resetCooldown, // reset cooldown if closed early
@@ -44,7 +46,7 @@ const PlayerNamesModal = ({
 		toast.dismiss(TOAST_IDS.PlayerNames.Duplicate);
 		resetCooldown();
 
-		onSubmit(player1 || "Player 1", player2 || "Player 2");
+		onSubmit(player1 || t("player_1"), player2 || t("player_2"));
 	};
 
 	if (!visible) return null;
@@ -52,18 +54,18 @@ const PlayerNamesModal = ({
 	return (
 		<ModalOverlay>
 			<PlayerNameModalContainer>
-				<PlayerNameModalTitle text="Enter Player Names" />
+				<PlayerNameModalTitle text={t("title")} />
 				<PlayerNameFormContainer>
 					<div>
 						<PlayerInput
 							value={player1}
 							onChange={(e) => setPlayer1(e.target.value)}
-							placeholder="Player 1 Name"
+							placeholder={t("player_1_name")}
 							maxLength={MAX_PLAYER_NAME_LENGTH}
 						/>
 						{/* ✅ Character counter - right aligned */}
 						<div className="text-xl text-white mt-1 text-right">
-							{player1.length}/{MAX_PLAYER_NAME_LENGTH} characters
+							{player1.length}/{MAX_PLAYER_NAME_LENGTH} {t("characters")}
 						</div>
 					</div>
 
@@ -71,17 +73,19 @@ const PlayerNamesModal = ({
 						<PlayerInput
 							value={player2}
 							onChange={(e) => setPlayer2(e.target.value)}
-							placeholder="Player 2 Name"
+							placeholder={t("player_2_name")}
 							maxLength={MAX_PLAYER_NAME_LENGTH}
 						/>
 						{/* ✅ Character counter - right aligned */}
 						<div className="text-xl text-white mt-1 text-right">
-							{player2.length}/{MAX_PLAYER_NAME_LENGTH} characters
+							{player2.length}/{MAX_PLAYER_NAME_LENGTH} {t("characters")}
 						</div>
 					</div>
 				</PlayerNameFormContainer>
 
-				<PlayerStartButton onClick={handleSubmit}>Start Game</PlayerStartButton>
+				<PlayerStartButton onClick={handleSubmit}>
+					{t("start_game")}
+				</PlayerStartButton>
 			</PlayerNameModalContainer>
 		</ModalOverlay>
 	);

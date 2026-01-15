@@ -1,9 +1,11 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
 import { useShortcut } from "@/components/hooks/useShortcut";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 import Board from "@/components/ui/Board/Board";
 import SettingBar from "@/components/ui/Buttons/SettingBar";
 import { SettingButton } from "@/components/ui/Buttons/SettingButton";
@@ -50,6 +52,8 @@ import type {
 } from "@/services/types";
 
 const Game = () => {
+	const t = useTranslations("Game");
+	const tConfirmation = useTranslations("ConfirmationModal");
 	const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 	const [boards, setBoards] = useState<BoardState[]>([]);
 	const [boardSize, setBoardSize] = useState<BoardSize>(3);
@@ -555,7 +559,11 @@ const Game = () => {
 						<StatLabel text={`| XP: ${XP}`} />
 					</StatContainer>
 					<PlayerTurnTitle
-						text={currentPlayer === 1 ? "Your Turn" : "Computer's Turn"}
+						text={
+							currentPlayer === 1
+								? t("your_turn")
+								: t("computer_turn")
+						}
 					/>
 				</PlayerStatusContainer>
 
@@ -574,8 +582,9 @@ const Game = () => {
 						</BoardWrapper>
 					))}
 				</BoardContainer>
-				<SettingBar text={"Settings"} onClick={toggleMenu} />
+				<SettingBar text={t("settings")} onClick={toggleMenu} />
 			</GameBoardArea>
+			<LanguageSwitcher />
 
 			{isMenuOpen && (
 				<SettingOverlay>
@@ -587,7 +596,7 @@ const Game = () => {
 							}}
 							disabled={isResetting}
 							loading={isResetting}>
-							Reset
+							{t("reset")}
 						</SettingButton>
 						<SettingButton
 							onClick={() => {
@@ -596,7 +605,7 @@ const Game = () => {
 							}}
 							disabled={isUpdatingConfig}
 							loading={isUpdatingConfig}>
-							Game Configuration
+							{t("game_configuration")}
 						</SettingButton>
 						<SettingButton
 							onClick={() => {
@@ -605,7 +614,7 @@ const Game = () => {
 							}}
 							disabled={Coins < 100 || isUndoing}
 							loading={isUndoing}>
-							Undo (100 coins)
+							{t("undo_move")}
 						</SettingButton>
 						<SettingButton
 							onClick={() => {
@@ -614,7 +623,7 @@ const Game = () => {
 							}}
 							disabled={Coins < 200 || isSkipping}
 							loading={isSkipping}>
-							Skip a Move (200 coins)
+							{t("skip_move")}
 						</SettingButton>
 						<SettingButton
 							//Blocking the current functions since we need it disabled until the feature comes up right
@@ -632,34 +641,36 @@ const Game = () => {
 							// disabled={isProcessingPayment}
 
 							disabled={true} // make it gray + non-clickable
-							title="Currently not available" // native tooltip
+							title={t("currently_not_available")} // native tooltip
 							loading={isProcessingPayment}>
-							Buy Coins (100)
+							{t("buy_coins")}
 						</SettingButton>
 						<SettingButton
 							onClick={() => {
 								setActiveModal("difficulty");
 								setIsMenuOpen(false);
 							}}>
-							AI Level: {difficulty}
+							{t("ai_level", { level: difficulty })}
 						</SettingButton>
 						<SettingButton
 							onClick={() => {
 								setActiveModal("soundConfig");
 								setIsMenuOpen(false);
 							}}>
-							Adjust Sound
+							{t("adjust_sound")}
 						</SettingButton>
 						<SettingButton onClick={() => router.push("/")}>
-							Main Menu
+							{t("main_menu")}
 						</SettingButton>
-						<SettingButton onClick={toggleMenu}>Return to Game</SettingButton>
+						<SettingButton onClick={toggleMenu}>
+							{t("return_to_game")}
+						</SettingButton>
 						<SettingButton
 							onClick={() => {
 								setActiveModal("shortcut");
 								setIsMenuOpen(false);
 							}}>
-							Keyboard Shortcuts
+							{t("keyboard_shortcuts")}
 						</SettingButton>
 					</SettingContainer>
 				</SettingOverlay>
@@ -706,24 +717,24 @@ const Game = () => {
 			/>
 			<ConfirmationModal
 				visible={activeModal === "resetConfirmation"}
-				title="Reset Game?"
-				message="Are you sure you want to reset the current game?"
+				title={tConfirmation("reset_game_title")}
+				message={tConfirmation("reset_game_message")}
 				onConfirm={() => {
 					handleReset();
 					setActiveModal(null);
 				}}
 				onCancel={() => setActiveModal(null)}
-				confirmText="Yes, Reset"
+				confirmText={tConfirmation("yes_reset")}
 			/>
 			<ConfirmationModal
 				visible={activeModal === "exitConfirmation"}
-				title="Exit to Menu?"
-				message="Are you sure you want to exit? Your current game will be lost."
+				title={tConfirmation("exit_to_menu_title")}
+				message={tConfirmation("exit_to_menu_message")}
 				onConfirm={() => {
 					router.push("/");
 				}}
 				onCancel={() => setActiveModal(null)}
-				confirmText="Yes, Exit"
+				confirmText={tConfirmation("yes_exit")}
 			/>
 		</GameLayout>
 	);
