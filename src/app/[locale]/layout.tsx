@@ -7,6 +7,7 @@ import { notFound } from "next/navigation";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import ClientSideInit from "@/app/ClientSideInit";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 import MusicProvider from "@/components/MusicProvider";
 import { CustomToastContainer } from "@/components/ui/Toasts/CustomToastContainer";
 import { routing } from "@/i18n/routing";
@@ -62,6 +63,7 @@ export default async function RootLayout({
 			</head>
 			<body>
 				<NextIntlClientProvider messages={messages}>
+					<LanguageSwitcher />
 					<MusicProvider />
 					{children}
 					<CustomToastContainer />

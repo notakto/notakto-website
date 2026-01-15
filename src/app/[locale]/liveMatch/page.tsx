@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { io } from "socket.io-client";
 import { useToastCooldown } from "@/components/hooks/useToastCooldown";
-import LanguageSwitcher from "@/components/LanguageSwitcher";
 import ExitBar from "@/components/ui/Buttons/ExitBar";
 import BoardCell from "@/components/ui/Containers/Games/Live/BoardCell";
 import BoardGridContainer from "@/components/ui/Containers/Games/Live/BoardGridContainer";
@@ -135,7 +134,6 @@ const LiveMode = () => {
 				)}
 			</LiveContainer>
 			<ExitBar text={t("leave")} onClick={onClose} />
-			<LanguageSwitcher />
 		</GameLayout>
 	);
 };

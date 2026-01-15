@@ -4,7 +4,6 @@ import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { useShortcut } from "@/components/hooks/useShortcut";
-import LanguageSwitcher from "@/components/LanguageSwitcher";
 import Board from "@/components/ui/Board/Board";
 import SettingBar from "@/components/ui/Buttons/SettingBar";
 import { SettingButton } from "@/components/ui/Buttons/SettingButton";
@@ -182,7 +181,6 @@ const Game = () => {
 
 				<SettingBar text={t("settings")} onClick={toggleMenu} />
 			</GameBoardArea>
-			<LanguageSwitcher />
 
 			{isMenuOpen && (
 				<SettingOverlay>

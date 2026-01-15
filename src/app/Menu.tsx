@@ -5,7 +5,6 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import { useShortcut } from "@/components/hooks/useShortcut";
 import { useToastCooldown } from "@/components/hooks/useToastCooldown";
-import LanguageSwitcher from "@/components/LanguageSwitcher";
 import { MenuButton } from "@/components/ui/Buttons/MenuButton";
 import MenuButtonContainer from "@/components/ui/Containers/Menu/MenuButtonContainer";
 import MenuContainer from "@/components/ui/Containers/Menu/MenuContainer";
@@ -111,7 +110,6 @@ const Menu = () => {
 				visible={activeModal === "tutorial"}
 				onClose={() => setActiveModal(null)}
 			/>
-			<LanguageSwitcher />
 		</MenuContainer>
 	);
 };

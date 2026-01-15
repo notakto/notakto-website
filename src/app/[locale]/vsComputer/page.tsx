@@ -5,7 +5,6 @@ import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
 import { useShortcut } from "@/components/hooks/useShortcut";
-import LanguageSwitcher from "@/components/LanguageSwitcher";
 import Board from "@/components/ui/Board/Board";
 import SettingBar from "@/components/ui/Buttons/SettingBar";
 import { SettingButton } from "@/components/ui/Buttons/SettingButton";
@@ -580,7 +579,6 @@ const Game = () => {
 				</BoardContainer>
 				<SettingBar text={t("settings")} onClick={toggleMenu} />
 			</GameBoardArea>
-			<LanguageSwitcher />
 
 			{isMenuOpen && (
 				<SettingOverlay>
