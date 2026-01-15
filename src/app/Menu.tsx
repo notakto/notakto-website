@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { useShortcut } from "@/components/hooks/useShortcut";
@@ -10,6 +10,7 @@ import MenuButtonContainer from "@/components/ui/Containers/Menu/MenuButtonConta
 import MenuContainer from "@/components/ui/Containers/Menu/MenuContainer";
 import { MenuTitle } from "@/components/ui/Title/MenuTitle";
 import { TOAST_DURATION, TOAST_IDS } from "@/constants/toast";
+import { useRouter } from "@/i18n/routing";
 import ShortcutModal from "@/modals/ShortcutModal";
 import SoundConfigModal from "@/modals/SoundConfigModal";
 import TutorialModal from "@/modals/TutorialModal";
@@ -19,6 +20,7 @@ import type { MenuModalType } from "@/services/types";
 
 const Menu = () => {
 	const user = useUser((state) => state.user);
+	const t = useTranslations("Menu");
 	const router = useRouter();
 	const { canShowToast, resetCooldown } = useToastCooldown(TOAST_DURATION);
 	const [activeModal, setActiveModal] = useState<MenuModalType>(null);
@@ -55,7 +57,7 @@ const Menu = () => {
 	const startGame = (mode: string) => {
 		if ((mode === "liveMatch" || mode === "vsComputer") && !user) {
 			if (canShowToast()) {
-				toast("Please sign in!", {
+				toast(t("toast_sign_in"), {
 					toastId: TOAST_IDS.User.SignInError,
 					autoClose: TOAST_DURATION,
 					onClose: resetCooldown, // reset cooldown immediately when closed
@@ -68,32 +70,32 @@ const Menu = () => {
 
 	return (
 		<MenuContainer>
-			<MenuTitle text="Notakto"></MenuTitle>
+			<MenuTitle text={t("title")}></MenuTitle>
 			<MenuButtonContainer>
 				<MenuButton onClick={() => startGame("vsPlayer")}>
 					{" "}
-					Play vs Player{" "}
+					{t("play_vs_player")}{" "}
 				</MenuButton>
 				<MenuButton onClick={() => startGame("vsComputer")}>
 					{" "}
-					Play vs Computer{" "}
+					{t("play_vs_computer")}{" "}
 				</MenuButton>
 				<MenuButton onClick={() => startGame("liveMatch")}>
 					{" "}
-					Live Match{" "}
+					{t("live_match")}{" "}
 				</MenuButton>
 				<MenuButton onClick={() => setActiveModal("tutorial")}>
 					{" "}
-					Tutorial{" "}
+					{t("tutorial")}{" "}
 				</MenuButton>
 				<MenuButton onClick={user ? handleSignOut : handleSignIn}>
-					{user ? "Sign Out" : "Sign in"}
+					{user ? t("sign_out") : t("sign_in")}
 				</MenuButton>
 				<MenuButton onClick={() => setActiveModal("soundConfig")}>
-					Adjust Sound
+					{t("adjust_sound")}
 				</MenuButton>
 				<MenuButton onClick={() => setActiveModal("shortcut")}>
-					Keyboard Shortcuts
+					{t("keyboard_shortcuts")}
 				</MenuButton>
 			</MenuButtonContainer>
 			<SoundConfigModal

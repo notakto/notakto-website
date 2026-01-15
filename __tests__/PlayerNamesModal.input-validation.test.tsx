@@ -10,6 +10,23 @@ vi.mock("react-toastify", () => ({
 	}),
 }));
 
+const messages: Record<string, string> = {
+	characters: "characters",
+	player_1_name: "Player 1 Name",
+	player_2_name: "Player 2 Name",
+	title: "Enter Player Names",
+	start_game: "Start Game",
+	player_1: "Player 1",
+	player_2: "Player 2",
+	duplicate_names_error: "Names cannot be same",
+};
+
+const t = (key: string) => messages[key] || key;
+
+vi.mock("next-intl", () => ({
+	useTranslations: () => t,
+}));
+
 vi.mock("@/components/hooks/useToastCooldown", () => ({
 	useToastCooldown: () => ({
 		canShowToast: () => true,
