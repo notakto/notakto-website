@@ -16,6 +16,7 @@ import TutorialModal from "@/modals/TutorialModal";
 import { signInWithGoogle, signOutUser } from "@/services/firebase";
 import { useUser } from "@/services/store";
 import type { MenuModalType } from "@/services/types";
+import ProfileModal from "@/modals/ProfileModal";
 
 const Menu = () => {
 	const user = useUser((state) => state.user);
@@ -89,6 +90,9 @@ const Menu = () => {
 				<MenuButton onClick={user ? handleSignOut : handleSignIn}>
 					{user ? "Sign Out" : "Sign in"}
 				</MenuButton>
+				<MenuButton onClick={() => setActiveModal("profile")}>
+					Profile
+				</MenuButton>
 				<MenuButton onClick={() => setActiveModal("soundConfig")}>
 					Adjust Sound
 				</MenuButton>
@@ -106,6 +110,10 @@ const Menu = () => {
 			/>
 			<TutorialModal
 				visible={activeModal === "tutorial"}
+				onClose={() => setActiveModal(null)}
+			/>
+			<ProfileModal
+				visible={activeModal === "profile"}
 				onClose={() => setActiveModal(null)}
 			/>
 		</MenuContainer>
