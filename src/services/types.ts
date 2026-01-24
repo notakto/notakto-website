@@ -372,4 +372,9 @@ export type ComputerButtonModalType =
 	| "exitConfirmation"
 	| null;
 
-export type MenuModalType = "soundConfig" | "shortcut" | "tutorial" | "profile" | null;
+export type MenuModalType =
+	| "soundConfig"
+	| "shortcut"
+	| "tutorial"
+	| "profile"
+	| null;

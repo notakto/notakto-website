@@ -10,13 +10,13 @@ import MenuButtonContainer from "@/components/ui/Containers/Menu/MenuButtonConta
 import MenuContainer from "@/components/ui/Containers/Menu/MenuContainer";
 import { MenuTitle } from "@/components/ui/Title/MenuTitle";
 import { TOAST_DURATION, TOAST_IDS } from "@/constants/toast";
+import ProfileModal from "@/modals/ProfileModal";
 import ShortcutModal from "@/modals/ShortcutModal";
 import SoundConfigModal from "@/modals/SoundConfigModal";
 import TutorialModal from "@/modals/TutorialModal";
 import { signInWithGoogle, signOutUser } from "@/services/firebase";
 import { useUser } from "@/services/store";
 import type { MenuModalType } from "@/services/types";
-import ProfileModal from "@/modals/ProfileModal";
 
 const Menu = () => {
 	const user = useUser((state) => state.user);
