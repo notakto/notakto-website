@@ -1,0 +1,116 @@
+{
+	"BoardConfigModal": {
+		"apply": "Anwenden",
+		"board_size": "Brettgröße",
+		"cancel": "Abbrechen",
+		"number_of_boards": "Anzahl der Bretter"
+	},
+	"ConfirmationModal": {
+		"cancel": "Abbrechen",
+		"confirm": "Bestätigen",
+		"exit_to_menu_message": "Bist du sicher, dass du beenden möchtest? Dein aktuelles Spiel geht verloren.",
+		"exit_to_menu_title": "Zum Menü Beenden?",
+		"reset_game_message": "Bist du sicher, dass du das aktuelle Spiel zurücksetzen möchtest?",
+		"reset_game_title": "Spiel Zurücksetzen?",
+		"yes_exit": "Ja, Beenden",
+		"yes_reset": "Ja, Zurücksetzen"
+	},
+	"DifficultyModal": {
+		"cancel": "Abbrechen",
+		"level": "Level {level}",
+		"select_difficulty": "Schwierigkeit Auswählen"
+	},
+	"Game": {
+		"adjust_sound": "Ton anpassen",
+		"ai_level": "KI-Level: {level}",
+		"buy_coins": "Münzen Kaufen (100)",
+		"computer_turn": "Computer-Zug",
+		"currently_not_available": "Derzeit nicht verfügbar",
+		"game_configuration": "Spielkonfiguration",
+		"keyboard_shortcuts": "Tastaturkürzel",
+		"main_menu": "Hauptmenü",
+		"opponent_turn": "Gegner-Zug",
+		"player_turn": "Zug von {name}",
+		"reset": "Zurücksetzen",
+		"reset_names": "Namen zurücksetzen",
+		"return_to_game": "Zurück zum Spiel",
+		"settings": "Einstellungen",
+		"skip_move": "Zug Überspringen (200 Münzen)",
+		"undo_move": "Rückgängig (100 Münzen)",
+		"your_turn": "Dein Zug"
+	},
+	"LiveMatch": {
+		"leave": "Verlassen",
+		"opponent_disconnected": "Gegner Getrennt! Suche nach neuem Match...",
+		"opponent_turn": "Gegner-Zug",
+		"searching_for_opponent": "Suche nach Gegner...",
+		"you_lost": "Du hast verloren!",
+		"you_won": "Du hast gewonnen!",
+		"your_turn": "Dein Zug"
+	},
+	"Menu": {
+		"adjust_sound": "Ton anpassen",
+		"keyboard_shortcuts": "Tastaturkürzel",
+		"live_match": "Live-Spiel",
+		"play_vs_computer": "Spielen vs Computer",
+		"play_vs_player": "Spielen vs Spieler",
+		"sign_in": "Anmelden",
+		"sign_out": "Abmelden",
+		"title": "Notakto",
+		"toast_sign_in": "Bitte anmelden!",
+		"tutorial": "Anleitung"
+	},
+	"PlayerNamesModal": {
+		"characters": "Zeichen",
+		"duplicate_names_error": "Spieler 1 und Spieler 2 können nicht denselben Namen haben.",
+		"player_1": "Spieler 1",
+		"player_1_name": "Spieler 1 Name",
+		"player_2": "Spieler 2",
+		"player_2_name": "Spieler 2 Name",
+		"start_game": "Spiel Starten",
+		"title": "Spielernamen Eingeben"
+	},
+	"Shortcuts": {
+		"actions": {
+			"adjust_sound": "Ton anpassen",
+			"close_modal": "Modal schließen",
+			"go_main_menu": "Zum Hauptmenü",
+			"open_config": "Konfiguration öffnen",
+			"open_difficulty": "Schwierigkeit öffnen",
+			"open_shortcuts": "Kürzel öffnen",
+			"open_tutorial": "Anleitung öffnen",
+			"reset_game": "Spiel zurücksetzen",
+			"toggle_names": "Namen umschalten"
+		},
+		"return": "Zurück",
+		"title": "Tastaturkürzel"
+	},
+	"SoundConfig": {
+		"background_music": "Hintergrundmusik",
+		"mute": "Stumm",
+		"player_move_sound": "Spielerzug-Sound",
+		"reset_sounds": "Töne zurücksetzen",
+		"return": "Zurück",
+		"title": "Tonkonfiguration",
+		"unmute": "Ton an"
+	},
+	"Tutorial": {
+		"close": "Anleitung schließen",
+		"rules": {
+			"0": "Beide Spieler verwenden X",
+			"1": "Gespielt wird auf drei 3x3-Brettern",
+			"2": "Spieler setzen abwechselnd ein X",
+			"3": "Jedes Brett mit 3 X in einer Reihe ist tot",
+			"4": "Der letzte Spieler, der einen gültigen Zug macht, verliert",
+			"5": "Strategie: Zwinge den Gegner zum letzten Zug!"
+		},
+		"title": "Wie man Notakto spielt"
+	},
+	"WinnerModal": {
+		"game_over": "Spiel Vorbei!",
+		"main_menu": "Hauptmenü",
+		"play_again": "Nochmal Spielen",
+		"wins": "{name} gewinnt",
+		"you_won": "Du hast gewonnen!"
+	}
+}
