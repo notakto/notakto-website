@@ -3,6 +3,7 @@ pre-commit:
     biome:
       glob: "**/*.{js,ts,jsx,tsx}"
       run: pnpm exec biome check --write {staged_files}
+      stage_fixed: true
       # Optional: Exclude build dirs or tests
       exclude: |
         - ^\.next/
