@@ -5,7 +5,13 @@ const nextConfig: NextConfig = {
 	images: {
 		unoptimized: false,
 		minimumCacheTTL: 60,
-		domains: ["lh3.googleusercontent.com"],
+		remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "lh3.googleusercontent.com",
+        pathname: "/**",
+      },
+    ],
 	},
 	compiler: {
 		removeConsole: process.env.NODE_ENV === "production",

@@ -15,7 +15,7 @@ const ProfileModal = ({ visible, onClose }: ProfileModalProps) => {
 
 	const authReady = useUser((state) => state.authReady);
 	const user = useUser((state) => state.user);
-
+	const isValidPic = pic && pic !== "empty.empty";
 	if (!visible) return null;
 	return (
 		<ModalOverlay>
@@ -24,7 +24,7 @@ const ProfileModal = ({ visible, onClose }: ProfileModalProps) => {
 
 				{authReady && user ? (
 					<>
-						{pic ? (
+						{isValidPic ? (
 							<Image
 								src={pic}
 								alt="profile"
@@ -33,7 +33,7 @@ const ProfileModal = ({ visible, onClose }: ProfileModalProps) => {
 								className="mx-auto  border-black border-2"
 							/>
 						) : (
-							<div className="mx-auto">Image load error</div>
+							<div className="mx-auto text-xl">Image load error</div>
 						)}
 
 						<div className="text-2xl text-center mt-5">Name : {name}</div>
