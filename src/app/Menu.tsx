@@ -55,11 +55,24 @@ const Menu = () => {
 	const startGame = (mode: string) => {
 		if ((mode === "liveMatch" || mode === "vsComputer") && !user) {
 			if (canShowToast()) {
-				toast("Please sign in!", {
-					toastId: TOAST_IDS.User.SignInError,
-					autoClose: TOAST_DURATION,
-					onClose: resetCooldown, // reset cooldown immediately when closed
-				});
+				toast(
+					<div className="flex flex-col gap-2">
+						<span>Please sign in!</span>
+						<button
+							type="button"
+							onClick={async () => {
+								await handleSignIn();
+							}}
+							className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 transition">
+							Sign In
+						</button>
+					</div>,
+					{
+						toastId: TOAST_IDS.User.SignInError,
+						autoClose: TOAST_DURATION,
+						onClose: resetCooldown,
+					},
+				);
 			}
 			return;
 		}
