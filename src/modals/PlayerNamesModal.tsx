@@ -68,6 +68,7 @@ const PlayerNamesModal = ({
 		}
 
 		toast.dismiss(TOAST_IDS.PlayerNames.Duplicate);
+		toast.dismiss(TOAST_IDS.PlayerNames.Empty);
 		resetCooldown();
 
 		onSubmit(trimmedPlayer1, trimmedPlayer2);
