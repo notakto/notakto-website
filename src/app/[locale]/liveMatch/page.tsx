@@ -1,5 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { io } from "socket.io-client";
@@ -20,6 +21,7 @@ const SERVER_URL = "https://notakto-websocket.onrender.com";
 const socket = io(SERVER_URL);
 
 const LiveMode = () => {
+	const t = useTranslations("LiveMatch");
 	const router = useRouter();
 	const { resetCooldown } = useToastCooldown(TOAST_DURATION);
 	const onClose = () => {
@@ -54,7 +56,7 @@ const LiveMode = () => {
 		});
 
 		socket.on("gameOver", (data: { loser: string }) => {
-			toast(data.loser === socket.id ? "You Lost!" : "You Won!", {
+			toast(data.loser === socket.id ? t("you_lost") : t("you_won"), {
 				toastId: TOAST_IDS.LiveMatch.GameOver,
 				autoClose: TOAST_DURATION,
 				onClose: resetCooldown,
@@ -63,7 +65,7 @@ const LiveMode = () => {
 		});
 
 		socket.on("opponentDisconnected", () => {
-			toast("Opponent Disconnected! Searching for new match...", {
+			toast(t("opponent_disconnected"), {
 				toastId: TOAST_IDS.LiveMatch.OpponentDisconnected,
 				autoClose: TOAST_DURATION,
 				onClose: resetCooldown,
@@ -104,7 +106,7 @@ const LiveMode = () => {
 					<>
 						<PlayerTurnTitle
 							variant={"live"}
-							text={isMyTurn ? "Your Turn" : "Opponent's Turn"}
+							text={isMyTurn ? t("your_turn") : t("opponent_turn")}
 						/>
 						<BoardGridContainer>
 							{boards.map((board, boardIndex) => {
@@ -127,11 +129,11 @@ const LiveMode = () => {
 				) : (
 					<SearchContainer>
 						<Spinner />
-						<SearchLabel text="Searching for opponent..." />
+						<SearchLabel text={t("searching_for_opponent")} />
 					</SearchContainer>
 				)}
 			</LiveContainer>
-			<ExitBar text={"Leave"} onClick={onClose} />
+			<ExitBar text={t("leave")} onClick={onClose} />
 		</GameLayout>
 	);
 };
