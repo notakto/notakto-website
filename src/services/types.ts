@@ -192,6 +192,8 @@ export interface WinnerModalProps extends BaseModalProps {
 
 export interface TutorialModalProps extends BaseModalProps {}
 
+export interface ProfileModalProps extends BaseModalProps {}
+
 export interface PlayerNamesModalProps extends BaseModalProps {
 	onSubmit: (p1: string, p2: string) => void;
 	initialNames?: [string, string];
@@ -247,6 +249,8 @@ export interface SettingContainerProps extends BaseComponentProps {}
 export interface SettingOverlayProps extends BaseComponentProps {}
 
 export interface TutorialContainerProps extends BaseComponentProps {}
+
+export interface ProfileContainerProps extends BaseComponentProps {}
 
 export interface SoundConfigContainerProps extends BaseComponentProps {}
 
@@ -372,6 +376,12 @@ export type ComputerButtonModalType =
 	| "shortcut"
 	| "resetConfirmation"
 	| "exitConfirmation"
+	| "profile"
 	| null;
 
-export type MenuModalType = "soundConfig" | "shortcut" | "tutorial" | null;
+export type MenuModalType =
+	| "soundConfig"
+	| "shortcut"
+	| "tutorial"
+	| "profile"
+	| null;

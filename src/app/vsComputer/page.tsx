@@ -21,6 +21,7 @@ import StatLabel from "@/components/ui/Title/StatLabel";
 import BoardConfigModal from "@/modals/BoardConfigModal";
 import ConfirmationModal from "@/modals/ConfirmationModal";
 import DifficultyModal from "@/modals/DifficultyModal";
+import ProfileModal from "@/modals/ProfileModal";
 import ShortcutModal from "@/modals/ShortcutModal";
 import SoundConfigModal from "@/modals/SoundConfigModal";
 import WinnerModal from "@/modals/WinnerModal";
@@ -138,6 +139,10 @@ const Game = () => {
 			q: () => {
 				if (activeModal === "winner") return;
 				setActiveModal((prev) => (prev === "shortcut" ? null : "shortcut"));
+			},
+			p: () => {
+				if (activeModal === "winner") return;
+				setActiveModal((prev) => (prev === "profile" ? null : "profile"));
 			},
 		},
 		isMenuOpen,
@@ -666,6 +671,13 @@ const Game = () => {
 							}}>
 							Adjust Sound
 						</SettingButton>
+						<SettingButton
+							onClick={() => {
+								setActiveModal("profile");
+								setIsMenuOpen(false);
+							}}>
+							Profile
+						</SettingButton>
 						<SettingButton onClick={() => router.push("/")}>
 							Main Menu
 						</SettingButton>
@@ -718,6 +730,10 @@ const Game = () => {
 			/>
 			<SoundConfigModal
 				visible={activeModal === "soundConfig"}
+				onClose={() => setActiveModal(null)}
+			/>
+			<ProfileModal
+				visible={activeModal === "profile"}
 				onClose={() => setActiveModal(null)}
 			/>
 			<ConfirmationModal
