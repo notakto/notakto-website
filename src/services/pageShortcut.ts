@@ -5,6 +5,7 @@ export const pageShortcuts: Record<string, { key: string; action: string }[]> =
 			{ key: "Q", action: "Open keyboard shortcuts" },
 			{ key: "T", action: "Open tutorial" },
 			{ key: "S", action: "Adjust sound" },
+			{ key: "P", action: "Open Profile" },
 		],
 		"/vsPlayer": [
 			{ key: "Esc", action: "Close the modal" },
@@ -23,5 +24,6 @@ export const pageShortcuts: Record<string, { key: string; action: string }[]> =
 			{ key: "S", action: "Adjust sound" },
 			{ key: "D", action: "Open difficulty level" },
 			{ key: "Q", action: "Open keyboard shortcuts" },
+			{ key: "P", action: "Open Profile" },
 		],
 	};

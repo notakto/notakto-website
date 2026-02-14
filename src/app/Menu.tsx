@@ -10,6 +10,7 @@ import MenuButtonContainer from "@/components/ui/Containers/Menu/MenuButtonConta
 import MenuContainer from "@/components/ui/Containers/Menu/MenuContainer";
 import { MenuTitle } from "@/components/ui/Title/MenuTitle";
 import { TOAST_DURATION, TOAST_IDS } from "@/constants/toast";
+import ProfileModal from "@/modals/ProfileModal";
 import ShortcutModal from "@/modals/ShortcutModal";
 import SoundConfigModal from "@/modals/SoundConfigModal";
 import TutorialModal from "@/modals/TutorialModal";
@@ -102,6 +103,9 @@ const Menu = () => {
 				<MenuButton onClick={user ? handleSignOut : handleSignIn}>
 					{user ? "Sign Out" : "Sign in"}
 				</MenuButton>
+				<MenuButton onClick={() => setActiveModal("profile")}>
+					Profile
+				</MenuButton>
 				<MenuButton onClick={() => setActiveModal("soundConfig")}>
 					Adjust Sound
 				</MenuButton>
@@ -119,6 +123,10 @@ const Menu = () => {
 			/>
 			<TutorialModal
 				visible={activeModal === "tutorial"}
+				onClose={() => setActiveModal(null)}
+			/>
+			<ProfileModal
+				visible={activeModal === "profile"}
 				onClose={() => setActiveModal(null)}
 			/>
 		</MenuContainer>
