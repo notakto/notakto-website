@@ -9,6 +9,7 @@ export const TOAST_IDS = {
 	// Player name modal
 	PlayerNames: {
 		Duplicate: "player-names/duplicate",
+		Empty: "player-names/empty",
 	},
 
 	// Payment related toasts
