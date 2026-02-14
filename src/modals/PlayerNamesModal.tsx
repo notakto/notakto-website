@@ -30,21 +30,47 @@ const PlayerNamesModal = ({
 	}, [initialNames]);
 
 	const handleSubmit = () => {
-		if (!canShowToast()) return;
+		const trimmedPlayer1 = player1.trim();
+		const trimmedPlayer2 = player2.trim();
 
-		if (player1.trim().toLowerCase() === player2.trim().toLowerCase()) {
-			toast("Player 1 and Player 2 cannot have the same name.", {
-				toastId: TOAST_IDS.PlayerNames.Duplicate,
-				autoClose: TOAST_DURATION,
-				onClose: resetCooldown, // reset cooldown if closed early
-			});
-			triggerToastCooldown();
+		// Empty name validation
+		if (!trimmedPlayer1 || !trimmedPlayer2) {
+			if (canShowToast()) {
+				toast("Player name cannot be empty.", {
+					toastId: TOAST_IDS.PlayerNames.Empty,
+					autoClose: TOAST_DURATION,
+					onClose: resetCooldown,
+				});
+				triggerToastCooldown();
+			}
+
+			const finalPlayer1 = trimmedPlayer1 || "Player 1";
+			const finalPlayer2 = trimmedPlayer2 || "Player 2";
+
+			setPlayer1(finalPlayer1);
+			setPlayer2(finalPlayer2);
+
+			onSubmit(finalPlayer1, finalPlayer2);
 			return;
 		}
+
+		// Duplicate name validation
+		if (trimmedPlayer1.toLowerCase() === trimmedPlayer2.toLowerCase()) {
+			if (canShowToast()) {
+				toast("Player 1 and Player 2 cannot have the same name.", {
+					toastId: TOAST_IDS.PlayerNames.Duplicate,
+					autoClose: TOAST_DURATION,
+					onClose: resetCooldown,
+				});
+				triggerToastCooldown();
+			}
+			return;
+		}
+
 		toast.dismiss(TOAST_IDS.PlayerNames.Duplicate);
 		resetCooldown();
 
-		onSubmit(player1 || "Player 1", player2 || "Player 2");
+		onSubmit(trimmedPlayer1, trimmedPlayer2);
 	};
 
 	if (!visible) return null;
