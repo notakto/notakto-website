@@ -50,6 +50,19 @@ const PlayerNamesModal = ({
 			setPlayer1(finalPlayer1);
 			setPlayer2(finalPlayer2);
 
+			// Run duplicate validation on final autofilled names
+			if (finalPlayer1.toLowerCase() === finalPlayer2.toLowerCase()) {
+				if (canShowToast()) {
+					toast("Player 1 and Player 2 cannot have the same name.", {
+						toastId: TOAST_IDS.PlayerNames.Duplicate,
+						autoClose: TOAST_DURATION,
+						onClose: resetCooldown,
+					});
+					triggerToastCooldown();
+				}
+				return;
+			}
+
 			onSubmit(finalPlayer1, finalPlayer2);
 			return;
 		}
