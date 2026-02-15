@@ -760,20 +760,20 @@ const Game = () => {
 			<LoadingOverlay
 				visible={isBusy}
 				text={
-					isInitializing
-						? "Setting up the game"
-						: isProcessing
-							? "Computer is thinking..."
-							: isResetting
-								? "Resetting game..."
-								: isUndoing
-									? "Undoing move..."
-									: isSkipping
-										? "Skipping move..."
-										: isUpdatingConfig
-											? "Updating game configuration..."
-											: isUpdatingDifficulty
-												? "Adjusting AI difficulty..."
+					isProcessing
+						? "Computer is thinking..."
+						: isResetting
+							? "Resetting game..."
+							: isUndoing
+								? "Undoing move..."
+								: isSkipping
+									? "Skipping move..."
+									: isUpdatingConfig
+										? "Updating game configuration..."
+										: isUpdatingDifficulty
+											? "Adjusting AI difficulty..."
+											: isInitializing
+												? "Setting up the game"
 												: "Please wait..."
 				}
 			/>
