@@ -25,6 +25,9 @@ const Menu = () => {
 	const { canShowToast, resetCooldown } = useToastCooldown(TOAST_DURATION);
 	const [activeModal, setActiveModal] = useState<MenuModalType>(null);
 	const [isAuthLoading, setIsAuthLoading] = useState(false);
+	const [authAction, setAuthAction] = useState<"signin" | "signout" | null>(
+		null,
+	);
 
 	useShortcut({
 		escape: () => setActiveModal(null),
@@ -35,10 +38,11 @@ const Menu = () => {
 		t: () =>
 			setActiveModal((prev) => (prev === "tutorial" ? null : "tutorial")),
 	});
-
 	const handleSignIn = async () => {
 		try {
+			setAuthAction("signin");
 			setIsAuthLoading(true);
+
 			await signInWithGoogle();
 
 			toast.dismiss(TOAST_IDS.User.SignInError);
@@ -47,17 +51,21 @@ const Menu = () => {
 			console.error("Sign in error:", error);
 		} finally {
 			setIsAuthLoading(false);
+			setAuthAction(null);
 		}
 	};
 
 	const handleSignOut = async () => {
 		try {
+			setAuthAction("signout");
 			setIsAuthLoading(true);
+
 			await signOutUser();
 		} catch (error) {
 			console.error("Sign out error:", error);
 		} finally {
 			setIsAuthLoading(false);
+			setAuthAction(null);
 		}
 	};
 
@@ -128,7 +136,11 @@ const Menu = () => {
 			/>
 			<LoadingOverlay
 				visible={isAuthLoading}
-				text={user ? "Signing out..." : "Signing in with Google..."}
+				text={
+					authAction === "signout"
+						? "Signing out..."
+						: "Signing in with Google..."
+				}
 			/>
 		</MenuContainer>
 	);
