@@ -8,6 +8,7 @@ import { useToastCooldown } from "@/components/hooks/useToastCooldown";
 import { MenuButton } from "@/components/ui/Buttons/MenuButton";
 import MenuButtonContainer from "@/components/ui/Containers/Menu/MenuButtonContainer";
 import MenuContainer from "@/components/ui/Containers/Menu/MenuContainer";
+import LoadingOverlay from "@/components/ui/Overlays/LoadingOverlay";
 import { MenuTitle } from "@/components/ui/Title/MenuTitle";
 import { TOAST_DURATION, TOAST_IDS } from "@/constants/toast";
 import ProfileModal from "@/modals/ProfileModal";
@@ -23,6 +24,7 @@ const Menu = () => {
 	const router = useRouter();
 	const { canShowToast, resetCooldown } = useToastCooldown(TOAST_DURATION);
 	const [activeModal, setActiveModal] = useState<MenuModalType>(null);
+	const [isAuthLoading, setIsAuthLoading] = useState(false);
 
 	useShortcut({
 		escape: () => setActiveModal(null),
@@ -36,20 +38,26 @@ const Menu = () => {
 
 	const handleSignIn = async () => {
 		try {
+			setIsAuthLoading(true);
 			await signInWithGoogle();
 
 			toast.dismiss(TOAST_IDS.User.SignInError);
 			resetCooldown();
 		} catch (error) {
 			console.error("Sign in error:", error);
+		} finally {
+			setIsAuthLoading(false);
 		}
 	};
 
 	const handleSignOut = async () => {
 		try {
+			setIsAuthLoading(true);
 			await signOutUser();
 		} catch (error) {
 			console.error("Sign out error:", error);
+		} finally {
+			setIsAuthLoading(false);
 		}
 	};
 
@@ -87,8 +95,10 @@ const Menu = () => {
 					{" "}
 					Tutorial{" "}
 				</MenuButton>
-				<MenuButton onClick={user ? handleSignOut : handleSignIn}>
-					{user ? "Sign Out" : "Sign in"}
+				<MenuButton
+					onClick={user ? handleSignOut : handleSignIn}
+					disabled={isAuthLoading}>
+					{isAuthLoading ? "Please wait..." : user ? "Sign Out" : "Sign in"}
 				</MenuButton>
 				<MenuButton onClick={() => setActiveModal("profile")}>
 					Profile
@@ -115,6 +125,10 @@ const Menu = () => {
 			<ProfileModal
 				visible={activeModal === "profile"}
 				onClose={() => setActiveModal(null)}
+			/>
+			<LoadingOverlay
+				visible={isAuthLoading}
+				text={user ? "Signing out..." : "Signing in with Google..."}
 			/>
 		</MenuContainer>
 	);
