@@ -15,6 +15,7 @@ import StatContainer from "@/components/ui/Containers/Games/StatContainer";
 import SettingContainer from "@/components/ui/Containers/Settings/SettingContainer";
 import SettingOverlay from "@/components/ui/Containers/Settings/SettingOverlay";
 import GameLayout from "@/components/ui/Layout/GameLayout";
+import LoadingOverlay from "@/components/ui/Overlays/LoadingOverlay";
 import PlayerTurnTitle from "@/components/ui/Title/PlayerTurnTitle";
 import StatLabel from "@/components/ui/Title/StatLabel";
 import BoardConfigModal from "@/modals/BoardConfigModal";
@@ -64,6 +65,7 @@ const Game = () => {
 	const sessionIdRef = useRef<string>("");
 
 	const [isProcessing, setIsProcessing] = useState<boolean>(false);
+	const [isInitializing, setInitializing] = useState<boolean>(false);
 	const hasInitializedRef = useRef(false);
 	const [isResetting, setIsResetting] = useState<boolean>(false);
 	const [isUndoing, setIsUndoing] = useState<boolean>(false);
@@ -83,6 +85,14 @@ const Game = () => {
 	const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 	// const { canShowToast, resetCooldown } = useToastCooldown(TOAST_DURATION);
 	const router = useRouter();
+	const isBusy =
+		isInitializing ||
+		isProcessing ||
+		isResetting ||
+		isUndoing ||
+		isSkipping ||
+		isUpdatingConfig ||
+		isUpdatingDifficulty;
 
 	useShortcut(
 		{
@@ -144,6 +154,7 @@ const Game = () => {
 		diff: DifficultyLevel,
 	) => {
 		try {
+			setInitializing(true);
 			if (user) {
 				const data = await createGame(num, size, diff, await user.getIdToken());
 				// handle API-level errors (ErrorResponse)
@@ -174,6 +185,8 @@ const Game = () => {
 					toast.error("Failed to initialize game boards");
 					return;
 				}
+
+				setInitializing(false);
 				sessionIdRef.current = resp.sessionId;
 				setBoards(newBoards);
 				setCurrentPlayer(1);
@@ -182,11 +195,13 @@ const Game = () => {
 				setDifficulty(resp.difficulty);
 				setGameHistory([newBoards]);
 			} else {
+				setInitializing(false);
 				console.log("initGame: user not authenticated");
 				toast.error("User not authenticated");
 				router.push("/");
 			}
 		} catch (error) {
+			setInitializing(false);
 			toast.error(`Error initializing game: ${error}`);
 			router.push("/");
 		}
@@ -575,6 +590,7 @@ const Game = () => {
 								makeMove={handleMove}
 								isDead={isBoardDead(board, boardSize)}
 								boardSize={boardSize}
+								disabled={isBusy || currentPlayer !== 1}
 							/>
 						</BoardWrapper>
 					))}
@@ -740,6 +756,26 @@ const Game = () => {
 				}}
 				onCancel={() => setActiveModal(null)}
 				confirmText="Yes, Exit"
+			/>
+			<LoadingOverlay
+				visible={isBusy}
+				text={
+					isProcessing
+						? "Computer is thinking..."
+						: isResetting
+							? "Resetting game..."
+							: isUndoing
+								? "Undoing move..."
+								: isSkipping
+									? "Skipping move..."
+									: isUpdatingConfig
+										? "Updating game configuration..."
+										: isUpdatingDifficulty
+											? "Adjusting AI difficulty..."
+											: isInitializing
+												? "Setting up the game"
+												: "Please wait..."
+				}
 			/>
 		</GameLayout>
 	);

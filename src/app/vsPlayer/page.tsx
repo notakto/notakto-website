@@ -171,6 +171,7 @@ const Game = () => {
 									makeMove={makeMove}
 									isDead={isBoardDead(board, boardSize)}
 									boardSize={boardSize}
+									disabled={false}
 								/>
 							</BoardWrapper>
 						);

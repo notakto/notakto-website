@@ -120,6 +120,7 @@ export interface GameBoardProps {
 	makeMove: (boardIndex: number, cellIndex: number) => void;
 	isBoardDead: (board: Array<string>) => boolean;
 	boardSize: number;
+	disabled?: boolean;
 }
 
 export interface GameProps {
@@ -164,6 +165,7 @@ export interface BoardProps {
 	makeMove: (boardIndex: number, cellIndex: number) => void;
 	isDead: boolean;
 	boardSize: number;
+	disabled: boolean;
 }
 
 // Menu and navigation props
