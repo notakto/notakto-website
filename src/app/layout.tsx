@@ -8,8 +8,13 @@ import MusicProvider from "@/components/MusicProvider";
 import { CustomToastContainer } from "@/components/ui/Toasts/CustomToastContainer";
 
 export const metadata: Metadata = {
-	title: "Menu | Notakto",
-	description: "No ties, Always a winner",
+	metadataBase: new URL("https://www.notakto.xyz"),
+	title: {
+		default: "Menu | Notakto",
+		template: "%s | Notakto",
+	},
+	description:
+		"Notakto is a misère and impartial form of tic-tac-toe. No ties, Always a winner. Play against AI or Friends.",
 	keywords: [
 		"Notakto",
 		"misère Tic Tac Toe",
@@ -21,6 +26,31 @@ export const metadata: Metadata = {
 	],
 	authors: [{ name: "Notakto Team" }],
 	creator: "Notakto Team",
+
+	openGraph: {
+		title: "Notakto - Misère Tic Tac Toe",
+		description:
+			"Notakto is a misère and impartial form of tic-tac-toe. No ties, Always a winner. Play against AI or Friends.",
+		url: "https://www.notakto.xyz",
+		siteName: "Notakto",
+		type: "website",
+		images: [
+			{
+				url: "/preview-img.png",
+				width: 1200,
+				height: 630,
+				alt: "Notakto - Misère Tic Tac Toe",
+			},
+		],
+	},
+
+	twitter: {
+		card: "summary_large_image",
+		title: "Notakto - Misère Tic Tac Toe",
+		description:
+			"Notakto is a misère and impartial form of tic-tac-toe. No ties, Always a winner. Play against AI or Friends.",
+		images: ["/preview-img.png"],
+	},
 };
 const vt323 = VT323({
 	weight: "400",
