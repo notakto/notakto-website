@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useShortcut } from "@/components/hooks/useShortcut";
 import { useToastCooldown } from "@/components/hooks/useToastCooldown";
@@ -24,10 +24,20 @@ const Menu = () => {
 	const router = useRouter();
 	const { canShowToast, resetCooldown } = useToastCooldown(TOAST_DURATION);
 	const [activeModal, setActiveModal] = useState<MenuModalType>(null);
+<<<<<<< HEAD
 	const [isAuthLoading, setIsAuthLoading] = useState(false);
 	const [authAction, setAuthAction] = useState<"signin" | "signout" | null>(
 		null,
 	);
+=======
+	const [highlightSignIn, setHighlightSignIn] = useState(false);
+
+	useEffect(() => {
+		if (!highlightSignIn) return;
+		const timer = setTimeout(() => setHighlightSignIn(false), 2000);
+		return () => clearTimeout(timer);
+	}, [highlightSignIn]);
+>>>>>>> 0fbfa8f (refactor(menu): refine sign-in highlight with smooth single pulse)
 
 	useShortcut({
 		escape: () => setActiveModal(null),
@@ -72,24 +82,12 @@ const Menu = () => {
 	const startGame = (mode: string) => {
 		if ((mode === "liveMatch" || mode === "vsComputer") && !user) {
 			if (canShowToast()) {
-				toast(
-					<div className="flex flex-col gap-2">
-						<span>Please sign in!</span>
-						<button
-							type="button"
-							onClick={async () => {
-								await handleSignIn();
-							}}
-							className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 transition">
-							Sign In
-						</button>
-					</div>,
-					{
-						toastId: TOAST_IDS.User.SignInError,
-						autoClose: TOAST_DURATION,
-						onClose: resetCooldown,
-					},
-				);
+				toast("Please sign in to continue.", {
+					toastId: TOAST_IDS.User.SignInError,
+					autoClose: TOAST_DURATION,
+					onClose: resetCooldown,
+				});
+				setHighlightSignIn(true);
 			}
 			return;
 		}
@@ -118,11 +116,20 @@ const Menu = () => {
 				</MenuButton>
 				<MenuButton
 					onClick={user ? handleSignOut : handleSignIn}
+<<<<<<< HEAD
 					disabled={isAuthLoading}>
 					{isAuthLoading ? "Please wait..." : user ? "Sign Out" : "Sign in"}
 				</MenuButton>
 				<MenuButton onClick={() => setActiveModal("profile")}>
 					Profile
+=======
+					className={
+						!user && highlightSignIn
+							? "shadow-[0_0_0_3px_rgba(239,68,68,0.7)] animate-[pulse_1.2s_ease-in-out_1]"
+							: ""
+					}>
+					{user ? "Sign Out" : "Sign in"}
+>>>>>>> 0fbfa8f (refactor(menu): refine sign-in highlight with smooth single pulse)
 				</MenuButton>
 				<MenuButton onClick={() => setActiveModal("soundConfig")}>
 					Adjust Sound
