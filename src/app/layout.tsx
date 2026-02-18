@@ -9,10 +9,7 @@ import { CustomToastContainer } from "@/components/ui/Toasts/CustomToastContaine
 
 export const metadata: Metadata = {
 	metadataBase: new URL("https://www.notakto.xyz"),
-	title: {
-		default: "Menu | Notakto",
-		template: "%s | Notakto",
-	},
+	title: "Notakto - Misère Tic Tac Toe",
 	description:
 		"Notakto is a misère and impartial form of tic-tac-toe. No ties, Always a winner. Play against AI or Friends.",
 	keywords: [
