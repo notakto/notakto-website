@@ -33,7 +33,7 @@ export const metadata: Metadata = {
 		type: "website",
 		images: [
 			{
-				url: "https://github.com/user-attachments/assets/028f7755-96ac-445f-b15a-7c1a0e0cd345",
+				url: "/preview-img.png",
 				width: 1200,
 				height: 630,
 				alt: "Notakto - Misère Tic Tac Toe",
@@ -47,7 +47,12 @@ export const metadata: Metadata = {
 		description:
 			"Notakto is a misère and impartial form of tic-tac-toe. No ties, Always a winner. Play against AI or Friends.",
 		images: [
-			"https://github.com/user-attachments/assets/028f7755-96ac-445f-b15a-7c1a0e0cd345",
+			{
+				url: "/preview-img.png",
+				width: 1200,
+				height: 630,
+				alt: "Notakto - Misère Tic Tac Toe",
+			},
 		],
 	},
 };
