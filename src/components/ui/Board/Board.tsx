@@ -9,6 +9,8 @@ const Board: React.FC<BoardProps> = ({
 	makeMove,
 	isDead,
 	boardSize,
+	cellOwners,
+	lastMoveCell,
 }) => {
 	return (
 		<SingleBoardContainer isDead={isDead}>
@@ -22,6 +24,8 @@ const Board: React.FC<BoardProps> = ({
 						onPress={makeMove}
 						disabled={isDead}
 						boardSize={boardSize}
+						owner={cellOwners?.[cellIndex]}
+						isLastMove={cellIndex === lastMoveCell}
 					/>
 				))}
 			</BoardGrid>

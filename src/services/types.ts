@@ -156,6 +156,8 @@ export interface CellProps {
 	onPress: (boardIndex: number, cellIndex: number) => void;
 	disabled: boolean;
 	boardSize: number;
+	owner?: 1 | 2;
+	isLastMove?: boolean;
 }
 
 export interface BoardProps {
@@ -164,6 +166,8 @@ export interface BoardProps {
 	makeMove: (boardIndex: number, cellIndex: number) => void;
 	isDead: boolean;
 	boardSize: number;
+	cellOwners?: Record<number, 1 | 2>;
+	lastMoveCell?: number;
 }
 
 // Menu and navigation props
@@ -293,6 +297,7 @@ export interface SearchContainerProps extends BaseComponentProps {}
 
 export interface CellValueDisplayProps {
 	value: string | null;
+	owner?: 1 | 2;
 }
 
 // Button components
@@ -308,7 +313,10 @@ export interface ExitBarProps extends BaseButtonProps {
 	text: string;
 }
 
-export interface CellButtonProps extends BaseButtonProps {}
+export interface CellButtonProps extends BaseButtonProps {
+	isLastMove?: boolean;
+	owner?: 1 | 2;
+}
 
 export interface BoardConfigButtonProps extends BaseButtonProps {
 	label: string | number;

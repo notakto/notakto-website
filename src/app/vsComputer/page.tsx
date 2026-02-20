@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { useShortcut } from "@/components/hooks/useShortcut";
 import Board from "@/components/ui/Board/Board";
 import BoardDisplay from "@/components/ui/Game/BoardDisplay";
+import BoardPreviewGrid from "@/components/ui/Game/BoardPreviewGrid";
 import BoardSelector from "@/components/ui/Game/BoardSelector";
 import GameActionBar from "@/components/ui/Game/GameActionBar";
 import GameCenterColumn from "@/components/ui/Game/GameCenterColumn";
@@ -80,6 +81,7 @@ const Game = () => {
 		useState<boolean>(false);
 	const [hasMoveHappened, setHasMoveHappened] = useState(false);
 	const [selectedBoard, setSelectedBoard] = useState(0);
+	const [showPreview, setShowPreview] = useState(false);
 	const [moveLog, setMoveLog] = useState<MoveLogEntry[]>([]);
 	const startTimeRef = useRef<number>(Date.now());
 	const [elapsed, setElapsed] = useState(0);
@@ -228,6 +230,7 @@ const Game = () => {
 			return;
 		}
 		setIsProcessing(true);
+		setShowPreview(false);
 		if (!hasMoveHappened) {
 			setHasMoveHappened(true);
 		}
@@ -656,6 +659,17 @@ const Game = () => {
 	const totalMoves = countTotalMoves(boards);
 	const aliveCount = boards.filter((b) => !isBoardDead(b, boardSize)).length;
 
+	// Build per-board cell ownership maps from moveLog
+	const cellOwnersByBoard: Record<number, Record<number, 1 | 2>> = {};
+	for (const entry of moveLog) {
+		if (!cellOwnersByBoard[entry.board]) {
+			cellOwnersByBoard[entry.board] = {};
+		}
+		cellOwnersByBoard[entry.board][entry.cell] = entry.player;
+	}
+
+	const lastMove = moveLog.length > 0 ? moveLog[moveLog.length - 1] : null;
+
 	return (
 		<GameLayout>
 			<GameTopBar
@@ -686,12 +700,14 @@ const Game = () => {
 
 				<GameCenterColumn
 					mobileBoardSelector={
-						<BoardSelector
-							boards={boards}
-							boardSize={boardSize}
-							selectedBoard={selectedBoard}
-							onSelectBoard={setSelectedBoard}
-						/>
+						!showPreview ? (
+							<BoardSelector
+								boards={boards}
+								boardSize={boardSize}
+								selectedBoard={selectedBoard}
+								onSelectBoard={setSelectedBoard}
+							/>
+						) : undefined
 					}>
 					<GameStatusBar
 						currentPlayer={currentPlayer as 1 | 2}
@@ -701,17 +717,31 @@ const Game = () => {
 						player1Name="You"
 						player2Name="CPU"
 					/>
-					<BoardDisplay visible={boards.length > 0 && !!boards[selectedBoard]}>
-						{boards[selectedBoard] && (
-							<Board
-								boardIndex={selectedBoard}
-								boardState={boards[selectedBoard]}
-								makeMove={handleMove}
-								isDead={isBoardDead(boards[selectedBoard], boardSize)}
-								boardSize={boardSize}
-							/>
-						)}
-					</BoardDisplay>
+					{showPreview ? (
+						<BoardPreviewGrid
+							boards={boards}
+							boardSize={boardSize}
+							moveLog={moveLog}
+							onSelectBoard={(index) => {
+								setSelectedBoard(index);
+								setShowPreview(false);
+							}}
+						/>
+					) : (
+						<BoardDisplay visible={boards.length > 0 && !!boards[selectedBoard]}>
+							{boards[selectedBoard] && (
+								<Board
+									boardIndex={selectedBoard}
+									boardState={boards[selectedBoard]}
+									makeMove={handleMove}
+									isDead={isBoardDead(boards[selectedBoard], boardSize)}
+									boardSize={boardSize}
+									cellOwners={cellOwnersByBoard[selectedBoard]}
+									lastMoveCell={lastMove?.board === selectedBoard ? lastMove.cell : undefined}
+								/>
+							)}
+						</BoardDisplay>
+					)}
 				</GameCenterColumn>
 
 				<GameStatsPanel
@@ -728,6 +758,15 @@ const Game = () => {
 			{/* Sticky action bar */}
 			<GameActionBar
 				actions={[
+					...(boards.length > 1
+						? [
+								{
+									label: showPreview ? "BACK" : "PREVIEW ALL",
+									onClick: () => setShowPreview((prev) => !prev),
+									variant: "primary" as const,
+								},
+							]
+						: []),
 					{
 						label: `UNDO (${100})`,
 						onClick: handleUndo,
