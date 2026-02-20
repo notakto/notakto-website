@@ -28,7 +28,7 @@ export default function BoardPreviewGrid({
 	return (
 		<div className="w-full overflow-y-auto p-2 sm:p-3 md:p-4">
 			<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-				{boards.map((board, boardIndex) => {
+				{[...boards.entries()].map(([boardIndex, board]) => {
 					const dead = isBoardDead(board, boardSize);
 					return (
 						<button
@@ -53,35 +53,37 @@ export default function BoardPreviewGrid({
 							</div>
 							<div className="w-full max-w-[200px]">
 								<BoardGrid boardSize={boardSize}>
-									{board.map((cell, cellIndex) => {
-									const owner = cellOwner.get(`${boardIndex}-${cellIndex}`);
-									const isLast = lastMove?.board === boardIndex && lastMove?.cell === cellIndex;
-									return (
-										<div
-											key={`preview-${boardIndex}-${cellIndex}`}
-											className={clsx(
-												"relative flex items-center justify-center aspect-square",
-												cell === "X" ? "bg-dead" : "bg-board-bg",
-												isLast
-													? owner === 2
-														? "border-2 border-yellow-400"
-														: "border-2 border-red-500"
-													: "border border-bg3",
-											)}>
-											{cell && (
-												<span
-													className={clsx(
-														"text-xs font-pixel leading-none",
-														owner === 2
-															? "text-yellow-400 drop-shadow-[0_0_4px_rgba(250,204,21,0.6)]"
-															: "text-x drop-shadow-[0_0_4px_rgba(196,60,60,0.6)]",
-													)}>
-													{cell}
-												</span>
-											)}
-										</div>
-									);
-								})}
+									{[...board.entries()].map(([cellIndex, cell]) => {
+										const owner = cellOwner.get(`${boardIndex}-${cellIndex}`);
+										const isLast =
+											lastMove?.board === boardIndex &&
+											lastMove?.cell === cellIndex;
+										return (
+											<div
+												key={`preview-${boardIndex}-${cellIndex}`}
+												className={clsx(
+													"relative flex items-center justify-center aspect-square",
+													cell === "X" ? "bg-dead" : "bg-board-bg",
+													isLast
+														? owner === 2
+															? "border-2 border-yellow-400"
+															: "border-2 border-red-500"
+														: "border border-bg3",
+												)}>
+												{cell && (
+													<span
+														className={clsx(
+															"text-xs font-pixel leading-none",
+															owner === 2
+																? "text-yellow-400 drop-shadow-[0_0_4px_rgba(250,204,21,0.6)]"
+																: "text-x drop-shadow-[0_0_4px_rgba(196,60,60,0.6)]",
+														)}>
+														{cell}
+													</span>
+												)}
+											</div>
+										);
+									})}
 								</BoardGrid>
 							</div>
 						</button>

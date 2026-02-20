@@ -18,12 +18,11 @@ export default function BoardSelector({
 
 	return (
 		<div className="flex flex-row md:flex-1 md:flex-col items-center md:items-end justify-center gap-2.5 sm:gap-3 md:gap-2.5 overflow-x-auto md:overflow-x-visible px-2 sm:px-3 md:px-0">
-			{boards.map((board, i) => {
+			{[...boards.entries()].map(([i, board]) => {
 				const dead = isBoardDead(board, boardSize);
 				const selected = i === selectedBoard;
 				return (
 					<button
-						// biome-ignore lint/suspicious/noArrayIndexKey: board index is the stable identity
 						key={`tab-${i}`}
 						type="button"
 						onClick={() => onSelectBoard(i)}

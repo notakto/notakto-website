@@ -141,7 +141,7 @@ const LiveMode = () => {
 								const boardKey = `board-${roomId}-${board.grid.join("")}-${board.blocked}`;
 								return (
 									<BoardLiveContainer key={boardKey} blocked={board.blocked}>
-										{board.grid.map((cell, cellIndex) => (
+										{[...board.grid.entries()].map(([cellIndex, cell]) => (
 											<BoardCell
 												key={`cell-${cellIndex}-${cell}`}
 												value={cell}

@@ -95,7 +95,9 @@ const Menu = () => {
 
 			{/* Footer hint */}
 			<div className="mt-8 md:mt-12 font-pixel text-[7px] text-muted animate-pulse-pixel text-center">
-				<span className="hidden md:inline">USE SIDEBAR TO ACCESS SETTINGS & MORE</span>
+				<span className="hidden md:inline">
+					USE SIDEBAR TO ACCESS SETTINGS & MORE
+				</span>
 				<span className="md:hidden">TAP MORE FOR SETTINGS & OPTIONS</span>
 			</div>
 		</div>

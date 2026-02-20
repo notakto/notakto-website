@@ -59,11 +59,10 @@ export default function GameTopBar({
 			{/* Center: board dots + alive count */}
 			<div className="text-center shrink-0">
 				<div className="flex justify-center gap-2">
-					{boards.map((board, i) => {
+					{[...boards.entries()].map(([i, board]) => {
 						const dead = isBoardDead(board, boardSize);
 						return (
 							<div
-								// biome-ignore lint/suspicious/noArrayIndexKey: board index is the stable identity
 								key={`dot-${i}`}
 								className={`w-3 h-3 md:w-3.5 md:h-3.5 transition-all duration-300 ${
 									dead

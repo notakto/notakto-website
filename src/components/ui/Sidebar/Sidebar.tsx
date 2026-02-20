@@ -370,8 +370,9 @@ function MobileBottomNav({
 			{/* "More" popup */}
 			{moreOpen && (
 				<>
-					{/* biome-ignore lint/a11y/useKeyWithClickEvents: backdrop dismiss */}
-					<div
+					<button
+						type="button"
+						aria-label="Close menu"
 						className="fixed inset-0 z-[998] md:hidden"
 						onClick={() => setMoreOpen(false)}
 					/>
@@ -450,9 +451,7 @@ function MobileBottomNav({
 							key={item.href}
 							href={item.href}
 							className={`flex flex-col items-center justify-center gap-0.5 px-2 py-1 font-pixel ${
-								isActive
-									? "text-accent"
-									: "text-cream-dim hover:text-cream"
+								isActive ? "text-accent" : "text-cream-dim hover:text-cream"
 							}`}>
 							<span className="text-[12px]">{item.icon}</span>
 							<span className="text-[6px] uppercase tracking-wider">

@@ -206,7 +206,12 @@ const Game = () => {
 				setSelectedBoard(0);
 				setCellOwnersByBoard(
 					resp.isAiMove
-						? convertCellOwners(resp.boards, resp.isAiMove, resp.numberOfBoards, resp.boardSize)
+						? convertCellOwners(
+								resp.boards,
+								resp.isAiMove,
+								resp.numberOfBoards,
+								resp.boardSize,
+							)
 						: {},
 				);
 				startTimeRef.current = Date.now();
@@ -315,7 +320,12 @@ const Game = () => {
 				setBoards(newBoards);
 				if (resp.isAiMove) {
 					setCellOwnersByBoard(
-						convertCellOwners(resp.boards, resp.isAiMove, numberOfBoards, boardSize),
+						convertCellOwners(
+							resp.boards,
+							resp.isAiMove,
+							numberOfBoards,
+							boardSize,
+						),
 					);
 				}
 				setCurrentPlayer(1);
@@ -433,7 +443,12 @@ const Game = () => {
 				setBoards(newBoards);
 				if (resp.isAiMove) {
 					setCellOwnersByBoard(
-						convertCellOwners(resp.boards, resp.isAiMove, numberOfBoards, boardSize),
+						convertCellOwners(
+							resp.boards,
+							resp.isAiMove,
+							numberOfBoards,
+							boardSize,
+						),
 					);
 				}
 				setCurrentPlayer(1);
@@ -536,7 +551,12 @@ const Game = () => {
 				setBoards(newBoards);
 				if (resp.isAiMove) {
 					setCellOwnersByBoard(
-						convertCellOwners(resp.boards, resp.isAiMove, numberOfBoards, boardSize),
+						convertCellOwners(
+							resp.boards,
+							resp.isAiMove,
+							numberOfBoards,
+							boardSize,
+						),
 					);
 				}
 				setCurrentPlayer(1);
@@ -742,7 +762,8 @@ const Game = () => {
 							}}
 						/>
 					) : (
-						<BoardDisplay visible={boards.length > 0 && !!boards[selectedBoard]}>
+						<BoardDisplay
+							visible={boards.length > 0 && !!boards[selectedBoard]}>
 							{boards[selectedBoard] && (
 								<Board
 									boardIndex={selectedBoard}
@@ -751,7 +772,11 @@ const Game = () => {
 									isDead={isBoardDead(boards[selectedBoard], boardSize)}
 									boardSize={boardSize}
 									cellOwners={cellOwnersByBoard[selectedBoard]}
-									lastMoveCell={lastMove?.board === selectedBoard ? lastMove.cell : undefined}
+									lastMoveCell={
+										lastMove?.board === selectedBoard
+											? lastMove.cell
+											: undefined
+									}
 								/>
 							)}
 						</BoardDisplay>

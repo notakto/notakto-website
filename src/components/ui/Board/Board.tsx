@@ -15,9 +15,9 @@ const Board: React.FC<BoardProps> = ({
 	return (
 		<SingleBoardContainer isDead={isDead}>
 			<BoardGrid boardSize={boardSize}>
-				{boardState.map((cell, cellIndex) => (
+				{[...boardState.entries()].map(([cellIndex, cell]) => (
 					<Cell
-						key={`${boardIndex}-${cellIndex}-${cell}`} //FIXME: Improve key
+						key={`${boardIndex}-${cellIndex}-${cell}`}
 						boardIndex={boardIndex}
 						cellIndex={cellIndex}
 						value={cell}

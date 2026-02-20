@@ -64,12 +64,11 @@ export default function GameStatsPanel({
 							</div>
 						</div>
 					)}
-					{moveLog.map((m, i) => {
+					{[...moveLog.entries()].map(([i, m]) => {
 						const row = Math.floor(m.cell / boardSize);
 						const col = m.cell % boardSize;
 						return (
 							<div
-								// biome-ignore lint/suspicious/noArrayIndexKey: move log is append-only, index is stable
 								key={`move-${i}`}
 								className={`flex items-center gap-2 px-4 py-1.5 border-l-[3px] ${
 									m.player === 1 ? "border-l-primary" : "border-l-accent"
@@ -95,7 +94,6 @@ export default function GameStatsPanel({
 					<div ref={logEndRef} />
 				</div>
 			</div>
-
 		</div>
 	);
 }

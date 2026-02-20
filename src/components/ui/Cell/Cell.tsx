@@ -16,7 +16,11 @@ const Cell: React.FC<CellProps> = ({
 	const isDisabled = disabled || !!value;
 
 	return (
-		<CellButton onClick={handleClick} disabled={isDisabled} isLastMove={isLastMove} owner={owner}>
+		<CellButton
+			onClick={handleClick}
+			disabled={isDisabled}
+			isLastMove={isLastMove}
+			owner={owner}>
 			<CellValueDisplay value={value} owner={owner} />
 		</CellButton>
 	);
