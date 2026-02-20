@@ -684,7 +684,15 @@ const Game = () => {
 					/>
 				</GameLeftPanel>
 
-				<GameCenterColumn>
+				<GameCenterColumn
+					mobileBoardSelector={
+						<BoardSelector
+							boards={boards}
+							boardSize={boardSize}
+							selectedBoard={selectedBoard}
+							onSelectBoard={setSelectedBoard}
+						/>
+					}>
 					<GameStatusBar
 						currentPlayer={currentPlayer as 1 | 2}
 						moveCount={totalMoves}

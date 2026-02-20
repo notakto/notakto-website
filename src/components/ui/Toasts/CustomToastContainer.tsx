@@ -40,7 +40,7 @@ export function CustomToastContainer({
 			toastClassName={
 				toastClassName ||
 				(() =>
-					"relative text-[10px] font-pixel text-center w-[300px] bg-panel text-cream border-3 border-border-pixel px-4 py-3 shadow-[3px_3px_0_var(--color-bg0)] tracking-wider mb-3")
+					"relative text-[10px] font-pixel text-center w-[calc(100vw-2rem)] max-w-[300px] bg-panel text-cream border-3 border-border-pixel px-4 py-3 shadow-[3px_3px_0_var(--color-bg0)] tracking-wider mb-3")
 			}
 			className="pb-2"
 			{...rest}

@@ -52,7 +52,7 @@ const Menu = () => {
 	return (
 		<div className="flex flex-col items-center justify-center min-h-screen px-6 py-12">
 			{/* Title */}
-			<div className="text-center mb-12 animate-drop">
+			<div className="text-center mb-8 md:mb-12 animate-drop">
 				<h1 className="font-pixel text-primary pixel-text-shadow text-2xl md:text-4xl tracking-widest mb-4">
 					NOTAKTO
 				</h1>
@@ -63,15 +63,15 @@ const Menu = () => {
 			</div>
 
 			{/* Game mode cards */}
-			<div className="grid gap-6 w-full max-w-2xl">
+			<div className="grid gap-4 md:gap-6 w-full max-w-2xl">
 				{GAME_MODES.map((g) => (
 					<button
 						type="button"
 						key={g.mode}
 						onClick={() => startGame(g.mode, g.requiresAuth)}
-						className="group bg-panel pixel-border p-6 text-left cursor-pointer hover:bg-bg2 transition-colors duration-150 flex items-center gap-6">
+						className="group bg-panel pixel-border p-4 md:p-6 text-left cursor-pointer hover:bg-bg2 transition-colors duration-150 flex items-center gap-4 md:gap-6">
 						{/* Icon */}
-						<div className="w-14 h-14 bg-bg0 border-3 border-border-pixel flex items-center justify-center shrink-0 group-hover:border-accent transition-colors">
+						<div className="w-10 h-10 md:w-14 md:h-14 bg-bg0 border-3 border-border-pixel flex items-center justify-center shrink-0 group-hover:border-accent transition-colors">
 							<span className="font-pixel text-xl text-accent">{g.icon}</span>
 						</div>
 
@@ -94,8 +94,9 @@ const Menu = () => {
 			</div>
 
 			{/* Footer hint */}
-			<div className="mt-12 font-pixel text-[7px] text-muted animate-pulse-pixel text-center">
-				USE SIDEBAR TO ACCESS SETTINGS & MORE
+			<div className="mt-8 md:mt-12 font-pixel text-[7px] text-muted animate-pulse-pixel text-center">
+				<span className="hidden md:inline">USE SIDEBAR TO ACCESS SETTINGS & MORE</span>
+				<span className="md:hidden">TAP MORE FOR SETTINGS & OPTIONS</span>
 			</div>
 		</div>
 	);

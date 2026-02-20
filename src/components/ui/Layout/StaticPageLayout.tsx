@@ -34,7 +34,7 @@ export default function StaticPageLayout({
 	}
 
 	return (
-		<div className="min-h-screen bg-bg0 p-8">
+		<div className="min-h-screen bg-bg0 p-4 md:p-8">
 			<div className={`${maxWidthStyles[maxWidth]} mx-auto`}>
 				<h1 className="font-pixel text-lg text-primary pixel-text-shadow mb-2 uppercase">
 					{title}

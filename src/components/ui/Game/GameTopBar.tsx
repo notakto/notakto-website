@@ -35,21 +35,21 @@ export default function GameTopBar({
 	const aliveCount = boards.filter((b) => !isBoardDead(b, boardSize)).length;
 
 	return (
-		<div className="flex items-center justify-between gap-4 px-6 py-4 shrink-0">
+		<div className="flex items-center justify-between gap-2 px-3 py-2 sm:gap-3 sm:px-4 sm:py-3 md:gap-4 md:px-6 md:py-4 shrink-0">
 			{/* Player 1 panel */}
 			<div
-				className={`flex items-center gap-3 px-5 py-3.5 pixel-border flex-1 min-w-0 transition-colors ${
+				className={`flex items-center gap-3 px-3 py-2.5 sm:px-4 sm:py-3 md:px-5 md:py-3.5 pixel-border flex-1 min-w-0 transition-colors ${
 					currentPlayer === 1 && !gameOver ? "border-accent" : ""
 				}`}>
 				{currentPlayer === 1 && !gameOver && (
 					<div className="w-1.5 self-stretch bg-accent animate-pulse-pixel shrink-0" />
 				)}
 				<div className="min-w-0 flex-1">
-					<div className="font-pixel text-[12px] text-cream uppercase tracking-wider truncate">
+					<div className="font-pixel text-[10px] sm:text-[11px] md:text-[12px] text-cream uppercase tracking-wider truncate">
 						{player1.name}
 					</div>
 					<div className="flex items-center gap-2 mt-1">
-						<span className="font-pixel text-[9px] text-cream-dim">
+						<span className="font-pixel text-[8px] md:text-[9px] text-cream-dim">
 							{player1.moveCount} MOVES
 						</span>
 					</div>
@@ -65,7 +65,7 @@ export default function GameTopBar({
 							<div
 								// biome-ignore lint/suspicious/noArrayIndexKey: board index is the stable identity
 								key={`dot-${i}`}
-								className={`w-3.5 h-3.5 transition-all duration-300 ${
+								className={`w-3 h-3 md:w-3.5 md:h-3.5 transition-all duration-300 ${
 									dead
 										? "bg-dead border-2 border-dead-border"
 										: "bg-success border-2 border-success-dim"
@@ -81,15 +81,15 @@ export default function GameTopBar({
 
 			{/* Player 2 panel */}
 			<div
-				className={`flex items-center gap-3 px-5 py-3.5 pixel-border flex-1 min-w-0 transition-colors ${
+				className={`flex items-center gap-3 px-3 py-2.5 sm:px-4 sm:py-3 md:px-5 md:py-3.5 pixel-border flex-1 min-w-0 transition-colors ${
 					currentPlayer === 2 && !gameOver ? "border-accent" : ""
 				}`}>
 				<div className="min-w-0 flex-1 text-right">
-					<div className="font-pixel text-[12px] text-cream uppercase tracking-wider truncate">
+					<div className="font-pixel text-[10px] sm:text-[11px] md:text-[12px] text-cream uppercase tracking-wider truncate">
 						{player2.name}
 					</div>
 					<div className="flex items-center gap-2 mt-1 justify-end">
-						<span className="font-pixel text-[9px] text-cream-dim">
+						<span className="font-pixel text-[8px] md:text-[9px] text-cream-dim">
 							{player2.moveCount} MOVES
 						</span>
 					</div>
@@ -132,18 +132,18 @@ export function GameStatusBar({
 					: `${player2Name.toUpperCase()}'S TURN`;
 
 	return (
-		<div className="text-center py-4 px-4 shrink-0">
+		<div className="text-center py-2 px-3 sm:py-3 sm:px-4 md:py-4 md:px-4 shrink-0">
 			{gameOver ? (
-				<div className="font-pixel text-[32px] text-accent animate-pulse-pixel pixel-text-shadow">
+				<div className="font-pixel text-[20px] sm:text-[24px] md:text-[32px] text-accent animate-pulse-pixel pixel-text-shadow">
 					GAME OVER
 				</div>
 			) : (
 				<>
-					<div className="font-pixel text-[12px] text-muted uppercase tracking-wider">
+					<div className="font-pixel text-[10px] sm:text-[11px] md:text-[12px] text-muted uppercase tracking-wider">
 						TURN {moveCount + 1}
 					</div>
 					<div
-						className={`font-pixel text-[28px] mt-1 animate-pulse-pixel pixel-text-shadow ${
+						className={`font-pixel text-[16px] sm:text-[20px] md:text-[28px] mt-0.5 md:mt-1 animate-pulse-pixel pixel-text-shadow ${
 							currentPlayer === 1 ? "text-primary" : "text-accent"
 						}`}>
 						{currentPlayer === 1 ? "\u25C0 " : ""}

@@ -185,7 +185,7 @@ export default function Sidebar() {
 	return (
 		<>
 			<nav
-				className={`fixed left-0 top-0 h-full bg-bg1 border-r-3 border-border-pixel z-50 flex flex-col transition-all duration-200 overflow-hidden ${isCollapsed ? "w-14" : "w-56"}`}>
+				className={`fixed left-0 top-0 h-full bg-bg1 border-r-3 border-border-pixel z-50 hidden md:flex flex-col transition-all duration-200 overflow-hidden ${isCollapsed ? "w-14" : "w-56"}`}>
 				{/* Logo */}
 				<Link
 					href="/"
@@ -330,6 +330,126 @@ export default function Sidebar() {
 				show={!!tooltip}
 				anchorRect={tooltip?.rect ?? null}
 			/>
+
+			{/* Mobile bottom nav */}
+			<MobileBottomNav pathname={pathname} openModal={openModal} />
+		</>
+	);
+}
+
+const MOBILE_NAV_ITEMS = [
+	{ href: "/", label: "HOME", icon: "H" },
+	{ href: "/vsComputer", label: "VS CPU", icon: ">" },
+	{ href: "/vsPlayer", label: "VS PLAYER", icon: "+" },
+	{ href: "/liveMatch", label: "LIVE", icon: "#" },
+];
+
+function MobileBottomNav({
+	pathname,
+	openModal,
+}: {
+	pathname: string;
+	openModal: (modal: ModalAction | GameModalAction) => void;
+}) {
+	const [moreOpen, setMoreOpen] = useState(false);
+	const isGamePage = GAME_PAGES.includes(pathname);
+	const gameButtons = GAME_BUTTONS[pathname] ?? [];
+
+	return (
+		<>
+			{/* "More" popup */}
+			{moreOpen && (
+				<>
+					{/* biome-ignore lint/a11y/useKeyWithClickEvents: backdrop dismiss */}
+					<div
+						className="fixed inset-0 z-[998] md:hidden"
+						onClick={() => setMoreOpen(false)}
+					/>
+					<div className="fixed bottom-14 right-2 z-[999] bg-bg1 border-3 border-border-pixel p-2 flex flex-col gap-1 md:hidden shadow-[3px_3px_0_var(--color-bg0)]">
+						{isGamePage &&
+							gameButtons.map((item) => (
+								<button
+									type="button"
+									key={item.modal}
+									onClick={() => {
+										openModal(item.modal);
+										setMoreOpen(false);
+									}}
+									className="font-pixel text-[8px] text-cream-dim hover:text-cream hover:bg-bg2 px-3 py-2 text-left uppercase tracking-wider cursor-pointer whitespace-nowrap">
+									{item.icon} {item.label}
+								</button>
+							))}
+						{isGamePage && gameButtons.length > 0 && (
+							<div className="h-[2px] bg-border-pixel my-1" />
+						)}
+						{MODAL_ITEMS.map((item) => (
+							<button
+								type="button"
+								key={item.modal}
+								onClick={() => {
+									openModal(item.modal);
+									setMoreOpen(false);
+								}}
+								className="font-pixel text-[8px] text-cream-dim hover:text-cream hover:bg-bg2 px-3 py-2 text-left uppercase tracking-wider cursor-pointer whitespace-nowrap">
+								{item.icon} {item.label}
+							</button>
+						))}
+						<div className="h-[2px] bg-border-pixel my-1" />
+						{NAV_ITEMS.slice(3).map((item) =>
+							"external" in item && item.external ? (
+								<a
+									key={item.href}
+									href={item.href}
+									target="_blank"
+									rel="noopener noreferrer"
+									onClick={() => setMoreOpen(false)}
+									className="font-pixel text-[8px] text-cream-dim hover:text-cream hover:bg-bg2 px-3 py-2 text-left uppercase tracking-wider cursor-pointer whitespace-nowrap">
+									{item.icon} {item.label}
+								</a>
+							) : (
+								<Link
+									key={item.href}
+									href={item.href}
+									onClick={() => setMoreOpen(false)}
+									className="font-pixel text-[8px] text-cream-dim hover:text-cream hover:bg-bg2 px-3 py-2 text-left uppercase tracking-wider whitespace-nowrap">
+									{item.icon} {item.label}
+								</Link>
+							),
+						)}
+					</div>
+				</>
+			)}
+
+			{/* Bottom nav bar */}
+			<nav className="fixed bottom-0 left-0 right-0 h-14 bg-bg1 border-t-3 border-border-pixel z-50 flex md:hidden items-center justify-around px-1">
+				{MOBILE_NAV_ITEMS.map((item) => {
+					const isActive = pathname === item.href;
+					return (
+						<Link
+							key={item.href}
+							href={item.href}
+							className={`flex flex-col items-center justify-center gap-0.5 px-2 py-1 font-pixel ${
+								isActive
+									? "text-accent"
+									: "text-cream-dim hover:text-cream"
+							}`}>
+							<span className="text-[12px]">{item.icon}</span>
+							<span className="text-[6px] uppercase tracking-wider">
+								{item.label}
+							</span>
+						</Link>
+					);
+				})}
+				<button
+					type="button"
+					onClick={() => setMoreOpen(!moreOpen)}
+					className={`flex flex-col items-center justify-center gap-0.5 px-2 py-1 font-pixel cursor-pointer ${
+						moreOpen ? "text-accent" : "text-cream-dim hover:text-cream"
+					}`}>
+					<span className="text-[12px]">...</span>
+					<span className="text-[6px] uppercase tracking-wider">MORE</span>
+				</button>
+			</nav>
 		</>
 	);
 }

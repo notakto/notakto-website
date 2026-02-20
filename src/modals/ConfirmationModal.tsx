@@ -23,7 +23,7 @@ const ConfirmationModal = ({
 
 	return (
 		<ModalOverlay>
-			<div className="bg-panel pixel-border w-full max-w-md p-6">
+			<div className="bg-panel pixel-border w-[95%] md:w-full max-w-md p-4 md:p-6">
 				<h1 className="text-primary font-pixel uppercase tracking-widest text-sm mb-2 text-center">
 					{title}
 				</h1>

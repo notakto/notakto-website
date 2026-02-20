@@ -2,7 +2,7 @@ import type { ShortcutListProps } from "@/services/types";
 
 const ShortcutList = ({ shortcuts }: ShortcutListProps) => (
 	<section>
-		<dl className="grid grid-cols-2 gap-4 text-left">
+		<dl className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-left">
 			{shortcuts.map((shortcut) => (
 				<div key={shortcut.key} className="flex flex-col items-start">
 					<dt className="font-pixel font-extrabold text-[9px] text-cream">

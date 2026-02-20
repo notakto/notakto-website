@@ -6,7 +6,7 @@ interface GameContentAreaProps {
 
 export default function GameContentArea({ children }: GameContentAreaProps) {
 	return (
-		<div className="flex-1 flex gap-4 px-4 min-h-0 overflow-hidden">
+		<div className="flex gap-2 px-2 sm:gap-3 sm:px-3 md:flex-1 md:gap-4 md:px-4">
 			{children}
 		</div>
 	);

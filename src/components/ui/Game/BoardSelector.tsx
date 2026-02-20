@@ -17,7 +17,7 @@ export default function BoardSelector({
 	if (boards.length <= 1) return null;
 
 	return (
-		<div className="flex-1 flex flex-col items-end justify-center gap-2.5">
+		<div className="flex flex-row md:flex-1 md:flex-col items-center md:items-end justify-center gap-2.5 sm:gap-3 md:gap-2.5 overflow-x-auto md:overflow-x-visible px-2 sm:px-3 md:px-0">
 			{boards.map((board, i) => {
 				const dead = isBoardDead(board, boardSize);
 				const selected = i === selectedBoard;
@@ -27,7 +27,7 @@ export default function BoardSelector({
 						key={`tab-${i}`}
 						type="button"
 						onClick={() => onSelectBoard(i)}
-						className={`relative font-pixel text-[10px] px-5 py-3 flex items-center justify-center border-2 cursor-pointer transition-all whitespace-nowrap ${
+						className={`relative font-pixel text-[9px] sm:text-[10px] md:text-[10px] px-3.5 py-2.5 sm:px-4 md:px-5 md:py-3 flex items-center justify-center border-2 cursor-pointer transition-all whitespace-nowrap ${
 							selected
 								? "bg-bg3 border-accent text-cream shadow-[2px_2px_0_var(--color-accent)]"
 								: dead
