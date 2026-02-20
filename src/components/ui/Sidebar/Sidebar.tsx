@@ -354,6 +354,16 @@ function MobileBottomNav({
 	const [moreOpen, setMoreOpen] = useState(false);
 	const isGamePage = GAME_PAGES.includes(pathname);
 	const gameButtons = GAME_BUTTONS[pathname] ?? [];
+	const user = useUser((s) => s.user);
+
+	const handleAuth = async () => {
+		if (user) {
+			await signOutUser();
+		} else {
+			await signInWithGoogle();
+		}
+		setMoreOpen(false);
+	};
 
 	return (
 		<>
@@ -416,6 +426,17 @@ function MobileBottomNav({
 								</Link>
 							),
 						)}
+						<div className="h-[2px] bg-border-pixel my-1" />
+						<button
+							type="button"
+							onClick={handleAuth}
+							className={`font-pixel text-[8px] px-3 py-2 text-left uppercase tracking-wider cursor-pointer whitespace-nowrap ${
+								user
+									? "text-cream-dim hover:text-cream hover:bg-bg2"
+									: "text-primary hover:text-primary-hover hover:bg-bg2"
+							}`}>
+							{user ? "< SIGN OUT" : "> SIGN IN"}
+						</button>
 					</div>
 				</>
 			)}
