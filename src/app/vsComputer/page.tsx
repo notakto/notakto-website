@@ -31,7 +31,7 @@ import {
 	undoMove,
 } from "@/services/game-apis";
 import { useGlobalModal } from "@/services/globalModal";
-import { convertBoard, isBoardDead } from "@/services/logic";
+import { convertBoard, convertCellOwners, isBoardDead } from "@/services/logic";
 import type {
 	MakeMoveResponse,
 	SkipMoveResponse,
@@ -83,6 +83,9 @@ const Game = () => {
 	const [selectedBoard, setSelectedBoard] = useState(0);
 	const [showPreview, setShowPreview] = useState(false);
 	const [moveLog, setMoveLog] = useState<MoveLogEntry[]>([]);
+	const [cellOwnersByBoard, setCellOwnersByBoard] = useState<
+		Record<number, Record<number, 1 | 2>>
+	>({});
 	const startTimeRef = useRef<number>(Date.now());
 	const [elapsed, setElapsed] = useState(0);
 
@@ -201,6 +204,11 @@ const Game = () => {
 				setGameHistory([newBoards]);
 				setMoveLog([]);
 				setSelectedBoard(0);
+				setCellOwnersByBoard(
+					resp.isAiMove
+						? convertCellOwners(resp.boards, resp.isAiMove, resp.numberOfBoards, resp.boardSize)
+						: {},
+				);
 				startTimeRef.current = Date.now();
 				setElapsed(0);
 
@@ -305,6 +313,11 @@ const Game = () => {
 				}
 
 				setBoards(newBoards);
+				if (resp.isAiMove) {
+					setCellOwnersByBoard(
+						convertCellOwners(resp.boards, resp.isAiMove, numberOfBoards, boardSize),
+					);
+				}
 				setCurrentPlayer(1);
 				setGameHistory((prev) => [...prev, newBoards]);
 				if (resp.gameover) {
@@ -418,6 +431,11 @@ const Game = () => {
 					return;
 				}
 				setBoards(newBoards);
+				if (resp.isAiMove) {
+					setCellOwnersByBoard(
+						convertCellOwners(resp.boards, resp.isAiMove, numberOfBoards, boardSize),
+					);
+				}
 				setCurrentPlayer(1);
 				setGameHistory((prev) => [...prev, newBoards]);
 
@@ -516,6 +534,11 @@ const Game = () => {
 				}
 
 				setBoards(newBoards);
+				if (resp.isAiMove) {
+					setCellOwnersByBoard(
+						convertCellOwners(resp.boards, resp.isAiMove, numberOfBoards, boardSize),
+					);
+				}
 				setCurrentPlayer(1);
 				setGameHistory((prev) => [...prev, newBoards]);
 				const token = await user.getIdToken();
@@ -658,15 +681,6 @@ const Game = () => {
 	const cpuMoveCount = moveLog.filter((m) => m.player === 2).length;
 	const totalMoves = countTotalMoves(boards);
 	const aliveCount = boards.filter((b) => !isBoardDead(b, boardSize)).length;
-
-	// Build per-board cell ownership maps from moveLog
-	const cellOwnersByBoard: Record<number, Record<number, 1 | 2>> = {};
-	for (const entry of moveLog) {
-		if (!cellOwnersByBoard[entry.board]) {
-			cellOwnersByBoard[entry.board] = {};
-		}
-		cellOwnersByBoard[entry.board][entry.cell] = entry.player;
-	}
 
 	const lastMove = moveLog.length > 0 ? moveLog[moveLog.length - 1] : null;
 

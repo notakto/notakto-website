@@ -34,6 +34,7 @@ export interface NewGameResponse {
 	sessionId: string;
 	uid: string;
 	boards: number[];
+	isAiMove?: boolean[];
 	winner: boolean;
 	boardSize: BoardSize;
 	numberOfBoards: BoardNumber;

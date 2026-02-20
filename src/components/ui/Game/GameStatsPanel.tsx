@@ -96,12 +96,6 @@ export default function GameStatsPanel({
 				</div>
 			</div>
 
-			{/* Hint bar */}
-			<div className="pixel-border bg-bg2 px-3 py-2 shrink-0">
-				<span className="font-pixel text-[7px] text-border-pixel">
-					ESC = CLOSE MODAL
-				</span>
-			</div>
 		</div>
 	);
 }
