@@ -1,6 +1,6 @@
 # 🤝 Contributing to Notakto
 
-Welcome, and thank you for contributing to **Notakto**. Notakto is a nostalgic, strategy-focused variant of tic-tac-toe with multiplayer, AI, and an in-game economy.
+Welcome, and thank you for contributing to **Notakto**. Notakto is a nostalgic, strategy-focused variant of tic-tac-toe with AI and an in-game economy.
 
 If this is your first time contributing to an open source project, see [Your First Pull Request][1].
 
@@ -18,33 +18,16 @@ Assuming you have cloned the repository, follow these steps to set up your devel
 **Install the Dependencies**
 
 ```bash
-pnpm install:all 
+pnpm install
 ```
 
-**One command to start everything:**
+**Start the development server:**
 
 ```bash
-pnpm dev:local
-```
-
-This automatically:
-- Installs all dependencies for both main app and socket server
-- Starts Next.js development server (http://localhost:3000)
-- Starts Socket.IO server (http://localhost:8000)
-- Enables hot reload for both servers
-
-**Alternative commands:**
-
-```bash
-# Start only Next.js app
 pnpm dev
 ```
 
-> If you're working on **Live Match** features, run the Socket.IO server separately:
-
-```bash
-cd notakto-socket-server && pnpm start
-```
+This starts the Next.js development server at http://localhost:3000 with hot reload enabled.
 
 ## 🧪 Testing
 
@@ -87,23 +70,10 @@ pnpm test
 pnpm lint
 
 # Verify the application runs correctly
-pnpm dev:local
+pnpm dev
 ```
 
 All tests must pass and the application must run without errors before you create a pull request.
-
-### Docker Testing (Optional)
-
-To test your changes in a production-like environment:
-
-1. Install [Docker Desktop][11] and start the Docker Engine.
-2. Build and run the application:
-
-    ```bash
-    docker-compose up --build
-    ```
-
-This builds both the web frontend and socket server, then starts the services on ports `3000` and `8000` respectively.
 
 ## 📦 Project Structure Overview
 
@@ -111,11 +81,9 @@ The project follows a modern Next.js architecture:
 
 ```text
 src/
-├── app/                   # Next.js route-based pages (vsComputer, vsPlayer, liveMatch)
+├── app/                   # Next.js route-based pages (vsComputer, vsPlayer)
 ├── modals/                # Modal components for UI flows
 ├── services/              # Core logic, AI engine, Zustand store, Firebase, etc.
-notakto-socket-server/
-├── livematch.js           # Socket.IO live multiplayer server (Node.js)
 ```
 
 ## 💡 Contribution Ideas
@@ -185,6 +153,7 @@ If something is confusing, that's valuable feedback - feel free to open a discus
 - [TypeScript Handbook](https://www.typescriptlang.org/docs/)
 - [Jest Testing Framework](https://jestjs.io/docs/getting-started)
 - [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
+- [The Complete Guide to Readable Code][12]
 
 Thanks again for being part of Notakto! 🎮
 
@@ -199,10 +168,4 @@ Thanks again for being part of Notakto! 🎮
 [9]: https://github.com/rakshitg600/notakto-website/issues
 [10]: https://github.com/Rakshitg600/notakto-website/issues/13
 [11]: https://docs.docker.com/desktop/
-## 📚 Additional Resources
-...
-- [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
-- [The Complete Guide to Readable Code][12]
-...
 [12]: https://fellow.ai/blog/the-complete-guide-to-readable-code/
-

@@ -39,13 +39,12 @@ For example, to play a game with three 3x3 boards:
 
 ## :video_game: Game Modes
 
-You can play the game in three modes:
+You can play the game in two modes:
 
 | Mode | Description |
 |:-----|:------------|
 | **Play vs Computer** | Play against AI with five difficulty levels. |
 | **Play vs Player** | Play with a friend on the same device. |
-| **Live Match** | Play against other in real-time matches over the internet. |
 
 ## :robot: AI Engine
 
@@ -54,17 +53,6 @@ This project's AI engine uses center-weighted heuristics and misère Nim strateg
 ## :sparkler: Coins and Power-ups
 
 Get coins for each game you win. Use those coins to buy power-ups, like **Undo Move** and **Skip Move** from the in-game **Settings** menu.
-
-## :globe_with_meridians: Multiplayer (Live Match)
-
-Play against others over the internet and climb the public leaderboard (coming soon!). Every win in the Live Match mode earns you XP. The more XP you earn, the higher your position on the leaderboard.
-
-The game client uses [`Socket.IO`][10] to connect to a server. The server:
-
-* Pairs players in matches
-* Manages rooms that host both players
-* Synchronizes moves from each player
-* Disconnects each player from the room at the end of the game or when the player leaves.
 
 ## :package: Third-Party Packages
 
@@ -86,27 +74,11 @@ See the [reference PowerPoint][8] to learn more about the project.
 ## :rocket: Planned Features
 
 1. Global leaderboard (XP-based)
-2. Friend list and “Play with Friends” mode
+2. Friend list and "Play with Friends" mode
 3. Ads integration with an option to pay to remove them
 4. Crash analytics, logging, and user tracking
 5. GitOps-style CI/CD to automatically deploy updates
 6. Automated test scripts
-
-## :whale: Running with Docker
-
-For a streamlined setup and to run the application in a containerized environment:
-
-1.  *Ensure Docker and Docker Compose are installed* on your system.
-
-2.  *Build and Run*:
-    Open your terminal in the project root directory and run:
-    ```bash
-    docker-compose up --build
-    ```
-    This command will build the Docker images for the web frontend and the socket server (if they don't exist or if Dockerfiles have changed) and then start the services.
-
-The web application will be accessible at http://localhost:3000 and the socket server will be running on port 8000.
-
 
 ## 💻 Running Locally
 
@@ -118,16 +90,16 @@ For local development without containerization:
     ```bash
     pnpm install
     ```
-    
 
-3.  *Run Development Servers*:
+
+3.  *Run Development Server*:
     ```bash
-    pnpm dev:local
+    pnpm dev
     ```
-    
-    This command will concurrently start both the web frontend development server and the socket server in local development mode.
 
-The web application will be accessible at http://localhost:3000 and the socket server will be running on port 8000.
+    This starts the Next.js development server.
+
+The web application will be accessible at http://localhost:3000.
 ## :handshake: Contributions
 
 The notakto project welcomes all contributions!
@@ -181,7 +153,6 @@ To ask questions, offer suggestions, or provide feedback, [open an issue][11].
 [7]: https://www.coinbase.com/commerce
 [8]: https://drive.google.com/file/d/1QHrSHDZumgNIxZhbl5kNWiP2y36SjO0U/view
 [9]: ./LICENSE
-[10]: https://socket.io/
 [11]: https://github.com/Rakshitg600/notakto-website/issues/new
 [12]: https://docs.docker.com/desktop/
 [13]: http://localhost:3000
@@ -198,4 +169,3 @@ To ask questions, offer suggestions, or provide feedback, [open an issue][11].
 [issues-url]: https://github.com/Rakshitg600/notakto-website/issues
 [license-shield]: https://img.shields.io/github/license/Rakshitg600/notakto-website.svg?style=for-the-badge
 [license-url]: https://github.com/Rakshitg600/notakto-website/blob/master/LICENSE
-

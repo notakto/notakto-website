@@ -39,13 +39,8 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Install socket server dependencies
-        run: cd notakto-socket-server && pnpm install --frozen-lockfile
-
       - name: Run Biome CI
-        run: |
-          pnpm exec biome ci .
-          cd notakto-socket-server && pnpm exec biome ci .
+        run: pnpm exec biome ci .
 
       - name: Run tests
         run: pnpm test

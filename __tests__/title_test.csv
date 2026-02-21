@@ -10,7 +10,3 @@ High,Click Player vs Computer button,vsComputer | Notakto
 High,Click Player vs Computer - while playing game,vsComputer | Notakto
 Low,Click Player vs Computer - settings/reset,vsComputer | Notakto
 Low,Click Player vs Computer - settings - return to main menu,Home | Notakto
-High,Click Live Match button,Live Match | Notakto
-High,Click Live Match - lobby/waiting for opponent,Live Match | Notakto
-High,Click Live Match - while playing game,Live Match | Notakto
-High,Click Live Match -retrun to main ,Live Match | Notakto

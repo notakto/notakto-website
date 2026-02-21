@@ -17,10 +17,4 @@ export const TOAST_IDS = {
 		Success: "payment/success",
 		Failure: "payment/failure",
 	},
-
-	// Live match toasts
-	LiveMatch: {
-		OpponentDisconnected: "live-match/opponent-disconnected",
-		GameOver: "live-match/game-over",
-	},
 } as const;

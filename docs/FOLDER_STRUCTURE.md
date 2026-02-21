@@ -10,8 +10,6 @@ src/
 │   │   │   └── route.ts
 │   │   └── order-status/[id]/
 │   │       └── route.ts
-│   ├── liveMatch/
-│   │   └── page.tsx
 │   ├── vsComputer/
 │   │   ├── Board.tsx
 │   │   ├── Cell.tsx

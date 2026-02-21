@@ -66,9 +66,6 @@ describe("Menu buttons", () => {
 			screen.getByRole("button", { name: /play vs computer/i }),
 		).toBeInTheDocument();
 		expect(
-			screen.getByRole("button", { name: /live match/i }),
-		).toBeInTheDocument();
-		expect(
 			screen.getByRole("button", { name: /tutorial/i }),
 		).toBeInTheDocument();
 		expect(
