@@ -9,13 +9,19 @@ const Cell: React.FC<CellProps> = ({
 	value,
 	onPress,
 	disabled,
+	owner,
+	isLastMove,
 }) => {
 	const handleClick = () => onPress(boardIndex, cellIndex);
 	const isDisabled = disabled || !!value;
 
 	return (
-		<CellButton onClick={handleClick} disabled={isDisabled}>
-			<CellValueDisplay value={value} />
+		<CellButton
+			onClick={handleClick}
+			disabled={isDisabled}
+			isLastMove={isLastMove}
+			owner={owner}>
+			<CellValueDisplay value={value} owner={owner} />
 		</CellButton>
 	);
 };

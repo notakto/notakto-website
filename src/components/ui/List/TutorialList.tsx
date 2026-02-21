@@ -1,7 +1,7 @@
 import type { TutorialListProps } from "@/services/types";
 
 const TutorialList = ({ items }: TutorialListProps) => (
-	<ul className="text-white text-lg leading-6 mb-6 whitespace-pre-line">
+	<ul className="text-cream font-pixel text-[9px] leading-8 mb-6 whitespace-pre-line">
 		{items.map((item) => (
 			<li key={item}>• {item}</li>
 		))}

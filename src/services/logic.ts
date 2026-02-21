@@ -14,6 +14,33 @@ export const isBoardDead = (board: BoardState, boardSize: number) => {
 	);
 	return diag1.every((c) => c === "X") || diag2.every((c) => c === "X");
 };
+/**
+ * Convert the flat boards + isAiMove arrays into per-board cell ownership maps.
+ * Player = 1, AI = 2. Returns Record<boardIndex, Record<cellIndex, 1 | 2>>.
+ */
+export function convertCellOwners(
+	boards: number[],
+	isAiMove: boolean[],
+	numberOfBoards: number,
+	boardSize: number,
+): Record<number, Record<number, 1 | 2>> {
+	const bs = boardSize * boardSize;
+	const maxi = numberOfBoards * bs;
+	const result: Record<number, Record<number, 1 | 2>> = {};
+
+	for (let i = 0; i < boards.length; i++) {
+		if (boards[i] < 0 || boards[i] >= maxi) continue;
+		const boardIndex = Math.floor(boards[i] / bs);
+		const cellIndex = boards[i] % bs;
+		if (!result[boardIndex]) {
+			result[boardIndex] = {};
+		}
+		result[boardIndex][cellIndex] = isAiMove[i] ? 2 : 1;
+	}
+
+	return result;
+}
+
 export function convertBoard(
 	board: number[],
 	numberOfBoards: number,

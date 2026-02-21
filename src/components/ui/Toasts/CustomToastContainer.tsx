@@ -2,17 +2,11 @@
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { VT323 } from "next/font/google";
 import { TOAST_DURATION } from "@/constants/toast";
 import type { CustomToastContainerProps } from "@/services/types";
 
-const vt323 = VT323({
-	weight: "400",
-	subsets: ["latin"],
-});
-
 export function CustomToastContainer({
-	position = "top-center",
+	position = "bottom-right",
 	autoClose = TOAST_DURATION,
 	hideProgressBar = false,
 	newestOnTop = false,
@@ -25,22 +19,20 @@ export function CustomToastContainer({
 	...rest
 }: CustomToastContainerProps = {}) {
 	return (
-		<ToastContainer //many more props available
+		<ToastContainer
 			position={position}
-			autoClose={autoClose} // Time for which the toast will be visible
-			hideProgressBar={hideProgressBar} // progress bar for cool down will be hidden
-			newestOnTop={newestOnTop} // older toasts stay on top
-			closeOnClick={closeOnClick} // Closes the toast on click
-			pauseOnFocusLoss={pauseOnFocusLoss} // cool down time pauses when tab or window is switched
-			draggable={draggable} // toast can be dragged
-			pauseOnHover={pauseOnHover} // The Toast Notification pauses on hover
-			closeButton={(
-				props, // Close (X) button to manually close the toast
-			) => (
+			autoClose={autoClose}
+			hideProgressBar={hideProgressBar}
+			newestOnTop={newestOnTop}
+			closeOnClick={closeOnClick}
+			pauseOnFocusLoss={pauseOnFocusLoss}
+			draggable={draggable}
+			pauseOnHover={pauseOnHover}
+			closeButton={(props) => (
 				<button
 					type="button"
 					onClick={props.closeToast}
-					className={`absolute top-1 flex items-center justify-center right-1 h-[25px] w-[25px] text-white ${vt323.className} border-1 rounded-full hover:text-slate-200`}
+					className="absolute top-1 flex items-center justify-center right-1 h-[25px] w-[25px] text-cream font-pixel text-[8px] border border-border-pixel hover:text-pixel-white"
 					aria-label="close">
 					X
 				</button>
@@ -48,10 +40,10 @@ export function CustomToastContainer({
 			toastClassName={
 				toastClassName ||
 				(() =>
-					`${vt323.className} relative text-[22px] text-center w-[300px] bg-black text-white font-mono border border-blue-500 rounded-md px-4 py-3 shadow-[0_0_12px_#00ffff] tracking-wider mb-3`)
+					"relative text-[12px] font-pixel text-center w-[calc(100vw-2rem)] max-w-[300px] bg-panel text-cream border-3 border-border-pixel px-4 py-3 shadow-[3px_3px_0_var(--color-bg0)] tracking-wider mb-3")
 			}
 			className="pb-2"
-			{...rest} // Spread the rest of the props
+			{...rest}
 		/>
 	);
 }

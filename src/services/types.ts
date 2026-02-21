@@ -34,6 +34,7 @@ export interface NewGameResponse {
 	sessionId: string;
 	uid: string;
 	boards: number[];
+	isAiMove?: boolean[];
 	winner: boolean;
 	boardSize: BoardSize;
 	numberOfBoards: BoardNumber;
@@ -120,7 +121,6 @@ export interface GameBoardProps {
 	makeMove: (boardIndex: number, cellIndex: number) => void;
 	isBoardDead: (board: Array<string>) => boolean;
 	boardSize: number;
-	disabled?: boolean;
 }
 
 export interface GameProps {
@@ -157,6 +157,8 @@ export interface CellProps {
 	onPress: (boardIndex: number, cellIndex: number) => void;
 	disabled: boolean;
 	boardSize: number;
+	owner?: 1 | 2;
+	isLastMove?: boolean;
 }
 
 export interface BoardProps {
@@ -165,7 +167,8 @@ export interface BoardProps {
 	makeMove: (boardIndex: number, cellIndex: number) => void;
 	isDead: boolean;
 	boardSize: number;
-	disabled: boolean;
+	cellOwners?: Record<number, 1 | 2>;
+	lastMoveCell?: number;
 }
 
 // Menu and navigation props
@@ -295,6 +298,7 @@ export interface SearchContainerProps extends BaseComponentProps {}
 
 export interface CellValueDisplayProps {
 	value: string | null;
+	owner?: 1 | 2;
 }
 
 // Button components
@@ -310,7 +314,10 @@ export interface ExitBarProps extends BaseButtonProps {
 	text: string;
 }
 
-export interface CellButtonProps extends BaseButtonProps {}
+export interface CellButtonProps extends BaseButtonProps {
+	isLastMove?: boolean;
+	owner?: 1 | 2;
+}
 
 export interface BoardConfigButtonProps extends BaseButtonProps {
 	label: string | number;
@@ -357,27 +364,6 @@ export type ShortcutHandler = (event: KeyboardEvent) => void;
 export type ShortcutMap = Record<string, ShortcutHandler>;
 
 // MODAL TYPE UNIONS
-
-export type PlayerButtonModalType =
-	| "names"
-	| "winner"
-	| "boardConfig"
-	| "soundConfig"
-	| "shortcut"
-	| "resetConfirmation"
-	| "exitConfirmation"
-	| null;
-
-export type ComputerButtonModalType =
-	| "winner"
-	| "boardConfig"
-	| "soundConfig"
-	| "difficulty"
-	| "shortcut"
-	| "resetConfirmation"
-	| "exitConfirmation"
-	| "profile"
-	| null;
 
 export type MenuModalType =
 	| "soundConfig"

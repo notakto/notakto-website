@@ -28,21 +28,35 @@ const ProfileModal = ({ visible, onClose }: ProfileModalProps) => {
 							<Image
 								src={pic}
 								alt="profile"
-								width={120}
-								height={100}
-								className="mx-auto  border-black border-2"
+								width={80}
+								height={80}
+								className="mx-auto border-border-pixel border-3"
 							/>
 						) : (
-							<div className="mx-auto text-xl">Image load error</div>
+							<div className="mx-auto font-pixel text-[8px] text-muted">
+								IMAGE LOAD ERROR
+							</div>
 						)}
 
-						<div className="text-2xl text-center mt-5">Name : {name}</div>
-						<div className="text-2xl text-center">Email : {email}</div>
-						<div className="text-2xl text-center">Coins: {coins}</div>
-						<div className="text-2xl text-center mb-5">XP: {xp}</div>
+						<div className="space-y-2 my-4">
+							<div className="font-pixel text-[8px] text-cream-dim text-center">
+								NAME: <span className="text-cream">{name}</span>
+							</div>
+							<div className="font-pixel text-[8px] text-cream-dim text-center">
+								EMAIL: <span className="text-cream">{email}</span>
+							</div>
+							<div className="font-pixel text-[8px] text-cream-dim text-center">
+								COINS: <span className="text-accent">{coins}</span>
+							</div>
+							<div className="font-pixel text-[8px] text-cream-dim text-center">
+								XP: <span className="text-accent">{xp}</span>
+							</div>
+						</div>
 					</>
 				) : (
-					<div className="text-2xl m-5 text-center">Please login</div>
+					<div className="font-pixel text-[9px] text-muted m-5 text-center">
+						PLEASE LOGIN
+					</div>
 				)}
 
 				<ProfileButton onClick={onClose}>Close&nbsp;Profile</ProfileButton>

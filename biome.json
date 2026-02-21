@@ -12,7 +12,8 @@
 			"!node_modules",
 			"!dist",
 			"!.next",
-			"!**/*.snap"
+			"!**/*.snap",
+			"!next-env.d.ts"
 		]
 	},
 	"formatter": {

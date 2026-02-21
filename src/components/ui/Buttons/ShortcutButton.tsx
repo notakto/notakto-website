@@ -6,7 +6,7 @@ export function ShortcutButton({
 	return (
 		<button
 			{...props}
-			className="bg-blue-600 hover:bg-blue-700 text-white px-12 py-3 text-xl w-full mt-4"
+			className="bg-primary hover:bg-primary-hover text-cream px-8 py-2 text-[9px] font-pixel uppercase tracking-wider w-full mt-4 border-3 border-border-light shadow-[3px_3px_0_var(--color-bg0)] cursor-pointer"
 		/>
 	);
 }

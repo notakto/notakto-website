@@ -62,7 +62,7 @@ describe("PlayerNamesModal Character Limit Validation", () => {
 	});
 
 	// Test Case ID: 3 - Character counter shows 10/15
-	it("should show '10/15 characters' when Player 1 has 10 characters", () => {
+	it("should show '10/15' when Player 1 has 10 characters", () => {
 		render(<PlayerNamesModal {...defaultProps} />);
 
 		const player1Input = screen.getByPlaceholderText("Player 1 Name");
@@ -70,11 +70,11 @@ describe("PlayerNamesModal Character Limit Validation", () => {
 
 		fireEvent.change(player1Input, { target: { value: testString } });
 
-		expect(screen.getByText("10/15 characters")).toBeInTheDocument();
+		expect(screen.getByText("10/15")).toBeInTheDocument();
 	});
 
 	// Test Case ID: 4 - Character counter shows 15/15
-	it("should show '15/15 characters' when Player 1 is at maximum", () => {
+	it("should show '15/15' when Player 1 is at maximum", () => {
 		render(<PlayerNamesModal {...defaultProps} />);
 
 		const player1Input = screen.getByPlaceholderText("Player 1 Name");
@@ -82,7 +82,7 @@ describe("PlayerNamesModal Character Limit Validation", () => {
 
 		fireEvent.change(player1Input, { target: { value: testString } });
 
-		expect(screen.getByText("15/15 characters")).toBeInTheDocument();
+		expect(screen.getByText("15/15")).toBeInTheDocument();
 	});
 
 	// Test Case ID: 6 - Accept exactly 15 characters in Player 2
@@ -108,7 +108,7 @@ describe("PlayerNamesModal Character Limit Validation", () => {
 	});
 
 	// Test Case ID: 8 - Character counter for Player 2
-	it("should show '8/15 characters' when Player 2 has 8 characters", () => {
+	it("should show '8/15' when Player 2 has 8 characters", () => {
 		render(<PlayerNamesModal {...defaultProps} />);
 
 		const player1Input = screen.getByPlaceholderText(
@@ -118,18 +118,18 @@ describe("PlayerNamesModal Character Limit Validation", () => {
 			"Player 2 Name",
 		) as HTMLInputElement;
 
-		// Type 5 characters in Player 1 (so Player 1 will show "5/15 characters")
+		// Type 5 characters in Player 1 (so Player 1 will show "5/15")
 		fireEvent.change(player1Input, { target: { value: "Hello" } });
-		expect(screen.getByText("5/15 characters")).toBeInTheDocument();
+		expect(screen.getByText("5/15")).toBeInTheDocument();
 
 		// Type 8 characters in Player 2
 		const testString = "EightChr"; // 8 characters
 		fireEvent.change(player2Input, { target: { value: testString } });
 
-		// Now we know "8/15 characters" must be from Player 2
-		expect(screen.getByText("8/15 characters")).toBeInTheDocument();
+		// Now we know "8/15" must be from Player 2
+		expect(screen.getByText("8/15")).toBeInTheDocument();
 		// Player 1 should still show 5/15
-		expect(screen.getByText("5/15 characters")).toBeInTheDocument();
+		expect(screen.getByText("5/15")).toBeInTheDocument();
 	});
 	/*
 	 * Test Case ID: 14 - Form submission with full-length names (15 chars each)

@@ -16,6 +16,7 @@ const MAX_PLAYER_NAME_LENGTH = 15;
 const PlayerNamesModal = ({
 	visible,
 	onSubmit,
+	onClose,
 	initialNames = ["Player 1", "Player 2"],
 }: PlayerNamesModalProps) => {
 	const [player1, setPlayer1] = useState(initialNames[0] || "Player 1");
@@ -61,9 +62,8 @@ const PlayerNamesModal = ({
 							placeholder="Player 1 Name"
 							maxLength={MAX_PLAYER_NAME_LENGTH}
 						/>
-						{/* ✅ Character counter - right aligned */}
-						<div className="text-xl text-white mt-1 text-right">
-							{player1.length}/{MAX_PLAYER_NAME_LENGTH} characters
+						<div className="text-[8px] text-cream-dim font-pixel mt-1 text-right">
+							{player1.length}/{MAX_PLAYER_NAME_LENGTH}
 						</div>
 					</div>
 
@@ -74,14 +74,25 @@ const PlayerNamesModal = ({
 							placeholder="Player 2 Name"
 							maxLength={MAX_PLAYER_NAME_LENGTH}
 						/>
-						{/* ✅ Character counter - right aligned */}
-						<div className="text-xl text-white mt-1 text-right">
-							{player2.length}/{MAX_PLAYER_NAME_LENGTH} characters
+						<div className="text-[8px] text-cream-dim font-pixel mt-1 text-right">
+							{player2.length}/{MAX_PLAYER_NAME_LENGTH}
 						</div>
 					</div>
 				</PlayerNameFormContainer>
 
-				<PlayerStartButton onClick={handleSubmit}>Start Game</PlayerStartButton>
+				<div className="flex justify-center gap-4">
+					<PlayerStartButton onClick={handleSubmit}>
+						Start Game
+					</PlayerStartButton>
+					{onClose && (
+						<button
+							type="button"
+							onClick={onClose}
+							className="bg-bg2 hover:bg-bg3 text-cream text-[10px] font-pixel uppercase tracking-wider w-full py-3 border-3 border-border-pixel shadow-[3px_3px_0_var(--color-bg0)] cursor-pointer">
+							Cancel
+						</button>
+					)}
+				</div>
 			</PlayerNameModalContainer>
 		</ModalOverlay>
 	);

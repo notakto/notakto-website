@@ -2,9 +2,13 @@ import type { Metadata } from "next";
 import "@/app/globals.css";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { VT323 } from "next/font/google";
+import { Press_Start_2P } from "next/font/google";
 import ClientSideInit from "@/app/ClientSideInit";
 import MusicProvider from "@/components/MusicProvider";
+import GlobalModals from "@/components/ui/GlobalModals";
+import Sidebar from "@/components/ui/Sidebar/Sidebar";
+import SidebarMargin from "@/components/ui/Sidebar/SidebarMargin";
+import SplashScreen from "@/components/ui/Splash/SplashScreen";
 import { CustomToastContainer } from "@/components/ui/Toasts/CustomToastContainer";
 
 export const metadata: Metadata = {
@@ -22,7 +26,7 @@ export const metadata: Metadata = {
 	authors: [{ name: "Notakto Team" }],
 	creator: "Notakto Team",
 };
-const vt323 = VT323({
+const pressStart2P = Press_Start_2P({
 	weight: "400",
 	subsets: ["latin"],
 });
@@ -33,7 +37,7 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang="en" className={vt323.className}>
+		<html lang="en" className={pressStart2P.className}>
 			<head>
 				<script
 					async
@@ -45,9 +49,12 @@ export default function RootLayout({
 				/>
 				<meta name="monetag" content="31cbc3974b21341db36f756db33d15d6"></meta>
 			</head>
-			<body>
+			<body className="bg-bg0 text-pixel-white">
 				<MusicProvider />
-				{children}
+				<SplashScreen />
+				<Sidebar />
+				<SidebarMargin>{children}</SidebarMargin>
+				<GlobalModals />
 				<CustomToastContainer />
 				<Analytics />
 				<SpeedInsights />

@@ -5,8 +5,8 @@ const BoardCell = ({ value, onClick, disabled }: BoardCellProps) => (
 		type="button"
 		onClick={onClick}
 		disabled={disabled}
-		className="w-1/3 h-1/3 border border-gray-300 flex items-center justify-center bg-black">
-		<span className="text-[100px] text-red-600">{value}</span>
+		className="w-1/3 h-1/3 border border-bg3 flex items-center justify-center bg-board-bg cursor-pointer">
+		<span className="text-2xl text-x font-pixel">{value}</span>
 	</button>
 );
 
