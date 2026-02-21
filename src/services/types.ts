@@ -2,7 +2,7 @@
 // Using TypeScript utility types to reduce duplication and improve maintainability
 
 import type { User } from "firebase/auth";
-import type { ButtonHTMLAttributes, MouseEventHandler, ReactNode } from "react";
+import type { ButtonHTMLAttributes, ReactNode } from "react";
 import type { ToastContainerProps } from "react-toastify";
 import type {
 	MakeMoveResponse,
@@ -13,7 +13,7 @@ import type {
 // CORE GAME TYPES
 
 export type BoardState = Array<string>;
-export type GameMode = "vsComputer" | "vsPlayer" | "liveMatch" | null;
+export type GameMode = "vsComputer" | "vsPlayer" | null;
 export type DifficultyLevel = 1 | 2 | 3 | 4 | 5;
 export type BoardSize = 2 | 3 | 4 | 5;
 export type BoardNumber = 1 | 2 | 3 | 4 | 5;
@@ -170,17 +170,13 @@ export interface BoardProps {
 
 // Menu and navigation props
 export interface MenuProps {
-	startGame: (mode: "vsPlayer" | "vsComputer" | "liveMatch") => void;
+	startGame: (mode: "vsPlayer" | "vsComputer") => void;
 	showTutorial: () => void;
 	signed: boolean;
 	signIn: () => void;
 	signOut: () => void;
 	toggleMute: () => void;
 	isMuted: boolean;
-}
-
-export interface LiveProps {
-	onClose: () => void;
 }
 
 // Modal prop interfaces
@@ -276,23 +272,6 @@ export interface PlayerNameContainerProps extends BaseComponentProps {}
 
 export interface PlayerNameFormProps extends BaseComponentProps {}
 
-// Live match components
-export interface LiveContainerProps extends BaseComponentProps {}
-
-export interface BoardGridContainerProps extends BaseComponentProps {}
-
-export interface BoardLiveContainerProps extends BaseComponentProps {
-	blocked: boolean;
-}
-
-export interface BoardCellProps {
-	value: string;
-	onClick: MouseEventHandler<HTMLButtonElement>;
-	disabled: boolean;
-}
-
-export interface SearchContainerProps extends BaseComponentProps {}
-
 export interface CellValueDisplayProps {
 	value: string | null;
 }
@@ -322,7 +301,6 @@ export interface DifficultyActionProps extends BaseButtonProps {
 }
 
 export interface PlayerTurnTitleProps {
-	variant?: "normal" | "live";
 	text: string;
 }
 
