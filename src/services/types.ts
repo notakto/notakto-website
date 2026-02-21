@@ -168,17 +168,6 @@ export interface BoardProps {
 	disabled: boolean;
 }
 
-// Menu and navigation props
-export interface MenuProps {
-	startGame: (mode: "vsPlayer" | "vsComputer") => void;
-	showTutorial: () => void;
-	signed: boolean;
-	signIn: () => void;
-	signOut: () => void;
-	toggleMute: () => void;
-	isMuted: boolean;
-}
-
 // Modal prop interfaces
 export interface WinnerModalProps extends BaseModalProps {
 	winner: string;
