@@ -1,14 +1,5 @@
 import ModalOverlay from "@/components/ui/Overlays/ModalOverlay";
-
-interface ConfirmationModalProps {
-	visible: boolean;
-	title: string;
-	message: string;
-	onConfirm: () => void;
-	onCancel: () => void;
-	confirmText?: string;
-	cancelText?: string;
-}
+import type { ConfirmationModalProps } from "@/services/types";
 
 const ConfirmationModal = ({
 	visible,

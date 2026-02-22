@@ -1,7 +1,4 @@
-interface WalletBadgeProps {
-	coins: number;
-	xp: number;
-}
+import type { WalletBadgeProps } from "@/services/types";
 
 export default function WalletBadge({ coins, xp }: WalletBadgeProps) {
 	return (

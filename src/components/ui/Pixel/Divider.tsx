@@ -1,6 +1,4 @@
-interface DividerProps {
-	className?: string;
-}
+import type { DividerProps } from "@/services/types";
 
 export default function Divider({ className = "" }: DividerProps) {
 	return (

@@ -1,15 +1,6 @@
 "use client";
 
-interface ActionButton {
-	label: string;
-	onClick: () => void;
-	disabled?: boolean;
-	variant?: "primary" | "default" | "danger";
-}
-
-interface GameActionBarProps {
-	actions: ActionButton[];
-}
+import type { GameActionBarProps } from "@/services/types";
 
 export default function GameActionBar({ actions }: GameActionBarProps) {
 	return (

@@ -1,14 +1,4 @@
-import type { ReactNode } from "react";
-
-type HeadingSize = "xs" | "sm" | "md" | "lg";
-type HeadingColor = "cream" | "primary" | "accent" | "muted";
-
-interface HeadingProps {
-	children: ReactNode;
-	size?: HeadingSize;
-	color?: HeadingColor;
-	className?: string;
-}
+import type { HeadingColor, HeadingProps, HeadingSize } from "@/services/types";
 
 const sizeStyles: Record<HeadingSize, string> = {
 	xs: "text-[8px]",

@@ -1,11 +1,5 @@
 import type { CSSProperties } from "react";
-
-interface ProgressBarProps {
-	value: number;
-	max?: number;
-	color?: string;
-	className?: string;
-}
+import type { ProgressBarProps } from "@/services/types";
 
 export default function ProgressBar({
 	value,

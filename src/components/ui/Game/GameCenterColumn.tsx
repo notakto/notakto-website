@@ -1,10 +1,4 @@
-import type { ReactNode } from "react";
-
-interface GameCenterColumnProps {
-	children: ReactNode;
-	/** Rendered above the board, visible only below lg breakpoint */
-	mobileBoardSelector?: ReactNode;
-}
+import type { GameCenterColumnProps } from "@/services/types";
 
 export default function GameCenterColumn({
 	children,

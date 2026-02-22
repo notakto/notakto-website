@@ -2,8 +2,14 @@
 // Using TypeScript utility types to reduce duplication and improve maintainability
 
 import type { User } from "firebase/auth";
-import type { ButtonHTMLAttributes, MouseEventHandler, ReactNode } from "react";
+import type {
+	ButtonHTMLAttributes,
+	InputHTMLAttributes,
+	MouseEventHandler,
+	ReactNode,
+} from "react";
 import type { ToastContainerProps } from "react-toastify";
+import type { MoveLogEntry } from "@/components/ui/Game/GameTopBar";
 import type {
 	MakeMoveResponse,
 	SkipMoveResponse,
@@ -371,3 +377,174 @@ export type MenuModalType =
 	| "tutorial"
 	| "profile"
 	| null;
+
+// PlatformCardList
+export interface Platform {
+	name: string;
+	icon: string;
+	desc: string;
+}
+
+export interface PlatformCardListProps {
+	platforms: Platform[];
+}
+
+// Game Action Bar
+export interface ActionButton {
+	label: string;
+	onClick: () => void;
+	disabled?: boolean;
+	variant?: "primary" | "default" | "danger";
+}
+
+export interface GameActionBarProps {
+	actions: ActionButton[];
+}
+
+// Game Center Column
+export interface GameCenterColumnProps {
+	children: ReactNode;
+	/** Rendered above the board, visible only below lg breakpoint */
+	mobileBoardSelector?: ReactNode;
+}
+
+// Game Content Area
+export interface GameContentAreaProps {
+	children: ReactNode;
+}
+
+// Game Left Panel
+export interface GameLeftPanelProps {
+	children: ReactNode;
+	topSlot?: ReactNode;
+}
+// GameStatsPanelProps
+interface StatItem {
+	label: string;
+	value: string | number;
+}
+
+export interface GameStatsPanelProps {
+	stats: StatItem[];
+	moveLog: MoveLogEntry[];
+	boardSize: number;
+}
+// Game Top Bar
+interface PlayerPanel {
+	name: string;
+	moveCount: number;
+}
+
+export interface GameTopBarProps {
+	player1: PlayerPanel;
+	player2: PlayerPanel;
+	currentPlayer: 1 | 2;
+	boards: BoardState[];
+	boardSize: number;
+	gameOver: boolean;
+	mode: "vsComputer" | "vsPlayer" | "liveMatch";
+}
+//Wallet Badge
+export interface WalletBadgeProps {
+	coins: number;
+	xp: number;
+}
+// Static Page Layout
+export interface StaticPageLayoutProps {
+	children: ReactNode;
+	title: string;
+	subtitle: string;
+	maxWidth?: "sm" | "md" | "lg";
+	centered?: boolean;
+}
+
+// Badge
+export type BadgeVariant = "accent" | "primary" | "success";
+
+export interface BadgeProps {
+	children: ReactNode;
+	variant?: BadgeVariant;
+	className?: string;
+}
+// Divider
+export interface DividerProps {
+	className?: string;
+}
+
+// Heading
+export type HeadingSize = "xs" | "sm" | "md" | "lg";
+export type HeadingColor = "cream" | "primary" | "accent" | "muted";
+
+export interface HeadingProps {
+	children: ReactNode;
+	size?: HeadingSize;
+	color?: HeadingColor;
+	className?: string;
+}
+
+//Pixel Border
+export interface PixelBorderProps {
+	children: ReactNode;
+	variant?: "default" | "primary" | "accent";
+	className?: string;
+}
+
+// Pixel Button
+export type Variant = "primary" | "accent" | "danger" | "ghost" | "success";
+export type Size = "sm" | "md" | "lg";
+
+export interface PixelButtonProps
+	extends ButtonHTMLAttributes<HTMLButtonElement> {
+	children: ReactNode;
+	variant?: Variant;
+	size?: Size;
+	loading?: boolean;
+}
+
+// Pixel Input
+export interface PixelInputProps extends InputHTMLAttributes<HTMLInputElement> {
+	className?: string;
+}
+
+// Progress Bar
+export interface ProgressBarProps {
+	value: number;
+	max?: number;
+	color?: string;
+	className?: string;
+}
+
+// Sub Text
+export interface SubTextProps {
+	children: ReactNode;
+	className?: string;
+}
+
+// Side bar
+export type NavItem =
+	| { href: string; label: string; icon: string }
+	| { href: string; label: string; icon: string; external: true };
+export type ModalAction = "tutorial" | "soundConfig" | "shortcut" | "profile";
+export type GameModalAction =
+	| "resetConfirmation"
+	| "boardConfig"
+	| "difficulty"
+	| "names"
+	| "exitConfirmation";
+
+export interface GameButton {
+	label: string;
+	icon: string;
+	modal: GameModalAction;
+}
+
+// Confirmation Modal
+export interface ConfirmationModalProps {
+	visible: boolean;
+	title: string;
+	message: string;
+	onConfirm: () => void;
+	onCancel: () => void;
+	confirmText?: string;
+	cancelText?: string;
+}

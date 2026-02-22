@@ -1,8 +1,4 @@
-import type { ReactNode } from "react";
-
-interface GameContentAreaProps {
-	children: ReactNode;
-}
+import type { GameContentAreaProps } from "@/services/types";
 
 export default function GameContentArea({ children }: GameContentAreaProps) {
 	return (

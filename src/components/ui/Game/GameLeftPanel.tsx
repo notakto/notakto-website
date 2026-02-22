@@ -1,9 +1,5 @@
 import type { ReactNode } from "react";
-
-interface GameLeftPanelProps {
-	children: ReactNode;
-	topSlot?: ReactNode;
-}
+import type { GameLeftPanelProps } from "@/services/types";
 
 export default function GameLeftPanel({
 	children,

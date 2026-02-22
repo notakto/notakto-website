@@ -8,6 +8,12 @@ import { signInWithGoogle, signOutUser } from "@/services/firebase";
 import { useGlobalModal } from "@/services/globalModal";
 import { useSidebar } from "@/services/sidebar";
 import { useUser } from "@/services/store";
+import type {
+	GameButton,
+	GameModalAction,
+	ModalAction,
+	NavItem,
+} from "@/services/types";
 
 function SidebarTooltip({
 	label,
@@ -50,10 +56,6 @@ function useSidebarTooltip(isCollapsed: boolean) {
 	return { tooltip, showTooltip, hideTooltip };
 }
 
-type NavItem =
-	| { href: string; label: string; icon: string }
-	| { href: string; label: string; icon: string; external: true };
-
 const NAV_ITEMS: NavItem[] = [
 	{ href: "/vsComputer", label: "VS CPU", icon: ">" },
 	{ href: "/vsPlayer", label: "VS PLAYER", icon: "+" },
@@ -67,8 +69,6 @@ const NAV_ITEMS: NavItem[] = [
 	},
 ];
 
-type ModalAction = "tutorial" | "soundConfig" | "shortcut" | "profile";
-
 const MODAL_ITEMS: { label: string; icon: string; modal: ModalAction }[] = [
 	{ label: "TUTORIAL", icon: "?", modal: "tutorial" },
 	{ label: "SOUND", icon: "~", modal: "soundConfig" },
@@ -77,19 +77,6 @@ const MODAL_ITEMS: { label: string; icon: string; modal: ModalAction }[] = [
 ];
 
 const GAME_PAGES = ["/vsPlayer", "/vsComputer", "/liveMatch"];
-
-type GameModalAction =
-	| "resetConfirmation"
-	| "boardConfig"
-	| "difficulty"
-	| "names"
-	| "exitConfirmation";
-
-interface GameButton {
-	label: string;
-	icon: string;
-	modal: GameModalAction;
-}
 
 const GAME_BUTTONS: Record<string, GameButton[]> = {
 	"/vsPlayer": [

@@ -1,18 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import type { MoveLogEntry } from "@/components/ui/Game/GameTopBar";
-
-interface StatItem {
-	label: string;
-	value: string | number;
-}
-
-interface GameStatsPanelProps {
-	stats: StatItem[];
-	moveLog: MoveLogEntry[];
-	boardSize: number;
-}
+import type { GameStatsPanelProps } from "@/services/types";
 
 export default function GameStatsPanel({
 	stats,

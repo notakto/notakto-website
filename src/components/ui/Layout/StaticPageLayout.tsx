@@ -1,12 +1,4 @@
-import type { ReactNode } from "react";
-
-interface StaticPageLayoutProps {
-	children: ReactNode;
-	title: string;
-	subtitle: string;
-	maxWidth?: "sm" | "md" | "lg";
-	centered?: boolean;
-}
+import type { StaticPageLayoutProps } from "@/services/types";
 
 const maxWidthStyles: Record<string, string> = {
 	sm: "max-w-2xl",

@@ -1,12 +1,4 @@
-import type { ReactNode } from "react";
-
-type BadgeVariant = "accent" | "primary" | "success";
-
-interface BadgeProps {
-	children: ReactNode;
-	variant?: BadgeVariant;
-	className?: string;
-}
+import type { BadgeProps, BadgeVariant } from "@/services/types";
 
 const variantStyles: Record<BadgeVariant, string> = {
 	accent: "bg-accent text-bg0",

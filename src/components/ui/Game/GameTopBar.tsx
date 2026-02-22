@@ -1,27 +1,12 @@
 "use client";
 
 import { isBoardDead } from "@/services/logic";
-import type { BoardState } from "@/services/types";
+import type { GameTopBarProps } from "@/services/types";
 
 export interface MoveLogEntry {
 	player: 1 | 2;
 	board: number;
 	cell: number;
-}
-
-interface PlayerPanel {
-	name: string;
-	moveCount: number;
-}
-
-interface GameTopBarProps {
-	player1: PlayerPanel;
-	player2: PlayerPanel;
-	currentPlayer: 1 | 2;
-	boards: BoardState[];
-	boardSize: number;
-	gameOver: boolean;
-	mode: "vsComputer" | "vsPlayer" | "liveMatch";
 }
 
 export default function GameTopBar({

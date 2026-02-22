@@ -1,15 +1,6 @@
 import PixelBorder from "@/components/ui/Pixel/PixelBorder";
 import PixelButton from "@/components/ui/Pixel/PixelButton";
-
-interface Platform {
-	name: string;
-	icon: string;
-	desc: string;
-}
-
-interface PlatformCardListProps {
-	platforms: Platform[];
-}
+import type { PlatformCardListProps } from "@/services/types";
 
 export default function PlatformCardList({ platforms }: PlatformCardListProps) {
 	return (

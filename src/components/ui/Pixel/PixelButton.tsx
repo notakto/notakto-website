@@ -1,14 +1,4 @@
-import type { ButtonHTMLAttributes, ReactNode } from "react";
-
-type Variant = "primary" | "accent" | "danger" | "ghost" | "success";
-type Size = "sm" | "md" | "lg";
-
-interface PixelButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-	children: ReactNode;
-	variant?: Variant;
-	size?: Size;
-	loading?: boolean;
-}
+import type { PixelButtonProps, Size, Variant } from "@/services/types";
 
 const variantStyles: Record<Variant, string> = {
 	primary:

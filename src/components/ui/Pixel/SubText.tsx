@@ -1,9 +1,4 @@
-import type { ReactNode } from "react";
-
-interface SubTextProps {
-	children: ReactNode;
-	className?: string;
-}
+import type { SubTextProps } from "@/services/types";
 
 export default function SubText({ children, className = "" }: SubTextProps) {
 	return (

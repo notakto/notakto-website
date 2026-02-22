@@ -1,10 +1,4 @@
-import type { ReactNode } from "react";
-
-interface PixelBorderProps {
-	children: ReactNode;
-	variant?: "default" | "primary" | "accent";
-	className?: string;
-}
+import type { PixelBorderProps } from "@/services/types";
 
 const variantClass: Record<string, string> = {
 	default: "pixel-border",

@@ -1,8 +1,4 @@
-import type { InputHTMLAttributes } from "react";
-
-interface PixelInputProps extends InputHTMLAttributes<HTMLInputElement> {
-	className?: string;
-}
+import type { PixelInputProps } from "@/services/types";
 
 export default function PixelInput({
 	className = "",
