@@ -1,14 +1,13 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useShortcut } from "@/components/hooks/useShortcut";
 import { useToastCooldown } from "@/components/hooks/useToastCooldown";
 import { MenuButton } from "@/components/ui/Buttons/MenuButton";
 import MenuButtonContainer from "@/components/ui/Containers/Menu/MenuButtonContainer";
 import MenuContainer from "@/components/ui/Containers/Menu/MenuContainer";
-import LoadingOverlay from "@/components/ui/Overlays/LoadingOverlay";
 import { MenuTitle } from "@/components/ui/Title/MenuTitle";
 import { TOAST_DURATION, TOAST_IDS } from "@/constants/toast";
 import ProfileModal from "@/modals/ProfileModal";
@@ -24,10 +23,13 @@ const Menu = () => {
 	const router = useRouter();
 	const { canShowToast, resetCooldown } = useToastCooldown(TOAST_DURATION);
 	const [activeModal, setActiveModal] = useState<MenuModalType>(null);
-	const [isAuthLoading, setIsAuthLoading] = useState(false);
-	const [authAction, setAuthAction] = useState<"signin" | "signout" | null>(
-		null,
-	);
+	const [highlightSignIn, setHighlightSignIn] = useState(false);
+
+	useEffect(() => {
+		if (!highlightSignIn) return;
+		const timer = setTimeout(() => setHighlightSignIn(false), 2000);
+		return () => clearTimeout(timer);
+	}, [highlightSignIn]);
 
 	useShortcut({
 		escape: () => setActiveModal(null),
@@ -40,43 +42,32 @@ const Menu = () => {
 	});
 	const handleSignIn = async () => {
 		try {
-			setAuthAction("signin");
-			setIsAuthLoading(true);
-
+			setHighlightSignIn(false);
 			await signInWithGoogle();
-
 			toast.dismiss(TOAST_IDS.User.SignInError);
 			resetCooldown();
 		} catch (error) {
 			console.error("Sign in error:", error);
-		} finally {
-			setIsAuthLoading(false);
-			setAuthAction(null);
 		}
 	};
 
 	const handleSignOut = async () => {
 		try {
-			setAuthAction("signout");
-			setIsAuthLoading(true);
-
 			await signOutUser();
 		} catch (error) {
 			console.error("Sign out error:", error);
-		} finally {
-			setIsAuthLoading(false);
-			setAuthAction(null);
 		}
 	};
 
 	const startGame = (mode: string) => {
 		if ((mode === "liveMatch" || mode === "vsComputer") && !user) {
 			if (canShowToast()) {
-				toast("Please sign in!", {
+				toast("Please sign in to continue.", {
 					toastId: TOAST_IDS.User.SignInError,
 					autoClose: TOAST_DURATION,
-					onClose: resetCooldown, // reset cooldown immediately when closed
+					onClose: resetCooldown,
 				});
+				setHighlightSignIn(true);
 			}
 			return;
 		}
@@ -105,12 +96,18 @@ const Menu = () => {
 				</MenuButton>
 				<MenuButton
 					onClick={user ? handleSignOut : handleSignIn}
-					disabled={isAuthLoading}>
-					{isAuthLoading ? "Please wait..." : user ? "Sign Out" : "Sign in"}
+					className={
+						!user && highlightSignIn
+							? "shadow-[0_0_0_3px_rgba(239,68,68,0.7)] animate-[pulse_1.2s_ease-in-out_1]"
+							: ""
+					}>
+					{user ? "Sign Out" : "Sign in"}
 				</MenuButton>
+
 				<MenuButton onClick={() => setActiveModal("profile")}>
 					Profile
 				</MenuButton>
+
 				<MenuButton onClick={() => setActiveModal("soundConfig")}>
 					Adjust Sound
 				</MenuButton>
@@ -133,14 +130,6 @@ const Menu = () => {
 			<ProfileModal
 				visible={activeModal === "profile"}
 				onClose={() => setActiveModal(null)}
-			/>
-			<LoadingOverlay
-				visible={isAuthLoading}
-				text={
-					authAction === "signout"
-						? "Signing out..."
-						: "Signing in with Google..."
-				}
 			/>
 		</MenuContainer>
 	);
