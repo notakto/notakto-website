@@ -1,14 +1,5 @@
 import ModalOverlay from "@/components/ui/Overlays/ModalOverlay";
-
-interface ConfirmationModalProps {
-	visible: boolean;
-	title: string;
-	message: string;
-	onConfirm: () => void;
-	onCancel: () => void;
-	confirmText?: string;
-	cancelText?: string;
-}
+import type { ConfirmationModalProps } from "@/services/types";
 
 const ConfirmationModal = ({
 	visible,
@@ -23,19 +14,23 @@ const ConfirmationModal = ({
 
 	return (
 		<ModalOverlay>
-			<div className="bg-black w-full max-w-md p-6">
-				<h1 className="text-red-500 text-4xl mb-2 text-center">{title}</h1>
-				<p className="my-6 text-center text-lg text-white">{message}</p>
+			<div className="bg-panel pixel-border w-[95%] md:w-full max-w-md p-4 md:p-6">
+				<h1 className="text-primary font-pixel uppercase tracking-widest text-sm mb-2 text-center">
+					{title}
+				</h1>
+				<p className="my-6 text-center text-[9px] font-pixel text-cream">
+					{message}
+				</p>
 				<div className="flex justify-center gap-4">
 					<button
 						type="button"
-						className="bg-blue-600 hover:bg-blue-700 text-white px-12 py-3 text-xl w-full mt-4"
+						className="bg-primary hover:bg-primary-hover text-cream px-8 py-2 text-[9px] font-pixel uppercase tracking-wider w-full mt-4 border-3 border-border-light shadow-[3px_3px_0_var(--color-bg0)] cursor-pointer"
 						onClick={onConfirm}>
 						{confirmText}
 					</button>
 					<button
 						type="button"
-						className="bg-blue-600 hover:bg-blue-700 text-white px-12 py-3 text-xl w-full mt-4"
+						className="bg-bg2 hover:bg-bg3 text-cream px-8 py-2 text-[9px] font-pixel uppercase tracking-wider w-full mt-4 border-3 border-border-pixel shadow-[3px_3px_0_var(--color-bg0)] cursor-pointer"
 						onClick={onCancel}>
 						{cancelText}
 					</button>

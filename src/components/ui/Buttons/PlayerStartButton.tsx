@@ -5,9 +5,7 @@ export function PlayerStartButton({
 }: ButtonHTMLAttributes<HTMLButtonElement>) {
 	return (
 		<button
-			className={
-				"bg-blue-600 text-white text-3xl w-full py-3 hover:bg-blue-700"
-			}
+			className="bg-primary text-cream text-[10px] font-pixel uppercase tracking-wider w-full py-3 hover:bg-primary-hover border-3 border-border-light shadow-[3px_3px_0_var(--color-bg0)] cursor-pointer"
 			{...props}
 		/>
 	);

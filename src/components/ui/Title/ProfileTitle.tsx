@@ -1,7 +1,5 @@
 const ProfileTitle = ({ text }: { text: string }) => (
-	<h2
-		className="text-4xl text-red-600 text-center mb-4
-			max-[480px]:text-[1.9rem] max-[400px]:text-[1.7rem]">
+	<h2 className="text-sm text-accent font-pixel uppercase tracking-widest text-center mb-4">
 		{text}
 	</h2>
 );

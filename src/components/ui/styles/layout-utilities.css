@@ -1,0 +1,24 @@
+/* ─── DYNAMIC VALUE BRIDGES (CSS custom properties) ─── */
+
+.progress-fill {
+	width: var(--progress-width, 0%);
+}
+
+.sidebar-tooltip-pos {
+	left: var(--tooltip-left);
+	top: var(--tooltip-top);
+	transform: translateY(-50%);
+}
+
+/* ─── SCROLLBAR ─────────────────────────────────────── */
+
+::-webkit-scrollbar {
+	width: 8px;
+}
+::-webkit-scrollbar-track {
+	background: var(--color-bg1);
+}
+::-webkit-scrollbar-thumb {
+	background: var(--color-border-pixel);
+	border: 2px solid var(--color-bg1);
+}

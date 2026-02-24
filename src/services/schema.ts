@@ -14,6 +14,7 @@ export const CreateGameResponseSchema = z.object({
 	sessionId: z.string(),
 	uid: z.string(),
 	boards: z.array(z.number().int()),
+	isAiMove: z.array(z.boolean()).optional(),
 	winner: z.boolean(),
 	boardSize: z.number().int(),
 	numberOfBoards: z.number().int(),
@@ -26,6 +27,7 @@ export type CreateGameResponse = z.infer<typeof CreateGameResponseSchema>;
 
 export const MakeMoveResponseSchema = z.object({
 	boards: z.array(z.number().int()),
+	isAiMove: z.array(z.boolean()).optional(),
 	gameover: z.boolean(),
 	winner: z.boolean(),
 	coinsRewarded: z.number().int(),
@@ -52,6 +54,7 @@ export type GetWalletResponse = z.infer<typeof GetWalletResponseSchema>;
 
 export const SkipMoveResponseSchema = z.object({
 	boards: z.array(z.number().int()),
+	isAiMove: z.array(z.boolean()).optional(),
 	gameover: z.boolean(),
 	winner: z.boolean(),
 	coinsRewarded: z.number().int(),
@@ -62,6 +65,7 @@ export type SkipMoveResponse = z.infer<typeof SkipMoveResponseSchema>;
 
 export const UndoMoveResponseSchema = z.object({
 	boards: z.array(z.number().int()),
+	isAiMove: z.array(z.boolean()).optional(),
 });
 
 export type UndoMoveResponse = z.infer<typeof UndoMoveResponseSchema>;

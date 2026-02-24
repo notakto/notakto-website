@@ -12,18 +12,17 @@ export function SettingButton({
 		<button
 			disabled={disabled || loading}
 			className={clsx(
-				"w-full sm:w-[45%] py-4 text-white text-[30px] rounded transition-colors",
+				"w-full sm:w-[45%] py-3 text-cream text-[10px] font-pixel uppercase tracking-wider transition-colors border-3 shadow-[3px_3px_0_var(--color-bg0)]",
 				disabled || loading
-					? "bg-gray-600 cursor-not-allowed"
-					: "bg-blue-600 hover:bg-blue-700",
-				loading && "flex justify-center items-center gap-2", //  only applied if loading
+					? "bg-dead border-dead-border text-muted cursor-not-allowed shadow-none"
+					: "bg-primary hover:bg-primary-hover border-border-light cursor-pointer",
+				loading && "flex justify-center items-center gap-2",
 				className,
 			)}
 			{...props}>
 			{loading && (
-				<span className="animate-spin h-5 w-5 border-2 border-white border-t-transparent rounded-full" />
+				<span className="animate-spin h-4 w-4 border-2 border-cream border-t-transparent" />
 			)}
-			{/* Children = Buy coins 100 which is wrapped by Setting Button */}
 			{loading ? "Processing..." : children}
 		</button>
 	);

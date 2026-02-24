@@ -6,9 +6,7 @@ export function TutorialButton({
 	return (
 		<button
 			{...props}
-			className={
-				"bg-red-600 text-white text-2xl px-6 py-3 rounded text-center w-full"
-			}
+			className="bg-primary text-cream text-[9px] font-pixel uppercase tracking-wider px-6 py-2 text-center w-full border-3 border-border-light shadow-[3px_3px_0_var(--color-bg0)] cursor-pointer hover:bg-primary-hover"
 		/>
 	);
 }

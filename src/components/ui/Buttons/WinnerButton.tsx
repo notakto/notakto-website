@@ -2,15 +2,14 @@ import clsx from "clsx";
 import type { ButtonHTMLAttributes } from "react";
 
 export function WinnerButton({
-	className, // pulls out className separately
+	className,
 	...props
 }: ButtonHTMLAttributes<HTMLButtonElement>) {
 	return (
 		<button
 			className={clsx(
-				"bg-blue-600 text-white px-6 py-3 w-full hover:bg-blue-700", // default styles for winner button
+				"bg-primary text-cream px-4 py-2 w-full text-[9px] font-pixel uppercase tracking-wider hover:bg-primary-hover border-3 border-border-light shadow-[3px_3px_0_var(--color-bg0)] cursor-pointer",
 				className,
-				// merge any custom classes passed in | right now none present in case any new style or re use of this button
 			)}
 			{...props}
 		/>

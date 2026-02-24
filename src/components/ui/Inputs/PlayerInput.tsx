@@ -2,14 +2,14 @@ import clsx from "clsx";
 import type { InputHTMLAttributes } from "react";
 
 export function PlayerInput({
-	className, // pulls out className separately
+	className,
 	...props
 }: InputHTMLAttributes<HTMLInputElement>) {
 	return (
 		<input
 			className={clsx(
-				"w-full p-3 text-red-500 text-xl border border-gray-300 bg-white outline-none", // default styles
-				className, // merge any custom classes passed in
+				"w-full p-3 text-cream text-[9px] font-pixel border-2 border-border-pixel bg-bg0 outline-none focus:border-border-light",
+				className,
 			)}
 			{...props}
 		/>

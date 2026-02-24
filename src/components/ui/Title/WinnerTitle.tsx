@@ -1,4 +1,6 @@
 const WinnerTitle = ({ text }: { text: string }) => (
-	<h2 className="text-5xl text-red-600 mb-3">{text}</h2>
+	<h2 className="text-base text-accent font-pixel uppercase tracking-widest mb-3 pixel-text-shadow">
+		{text}
+	</h2>
 );
 export default WinnerTitle;

@@ -1,279 +1,265 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useShortcut } from "@/components/hooks/useShortcut";
+import { useVsPlayerGame } from "@/components/hooks/useVsPlayerGame";
 import Board from "@/components/ui/Board/Board";
-import SettingBar from "@/components/ui/Buttons/SettingBar";
-import { SettingButton } from "@/components/ui/Buttons/SettingButton";
-import BoardContainer from "@/components/ui/Containers/Board/BoardContainer";
-import BoardWrapper from "@/components/ui/Containers/Board/BoardWrapper";
-import GameBoardArea from "@/components/ui/Containers/Games/GameBoardArea";
-import PlayerStatusContainer from "@/components/ui/Containers/Games/PlayerStatusContainer";
-import SettingContainer from "@/components/ui/Containers/Settings/SettingContainer";
-import SettingOverlay from "@/components/ui/Containers/Settings/SettingOverlay";
+import BoardDisplay from "@/components/ui/Game/BoardDisplay";
+import BoardPreviewGrid from "@/components/ui/Game/BoardPreviewGrid";
+import BoardSelector from "@/components/ui/Game/BoardSelector";
+import GameActionBar from "@/components/ui/Game/GameActionBar";
+import GameCenterColumn from "@/components/ui/Game/GameCenterColumn";
+import GameContentArea from "@/components/ui/Game/GameContentArea";
+import GameLeftPanel from "@/components/ui/Game/GameLeftPanel";
+import GameStatsPanel from "@/components/ui/Game/GameStatsPanel";
+import GameTopBar, { GameStatusBar } from "@/components/ui/Game/GameTopBar";
 import GameLayout from "@/components/ui/Layout/GameLayout";
-import PlayerTurnTitle from "@/components/ui/Title/PlayerTurnTitle";
 import BoardConfigModal from "@/modals/BoardConfigModal";
 import ConfirmationModal from "@/modals/ConfirmationModal";
 import PlayerNamesModal from "@/modals/PlayerNamesModal";
-import ShortcutModal from "@/modals/ShortcutModal";
-import SoundConfigModal from "@/modals/SoundConfigModal";
 import WinnerModal from "@/modals/WinnerModal";
+import { useGlobalModal } from "@/services/globalModal";
 import { isBoardDead } from "@/services/logic";
-import { playMoveSound, playWinSound } from "@/services/sounds";
-import { useSound } from "@/services/store";
-import type {
-	BoardNumber,
-	BoardSize,
-	BoardState,
-	PlayerButtonModalType,
-} from "@/services/types";
+import formatTime from "@/utils/format";
 
 const Game = () => {
-	const [isMenuOpen, setIsMenuOpen] = useState(false);
-	const [boards, setBoards] = useState<BoardState[]>([]);
-	const [boardSize, setBoardSize] = useState<BoardSize>(3);
-	const [currentPlayer, setCurrentPlayer] = useState<1 | 2>(1);
-	const [player1Name, setPlayer1Name] = useState<string>("Player 1");
-	const [player2Name, setPlayer2Name] = useState<string>("Player 2");
-	const [winner, setWinner] = useState<string>("");
-	const [numberOfBoards, setNumberOfBoards] = useState<BoardNumber>(3);
 	const [gameStarted, setGameStarted] = useState<boolean>(false);
 	const [initialSetupDone, setInitialSetupDone] = useState<boolean>(false);
-	const [activeModal, setActiveModal] =
-		useState<PlayerButtonModalType>("names");
-	const [hasMoveHappened, setHasMoveHappened] = useState(false);
+	const [player1Name, setPlayer1Name] = useState<string>("Player 1");
+	const [player2Name, setPlayer2Name] = useState<string>("Player 2");
 
-	const { sfxMute } = useSound();
-	const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+	const { activeModal, openModal, closeModal } = useGlobalModal();
+	const game = useVsPlayerGame();
 	const router = useRouter();
+
+	// biome-ignore lint/correctness/useExhaustiveDependencies: intentionally run only on mount
+	useEffect(() => {
+		openModal("names");
+	}, []);
 
 	useShortcut(
 		{
 			escape: () => {
 				if ((!initialSetupDone && !gameStarted) || activeModal === "winner")
 					return;
-				if (activeModal) return setActiveModal(null);
-				return setIsMenuOpen(false);
+				if (activeModal) return closeModal();
 			},
 			m: () => {
 				if (!initialSetupDone || activeModal === "winner") return;
-				setActiveModal((prev) =>
-					prev === "exitConfirmation" ? null : "exitConfirmation",
-				);
+				activeModal === "exitConfirmation"
+					? closeModal()
+					: openModal("exitConfirmation");
 			},
 			r: () => {
-				if (!initialSetupDone || !hasMoveHappened || activeModal === "winner")
+				if (
+					!initialSetupDone ||
+					!game.hasMoveHappened ||
+					activeModal === "winner"
+				)
 					return;
-
-				setActiveModal((prev) =>
-					prev === "resetConfirmation" ? null : "resetConfirmation",
-				);
+				activeModal === "resetConfirmation"
+					? closeModal()
+					: openModal("resetConfirmation");
 			},
 			n: () => {
 				if (!initialSetupDone || activeModal === "winner") return;
-				setActiveModal((prev) => (prev === "names" ? null : "names"));
+				activeModal === "names" ? closeModal() : openModal("names");
 			},
 			c: () => {
 				if (!initialSetupDone || activeModal === "winner") return;
-				setActiveModal((prev) =>
-					prev === "boardConfig" ? null : "boardConfig",
-				);
+				activeModal === "boardConfig" ? closeModal() : openModal("boardConfig");
 			},
 			s: () => {
 				if (!initialSetupDone || activeModal === "winner") return;
-				setActiveModal((prev) =>
-					prev === "soundConfig" ? null : "soundConfig",
-				);
+				activeModal === "soundConfig" ? closeModal() : openModal("soundConfig");
 			},
 			q: () => {
 				if (!initialSetupDone || activeModal === "winner") return;
-				setActiveModal((prev) => (prev === "shortcut" ? null : "shortcut"));
+				activeModal === "shortcut" ? closeModal() : openModal("shortcut");
 			},
 		},
-		isMenuOpen, // disabled option
+		false,
 	);
 
-	const makeMove = (boardIndex: number, cellIndex: number) => {
-		if (!hasMoveHappened) {
-			setHasMoveHappened(true);
+	const p1MoveCount = game.moveLog.filter((m) => m.player === 1).length;
+	const p2MoveCount = game.moveLog.filter((m) => m.player === 2).length;
+	const aliveCount = game.boards.filter(
+		(b) => !isBoardDead(b, game.boardSize),
+	).length;
+
+	// Build per-board cell ownership maps from moveLog
+	const cellOwnersByBoard: Record<number, Record<number, 1 | 2>> = {};
+	for (const entry of game.moveLog) {
+		if (!cellOwnersByBoard[entry.board]) {
+			cellOwnersByBoard[entry.board] = {};
 		}
-		if (
-			boards[boardIndex][cellIndex] !== "" ||
-			isBoardDead(boards[boardIndex], boardSize)
-		)
-			return;
+		cellOwnersByBoard[entry.board][entry.cell] = entry.player;
+	}
 
-		const newBoards = boards.map((board, idx) =>
-			idx === boardIndex
-				? [...board.slice(0, cellIndex), "X", ...board.slice(cellIndex + 1)]
-				: [...board],
-		);
-		playMoveSound(sfxMute);
-		setBoards(newBoards);
-
-		if (newBoards.every((board) => isBoardDead(board, boardSize))) {
-			const loser = currentPlayer;
-			const winnerNum = loser === 1 ? 2 : 1;
-			const winnerName = winnerNum === 1 ? player1Name : player2Name;
-			setWinner(winnerName);
-			setActiveModal("winner");
-			playWinSound(sfxMute);
-			return;
-		}
-
-		setCurrentPlayer((prev) => (prev === 1 ? 2 : 1));
-	};
-
-	const resetGame = (num: BoardNumber, size: BoardSize) => {
-		const initialBoards = Array(num)
-			.fill(null)
-			.map(() => Array(size * size).fill(""));
-		setBoards(initialBoards);
-		setCurrentPlayer(1);
-		setActiveModal(null);
-		setHasMoveHappened(false);
-	};
-
-	const handleBoardConfigChange = (num: BoardNumber, size: BoardSize) => {
-		setNumberOfBoards(num);
-		setBoardSize(size as BoardSize);
-		setActiveModal(null);
-		resetGame(num, size);
-	};
-
-	const exitToMenu = () => {
-		router.push("/");
-	};
+	const lastMove =
+		game.moveLog.length > 0 ? game.moveLog[game.moveLog.length - 1] : null;
 
 	return (
 		<GameLayout>
-			<GameBoardArea>
-				<PlayerStatusContainer>
-					<PlayerTurnTitle
-						text={
-							currentPlayer === 1
-								? `${player1Name}'s turn`
-								: `${player2Name}'s turn`
-						}
+			<GameTopBar
+				player1={{
+					name: player1Name,
+					moveCount: p1MoveCount,
+				}}
+				player2={{
+					name: player2Name,
+					moveCount: p2MoveCount,
+				}}
+				currentPlayer={game.currentPlayer}
+				boards={game.boards}
+				boardSize={game.boardSize}
+				gameOver={activeModal === "winner"}
+				mode="vsPlayer"
+			/>
+
+			<GameContentArea>
+				<GameLeftPanel>
+					<BoardSelector
+						boards={game.boards}
+						boardSize={game.boardSize}
+						selectedBoard={game.selectedBoard}
+						onSelectBoard={game.setSelectedBoard}
 					/>
-				</PlayerStatusContainer>
+				</GameLeftPanel>
 
-				<BoardContainer>
-					{boards.map((board, index) => {
-						const boardKey = `${board.join("-")}-${index}`; //TODO: use better key
-						return (
-							<BoardWrapper key={boardKey}>
+				<GameCenterColumn
+					mobileBoardSelector={
+						!game.showPreview ? (
+							<BoardSelector
+								boards={game.boards}
+								boardSize={game.boardSize}
+								selectedBoard={game.selectedBoard}
+								onSelectBoard={game.setSelectedBoard}
+							/>
+						) : undefined
+					}>
+					<GameStatusBar
+						currentPlayer={game.currentPlayer}
+						moveCount={game.moveLog.length}
+						gameOver={activeModal === "winner"}
+						mode="vsPlayer"
+						player1Name={player1Name}
+						player2Name={player2Name}
+					/>
+					{game.showPreview ? (
+						<BoardPreviewGrid
+							boards={game.boards}
+							boardSize={game.boardSize}
+							moveLog={game.moveLog}
+							onSelectBoard={(index) => {
+								game.setSelectedBoard(index);
+								game.setShowPreview(false);
+							}}
+						/>
+					) : (
+						<BoardDisplay
+							visible={
+								game.boards.length > 0 && !!game.boards[game.selectedBoard]
+							}>
+							{game.boards[game.selectedBoard] && (
 								<Board
-									boardIndex={index}
-									boardState={board}
-									makeMove={makeMove}
-									isDead={isBoardDead(board, boardSize)}
-									boardSize={boardSize}
-									disabled={false}
+									boardIndex={game.selectedBoard}
+									boardState={game.boards[game.selectedBoard]}
+									makeMove={game.makeMoveHandler}
+									isDead={isBoardDead(
+										game.boards[game.selectedBoard],
+										game.boardSize,
+									)}
+									boardSize={game.boardSize}
+									cellOwners={cellOwnersByBoard[game.selectedBoard]}
+									lastMoveCell={
+										lastMove?.board === game.selectedBoard
+											? lastMove?.cell
+											: undefined
+									}
 								/>
-							</BoardWrapper>
-						);
-					})}
-				</BoardContainer>
+							)}
+						</BoardDisplay>
+					)}
+				</GameCenterColumn>
 
-				<SettingBar text={"Settings"} onClick={toggleMenu} />
-			</GameBoardArea>
+				<GameStatsPanel
+					stats={[
+						{ label: "TOTAL MOVES", value: game.moveLog.length },
+						{ label: "BOARDS ALIVE", value: aliveCount },
+						{ label: "TIME", value: formatTime(game.elapsed) },
+					]}
+					moveLog={game.moveLog}
+					boardSize={game.boardSize}
+				/>
+			</GameContentArea>
 
-			{isMenuOpen && (
-				<SettingOverlay>
-					<SettingContainer>
-						<SettingButton
-							onClick={() => {
-								resetGame(numberOfBoards, boardSize);
-								setIsMenuOpen(false);
-							}}>
-							Reset
-						</SettingButton>
-						<SettingButton
-							onClick={() => {
-								setActiveModal("boardConfig");
-								setIsMenuOpen(false);
-							}}>
-							Game Configuration
-						</SettingButton>
-						<SettingButton
-							onClick={() => {
-								setActiveModal("names");
-								setIsMenuOpen(false);
-							}}>
-							Reset Names
-						</SettingButton>
-						<SettingButton
-							onClick={() => {
-								setActiveModal("soundConfig");
-								setIsMenuOpen(false);
-							}}>
-							Adjust Sound
-						</SettingButton>
-						<SettingButton
-							onClick={() => {
-								setActiveModal("shortcut");
-								setIsMenuOpen(false);
-							}}>
-							Keyboard Shortcuts
-						</SettingButton>
-						<SettingButton onClick={exitToMenu}>Main Menu</SettingButton>
-						<SettingButton onClick={toggleMenu}>Return to Game</SettingButton>
-					</SettingContainer>
-				</SettingOverlay>
-			)}
+			{/* Action bar */}
+			<GameActionBar
+				actions={[
+					...(game.boards.length > 1
+						? [
+								{
+									label: game.showPreview ? "BACK" : "PREVIEW ALL",
+									onClick: () => game.setShowPreview((prev) => !prev),
+									variant: "primary" as const,
+								},
+							]
+						: []),
+					{
+						label: "RESIGN",
+						onClick: () => openModal("exitConfirmation"),
+						variant: "danger",
+					},
+				]}
+			/>
 
+			{/* Modals */}
 			<PlayerNamesModal
 				visible={activeModal === "names"}
 				onSubmit={(name1: string, name2: string) => {
 					setPlayer1Name(name1 || "Player 1");
 					setPlayer2Name(name2 || "Player 2");
-					setActiveModal(null);
-					resetGame(numberOfBoards, boardSize);
+					closeModal();
+					game.resetGame(game.numberOfBoards, game.boardSize);
 					setInitialSetupDone(true);
 					setGameStarted(true);
 				}}
+				onClose={initialSetupDone ? closeModal : undefined}
 				initialNames={[player1Name, player2Name]}
 				key={player1Name + player2Name}
 			/>
 			<WinnerModal
 				visible={activeModal === "winner"}
-				winner={winner}
+				winner={
+					game.winner === 1 ? player1Name : game.winner === 2 ? player2Name : ""
+				}
 				onPlayAgain={() => {
-					setActiveModal(null);
-					resetGame(numberOfBoards, boardSize);
+					closeModal();
+					game.resetGame(game.numberOfBoards, game.boardSize);
 				}}
 				onMenu={() => {
-					setActiveModal(null);
+					closeModal();
 					router.push("/");
 				}}
 			/>
 			<BoardConfigModal
 				visible={activeModal === "boardConfig"}
-				currentBoards={numberOfBoards}
-				currentSize={boardSize}
-				onConfirm={handleBoardConfigChange}
-				onCancel={() => setActiveModal(null)}
-			/>
-			<SoundConfigModal
-				visible={activeModal === "soundConfig"}
-				onClose={() => setActiveModal(null)}
-			/>
-			<ShortcutModal
-				visible={activeModal === "shortcut"}
-				onClose={() => setActiveModal(null)}
+				currentBoards={game.numberOfBoards}
+				currentSize={game.boardSize}
+				onConfirm={game.handleBoardConfigChange}
+				onCancel={closeModal}
 			/>
 			<ConfirmationModal
 				visible={activeModal === "resetConfirmation"}
 				title="Reset Game?"
 				message="Are you sure you want to reset the current game?"
 				onConfirm={() => {
-					resetGame(numberOfBoards, boardSize);
-					setActiveModal(null);
+					game.resetGame(game.numberOfBoards, game.boardSize);
+					closeModal();
 				}}
-				onCancel={() => setActiveModal(null)}
+				onCancel={closeModal}
 				confirmText="Yes, Reset"
 			/>
 			<ConfirmationModal
@@ -283,7 +269,7 @@ const Game = () => {
 				onConfirm={() => {
 					router.push("/");
 				}}
-				onCancel={() => setActiveModal(null)}
+				onCancel={closeModal}
 				confirmText="Yes, Exit"
 			/>
 		</GameLayout>
