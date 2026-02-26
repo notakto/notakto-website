@@ -70,7 +70,7 @@ const Menu = () => {
 	};
 
 	const startGame = (mode: string) => {
-		if ((mode === "liveMatch" || mode === "vsComputer") && !user) {
+		if (mode === "vsComputer" && !user) {
 			if (canShowToast()) {
 				toast("Please sign in!", {
 					toastId: TOAST_IDS.User.SignInError,
@@ -94,10 +94,6 @@ const Menu = () => {
 				<MenuButton onClick={() => startGame("vsComputer")}>
 					{" "}
 					Play vs Computer{" "}
-				</MenuButton>
-				<MenuButton onClick={() => startGame("liveMatch")}>
-					{" "}
-					Live Match{" "}
 				</MenuButton>
 				<MenuButton onClick={() => setActiveModal("tutorial")}>
 					{" "}
