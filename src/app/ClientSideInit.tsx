@@ -35,7 +35,7 @@ const ClientSideInit = (): null => {
 				if (!firebaseUser) {
 					// User signed out
 					setUser(null);
-					setAuthReady(false);
+					setAuthReady(true);
 					setName("player");
 					setEmail("empty@empty.empty");
 					setPic("empty.empty");
@@ -71,12 +71,12 @@ const ClientSideInit = (): null => {
 						setAuthReady(true);
 					} else {
 						toast.error("get wallet failed");
-						setAuthReady(false);
+						setAuthReady(true);
 					}
 				} catch (error) {
 					console.error("Auth error:", error);
 					toast.error("Authentication failed");
-					setAuthReady(false);
+					setAuthReady(true);
 				} finally {
 					pendingSignInRef.current.delete(userId);
 				}
