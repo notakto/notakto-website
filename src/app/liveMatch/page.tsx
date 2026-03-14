@@ -1,4 +1,5 @@
 "use client";
+import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
@@ -15,6 +16,8 @@ import GameLayout from "@/components/ui/Layout/GameLayout";
 import PlayerTurnTitle from "@/components/ui/Title/PlayerTurnTitle";
 import SearchLabel from "@/components/ui/Title/SearchLabel";
 import { TOAST_DURATION, TOAST_IDS } from "@/constants/toast";
+import { queryKeys } from "@/lib/queryKeys";
+import { useUser } from "@/services/store";
 
 const SERVER_URL = "https://notakto-websocket.onrender.com";
 const socket = io(SERVER_URL);
@@ -22,6 +25,12 @@ const socket = io(SERVER_URL);
 const LiveMode = () => {
 	const router = useRouter();
 	const { resetCooldown } = useToastCooldown(TOAST_DURATION);
+
+	// TanStack Query client for cache coordination
+	// Data ownership: Socket.IO owns live match state, TanStack Query owns user/wallet data
+	const queryClient = useQueryClient();
+	const { user } = useUser();
+
 	const onClose = () => {
 		router.push("/");
 	};
@@ -45,20 +54,37 @@ const LiveMode = () => {
 			setRoomId(data.roomId);
 			setGameState("playing");
 			setIsMyTurn(socket.id === data.firstTurn);
+
+			// Invalidate user profile on game start (XP/coins may update)
+			if (user?.uid) {
+				queryClient.invalidateQueries({
+					queryKey: queryKeys.user(user.uid),
+				});
+			}
 		});
 
 		// biome-ignore lint/suspicious/noExplicitAny: <fix later>
 		socket.on("updateBoards", (data: { boards: any[]; nextTurn: string }) => {
+			// Socket.IO owns board state during live match — update local state directly
 			setBoards(data.boards);
 			setIsMyTurn(socket.id === data.nextTurn);
 		});
 
 		socket.on("gameOver", (data: { loser: string }) => {
-			toast(data.loser === socket.id ? "You Lost!" : "You Won!", {
+			const didWin = data.loser !== socket.id;
+			toast(didWin ? "You Won!" : "You Lost!", {
 				toastId: TOAST_IDS.LiveMatch.GameOver,
 				autoClose: TOAST_DURATION,
 				onClose: resetCooldown,
 			});
+
+			// Invalidate user data after game over (coins/XP updated on server)
+			if (user?.uid) {
+				queryClient.invalidateQueries({
+					queryKey: queryKeys.user(user.uid),
+				});
+			}
+
 			resetGame();
 		});
 
@@ -68,6 +94,14 @@ const LiveMode = () => {
 				autoClose: TOAST_DURATION,
 				onClose: resetCooldown,
 			});
+
+			// Invalidate user data in case partial XP/coins were awarded
+			if (user?.uid) {
+				queryClient.invalidateQueries({
+					queryKey: queryKeys.user(user.uid),
+				});
+			}
+
 			resetGame();
 		});
 
