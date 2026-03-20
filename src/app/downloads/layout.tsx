@@ -1,14 +1,5 @@
-import type { Metadata } from "next";
+"use client";
 
-export const metadata: Metadata = {
-	title: "Downloads | Notakto",
-	description: "Download Notakto for your platform",
-};
-
-export default function DownloadsLayout({
-	children,
-}: {
-	children: React.ReactNode;
-}) {
-	return children;
+export default function DownloadsLayout(props: any) {
+	return props.children;
 }

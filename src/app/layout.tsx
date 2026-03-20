@@ -3,17 +3,33 @@
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Press_Start_2P } from "next/font/google";
+import { useEffect } from "react";
+import { create } from "zustand";
 
 const pressStart2P = Press_Start_2P({
 	weight: "400",
 	subsets: ["latin"],
 });
 
+const useUser = create((set: any) => ({
+	user: null,
+	authReady: false,
+	setUser: (newUser: any) => set({ user: newUser }),
+	setAuthReady: (v: boolean) => set({ authReady: v }),
+}));
+
 export default function RootLayout({
 	children,
-}: Readonly<{
-	children: React.ReactNode;
-}>) {
+}: {
+	children: any;
+}) {
+	const _setUser = useUser((state: any) => state.setUser);
+	const setAuthReady = useUser((state: any) => state.setAuthReady);
+
+	useEffect(() => {
+		setAuthReady(true);
+	}, [setAuthReady]);
+
 	return (
 		<html lang="en" className={pressStart2P.className}>
 			<head>
@@ -148,71 +164,78 @@ export default function RootLayout({
 					}}
 				/>
 			</head>
-			<body className="bg-bg0 text-pixel-white">
-				<Sidebar />
-				<SidebarMargin>{children}</SidebarMargin>
+			<body
+				style={{
+					backgroundColor: "#0e0e1a",
+					color: "#f0e8d8",
+					margin: 0,
+					padding: 0,
+				}}>
+				<div
+					style={{
+						position: "fixed",
+						left: 0,
+						top: 0,
+						height: "100vh",
+						width: "64px",
+						backgroundColor: "#181828",
+						borderRight: "3px solid #3a3a56",
+						zIndex: 50,
+						display: "flex",
+						flexDirection: "column",
+						alignItems: "center",
+						paddingTop: "16px",
+						paddingBottom: "16px",
+						gap: "16px",
+					}}>
+					<button
+						type="button"
+						style={{
+							width: "40px",
+							height: "40px",
+							backgroundColor: "#1e1e32",
+							border: "3px solid #3a3a56",
+							boxShadow: "inset 0 0 0 1px #0e0e1a, 3px 3px 0 #0e0e1a",
+							display: "flex",
+							alignItems: "center",
+							justifyContent: "center",
+							color: "#c8a040",
+							cursor: "pointer",
+							fontFamily: '"Press Start 2P", monospace',
+							fontSize: "20px",
+							padding: 0,
+						}}>
+						+
+					</button>
+					<button
+						type="button"
+						style={{
+							width: "40px",
+							height: "40px",
+							backgroundColor: "#1e1e32",
+							border: "3px solid #3a3a56",
+							boxShadow: "inset 0 0 0 1px #0e0e1a, 3px 3px 0 #0e0e1a",
+							display: "flex",
+							alignItems: "center",
+							justifyContent: "center",
+							color: "#e4d8c0",
+							cursor: "pointer",
+							fontFamily: '"Press Start 2P", monospace',
+							fontSize: "18px",
+							padding: 0,
+						}}>
+						⚙
+					</button>
+				</div>
+				<div
+					style={{
+						marginLeft: "64px",
+					}}>
+					{children}
+				</div>
 				<Analytics />
 				<SpeedInsights />
-				<ClientSideInit />
 			</body>
 		</html>
 	);
-}
-
-// ===== REACT IMPORTS =====
-import { useEffect } from "react";
-import { create } from "zustand";
-
-// ===== TYPES & STORE =====
-interface UserStore {
-	user: { uid: string } | null;
-	authReady: boolean;
-	setUser: (newUser: { uid: string } | null) => void;
-	setAuthReady: (v: boolean) => void;
-}
-
-const useUser = create<UserStore>((set) => ({
-	user: null,
-	authReady: false,
-	setUser: (newUser) => set({ user: newUser }),
-	setAuthReady: (v: boolean) => set({ authReady: v }),
-}));
-
-// ===== COMPONENTS =====
-function Sidebar() {
-	return (
-		<div className="fixed left-0 top-0 h-full w-16 bg-bg1 border-r-3 border-border-pixel z-50 flex flex-col items-center py-4 gap-4">
-			<button
-				type="button"
-				className="w-10 h-10 bg-panel pixel-border flex items-center justify-center text-accent hover:bg-bg2 cursor-pointer">
-				<span className="font-pixel text-xl">+</span>
-			</button>
-			<button
-				type="button"
-				className="w-10 h-10 bg-panel pixel-border flex items-center justify-center text-cream hover:bg-bg2 cursor-pointer">
-				<span className="font-pixel text-lg">⚙</span>
-			</button>
-		</div>
-	);
-}
-
-function SidebarMargin({ children }: { children: React.ReactNode }) {
-	return <div className="ml-16">{children}</div>;
-}
-
-// ===== CLIENT SIDE INIT =====
-function ClientSideInit(): null {
-	const _setUser = useUser(
-		(state): ((newUser: { uid: string } | null) => void) => state.setUser,
-	);
-	const setAuthReady = useUser(
-		(state): ((v: boolean) => void) => state.setAuthReady,
-	);
-
-	useEffect(() => {
-		// Simple auth check - in real app this would connect to Firebase
-		setAuthReady(true);
-	}, [setAuthReady]);
-
-	return null;
 }
