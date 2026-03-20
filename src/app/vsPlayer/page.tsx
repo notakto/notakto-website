@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
 import { create } from "zustand";
 
@@ -42,7 +42,7 @@ const Game = () => {
 
 	useEffect(() => {
 		openModal("names");
-	}, []);
+	}, [openModal]);
 
 	useEffect(() => {
 		if (!gameStarted) return;
@@ -102,7 +102,14 @@ const Game = () => {
 		};
 		window.addEventListener("keydown", handleKeyDown);
 		return () => window.removeEventListener("keydown", handleKeyDown);
-	}, [activeModal, initialSetupDone, gameStarted, hasMoveHappened]);
+	}, [
+		activeModal,
+		initialSetupDone,
+		gameStarted,
+		hasMoveHappened,
+		closeModal,
+		openModal,
+	]);
 
 	const p1MoveCount = moveLog.filter((m: any) => m.player === 1).length;
 	const p2MoveCount = moveLog.filter((m: any) => m.player === 2).length;
@@ -193,21 +200,27 @@ const Game = () => {
 						const isDead = (() => {
 							for (let i = 0; i < size; i++) {
 								const row = board.slice(i * size, (i + 1) * size);
-								const col = Array.from({ length: size }, (_: any, j: any) =>
-									board[i + j * size],
+								const col = Array.from(
+									{ length: size },
+									(_: any, j: any) => board[i + j * size],
 								);
-								if (row.every((c: any) => c === "X") || col.every((c: any) => c === "X"))
+								if (
+									row.every((c: any) => c === "X") ||
+									col.every((c: any) => c === "X")
+								)
 									return true;
 							}
-							const diag1 = Array.from({ length: size }, (_: any, i: any) =>
-								board[i * (size + 1)],
+							const diag1 = Array.from(
+								{ length: size },
+								(_: any, i: any) => board[i * (size + 1)],
 							);
 							const diag2 = Array.from(
 								{ length: size },
 								(_: any, i: any) => board[(i + 1) * (size - 1)],
 							);
 							return (
-								diag1.every((c: any) => c === "X") || diag2.every((c: any) => c === "X")
+								diag1.every((c: any) => c === "X") ||
+								diag2.every((c: any) => c === "X")
 							);
 						})();
 						return (
@@ -247,21 +260,23 @@ const Game = () => {
 										gap: "2px",
 										marginTop: "0.25rem",
 									}}>
-									{board.slice(0, boardSize * boardSize).map((cell: any, cellIndex: any) => (
-										<div
-											key={cellIndex}
-											style={{
-												aspectRatio: "1",
-												backgroundColor: cell === "X" ? "#c43c3c" : "#14141e",
-												fontSize: "0.3rem",
-												display: "flex",
-												alignItems: "center",
-												justifyContent: "center",
-												color: "#e4d8c0",
-											}}>
-											{cell}
-										</div>
-									))}
+									{board
+										.slice(0, boardSize * boardSize)
+										.map((cell: any, cellIndex: any) => (
+											<div
+												key={cellIndex}
+												style={{
+													aspectRatio: "1",
+													backgroundColor: cell === "X" ? "#c43c3c" : "#14141e",
+													fontSize: "0.3rem",
+													display: "flex",
+													alignItems: "center",
+													justifyContent: "center",
+													color: "#e4d8c0",
+												}}>
+												{cell}
+											</div>
+										))}
 								</div>
 							</div>
 						);
@@ -289,8 +304,9 @@ const Game = () => {
 								const isDead = (() => {
 									for (let i = 0; i < size; i++) {
 										const row = board.slice(i * size, (i + 1) * size);
-										const col = Array.from({ length: size }, (_: any, j: any) =>
-											board[i + j * size],
+										const col = Array.from(
+											{ length: size },
+											(_: any, j: any) => board[i + j * size],
 										);
 										if (
 											row.every((c: any) => c === "X") ||
@@ -298,8 +314,9 @@ const Game = () => {
 										)
 											return true;
 									}
-									const diag1 = Array.from({ length: size }, (_: any, i: any) =>
-										board[i * (size + 1)],
+									const diag1 = Array.from(
+										{ length: size },
+										(_: any, i: any) => board[i * (size + 1)],
 									);
 									const diag2 = Array.from(
 										{ length: size },
@@ -354,7 +371,8 @@ const Game = () => {
 														key={cellIndex}
 														style={{
 															aspectRatio: "1",
-															backgroundColor: cell === "X" ? "#c43c3c" : "#14141e",
+															backgroundColor:
+																cell === "X" ? "#c43c3c" : "#14141e",
 															fontSize: "0.3rem",
 															display: "flex",
 															alignItems: "center",
@@ -383,7 +401,8 @@ const Game = () => {
 						}}>
 						{activeModal === "winner"
 							? "GAME OVER"
-							: `${currentPlayer === 1 ? player1Name : player2Name}'S TURN`} ({moveLog.length} moves)
+							: `${currentPlayer === 1 ? player1Name : player2Name}'S TURN`}{" "}
+						({moveLog.length} moves)
 					</div>
 					{showPreview ? (
 						<div
@@ -398,8 +417,9 @@ const Game = () => {
 								const isDead = (() => {
 									for (let i = 0; i < size; i++) {
 										const row = board.slice(i * size, (i + 1) * size);
-										const col = Array.from({ length: size }, (_: any, j: any) =>
-											board[i + j * size],
+										const col = Array.from(
+											{ length: size },
+											(_: any, j: any) => board[i + j * size],
 										);
 										if (
 											row.every((c: any) => c === "X") ||
@@ -407,8 +427,9 @@ const Game = () => {
 										)
 											return true;
 									}
-									const diag1 = Array.from({ length: size }, (_: any, i: any) =>
-										board[i * (size + 1)],
+									const diag1 = Array.from(
+										{ length: size },
+										(_: any, i: any) => board[i * (size + 1)],
 									);
 									const diag2 = Array.from(
 										{ length: size },
@@ -457,7 +478,8 @@ const Game = () => {
 														key={cellIndex}
 														style={{
 															aspectRatio: "1",
-															backgroundColor: cell === "X" ? "#c43c3c" : "#14141e",
+															backgroundColor:
+																cell === "X" ? "#c43c3c" : "#14141e",
 															fontSize: "0.3rem",
 															display: "flex",
 															alignItems: "center",
@@ -491,8 +513,9 @@ const Game = () => {
 											const board = boards[selectedBoard];
 											for (let i = 0; i < size; i++) {
 												const row = board.slice(i * size, (i + 1) * size);
-												const col = Array.from({ length: size }, (_: any, j: any) =>
-													board[i + j * size],
+												const col = Array.from(
+													{ length: size },
+													(_: any, j: any) => board[i + j * size],
 												);
 												if (
 													row.every((c: any) => c === "X") ||
@@ -500,8 +523,9 @@ const Game = () => {
 												)
 													return 0.6;
 											}
-											const diag1 = Array.from({ length: size }, (_: any, i: any) =>
-												board[i * (size + 1)],
+											const diag1 = Array.from(
+												{ length: size },
+												(_: any, i: any) => board[i * (size + 1)],
 											);
 											const diag2 = Array.from(
 												{ length: size },
@@ -521,136 +545,87 @@ const Game = () => {
 											aspectRatio: "1",
 											gridTemplateColumns: `repeat(${boardSize}, 1fr)`,
 										}}>
-										{[...boards[selectedBoard].entries()].map(([cellIndex, cell]: any) => {
-											const isDead = (() => {
-												const size = boardSize;
-												const board = boards[selectedBoard];
-												for (let i = 0; i < size; i++) {
-													const row = board.slice(i * size, (i + 1) * size);
-													const col = Array.from({ length: size }, (_: any, j: any) =>
-														board[i + j * size],
-													);
-													if (
-														row.every((c: any) => c === "X") ||
-														col.every((c: any) => c === "X")
-													)
-														return true;
-												}
-												const diag1 = Array.from({ length: size }, (_: any, i: any) =>
-													board[i * (size + 1)],
-												);
-												const diag2 = Array.from(
-													{ length: size },
-													(_: any, i: any) => board[(i + 1) * (size - 1)],
-												);
-												return (
-													diag1.every((c: any) => c === "X") ||
-													diag2.every((c: any) => c === "X")
-												);
-											})();
-											const cellOwner = cellOwnersByBoard[selectedBoard]?.[cellIndex];
-											const isLastMove =
-												lastMove?.board === selectedBoard &&
-												lastMove?.cell === cellIndex;
-											const baseStyle: any = {
-												position: "relative",
-												display: "flex",
-												alignItems: "center",
-												justifyContent: "center",
-												aspectRatio: "1",
-												width: "100%",
-												border: "1px solid",
-												borderColor: "#2c2c44",
-												backgroundColor: "#14141e",
-												cursor: cell || isDead ? "not-allowed" : "pointer",
-											};
-											if (isLastMove) {
-												baseStyle.borderWidth = "2px";
-												if (cellOwner === 2) {
-													baseStyle.borderColor = "#facc15";
-													baseStyle.boxShadow =
-														"inset 0 0 8px rgba(250, 204, 21, 0.4)";
-												} else {
-													baseStyle.borderColor = "#c43c3c";
-													baseStyle.boxShadow =
-														"inset 0 0 8px rgba(196, 60, 60, 0.4)";
-												}
-											}
-											if (cell || isDead) {
-												baseStyle.backgroundColor = "#2a2a3a";
-											}
-											return (
-												<button
-													key={`${selectedBoard}-${cellIndex}-${cell}`}
-													type="button"
-													onClick={() => {
-														setShowPreview(false);
-														if (!hasMoveHappened) {
-															setHasMoveHappened(true);
-														}
-														if (
-															boards[selectedBoard][cellIndex] !== "" ||
-															(() => {
-																const size = boardSize;
-																const board = boards[selectedBoard];
-																for (let i = 0; i < size; i++) {
-																	const row = board.slice(i * size, (i + 1) * size);
-																	const col = Array.from(
-																		{ length: size },
-																		(_: any, j: any) => board[i + j * size],
-																	);
-																	if (
-																		row.every((c: any) => c === "X") ||
-																		col.every((c: any) => c === "X")
-																	)
-																		return true;
-																}
-																const diag1 = Array.from(
-																	{ length: size },
-																	(_: any, i: any) => board[i * (size + 1)],
-																);
-																const diag2 = Array.from(
-																	{ length: size },
-																	(_: any, i: any) => board[(i + 1) * (size - 1)],
-																);
-																return (
-																	diag1.every((c: any) => c === "X") ||
-																	diag2.every((c: any) => c === "X")
-																);
-															})()
-														)
-															return;
-														const newBoards = boards.map((board: any, idx: any) =>
-															idx === selectedBoard
-																? [
-																		...board.slice(0, cellIndex),
-																		"X",
-																		...board.slice(cellIndex + 1),
-																	]
-																: [...board],
+										{[...boards[selectedBoard].entries()].map(
+											([cellIndex, cell]: any) => {
+												const isDead = (() => {
+													const size = boardSize;
+													const board = boards[selectedBoard];
+													for (let i = 0; i < size; i++) {
+														const row = board.slice(i * size, (i + 1) * size);
+														const col = Array.from(
+															{ length: size },
+															(_: any, j: any) => board[i + j * size],
 														);
-														if (!sfxMute) {
-															if (!moveAudio) {
-																moveAudio = new Audio("/sounds/click.mp3");
-															}
-															moveAudio.currentTime = 0;
-															moveAudio.play().catch(console.error);
-														}
-														setBoards(newBoards);
-														setMoveLog((prev: any) => [
-															...prev,
-															{
-																player: currentPlayer,
-																board: selectedBoard,
-																cell: cellIndex,
-															},
-														]);
 														if (
-															newBoards.every((board: any) =>
+															row.every((c: any) => c === "X") ||
+															col.every((c: any) => c === "X")
+														)
+															return true;
+													}
+													const diag1 = Array.from(
+														{ length: size },
+														(_: any, i: any) => board[i * (size + 1)],
+													);
+													const diag2 = Array.from(
+														{ length: size },
+														(_: any, i: any) => board[(i + 1) * (size - 1)],
+													);
+													return (
+														diag1.every((c: any) => c === "X") ||
+														diag2.every((c: any) => c === "X")
+													);
+												})();
+												const cellOwner =
+													cellOwnersByBoard[selectedBoard]?.[cellIndex];
+												const isLastMove =
+													lastMove?.board === selectedBoard &&
+													lastMove?.cell === cellIndex;
+												const baseStyle: any = {
+													position: "relative",
+													display: "flex",
+													alignItems: "center",
+													justifyContent: "center",
+													aspectRatio: "1",
+													width: "100%",
+													border: "1px solid",
+													borderColor: "#2c2c44",
+													backgroundColor: "#14141e",
+													cursor: cell || isDead ? "not-allowed" : "pointer",
+												};
+												if (isLastMove) {
+													baseStyle.borderWidth = "2px";
+													if (cellOwner === 2) {
+														baseStyle.borderColor = "#facc15";
+														baseStyle.boxShadow =
+															"inset 0 0 8px rgba(250, 204, 21, 0.4)";
+													} else {
+														baseStyle.borderColor = "#c43c3c";
+														baseStyle.boxShadow =
+															"inset 0 0 8px rgba(196, 60, 60, 0.4)";
+													}
+												}
+												if (cell || isDead) {
+													baseStyle.backgroundColor = "#2a2a3a";
+												}
+												return (
+													<button
+														key={`${selectedBoard}-${cellIndex}-${cell}`}
+														type="button"
+														onClick={() => {
+															setShowPreview(false);
+															if (!hasMoveHappened) {
+																setHasMoveHappened(true);
+															}
+															if (
+																boards[selectedBoard][cellIndex] !== "" ||
 																(() => {
 																	const size = boardSize;
+																	const board = boards[selectedBoard];
 																	for (let i = 0; i < size; i++) {
-																		const row = board.slice(i * size, (i + 1) * size);
+																		const row = board.slice(
+																			i * size,
+																			(i + 1) * size,
+																		);
 																		const col = Array.from(
 																			{ length: size },
 																			(_: any, j: any) => board[i + j * size],
@@ -667,60 +642,123 @@ const Game = () => {
 																	);
 																	const diag2 = Array.from(
 																		{ length: size },
-																		(_: any, i: any) => board[(i + 1) * (size - 1)],
+																		(_: any, i: any) =>
+																			board[(i + 1) * (size - 1)],
 																	);
 																	return (
 																		diag1.every((c: any) => c === "X") ||
 																		diag2.every((c: any) => c === "X")
 																	);
-																})(),
+																})()
 															)
-														) {
-															const loser = currentPlayer;
-															const winnerNum = loser === 1 ? 2 : 1;
-															const winnerName =
-																winnerNum === 1 ? player1Name : player2Name;
-															setWinner(winnerName);
-															openModal("winner");
+																return;
+															const newBoards = boards.map(
+																(board: any, idx: any) =>
+																	idx === selectedBoard
+																		? [
+																				...board.slice(0, cellIndex),
+																				"X",
+																				...board.slice(cellIndex + 1),
+																			]
+																		: [...board],
+															);
 															if (!sfxMute) {
-																if (!winAudio) {
-																	winAudio = new Audio("/sounds/wins.mp3");
+																if (!moveAudio) {
+																	moveAudio = new Audio("/sounds/click.mp3");
 																}
-																winAudio.currentTime = 0;
-																winAudio.play().catch(console.error);
+																moveAudio.currentTime = 0;
+																moveAudio.play().catch(console.error);
 															}
-															return;
-														}
-														setCurrentPlayer((prev: any) => (prev === 1 ? 2 : 1));
-													}}
-													disabled={!!cell || isDead}
-													style={baseStyle}>
-													{cell ? (
-														<div
-															style={{
-																position: "absolute",
-																inset: 0,
-																display: "flex",
-																alignItems: "center",
-																justifyContent: "center",
-																fontSize: "1.25rem",
-																lineHeight: 1,
-																fontFamily: '"Press Start 2P", monospace',
-																color:
-																	cellOwner === 2
-																		? "#facc15"
-																		: "#c43c3c",
-																textShadow:
-																	cellOwner === 2
-																		? "0 0 4px rgba(250, 204, 21, 0.6)"
-																		: "0 0 4px rgba(196, 60, 60, 0.6)",
-															}}>
-															{cell}
-														</div>
-													) : null}
-												</button>
-											);
-										})}
+															setBoards(newBoards);
+															setMoveLog((prev: any) => [
+																...prev,
+																{
+																	player: currentPlayer,
+																	board: selectedBoard,
+																	cell: cellIndex,
+																},
+															]);
+															if (
+																newBoards.every((board: any) =>
+																	(() => {
+																		const size = boardSize;
+																		for (let i = 0; i < size; i++) {
+																			const row = board.slice(
+																				i * size,
+																				(i + 1) * size,
+																			);
+																			const col = Array.from(
+																				{ length: size },
+																				(_: any, j: any) => board[i + j * size],
+																			);
+																			if (
+																				row.every((c: any) => c === "X") ||
+																				col.every((c: any) => c === "X")
+																			)
+																				return true;
+																		}
+																		const diag1 = Array.from(
+																			{ length: size },
+																			(_: any, i: any) => board[i * (size + 1)],
+																		);
+																		const diag2 = Array.from(
+																			{ length: size },
+																			(_: any, i: any) =>
+																				board[(i + 1) * (size - 1)],
+																		);
+																		return (
+																			diag1.every((c: any) => c === "X") ||
+																			diag2.every((c: any) => c === "X")
+																		);
+																	})(),
+																)
+															) {
+																const loser = currentPlayer;
+																const winnerNum = loser === 1 ? 2 : 1;
+																const winnerName =
+																	winnerNum === 1 ? player1Name : player2Name;
+																setWinner(winnerName);
+																openModal("winner");
+																if (!sfxMute) {
+																	if (!winAudio) {
+																		winAudio = new Audio("/sounds/wins.mp3");
+																	}
+																	winAudio.currentTime = 0;
+																	winAudio.play().catch(console.error);
+																}
+																return;
+															}
+															setCurrentPlayer((prev: any) =>
+																prev === 1 ? 2 : 1,
+															);
+														}}
+														disabled={!!cell || isDead}
+														style={baseStyle}>
+														{cell ? (
+															<div
+																style={{
+																	position: "absolute",
+																	inset: 0,
+																	display: "flex",
+																	alignItems: "center",
+																	justifyContent: "center",
+																	fontSize: "1.25rem",
+																	lineHeight: 1,
+																	fontFamily: '"Press Start 2P", monospace',
+																	color:
+																		cellOwner === 2 ? "#facc15" : "#c43c3c",
+																	textShadow:
+																		cellOwner === 2
+																			? "0 0 4px rgba(250, 204, 21, 0.6)"
+																			: "0 0 4px rgba(196, 60, 60, 0.6)",
+																}}>
+																{cell}
+															</div>
+														) : null}
+													</button>
+												);
+											},
+										)}
 									</div>
 								</div>
 							) : null}
@@ -738,31 +776,39 @@ const Game = () => {
 					className="md:flex">
 					{[
 						{ label: "TOTAL MOVES", value: moveLog.length },
-						{ label: "BOARDS ALIVE", value: boards.filter((b: any) => !(() => {
-															const size = boardSize;
-															for (let i = 0; i < size; i++) {
-																const row = b.slice(i * size, (i + 1) * size);
-																const col = Array.from({ length: size }, (_: any, j: any) =>
-																	b[i + j * size],
-																);
-																if (
-																	row.every((c: any) => c === "X") ||
-																	col.every((c: any) => c === "X")
-																)
-																	return true;
-															}
-															const diag1 = Array.from({ length: size }, (_: any, i: any) =>
-																b[i * (size + 1)],
-															);
-															const diag2 = Array.from(
-																{ length: size },
-																(_: any, i: any) => b[(i + 1) * (size - 1)],
-															);
-															return (
-																diag1.every((c: any) => c === "X") ||
-																diag2.every((c: any) => c === "X")
-															);
-														})()).length },
+						{
+							label: "BOARDS ALIVE",
+							value: boards.filter(
+								(b: any) =>
+									!(() => {
+										const size = boardSize;
+										for (let i = 0; i < size; i++) {
+											const row = b.slice(i * size, (i + 1) * size);
+											const col = Array.from(
+												{ length: size },
+												(_: any, j: any) => b[i + j * size],
+											);
+											if (
+												row.every((c: any) => c === "X") ||
+												col.every((c: any) => c === "X")
+											)
+												return true;
+										}
+										const diag1 = Array.from(
+											{ length: size },
+											(_: any, i: any) => b[i * (size + 1)],
+										);
+										const diag2 = Array.from(
+											{ length: size },
+											(_: any, i: any) => b[(i + 1) * (size - 1)],
+										);
+										return (
+											diag1.every((c: any) => c === "X") ||
+											diag2.every((c: any) => c === "X")
+										);
+									})(),
+							).length,
+						},
 						{ label: "TIME", value: formatTime(elapsed) },
 					].map((stat: any) => (
 						<div
@@ -878,12 +924,8 @@ const Game = () => {
 							Enter Player Names
 						</div>
 						{(() => {
-							const [player1, setPlayer1] = useState(
-								player1Name || "Player 1",
-							);
-							const [player2, setPlayer2] = useState(
-								player2Name || "Player 2",
-							);
+							const [player1, setPlayer1] = useState(player1Name || "Player 1");
+							const [player2, setPlayer2] = useState(player2Name || "Player 2");
 							return (
 								<>
 									<div
@@ -953,12 +995,19 @@ const Game = () => {
 										</div>
 									</div>
 									<div
-										style={{ display: "flex", justifyContent: "center", gap: "1rem" }}>
+										style={{
+											display: "flex",
+											justifyContent: "center",
+											gap: "1rem",
+										}}>
 										<button
 											type="button"
 											onClick={() => {
 												if (isOnCooldown.current) return;
-												if (player1.trim().toLowerCase() === player2.trim().toLowerCase()) {
+												if (
+													player1.trim().toLowerCase() ===
+													player2.trim().toLowerCase()
+												) {
 													toast(
 														"Player 1 and Player 2 cannot have the same name.",
 														{
@@ -1179,7 +1228,8 @@ const Game = () => {
 							textAlign: "center",
 						}}>
 						{(() => {
-							const [selectedBoards, setSelectedBoards] = useState(numberOfBoards);
+							const [selectedBoards, setSelectedBoards] =
+								useState(numberOfBoards);
 							const [selectedSize, setSelectedSize] = useState(boardSize);
 							return (
 								<>
@@ -1271,7 +1321,12 @@ const Game = () => {
 											</button>
 										))}
 									</div>
-									<div style={{ display: "flex", gap: "1rem", paddingTop: "0.5rem" }}>
+									<div
+										style={{
+											display: "flex",
+											gap: "1rem",
+											paddingTop: "0.5rem",
+										}}>
 										<button
 											type="button"
 											onClick={closeModal}
@@ -1299,7 +1354,9 @@ const Game = () => {
 												closeModal();
 												const initialBoards = Array(selectedBoards)
 													.fill(null)
-													.map(() => Array(selectedSize * selectedSize).fill(""));
+													.map(() =>
+														Array(selectedSize * selectedSize).fill(""),
+													);
 												setBoards(initialBoards);
 												setCurrentPlayer(1);
 												setHasMoveHappened(false);
@@ -1376,7 +1433,12 @@ const Game = () => {
 							}}>
 							Are you sure you want to reset the current game?
 						</div>
-						<div style={{ display: "flex", justifyContent: "center", gap: "1rem" }}>
+						<div
+							style={{
+								display: "flex",
+								justifyContent: "center",
+								gap: "1rem",
+							}}>
 							<button
 								type="button"
 								onClick={() => {
@@ -1474,7 +1536,12 @@ const Game = () => {
 							}}>
 							Are you sure you want to exit? Your current game will be lost.
 						</div>
-						<div style={{ display: "flex", justifyContent: "center", gap: "1rem" }}>
+						<div
+							style={{
+								display: "flex",
+								justifyContent: "center",
+								gap: "1rem",
+							}}>
 							<button
 								type="button"
 								onClick={() => {

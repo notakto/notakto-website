@@ -20,9 +20,9 @@ const LiveMode = () => {
 	const cooldownTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 	const isOnCooldown = useRef(false);
 
-	const canShowToast = useCallback(() => !isOnCooldown.current, []);
+	const _canShowToast = useCallback(() => !isOnCooldown.current, []);
 
-	const triggerToastCooldown = useCallback(() => {
+	const _triggerToastCooldown = useCallback(() => {
 		isOnCooldown.current = true;
 
 		if (cooldownTimer.current) {
@@ -74,15 +74,24 @@ const LiveMode = () => {
 		const size = boardSize;
 		for (let i = 0; i < size; i++) {
 			const row = board.slice(i * size, (i + 1) * size);
-			const col = Array.from({ length: size }, (_: any, j: number) => board[i + j * size]);
-			if (row.every((c: any) => c === "X") || col.every((c: any) => c === "X")) return true;
+			const col = Array.from(
+				{ length: size },
+				(_: any, j: number) => board[i + j * size],
+			);
+			if (row.every((c: any) => c === "X") || col.every((c: any) => c === "X"))
+				return true;
 		}
-		const diag1 = Array.from({ length: size }, (_: any, i: number) => board[i * (size + 1)]);
+		const diag1 = Array.from(
+			{ length: size },
+			(_: any, i: number) => board[i * (size + 1)],
+		);
 		const diag2 = Array.from(
 			{ length: size },
 			(_: any, i: number) => board[(i + 1) * (size - 1)],
 		);
-		return diag1.every((c: any) => c === "X") || diag2.every((c: any) => c === "X");
+		return (
+			diag1.every((c: any) => c === "X") || diag2.every((c: any) => c === "X")
+		);
 	};
 
 	useEffect(() => {
@@ -133,7 +142,7 @@ const LiveMode = () => {
 		return () => {
 			socket.disconnect();
 		};
-	}, []);
+	}, [resetCooldown]);
 
 	const handleMove = (boardIndex: number, cellIndex: number) => {
 		if (
@@ -421,33 +430,38 @@ const LiveMode = () => {
 												border: "3px solid #8b4513",
 												opacity: board.blocked ? 0.5 : 1,
 											}}>
-											{[...board.grid.entries()].map(([cellIndex, cell]: any) => (
-												<button
-													key={`cell-${cellIndex}-${cell}`}
-													type="button"
-													onClick={() => handleMove(boardIndex, cellIndex)}
-													disabled={!isMyTurn || board.blocked || cell !== ""}
-													style={{
-														width: "33.333%",
-														height: "33.333%",
-														border: "1px solid #2d2d2d",
-														display: "flex",
-														alignItems: "center",
-														justifyContent: "center",
-														backgroundColor: "#1a1a1a",
-														cursor: !isMyTurn || board.blocked || cell !== "" ? "not-allowed" : "pointer",
-														padding: 0,
-													}}>
-													<span
+											{[...board.grid.entries()].map(
+												([cellIndex, cell]: any) => (
+													<button
+														key={`cell-${cellIndex}-${cell}`}
+														type="button"
+														onClick={() => handleMove(boardIndex, cellIndex)}
+														disabled={!isMyTurn || board.blocked || cell !== ""}
 														style={{
-															fontSize: "24px",
-															color: "#ff6b6b",
-															fontFamily: "monospace",
+															width: "33.333%",
+															height: "33.333%",
+															border: "1px solid #2d2d2d",
+															display: "flex",
+															alignItems: "center",
+															justifyContent: "center",
+															backgroundColor: "#1a1a1a",
+															cursor:
+																!isMyTurn || board.blocked || cell !== ""
+																	? "not-allowed"
+																	: "pointer",
+															padding: 0,
 														}}>
-														{cell}
-													</span>
-												</button>
-											))}
+														<span
+															style={{
+																fontSize: "24px",
+																color: "#ff6b6b",
+																fontFamily: "monospace",
+															}}>
+															{cell}
+														</span>
+													</button>
+												),
+											)}
 										</div>
 									);
 								})}
