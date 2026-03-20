@@ -1,137 +1,98 @@
 "use client";
 
-const PLATFORMS = [
-	{ name: "WINDOWS", icon: "W", desc: "Windows 10+" },
-	{ name: "MACOS", icon: "M", desc: "macOS 12+" },
-	{ name: "LINUX", icon: "L", desc: "Ubuntu 20.04+" },
-	{ name: "ANDROID", icon: "A", desc: "Android 10+" },
-	{ name: "IOS", icon: "I", desc: "iOS 15+" },
-];
-
 export default function DownloadsPage() {
 	return (
-		<StaticPageLayout
-			maxWidth="md"
-			title="Downloads"
-			subtitle="GET NOTAKTO FOR YOUR PLATFORM">
-			<PlatformCardList platforms={PLATFORMS} />
-		</StaticPageLayout>
-	);
-}
-
-// ===== COMPONENTS =====
-function StaticPageLayout({
-	maxWidth,
-	title,
-	subtitle,
-	children,
-}: {
-	maxWidth: "sm" | "md" | "lg" | "xl" | "2xl" | "full";
-	title: string;
-	subtitle: string;
-	children: React.ReactNode;
-}) {
-	const maxWidthClass = {
-		sm: "max-w-sm",
-		md: "max-w-md",
-		lg: "max-w-lg",
-		xl: "max-w-xl",
-		"2xl": "max-w-2xl",
-		full: "max-w-full",
-	};
-
-	return (
-		<div
-			className={`flex-1 flex flex-col items-center justify-center px-6 py-12 ${maxWidthClass[maxWidth]} mx-auto`}>
-			<div className="text-center mb-8 animate-drop">
-				<h1 className="font-pixel text-primary pixel-text-shadow text-2xl md:text-3xl tracking-widest mb-4">
-					{title}
+		<div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: "100vh", backgroundColor: "#0e0e1a", padding: "16px" }}>
+			<div style={{ textAlign: "center", marginBottom: "8px" }}>
+				<h1 style={{ fontFamily: "monospace", fontSize: "32px", fontWeight: "bold", color: "#c43c3c", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "8px" }}>
+					Downloads
 				</h1>
-				<p className="font-pixel text-[8px] text-cream-dim tracking-wider">
-					{subtitle}
+				<p style={{ fontFamily: "monospace", fontSize: "12px", color: "#a89878", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "24px" }}>
+					Get Notakto for Your Platform
 				</p>
-				<div className="h-[3px] bg-border-pixel mt-6 mx-auto w-48 shadow-[0_1px_0_var(--color-bg0)]" />
 			</div>
-			{children}
-		</div>
-	);
-}
-
-function PixelBorder({
-	children,
-	className = "",
-}: {
-	children: React.ReactNode;
-	className?: string;
-}) {
-	return <div className={`pixel-border bg-panel ${className}`}>{children}</div>;
-}
-
-function PixelButton({
-	children,
-	disabled = false,
-	size = "md",
-	onClick,
-}: {
-	children: React.ReactNode;
-	disabled?: boolean;
-	size?: "sm" | "md" | "lg";
-	onClick?: () => void;
-}) {
-	const sizeClasses = {
-		sm: "px-4 py-2 text-[8px]",
-		md: "px-6 py-3 text-[10px]",
-		lg: "px-8 py-4 text-[12px]",
-	};
-
-	return (
-		<button
-			type="button"
-			disabled={disabled}
-			onClick={onClick}
-			className={`
-				font-pixel uppercase tracking-wider border-3 shadow-[3px_3px_0_var(--color-bg0)] cursor-pointer
-				${
-					disabled
-						? "bg-dead border-dead-border text-muted cursor-not-allowed shadow-none"
-						: "bg-primary hover:bg-primary-hover border-border-light text-cream"
-				}
-				${sizeClasses[size]}
-			`}>
-			{children}
-		</button>
-	);
-}
-
-function PlatformCardList({
-	platforms,
-}: {
-	platforms: { name: string; icon: string; desc: string }[];
-}) {
-	return (
-		<div className="grid gap-4 w-full">
-			{platforms.map((p) => (
-				<PixelBorder
-					key={p.name}
-					className="p-6 flex items-center justify-between">
-					<div className="flex items-center gap-4">
-						<span className="font-pixel text-xl text-accent w-8 text-center">
-							{p.icon}
-						</span>
+			<div style={{ display: "grid", gap: "16px", width: "100%", maxWidth: "768px" }}>
+				<div style={{ backgroundColor: "#1e1e32", border: "3px solid #3a3a56", boxShadow: "inset 0 0 0 1px #0e0e1a, 3px 3px 0 #0e0e1a", padding: "24px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+					<div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+						<span style={{ fontFamily: "monospace", fontSize: "20px", color: "#c8a040", width: "32px", textAlign: "center" }}>W</span>
 						<div>
-							<div className="font-pixel text-[10px] text-cream uppercase">
-								{p.name}
+							<div style={{ fontFamily: "monospace", fontSize: "10px", color: "#e4d8c0", textTransform: "uppercase", letterSpacing: "0.1em" }}>
+								Windows
 							</div>
-							<div className="font-pixel text-[7px] text-muted mt-1">
-								{p.desc}
+							<div style={{ fontFamily: "monospace", fontSize: "7px", color: "#a89878", marginTop: "4px" }}>
+								Windows 10+
 							</div>
 						</div>
 					</div>
-					<PixelButton disabled size="sm">
-						COMING SOON
-					</PixelButton>
-				</PixelBorder>
-			))}
+					<button type="button" style={{ backgroundColor: "#2a2a3a", color: "#6e6e88", padding: "8px 16px", fontSize: "8px", fontFamily: "monospace", textTransform: "uppercase", letterSpacing: "0.1em", border: "3px solid #3a4a4a", boxShadow: "3px 3px 0 #0e0e1a", cursor: "not-allowed" }} disabled>
+						Coming Soon
+					</button>
+				</div>
+				<div style={{ backgroundColor: "#1e1e32", border: "3px solid #3a3a56", boxShadow: "inset 0 0 0 1px #0e0e1a, 3px 3px 0 #0e0e1a", padding: "24px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+					<div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+						<span style={{ fontFamily: "monospace", fontSize: "20px", color: "#c8a040", width: "32px", textAlign: "center" }}>M</span>
+						<div>
+							<div style={{ fontFamily: "monospace", fontSize: "10px", color: "#e4d8c0", textTransform: "uppercase", letterSpacing: "0.1em" }}>
+								macOS
+							</div>
+							<div style={{ fontFamily: "monospace", fontSize: "7px", color: "#a89878", marginTop: "4px" }}>
+								macOS 12+
+							</div>
+						</div>
+					</div>
+					<button type="button" style={{ backgroundColor: "#2a2a3a", color: "#6e6e88", padding: "8px 16px", fontSize: "8px", fontFamily: "monospace", textTransform: "uppercase", letterSpacing: "0.1em", border: "3px solid #3a4a4a", boxShadow: "3px 3px 0 #0e0e1a", cursor: "not-allowed" }} disabled>
+						Coming Soon
+					</button>
+				</div>
+				<div style={{ backgroundColor: "#1e1e32", border: "3px solid #3a3a56", boxShadow: "inset 0 0 0 1px #0e0e1a, 3px 3px 0 #0e0e1a", padding: "24px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+					<div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+						<span style={{ fontFamily: "monospace", fontSize: "20px", color: "#c8a040", width: "32px", textAlign: "center" }}>L</span>
+						<div>
+							<div style={{ fontFamily: "monospace", fontSize: "10px", color: "#e4d8c0", textTransform: "uppercase", letterSpacing: "0.1em" }}>
+								Linux
+							</div>
+							<div style={{ fontFamily: "monospace", fontSize: "7px", color: "#a89878", marginTop: "4px" }}>
+								Ubuntu 20.04+
+							</div>
+						</div>
+					</div>
+					<button type="button" style={{ backgroundColor: "#2a2a3a", color: "#6e6e88", padding: "8px 16px", fontSize: "8px", fontFamily: "monospace", textTransform: "uppercase", letterSpacing: "0.1em", border: "3px solid #3a4a4a", boxShadow: "3px 3px 0 #0e0e1a", cursor: "not-allowed" }} disabled>
+						Coming Soon
+					</button>
+				</div>
+				<div style={{ backgroundColor: "#1e1e32", border: "3px solid #3a3a56", boxShadow: "inset 0 0 0 1px #0e0e1a, 3px 3px 0 #0e0e1a", padding: "24px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+					<div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+						<span style={{ fontFamily: "monospace", fontSize: "20px", color: "#c8a040", width: "32px", textAlign: "center" }}>A</span>
+						<div>
+							<div style={{ fontFamily: "monospace", fontSize: "10px", color: "#e4d8c0", textTransform: "uppercase", letterSpacing: "0.1em" }}>
+								Android
+							</div>
+							<div style={{ fontFamily: "monospace", fontSize: "7px", color: "#a89878", marginTop: "4px" }}>
+								Android 10+
+							</div>
+						</div>
+					</div>
+					<button type="button" style={{ backgroundColor: "#2a2a3a", color: "#6e6e88", padding: "8px 16px", fontSize: "8px", fontFamily: "monospace", textTransform: "uppercase", letterSpacing: "0.1em", border: "3px solid #3a4a4a", boxShadow: "3px 3px 0 #0e0e1a", cursor: "not-allowed" }} disabled>
+						Coming Soon
+					</button>
+				</div>
+				<div style={{ backgroundColor: "#1e1e32", border: "3px solid #3a3a56", boxShadow: "inset 0 0 0 1px #0e0e1a, 3px 3px 0 #0e0e1a", padding: "24px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+					<div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+						<span style={{ fontFamily: "monospace", fontSize: "20px", color: "#c8a040", width: "32px", textAlign: "center" }}>I</span>
+						<div>
+							<div style={{ fontFamily: "monospace", fontSize: "10px", color: "#e4d8c0", textTransform: "uppercase", letterSpacing: "0.1em" }}>
+								iOS
+							</div>
+							<div style={{ fontFamily: "monospace", fontSize: "7px", color: "#a89878", marginTop: "4px" }}>
+								iOS 15+
+							</div>
+						</div>
+					</div>
+					<button type="button" style={{ backgroundColor: "#2a2a3a", color: "#6e6e88", padding: "8px 16px", fontSize: "8px", fontFamily: "monospace", textTransform: "uppercase", letterSpacing: "0.1em", border: "3px solid #3a4a4a", boxShadow: "3px 3px 0 #0e0e1a", cursor: "not-allowed" }} disabled>
+						Coming Soon
+					</button>
+				</div>
+			</div>
 		</div>
 	);
 }
