@@ -1,10 +1,9 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useRef } from "react";
 import { toast } from "react-toastify";
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
 
 // ===== TYPES =====
 interface UserStore {

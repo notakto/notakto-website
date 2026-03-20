@@ -5,7 +5,6 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
 import { io } from "socket.io-client";
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
 
 // ============= CONSTANTS =============
 

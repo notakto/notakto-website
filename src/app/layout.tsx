@@ -202,7 +202,7 @@ function SidebarMargin({ children }: { children: React.ReactNode }) {
 
 // ===== CLIENT SIDE INIT =====
 function ClientSideInit(): null {
-	const setUser = useUser(
+	const _setUser = useUser(
 		(state): ((newUser: { uid: string } | null) => void) => state.setUser,
 	);
 	const setAuthReady = useUser(
