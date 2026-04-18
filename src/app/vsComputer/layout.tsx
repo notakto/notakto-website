@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import ClientSideInit from "@/app/ClientSideInit";
+import ClientSideInit from "@/app/providers/ClientSideInit";
 
 export const metadata = {
 	title: "vsComputer | Notakto",
@@ -16,6 +16,7 @@ export default function vsComputerLayout({
 		<>
 			{children}
 			<ClientSideInit />
+			{/* Better to put this in global layout.tsx and access it from there */}
 		</>
 	);
 }
