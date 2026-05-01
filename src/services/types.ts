@@ -97,6 +97,10 @@ export interface XPStore {
 }
 
 // COMPONENT PROP INTERFACES
+export interface ShortcutStore {
+	shortcutsEnabled: boolean;
+	toggleShortcuts: () => void;
+}
 
 // Base component props
 export interface BaseComponentProps {
