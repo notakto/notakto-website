@@ -55,3 +55,16 @@ export const useProfile = create<ProfileStore>()(
 		{ name: "profile-settings" },
 	),
 );
+
+import type { ShortcutStore } from "@/services/types";
+
+export const useShortcutStore = create<ShortcutStore>()(
+	persist(
+		(set) => ({
+			shortcutsEnabled: true,
+			toggleShortcuts: () =>
+				set((state) => ({ shortcutsEnabled: !state.shortcutsEnabled })),
+		}),
+		{ name: "shortcut-settings" },
+	),
+);
