@@ -1,7 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 import Menu from "@/app/Menu";
-import type { UserStore } from "@/services/types";
 
 // Mock dependencies used in Menu
 vi.mock("next/navigation", () => ({
@@ -15,8 +14,13 @@ vi.mock("@/services/firebase", () => ({
 }));
 
 vi.mock("@/services/store", () => ({
-	useUser: <T,>(selector: (state: UserStore) => T) =>
-		selector({ user: null, setUser: vi.fn() }),
+	useUser: <T,>(selector: (state: any) => T) =>
+		selector({
+			user: null,
+			setUser: vi.fn(),
+			authReady: false,
+			setAuthReady: vi.fn(),
+		} as any),
 	useSound: () => ({
 		bgMute: false,
 		bgVolume: 0.5,
@@ -44,6 +48,18 @@ vi.mock("@/services/store", () => ({
 		xp: 1000,
 		setXP: vi.fn(),
 	}),
+	useShortcutStore: <T,>(
+		selector?: (state: {
+			shortcutsEnabled: boolean;
+			toggleShortcuts: () => void;
+		}) => T,
+	) => {
+		const state = {
+			shortcutsEnabled: true,
+			toggleShortcuts: vi.fn(),
+		};
+		return selector ? selector(state) : (state as unknown as T);
+	},
 }));
 
 vi.mock("@/components/hooks/useToastCooldown", () => ({
