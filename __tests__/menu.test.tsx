@@ -1,6 +1,5 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
-import type { UserStore } from "@/services/types";
 
 // Required mocks
 vi.mock("next/navigation", () => ({
@@ -20,7 +19,7 @@ vi.mock("@/services/store", () => ({
 			setUser: vi.fn(),
 			authReady: false,
 			setAuthReady: vi.fn(),
-		}),
+		} as any),
 	useSound: () => ({
 		bgMute: false,
 		bgVolume: 0.5,
@@ -48,12 +47,17 @@ vi.mock("@/services/store", () => ({
 		xp: 1000,
 		setXP: vi.fn(),
 	}),
-	useShortcutStore: (selector?: (state: any) => any) => {
+	useShortcutStore: <T,>(
+		selector?: (state: {
+			shortcutsEnabled: boolean;
+			toggleShortcuts: () => void;
+		}) => T,
+	) => {
 		const state = {
 			shortcutsEnabled: true,
 			toggleShortcuts: vi.fn(),
 		};
-		return selector ? selector(state) : state;
+		return selector ? selector(state) : (state as unknown as T);
 	},
 }));
 
