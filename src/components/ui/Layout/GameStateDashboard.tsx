@@ -1,8 +1,8 @@
 "use client";
 import type React from "react";
-import { GameBackground } from "@/jjj/GameBackground";
-import { ShortcutToggle } from "@/jjj/ShortcutToggle";
-import type { DashboardProps } from "@/jjj/types";
+import { GameBackground } from "@/components/ui/Background/GameBackground";
+import { ShortcutToggle } from "@/components/ui/Buttons/ShortcutToggle";
+import type { DashboardProps } from "@/services/types";
 
 /**
  * GameStateDashboard Component

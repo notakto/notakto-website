@@ -102,6 +102,26 @@ export interface ShortcutStore {
 	toggleShortcuts: () => void;
 }
 
+export interface DashboardProps {
+	children?: ReactNode;
+}
+
+export interface ToggleProps {
+	enabled: boolean;
+	onToggle: () => void;
+}
+
+export interface BackgroundParticle {
+	id: number;
+	char: string;
+	x: number;
+	y: number;
+	size: number;
+	opacity: number;
+	speedX: number;
+	speedY: number;
+}
+
 // Base component props
 export interface BaseComponentProps {
 	children?: ReactNode;

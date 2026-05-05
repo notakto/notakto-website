@@ -15,8 +15,13 @@ vi.mock("@/services/firebase", () => ({
 }));
 
 vi.mock("@/services/store", () => ({
-	useUser: <T,>(selector: (state: UserStore) => T) =>
-		selector({ user: null, setUser: vi.fn() }),
+	useUser: <T,>(selector: (state: any) => T) =>
+		selector({
+			user: null,
+			setUser: vi.fn(),
+			authReady: false,
+			setAuthReady: vi.fn(),
+		}),
 	useSound: () => ({
 		bgMute: false,
 		bgVolume: 0.5,
@@ -44,6 +49,13 @@ vi.mock("@/services/store", () => ({
 		xp: 1000,
 		setXP: vi.fn(),
 	}),
+	useShortcutStore: (selector?: (state: any) => any) => {
+		const state = {
+			shortcutsEnabled: true,
+			toggleShortcuts: vi.fn(),
+		};
+		return selector ? selector(state) : state;
+	},
 }));
 
 vi.mock("@/components/hooks/useToastCooldown", () => ({

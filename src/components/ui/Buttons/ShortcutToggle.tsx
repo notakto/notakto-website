@@ -25,14 +25,14 @@ export const ShortcutToggle: React.FC = () => {
 				className={`
                     relative w-14 h-7 rounded-full p-1 transition-all duration-500
                     backdrop-blur-md border border-white/20
-                    ${shortcutsEnabled ? "bg-red-600/40" : "bg-white/10"}
+                    ${shortcutsEnabled ? "bg-emerald-500/40" : "bg-white/10"}
                 `}
 				style={{
 					backgroundColor: shortcutsEnabled
-						? "rgba(220, 38, 38, 0.4)"
+						? "rgba(16, 185, 129, 0.4)"
 						: "rgba(255, 255, 255, 0.1)",
 					boxShadow: shortcutsEnabled
-						? "0 0 15px rgba(220, 38, 38, 0.3)"
+						? "0 0 15px rgba(16, 185, 129, 0.3)"
 						: "none",
 				}}>
 				<motion.div
@@ -40,7 +40,7 @@ export const ShortcutToggle: React.FC = () => {
 					transition={{ type: "spring", stiffness: 500, damping: 30 }}
 					className="w-5 h-5 bg-white rounded-full shadow-lg flex items-center justify-center overflow-hidden">
 					<div
-						className={`w-2 h-2 rounded-full ${shortcutsEnabled ? "bg-red-600" : "bg-gray-400"}`}
+						className={`w-2 h-2 rounded-full ${shortcutsEnabled ? "bg-emerald-500" : "bg-gray-400"}`}
 					/>
 				</motion.div>
 			</motion.button>
