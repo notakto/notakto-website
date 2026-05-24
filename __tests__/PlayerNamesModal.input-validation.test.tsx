@@ -1,7 +1,7 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import PlayerNamesModal from "@/modals/PlayerNamesModal";
-import type { PlayerNamesModalProps } from "@/services/types";
+import PlayerNamesModal from "@/widgets/modals/ui/PlayerNamesModal";
+import type { PlayerNamesModalProps } from "@/widgets/ui/types";
 
 //  mocking the toast library so tests don't break
 vi.mock("react-toastify", () => ({
@@ -10,7 +10,7 @@ vi.mock("react-toastify", () => ({
 	}),
 }));
 
-vi.mock("@/components/hooks/useToastCooldown", () => ({
+vi.mock("@/features/show-toast-with-cooldown/model/useToastCooldown", () => ({
 	useToastCooldown: () => ({
 		canShowToast: () => true,
 		triggerToastCooldown: vi.fn(),
@@ -18,7 +18,7 @@ vi.mock("@/components/hooks/useToastCooldown", () => ({
 	}),
 }));
 
-vi.mock("@/constants/toast", () => ({
+vi.mock("@/features/show-toast-with-cooldown/model/toast", () => ({
 	TOAST_DURATION: 5000,
 	TOAST_IDS: {
 		PlayerNames: {

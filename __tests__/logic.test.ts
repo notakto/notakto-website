@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { isBoardDead } from "@/services/logic";
-import type { BoardState } from "@/services/types";
+import { isBoardDead } from "@/entities/game/lib/rules";
+import type { BoardState } from "@/entities/game/model/types";
 
 describe("isBoardDead", () => {
 	it("detects dead board on 3x3 row", () => {

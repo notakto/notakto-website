@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
-import type { UserStore } from "@/services/types";
+import type { UserStore } from "@/entities/game/model/types";
 
 // Required mocks
 vi.mock("next/navigation", () => ({
@@ -8,12 +8,12 @@ vi.mock("next/navigation", () => ({
 	usePathname: () => "/",
 }));
 
-vi.mock("@/services/firebase", () => ({
+vi.mock("@/features/authenticate-user/api/firebase", () => ({
 	signInWithGoogle: vi.fn(),
 	signOutUser: vi.fn(),
 }));
 
-vi.mock("@/services/store", () => ({
+vi.mock("@/features/app-state/model/stores", () => ({
 	useUser: <T,>(selector: (state: UserStore) => T) =>
 		selector({
 			user: null,
@@ -50,7 +50,7 @@ vi.mock("@/services/store", () => ({
 	}),
 }));
 
-vi.mock("@/components/hooks/useToastCooldown", () => ({
+vi.mock("@/features/show-toast-with-cooldown/model/useToastCooldown", () => ({
 	useToastCooldown: () => ({
 		canShowToast: () => true,
 		triggerToastCooldown: vi.fn(),
@@ -58,7 +58,7 @@ vi.mock("@/components/hooks/useToastCooldown", () => ({
 	}),
 }));
 
-import Menu from "@/app/Menu";
+import Menu from "@/widgets/home-menu/ui/HomeMenu";
 
 describe("Menu game modes", () => {
 	it("renders all expected game mode cards", () => {

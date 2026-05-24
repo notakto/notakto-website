@@ -1,41 +1,58 @@
 # Project structure
 
-The project's `src` folder contains the following modules:
+The `src` folder uses a custom Feature Slicing Design layout:
 
 ```text
 src/
 ├── app/
-│   ├── api/
-│   │   ├── create-payment/
-│   │   │   └── route.ts
-│   │   └── order-status/[id]/
-│   │       └── route.ts
-│   ├── liveMatch/
-│   │   └── page.tsx
-│   ├── vsComputer/
-│   │   ├── Board.tsx
-│   │   ├── Cell.tsx
-│   │   └── page.tsx
-│   ├── vsPlayer/
-│   │   ├── Board.tsx
-│   │   ├── Cell.tsx
-│   │   └── page.tsx
+│   ├── api/                 # Next.js route handlers
+│   ├── downloads/           # Thin App Router route
+│   ├── liveMatch/           # Thin WIP route
+│   ├── vsComputer/          # Thin App Router route
+│   ├── vsPlayer/            # Thin App Router route
 │   ├── globals.css
 │   ├── layout.tsx
-│   ├── Menu.tsx
+│   ├── not-found.tsx
 │   └── page.tsx
-├── modals/
-│   ├── BoardConfigModal.tsx
-│   ├── DifficultyModal.tsx
-│   ├── PlayerNamesModal.tsx
-│   ├── TutorialModal.tsx
-│   └── WinnerModal.tsx
-|── services/
-    ├── ai.ts
-    ├── economyUtils.ts
-    ├── firebase.ts
-    ├── logic.ts
-    ├── sounds.ts
-    ├── store.ts
-    └── types.ts
+├── widgets/                 # Visible UI surfaces
+│   ├── app-shell/
+│   ├── downloads-platform-list/
+│   ├── game-screen/
+│   ├── global-modal-layer/
+│   ├── home-menu/
+│   ├── live-match/
+│   ├── modals/
+│   ├── not-found-surface/
+│   ├── sidebar-navigation/
+│   ├── splash-screen/
+│   ├── toast-surface/
+│   └── ui/
+├── features/                # Workflows, side effects, stores, mutations
+│   ├── app-state/
+│   ├── authenticate-user/
+│   ├── backend-game/
+│   ├── computer-match/
+│   ├── dismiss-splash/
+│   ├── initialize-client-session/
+│   ├── local-match/
+│   ├── manage-global-modal/
+│   ├── manage-sidebar-state/
+│   ├── navigate-game-mode/
+│   ├── payment/
+│   ├── play-game-audio/
+│   ├── show-toast-with-cooldown/
+│   └── use-keyboard-shortcuts/
+├── entities/                # Domain types, API schemas, rules, static models
+│   ├── download/
+│   ├── game/
+│   └── shortcut/
+└── shared/                  # Generic reusable UI primitives, styles, utilities
+    ├── lib/
+    ├── styles/
+    └── ui/
 ```
+
+`app` composes routes only. `widgets` may import from `features`, `entities`,
+and `shared`; `features` may import from `entities` and `shared`; `entities`
+may import only from other entities or generic dependencies; `shared` stays
+Notakto-agnostic.

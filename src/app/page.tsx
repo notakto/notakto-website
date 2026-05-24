@@ -1,11 +1,5 @@
-"use client";
-import Menu from "@/app/Menu";
-import { MenuLayout } from "@/components/ui/Containers/Menu/MenuLayout";
+import Menu from "@/widgets/home-menu/ui/HomeMenu";
 
 export default function Home() {
-	return (
-		<MenuLayout>
-			<Menu />
-		</MenuLayout>
-	);
+	return <Menu />;
 }

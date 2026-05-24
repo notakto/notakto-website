@@ -1,0 +1,9 @@
+import type { BoardWrapperProps } from "@/widgets/ui/types";
+
+export default function BoardWrapper({ children }: BoardWrapperProps) {
+	return (
+		<div className="w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.3%-1.5rem)] max-w-[400px]">
+			{children}
+		</div>
+	);
+}

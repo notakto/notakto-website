@@ -2,7 +2,7 @@ import { act, render, screen } from "@testing-library/react";
 import { toast } from "react-toastify";
 import { afterEach, describe, expect, it } from "vitest";
 
-import { CustomToastContainer } from "@/components/ui/Toasts/CustomToastContainer";
+import { CustomToastContainer } from "@/widgets/toast-surface/ui/ToastSurface";
 
 describe("Toast Tests", () => {
 	afterEach(() => {

@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
-import Menu from "@/app/Menu";
-import type { UserStore } from "@/services/types";
+import type { UserStore } from "@/entities/game/model/types";
+import Menu from "@/widgets/home-menu/ui/HomeMenu";
 
 // Mock dependencies used in Menu
 vi.mock("next/navigation", () => ({
@@ -9,12 +9,12 @@ vi.mock("next/navigation", () => ({
 	usePathname: () => "/",
 }));
 
-vi.mock("@/services/firebase", () => ({
+vi.mock("@/features/authenticate-user/api/firebase", () => ({
 	signInWithGoogle: vi.fn(),
 	signOutUser: vi.fn(),
 }));
 
-vi.mock("@/services/store", () => ({
+vi.mock("@/features/app-state/model/stores", () => ({
 	useUser: <T,>(selector: (state: UserStore) => T) =>
 		selector({
 			user: null,
@@ -51,7 +51,7 @@ vi.mock("@/services/store", () => ({
 	}),
 }));
 
-vi.mock("@/components/hooks/useToastCooldown", () => ({
+vi.mock("@/features/show-toast-with-cooldown/model/useToastCooldown", () => ({
 	useToastCooldown: () => ({
 		canShowToast: () => true,
 		triggerToastCooldown: vi.fn(),

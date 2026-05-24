@@ -1,8 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
 @import "tailwindcss";
-@import "../components/ui/styles/animations.css";
-@import "../components/ui/styles/pixel-utilities.css";
-@import "../components/ui/styles/layout-utilities.css";
+@import "../shared/styles/animations.css";
+@import "../shared/styles/pixel-utilities.css";
+@import "../shared/styles/layout-utilities.css";
 
 @theme {
 	/* Backgrounds */

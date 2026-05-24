@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import ClientSideInit from "@/app/ClientSideInit";
+import InitializeClientSession from "@/features/initialize-client-session/ui/InitializeClientSession";
 
 export const metadata = {
 	title: "vsComputer | Notakto",
@@ -15,7 +15,7 @@ export default function vsComputerLayout({
 	return (
 		<>
 			{children}
-			<ClientSideInit />
+			<InitializeClientSession />
 		</>
 	);
 }
