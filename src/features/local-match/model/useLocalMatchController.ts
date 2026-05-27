@@ -46,10 +46,9 @@ export function useLocalMatchController() {
 	const { sfxMute } = useSound();
 	const router = useRouter();
 
-	// biome-ignore lint/correctness/useExhaustiveDependencies: intentionally run only on mount
 	useEffect(() => {
 		openModal("names");
-	}, []);
+	}, [openModal]);
 
 	useEffect(() => {
 		if (!gameStarted) return;

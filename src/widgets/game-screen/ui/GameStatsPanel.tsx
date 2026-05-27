@@ -21,8 +21,8 @@ export default function GameStatsPanel({
 }: GameStatsPanelProps) {
 	const logEndRef = useRef<HTMLDivElement>(null);
 
-	// biome-ignore lint/correctness/useExhaustiveDependencies: scroll when new moves are added
 	useEffect(() => {
+		if (moveLog.length === 0) return;
 		logEndRef.current?.scrollIntoView({ behavior: "smooth" });
 	}, [moveLog.length]);
 
