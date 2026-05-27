@@ -5,57 +5,21 @@ import type {
 	BoardSize,
 	BoardState,
 	DifficultyLevel,
-	GameMode,
 } from "@/entities/game/model/types";
 import type { Shortcut } from "@/entities/shortcut/model/types";
 
-export interface BaseComponentProps {
+interface BaseComponentProps {
 	children?: ReactNode;
 	className?: string;
 }
 
-export interface BaseButtonProps
-	extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface BaseButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 	children?: ReactNode;
 }
 
-export interface BaseModalProps {
+interface BaseModalProps {
 	visible: boolean;
 	onClose?: () => void;
-}
-
-export interface GameBoardProps {
-	boards: Array<Array<string>>;
-	makeMove: (boardIndex: number, cellIndex: number) => void;
-	isBoardDead: (board: Array<string>) => boolean;
-	boardSize: number;
-}
-
-export interface GameProps {
-	currentPlayer: string;
-	boards: string[][];
-	makeMove: (boardIndex: number, cellIndex: number) => void;
-	isBoardDead: (board: string[]) => boolean;
-	undoMove: () => void;
-	resetGame: () => void;
-	exitToMenu: () => void;
-	gameMode: GameMode;
-	numberOfBoards: number;
-	onBoardConfigPress: () => void;
-	difficulty?: number;
-	onDifficultyPress?: () => void;
-	boardSize: number;
-	onResetNames: () => void;
-	onUndo: () => void;
-	onSkip: () => void;
-	coins: number;
-	experience: number;
-	canUndo: boolean;
-	canSkip: boolean;
-	gameHistoryLength: number;
-	toggleMute: () => void;
-	isMuted: boolean;
-	onAddCoins?: (amount: number) => void;
 }
 
 export interface CellProps {
@@ -77,20 +41,6 @@ export interface BoardProps {
 	boardSize: number;
 	cellOwners?: Record<number, 1 | 2>;
 	lastMoveCell?: number;
-}
-
-export interface MenuProps {
-	startGame: (mode: "vsPlayer" | "vsComputer" | "liveMatch") => void;
-	showTutorial: () => void;
-	signed: boolean;
-	signIn: () => void;
-	signOut: () => void;
-	toggleMute: () => void;
-	isMuted: boolean;
-}
-
-export interface LiveProps {
-	onClose: () => void;
 }
 
 export interface WinnerModalProps extends BaseModalProps {
@@ -123,14 +73,6 @@ export interface SoundConfigModalProps extends BaseModalProps {}
 
 export interface ShortcutModalProps extends BaseModalProps {}
 
-export interface GameLayoutProps extends BaseComponentProps {}
-
-export interface ModalOverlayProps extends BaseComponentProps {}
-
-export interface BoardContainerProps extends BaseComponentProps {}
-
-export interface BoardWrapperProps extends BaseComponentProps {}
-
 export interface SingleBoardContainerProps extends BaseComponentProps {
 	isDead: boolean;
 }
@@ -138,20 +80,6 @@ export interface SingleBoardContainerProps extends BaseComponentProps {
 export interface BoardGridProps extends BaseComponentProps {
 	boardSize: number;
 }
-
-export interface GameBoardAreaProps extends BaseComponentProps {}
-
-export interface PlayerStatusContainerProps extends BaseComponentProps {}
-
-export interface StatContainerProps extends BaseComponentProps {}
-
-export interface MenuContainerProps extends BaseComponentProps {}
-
-export interface MenuButtonContainerProps extends BaseComponentProps {}
-
-export interface SettingContainerProps extends BaseComponentProps {}
-
-export interface SettingOverlayProps extends BaseComponentProps {}
 
 export interface TutorialContainerProps extends BaseComponentProps {}
 
@@ -202,14 +130,6 @@ export interface CellValueDisplayProps {
 	owner?: 1 | 2;
 }
 
-export interface SettingButtonProps extends BaseButtonProps {
-	loading?: boolean;
-}
-
-export interface SettingBarProps extends BaseButtonProps {
-	text: string;
-}
-
 export interface ExitBarProps extends BaseButtonProps {
 	text: string;
 }
@@ -226,11 +146,6 @@ export interface BoardConfigButtonProps extends BaseButtonProps {
 
 export interface DifficultyActionProps extends BaseButtonProps {
 	variant: "level" | "cancel";
-}
-
-export interface PlayerTurnTitleProps {
-	variant?: "normal" | "live";
-	text: string;
 }
 
 export interface SoundConfigLabelProps {
@@ -250,10 +165,3 @@ export interface CustomToastContainerProps
 	extends Omit<ToastContainerProps, "toastClassName"> {
 	toastClassName?: ToastContainerProps["toastClassName"];
 }
-
-export type MenuModalType =
-	| "soundConfig"
-	| "shortcut"
-	| "tutorial"
-	| "profile"
-	| null;

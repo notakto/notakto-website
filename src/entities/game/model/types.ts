@@ -24,10 +24,6 @@ export interface MoveLogEntry {
 
 // API RESPONSE INTERFACES
 
-export interface BaseApiResponse {
-	success: boolean;
-}
-
 export interface ErrorResponse {
 	success: false;
 	error: string;

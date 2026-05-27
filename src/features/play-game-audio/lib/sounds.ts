@@ -49,11 +49,6 @@ export const playBackgroundMusic = () => {
 	backgroundAudio.play().catch((err) => console.log("BG sound failed:", err));
 };
 
-export const pauseBackgroundMusic = () => {
-	if (!backgroundAudio) return;
-	backgroundAudio.pause();
-};
-
 export const setBackgroundVolume = (volume: number) => {
 	if (!backgroundAudio) return;
 	backgroundAudio.volume = volume;

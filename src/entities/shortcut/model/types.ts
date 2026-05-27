@@ -3,5 +3,5 @@ export interface Shortcut {
 	action: string;
 }
 
-export type ShortcutHandler = (event: KeyboardEvent) => void;
+type ShortcutHandler = (event: KeyboardEvent) => void;
 export type ShortcutMap = Record<string, ShortcutHandler>;

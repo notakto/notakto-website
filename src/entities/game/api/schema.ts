@@ -23,8 +23,6 @@ export const CreateGameResponseSchema = z.object({
 	createdAt: z.string(),
 });
 
-export type CreateGameResponse = z.infer<typeof CreateGameResponseSchema>;
-
 export const MakeMoveResponseSchema = z.object({
 	boards: z.array(z.number().int()),
 	isAiMove: z.array(z.boolean()).optional(),
@@ -40,8 +38,6 @@ export const QuitGameResponseSchema = z.object({
 	success: z.boolean(),
 	error: z.string().optional(),
 });
-
-export type QuitGameResponse = z.infer<typeof QuitGameResponseSchema>;
 
 export const GetWalletResponseSchema = z.object({
 	coins: z.number().int(),

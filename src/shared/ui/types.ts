@@ -1,13 +1,8 @@
-import type { ButtonHTMLAttributes, ReactNode } from "react";
+import type { ReactNode } from "react";
 
-export interface BaseComponentProps {
+interface BaseComponentProps {
 	children?: ReactNode;
 	className?: string;
-}
-
-export interface BaseButtonProps
-	extends ButtonHTMLAttributes<HTMLButtonElement> {
-	children?: ReactNode;
 }
 
 export interface GameLayoutProps extends BaseComponentProps {}

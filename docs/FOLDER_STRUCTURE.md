@@ -38,7 +38,6 @@ src/
 │   ├── manage-global-modal/
 │   ├── manage-sidebar-state/
 │   ├── navigate-game-mode/
-│   ├── payment/
 │   ├── play-game-audio/
 │   ├── show-toast-with-cooldown/
 │   └── use-keyboard-shortcuts/
