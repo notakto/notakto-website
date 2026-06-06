@@ -1,5 +1,10 @@
 "use client";
-import type { ModalOverlayProps } from "@/shared/ui/types";
+
+import type { ReactNode } from "react";
+
+interface ModalOverlayProps {
+	children?: ReactNode;
+}
 
 export default function ModalOverlay({ children }: ModalOverlayProps) {
 	return (

@@ -1,8 +1,8 @@
 "use client";
 import type { DifficultyLevel } from "@/entities/game/model/types";
-import ModalOverlay from "@/shared/ui/overlays/ModalOverlay";
 import { DifficultyActionButton } from "@/widgets/modals/ui/buttons/DifficultyActionButton";
 import DifficultyContainer from "@/widgets/modals/ui/containers/Difficulty/DifficultyContainer";
+import ModalOverlay from "@/widgets/modals/ui/ModalOverlay";
 import DifficultyTitle from "@/widgets/modals/ui/title/DifficultyTitle";
 import type { DifficultyModalProps } from "@/widgets/ui/types";
 

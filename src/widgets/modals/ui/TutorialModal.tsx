@@ -1,7 +1,7 @@
-import ModalOverlay from "@/shared/ui/overlays/ModalOverlay";
 import { TutorialButton } from "@/widgets/modals/ui/buttons/TutorialButton";
 import TutorialContainer from "@/widgets/modals/ui/containers/Tutorial/TutorialContainer";
 import TutorialList from "@/widgets/modals/ui/list/TutorialList";
+import ModalOverlay from "@/widgets/modals/ui/ModalOverlay";
 import TutorialTitle from "@/widgets/modals/ui/title/TutorialTitle";
 import type { TutorialModalProps } from "@/widgets/ui/types";
 

@@ -1,4 +1,4 @@
-import ModalOverlay from "@/shared/ui/overlays/ModalOverlay";
+import ModalOverlay from "@/widgets/modals/ui/ModalOverlay";
 
 interface ConfirmationModalProps {
 	visible: boolean;

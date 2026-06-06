@@ -10,7 +10,7 @@ import {
 } from "@/features/show-toast-with-cooldown/model/toast";
 import { useToastCooldown } from "@/features/show-toast-with-cooldown/model/useToastCooldown";
 import Spinner from "@/shared/ui/feedback/Spinner";
-import GameLayout from "@/shared/ui/layout/GameLayout";
+import GameLayout from "@/widgets/game-layout/ui/GameLayout";
 import GameTopBar, { GameStatusBar } from "@/widgets/game-screen/ui/GameTopBar";
 import BoardCell from "@/widgets/live-match/ui/BoardCell";
 import BoardGridContainer from "@/widgets/live-match/ui/BoardGridContainer";

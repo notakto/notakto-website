@@ -1,4 +1,8 @@
-import type { GameLayoutProps } from "@/shared/ui/types";
+import type { ReactNode } from "react";
+
+interface GameLayoutProps {
+	children?: ReactNode;
+}
 
 export default function GameLayout({ children }: GameLayoutProps) {
 	return (

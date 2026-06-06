@@ -2,10 +2,10 @@
 
 import { usePathname } from "next/navigation";
 import { pageShortcuts } from "@/entities/shortcut/model/pageShortcuts";
-import ModalOverlay from "@/shared/ui/overlays/ModalOverlay";
 import { ShortcutButton } from "@/widgets/modals/ui/buttons/ShortcutButton";
 import ShortcutContainer from "@/widgets/modals/ui/containers/Shortcut/ShortcutContainer";
 import ShortcutList from "@/widgets/modals/ui/list/ShortcutList";
+import ModalOverlay from "@/widgets/modals/ui/ModalOverlay";
 import ShortcutTitle from "@/widgets/modals/ui/title/ShortcutTitle";
 import type { ShortcutModalProps } from "@/widgets/ui/types";
 

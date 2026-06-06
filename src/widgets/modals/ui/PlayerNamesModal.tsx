@@ -6,11 +6,11 @@ import {
 	TOAST_IDS,
 } from "@/features/show-toast-with-cooldown/model/toast";
 import { useToastCooldown } from "@/features/show-toast-with-cooldown/model/useToastCooldown";
-import ModalOverlay from "@/shared/ui/overlays/ModalOverlay";
 import { PlayerStartButton } from "@/widgets/modals/ui/buttons/PlayerStartButton";
 import PlayerNameFormContainer from "@/widgets/modals/ui/containers/PlayerNameModal/PlayerNameFormContainer";
 import PlayerNameModalContainer from "@/widgets/modals/ui/containers/PlayerNameModal/PlayerNameModalContainer";
 import { PlayerInput } from "@/widgets/modals/ui/inputs/PlayerInput";
+import ModalOverlay from "@/widgets/modals/ui/ModalOverlay";
 import PlayerNameModalTitle from "@/widgets/modals/ui/title/PlayerNameModalTitle";
 import type { PlayerNamesModalProps } from "@/widgets/ui/types";
 

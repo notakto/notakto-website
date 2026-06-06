@@ -16,6 +16,7 @@ src/
 │   └── page.tsx
 ├── widgets/                 # Visible UI surfaces
 │   ├── downloads-platform-list/
+│   ├── game-layout/
 │   ├── game-screen/
 │   ├── global-modal-layer/
 │   ├── home-menu/

@@ -1,12 +1,12 @@
 "use client";
 import { useSound } from "@/features/app-state/model/stores";
-import ModalOverlay from "@/shared/ui/overlays/ModalOverlay";
 import { SoundConfigButton } from "@/widgets/modals/ui/buttons/SoundConfigButton";
 import { SoundMuteButton } from "@/widgets/modals/ui/buttons/SoundMuteButton";
 import SoundConfigContainer from "@/widgets/modals/ui/containers/SoundConfig/SoundConfigContainer";
 import SoundConfigControls from "@/widgets/modals/ui/containers/SoundConfig/SoundConfigControls";
 import SoundConfigSection from "@/widgets/modals/ui/containers/SoundConfig/SoundConfigSection";
 import { SoundConfigSlider } from "@/widgets/modals/ui/inputs/SoundConfigSlider";
+import ModalOverlay from "@/widgets/modals/ui/ModalOverlay";
 import SoundConfigLabel from "@/widgets/modals/ui/title/SoundConfigLabel";
 import SoundConfigTitle from "@/widgets/modals/ui/title/SoundConfigTitle";
 import type { SoundConfigModalProps } from "@/widgets/ui/types";

@@ -1,7 +1,7 @@
-import ModalOverlay from "@/shared/ui/overlays/ModalOverlay";
 import { WinnerButton } from "@/widgets/modals/ui/buttons/WinnerButton";
 import WinnerAction from "@/widgets/modals/ui/containers/WinnerModal/WinnerAction";
 import WinnerContainer from "@/widgets/modals/ui/containers/WinnerModal/WinnerContainer";
+import ModalOverlay from "@/widgets/modals/ui/ModalOverlay";
 import WinnerMessage from "@/widgets/modals/ui/title/WinnerMessage";
 import WinnerTitle from "@/widgets/modals/ui/title/WinnerTitle";
 import type { WinnerModalProps } from "@/widgets/ui/types";

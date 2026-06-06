@@ -8,7 +8,7 @@ import type {
 	GameMode,
 	MoveLogEntry,
 } from "@/entities/game/model/types";
-import GameLayout from "@/shared/ui/layout/GameLayout";
+import GameLayout from "@/widgets/game-layout/ui/GameLayout";
 import BoardDisplay from "@/widgets/game-screen/ui/BoardDisplay";
 import BoardPreviewGrid from "@/widgets/game-screen/ui/BoardPreviewGrid";
 import BoardSelector from "@/widgets/game-screen/ui/BoardSelector";

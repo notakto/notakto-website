@@ -1,13 +1,13 @@
 "use client";
 import { useState } from "react";
 import type { BoardNumber, BoardSize } from "@/entities/game/model/types";
-import ModalOverlay from "@/shared/ui/overlays/ModalOverlay";
 import { BoardActionButton } from "@/widgets/modals/ui/buttons/BoardActionButton";
 // Standardise components
 import { BoardConfigButton } from "@/widgets/modals/ui/buttons/BoardConfigButton";
 import BoardConfigAction from "@/widgets/modals/ui/containers/BoardConfig/BoardConfigAction";
 import BoardConfigContainer from "@/widgets/modals/ui/containers/BoardConfig/BoardConfigContainer";
 import BoardConfigOptions from "@/widgets/modals/ui/containers/BoardConfig/BoardConfigOptions";
+import ModalOverlay from "@/widgets/modals/ui/ModalOverlay";
 import BoardConfigTitle from "@/widgets/modals/ui/title/BoardConfigTitle";
 import type { BoardConfigModalProps } from "@/widgets/ui/types";
 
