@@ -1,7 +1,7 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import PlayerNamesModal from "@/widgets/modals/ui/PlayerNamesModal";
-import type { PlayerNamesModalProps } from "@/widgets/types";
+import type { PlayerNamesModalProps } from "@/widgets/player-names-modal/ui/PlayerNamesModal";
+import PlayerNamesModal from "@/widgets/player-names-modal/ui/PlayerNamesModal";
 
 //  mocking the toast library so tests don't break
 vi.mock("react-toastify", () => ({

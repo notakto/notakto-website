@@ -1,0 +1,16 @@
+import type { ReactNode } from "react";
+
+interface DifficultyContainerProps {
+	children?: ReactNode;
+	className?: string;
+}
+
+export default function DifficultyContainer({
+	children,
+}: DifficultyContainerProps) {
+	return (
+		<section className="bg-panel pixel-border w-[95%] md:w-full max-w-md p-4 md:p-6">
+			{children}
+		</section>
+	);
+}

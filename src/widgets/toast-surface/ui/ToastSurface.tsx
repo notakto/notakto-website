@@ -2,8 +2,14 @@
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import type { ToastContainerProps } from "react-toastify";
 import { TOAST_DURATION } from "@/features/show-toast-with-cooldown/model/toast";
-import type { CustomToastContainerProps } from "@/widgets/types";
+import ToastCloseButton from "@/widgets/toast-close-button/ui/ToastCloseButton";
+
+interface CustomToastContainerProps
+	extends Omit<ToastContainerProps, "toastClassName"> {
+	toastClassName?: ToastContainerProps["toastClassName"];
+}
 
 export function CustomToastContainer({
 	position = "top-center",
@@ -29,13 +35,7 @@ export function CustomToastContainer({
 			draggable={draggable}
 			pauseOnHover={pauseOnHover}
 			closeButton={(props) => (
-				<button
-					type="button"
-					onClick={props.closeToast}
-					className="absolute top-1 flex items-center justify-center right-1 h-[25px] w-[25px] text-cream font-pixel text-[8px] border border-border-pixel hover:text-pixel-white"
-					aria-label="close">
-					X
-				</button>
+				<ToastCloseButton closeToast={props.closeToast} />
 			)}
 			toastClassName={
 				toastClassName ||

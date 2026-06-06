@@ -1,15 +1,14 @@
-import Link from "next/link";
-import StaticPageLayout from "@/shared/ui/layout/StaticPageLayout";
-import PixelButton from "@/shared/ui/pixel/PixelButton";
+import NotFoundHomeLink from "@/widgets/not-found-home-link/ui/NotFoundHomeLink";
+import NotFoundPageFrame from "@/widgets/not-found-page-frame/ui/NotFoundPageFrame";
+import NotFoundSubtitle from "@/widgets/not-found-subtitle/ui/NotFoundSubtitle";
+import NotFoundTitle from "@/widgets/not-found-title/ui/NotFoundTitle";
 
 export default function NotFoundSurface() {
 	return (
-		<StaticPageLayout title="404" subtitle="PAGE NOT FOUND" centered>
-			<Link href="/">
-				<PixelButton variant="primary" size="sm">
-					Go back home
-				</PixelButton>
-			</Link>
-		</StaticPageLayout>
+		<NotFoundPageFrame>
+			<NotFoundTitle text="404" />
+			<NotFoundSubtitle text="PAGE NOT FOUND" />
+			<NotFoundHomeLink />
+		</NotFoundPageFrame>
 	);
 }

@@ -8,19 +8,20 @@ import type {
 	GameMode,
 	MoveLogEntry,
 } from "@/entities/game/model/types";
-import GameLayout from "@/widgets/game-layout/ui/GameLayout";
-import BoardDisplay from "@/widgets/game-screen/ui/BoardDisplay";
-import BoardPreviewGrid from "@/widgets/game-screen/ui/BoardPreviewGrid";
-import BoardSelector from "@/widgets/game-screen/ui/BoardSelector";
-import Board from "@/widgets/game-screen/ui/board/Board";
+import Board from "@/widgets/board/ui/Board";
+import BoardDisplay from "@/widgets/board-display/ui/BoardDisplay";
+import BoardPreviewGrid from "@/widgets/board-preview-grid/ui/BoardPreviewGrid";
+import BoardSelector from "@/widgets/board-selector/ui/BoardSelector";
 import GameActionBar, {
 	type GameAction,
-} from "@/widgets/game-screen/ui/GameActionBar";
-import GameCenterColumn from "@/widgets/game-screen/ui/GameCenterColumn";
-import GameContentArea from "@/widgets/game-screen/ui/GameContentArea";
-import GameLeftPanel from "@/widgets/game-screen/ui/GameLeftPanel";
-import GameStatsPanel from "@/widgets/game-screen/ui/GameStatsPanel";
-import GameTopBar, { GameStatusBar } from "@/widgets/game-screen/ui/GameTopBar";
+} from "@/widgets/game-action-bar/ui/GameActionBar";
+import GameCenterColumn from "@/widgets/game-center-column/ui/GameCenterColumn";
+import GameContentArea from "@/widgets/game-content-area/ui/GameContentArea";
+import GameLayout from "@/widgets/game-layout/ui/GameLayout";
+import GameLeftPanel from "@/widgets/game-left-panel/ui/GameLeftPanel";
+import GameStatsPanel from "@/widgets/game-stats-panel/ui/GameStatsPanel";
+import GameStatusBar from "@/widgets/game-status-bar/ui/GameStatusBar";
+import GameTopBar from "@/widgets/game-top-bar/ui/GameTopBar";
 
 interface PlayerPanel {
 	name: string;

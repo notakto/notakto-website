@@ -1,4 +1,4 @@
-import VsComputerGameScreen from "@/widgets/game-screen/ui/VsComputerGameScreen";
+import VsComputerGameScreen from "@/widgets/vs-computer-game-screen/ui/VsComputerGameScreen";
 
 export default function VsComputerPage() {
 	return <VsComputerGameScreen />;
