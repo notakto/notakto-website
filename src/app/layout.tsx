@@ -1,7 +1,15 @@
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
-import "@/app/globals.css";
 import { Press_Start_2P } from "next/font/google";
-import AppShell from "@/widgets/app-shell/ui/AppShell";
+import "@/app/globals.css";
+import InitializeClientSession from "@/features/initialize-client-session/ui/InitializeClientSession";
+import MusicProvider from "@/features/play-game-audio/ui/MusicProvider";
+import GlobalModalLayer from "@/widgets/global-modal-layer/ui/GlobalModalLayer";
+import SidebarMargin from "@/widgets/sidebar-navigation/ui/SidebarMargin";
+import SidebarNavigation from "@/widgets/sidebar-navigation/ui/SidebarNavigation";
+import SplashScreen from "@/widgets/splash-screen/ui/SplashScreen";
+import { CustomToastContainer } from "@/widgets/toast-surface/ui/ToastSurface";
 
 export const metadata: Metadata = {
 	metadataBase: new URL("https://www.notakto.xyz"),
@@ -76,7 +84,15 @@ export default function RootLayout({
 				<meta name="monetag" content="31cbc3974b21341db36f756db33d15d6"></meta>
 			</head>
 			<body className="bg-bg0 text-pixel-white">
-				<AppShell>{children}</AppShell>
+				<MusicProvider />
+				<SplashScreen />
+				<SidebarNavigation />
+				<SidebarMargin>{children}</SidebarMargin>
+				<GlobalModalLayer />
+				<CustomToastContainer />
+				<Analytics />
+				<SpeedInsights />
+				<InitializeClientSession />
 			</body>
 		</html>
 	);

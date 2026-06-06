@@ -15,7 +15,6 @@ src/
 │   ├── not-found.tsx
 │   └── page.tsx
 ├── widgets/                 # Visible UI surfaces
-│   ├── app-shell/
 │   ├── downloads-platform-list/
 │   ├── game-screen/
 │   ├── global-modal-layer/
