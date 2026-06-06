@@ -54,7 +54,7 @@ export default function BoardPreviewGrid({
 									)}
 								/>
 							</div>
-							<div className="w-full max-w-[200px]">
+							<div className="w-full max-w-50">
 								<BoardGrid boardSize={boardSize}>
 									{[...board.entries()].map(([cellIndex, cell]) => {
 										const owner = cellOwner.get(`${boardIndex}-${cellIndex}`);

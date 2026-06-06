@@ -1,6 +1,7 @@
+import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
-export const metadata = {
+export const metadata: Metadata = {
 	title: "Live Match | Notakto",
 	description:
 		"Play Notakto live against real opponents! Join fast-paced matches, challenge players in real time, and see who lasts the longest in this X-only Tic Tac Toe variant.",

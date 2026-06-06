@@ -3,6 +3,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
 import { Press_Start_2P } from "next/font/google";
 import "@/app/globals.css";
+import type React from "react";
 import InitializeClientSession from "@/features/initialize-client-session/ui/InitializeClientSession";
 import MusicProvider from "@/features/play-game-audio/ui/MusicProvider";
 import GlobalModalLayer from "@/widgets/global-modal-layer/ui/GlobalModalLayer";
