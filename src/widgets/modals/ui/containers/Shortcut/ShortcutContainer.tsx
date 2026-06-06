@@ -1,4 +1,4 @@
-import type { ShortcutContainerProps } from "@/widgets/ui/types";
+import type { ShortcutContainerProps } from "@/widgets/types";
 
 export default function ShortcutContainer({
 	children,

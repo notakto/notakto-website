@@ -12,7 +12,7 @@ import PlayerNameModalContainer from "@/widgets/modals/ui/containers/PlayerNameM
 import { PlayerInput } from "@/widgets/modals/ui/inputs/PlayerInput";
 import ModalOverlay from "@/widgets/modals/ui/ModalOverlay";
 import PlayerNameModalTitle from "@/widgets/modals/ui/title/PlayerNameModalTitle";
-import type { PlayerNamesModalProps } from "@/widgets/ui/types";
+import type { PlayerNamesModalProps } from "@/widgets/types";
 
 const MAX_PLAYER_NAME_LENGTH = 15;
 

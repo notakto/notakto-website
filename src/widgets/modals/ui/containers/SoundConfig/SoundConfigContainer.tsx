@@ -1,4 +1,4 @@
-import type { SoundConfigContainerProps } from "@/widgets/ui/types";
+import type { SoundConfigContainerProps } from "@/widgets/types";
 
 export default function SoundConfigContainer({
 	children,

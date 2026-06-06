@@ -1,4 +1,4 @@
-import type { TutorialListProps } from "@/widgets/ui/types";
+import type { TutorialListProps } from "@/widgets/types";
 
 const TutorialList = ({ items }: TutorialListProps) => (
 	<ul className="text-cream font-pixel text-[9px] leading-8 mb-6 whitespace-pre-line">

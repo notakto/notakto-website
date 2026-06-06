@@ -1,4 +1,4 @@
-import type { SoundConfigControlsProps } from "@/widgets/ui/types";
+import type { SoundConfigControlsProps } from "@/widgets/types";
 
 export default function SoundConfigControls({
 	children,

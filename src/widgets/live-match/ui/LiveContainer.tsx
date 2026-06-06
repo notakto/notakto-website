@@ -1,4 +1,4 @@
-import type { LiveContainerProps } from "@/widgets/ui/types";
+import type { LiveContainerProps } from "@/widgets/types";
 
 export default function LiveContainer({ children }: LiveContainerProps) {
 	return (

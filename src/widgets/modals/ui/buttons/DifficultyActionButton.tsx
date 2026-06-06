@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import type { DifficultyActionProps } from "@/widgets/ui/types";
+import type { DifficultyActionProps } from "@/widgets/types";
 
 export function DifficultyActionButton({
 	variant = "level",

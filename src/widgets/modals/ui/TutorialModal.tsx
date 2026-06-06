@@ -3,7 +3,7 @@ import TutorialContainer from "@/widgets/modals/ui/containers/Tutorial/TutorialC
 import TutorialList from "@/widgets/modals/ui/list/TutorialList";
 import ModalOverlay from "@/widgets/modals/ui/ModalOverlay";
 import TutorialTitle from "@/widgets/modals/ui/title/TutorialTitle";
-import type { TutorialModalProps } from "@/widgets/ui/types";
+import type { TutorialModalProps } from "@/widgets/types";
 
 const TutorialModal = ({ visible, onClose }: TutorialModalProps) => {
 	if (!visible) return null;

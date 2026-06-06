@@ -4,7 +4,7 @@ import WinnerContainer from "@/widgets/modals/ui/containers/WinnerModal/WinnerCo
 import ModalOverlay from "@/widgets/modals/ui/ModalOverlay";
 import WinnerMessage from "@/widgets/modals/ui/title/WinnerMessage";
 import WinnerTitle from "@/widgets/modals/ui/title/WinnerTitle";
-import type { WinnerModalProps } from "@/widgets/ui/types";
+import type { WinnerModalProps } from "@/widgets/types";
 
 const WinnerModal = ({
 	visible,

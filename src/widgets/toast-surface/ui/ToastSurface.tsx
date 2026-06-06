@@ -3,7 +3,7 @@
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { TOAST_DURATION } from "@/features/show-toast-with-cooldown/model/toast";
-import type { CustomToastContainerProps } from "@/widgets/ui/types";
+import type { CustomToastContainerProps } from "@/widgets/types";
 
 export function CustomToastContainer({
 	position = "top-center",

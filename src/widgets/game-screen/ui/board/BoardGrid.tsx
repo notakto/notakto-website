@@ -1,4 +1,4 @@
-import type { BoardGridProps } from "@/widgets/ui/types";
+import type { BoardGridProps } from "@/widgets/types";
 
 const gridColsClass: Record<number, string> = {
 	3: "grid-cols-3",

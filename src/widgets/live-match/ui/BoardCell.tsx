@@ -1,4 +1,4 @@
-import type { BoardCellProps } from "@/widgets/ui/types";
+import type { BoardCellProps } from "@/widgets/types";
 
 const BoardCell = ({ value, onClick, disabled }: BoardCellProps) => (
 	<button

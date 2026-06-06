@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import type { SingleBoardContainerProps } from "@/widgets/ui/types";
+import type { SingleBoardContainerProps } from "@/widgets/types";
 
 export default function SingleBoardContainer({
 	children,

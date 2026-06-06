@@ -1,4 +1,4 @@
-import type { SoundConfigSectionProps } from "@/widgets/ui/types";
+import type { SoundConfigSectionProps } from "@/widgets/types";
 
 export default function SoundConfigSection({
 	children,

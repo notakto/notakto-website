@@ -1,4 +1,4 @@
-import type { ProfileContainerProps } from "@/widgets/ui/types";
+import type { ProfileContainerProps } from "@/widgets/types";
 
 export default function ProfileContainer({ children }: ProfileContainerProps) {
 	return (

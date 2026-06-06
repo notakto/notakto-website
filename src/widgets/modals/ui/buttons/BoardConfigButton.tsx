@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import type { BoardConfigButtonProps } from "@/widgets/ui/types";
+import type { BoardConfigButtonProps } from "@/widgets/types";
 export const BoardConfigButton = ({
 	label,
 	isActive,

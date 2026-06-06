@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import type { BoardLiveContainerProps } from "@/widgets/ui/types";
+import type { BoardLiveContainerProps } from "@/widgets/types";
 
 const BoardLiveContainer = ({ blocked, children }: BoardLiveContainerProps) => (
 	<div

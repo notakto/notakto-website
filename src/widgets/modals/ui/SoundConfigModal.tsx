@@ -9,7 +9,7 @@ import { SoundConfigSlider } from "@/widgets/modals/ui/inputs/SoundConfigSlider"
 import ModalOverlay from "@/widgets/modals/ui/ModalOverlay";
 import SoundConfigLabel from "@/widgets/modals/ui/title/SoundConfigLabel";
 import SoundConfigTitle from "@/widgets/modals/ui/title/SoundConfigTitle";
-import type { SoundConfigModalProps } from "@/widgets/ui/types";
+import type { SoundConfigModalProps } from "@/widgets/types";
 
 export default function SoundConfigModal({
 	visible,

@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import type { CellValueDisplayProps } from "@/widgets/ui/types";
+import type { CellValueDisplayProps } from "@/widgets/types";
 
 export default function CellValueDisplay({
 	value,

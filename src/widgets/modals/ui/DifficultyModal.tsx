@@ -4,7 +4,7 @@ import { DifficultyActionButton } from "@/widgets/modals/ui/buttons/DifficultyAc
 import DifficultyContainer from "@/widgets/modals/ui/containers/Difficulty/DifficultyContainer";
 import ModalOverlay from "@/widgets/modals/ui/ModalOverlay";
 import DifficultyTitle from "@/widgets/modals/ui/title/DifficultyTitle";
-import type { DifficultyModalProps } from "@/widgets/ui/types";
+import type { DifficultyModalProps } from "@/widgets/types";
 
 const DifficultyModal = ({
 	visible,

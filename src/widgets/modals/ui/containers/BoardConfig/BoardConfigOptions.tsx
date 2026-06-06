@@ -1,4 +1,4 @@
-import type { BoardConfigOptionsProps } from "@/widgets/ui/types";
+import type { BoardConfigOptionsProps } from "@/widgets/types";
 
 export default function BoardConfigOptions({
 	children,

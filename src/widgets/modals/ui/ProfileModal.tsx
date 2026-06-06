@@ -9,7 +9,7 @@ import { ProfileButton } from "@/widgets/modals/ui/buttons/ProfileButton";
 import ProfileContainer from "@/widgets/modals/ui/containers/Profile/ProfileContainer";
 import ModalOverlay from "@/widgets/modals/ui/ModalOverlay";
 import ProfileTitle from "@/widgets/modals/ui/title/ProfileTitle";
-import type { ProfileModalProps } from "@/widgets/ui/types";
+import type { ProfileModalProps } from "@/widgets/types";
 
 const ProfileModal = ({ visible, onClose }: ProfileModalProps) => {
 	const name = useProfile((state) => state.name);

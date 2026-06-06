@@ -1,7 +1,7 @@
 "use client";
 import CellValueDisplay from "@/widgets/game-screen/ui/cell/CellValueDisplay";
 import CellButton from "@/widgets/modals/ui/buttons/CellButton";
-import type { CellProps } from "@/widgets/ui/types";
+import type { CellProps } from "@/widgets/types";
 
 const Cell: React.FC<CellProps> = ({
 	boardIndex,

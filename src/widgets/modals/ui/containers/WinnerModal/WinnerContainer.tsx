@@ -1,4 +1,4 @@
-import type { WinnerContainerProps } from "@/widgets/ui/types";
+import type { WinnerContainerProps } from "@/widgets/types";
 
 export default function WinnerContainer({ children }: WinnerContainerProps) {
 	return (

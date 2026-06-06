@@ -1,4 +1,4 @@
-import type { BoardConfigContainerProps } from "@/widgets/ui/types";
+import type { BoardConfigContainerProps } from "@/widgets/types";
 
 export default function BoardConfigContainer({
 	children,

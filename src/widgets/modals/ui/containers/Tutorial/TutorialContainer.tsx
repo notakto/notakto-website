@@ -1,4 +1,4 @@
-import type { TutorialContainerProps } from "@/widgets/ui/types";
+import type { TutorialContainerProps } from "@/widgets/types";
 
 export default function TutorialContainer({
 	children,

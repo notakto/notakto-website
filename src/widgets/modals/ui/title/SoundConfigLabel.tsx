@@ -1,4 +1,4 @@
-import type { SoundConfigLabelProps } from "@/widgets/ui/types";
+import type { SoundConfigLabelProps } from "@/widgets/types";
 
 const SoundConfigLabel = ({ label, htmlFor }: SoundConfigLabelProps) => (
 	<label

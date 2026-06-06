@@ -9,7 +9,7 @@ import BoardConfigContainer from "@/widgets/modals/ui/containers/BoardConfig/Boa
 import BoardConfigOptions from "@/widgets/modals/ui/containers/BoardConfig/BoardConfigOptions";
 import ModalOverlay from "@/widgets/modals/ui/ModalOverlay";
 import BoardConfigTitle from "@/widgets/modals/ui/title/BoardConfigTitle";
-import type { BoardConfigModalProps } from "@/widgets/ui/types";
+import type { BoardConfigModalProps } from "@/widgets/types";
 
 const BoardConfigModal = ({
 	visible,

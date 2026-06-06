@@ -1,4 +1,4 @@
-import type { BoardGridContainerProps } from "@/widgets/ui/types";
+import type { BoardGridContainerProps } from "@/widgets/types";
 
 export default function BoardGridContainer({
 	children,

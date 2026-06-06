@@ -7,7 +7,7 @@ import ShortcutContainer from "@/widgets/modals/ui/containers/Shortcut/ShortcutC
 import ShortcutList from "@/widgets/modals/ui/list/ShortcutList";
 import ModalOverlay from "@/widgets/modals/ui/ModalOverlay";
 import ShortcutTitle from "@/widgets/modals/ui/title/ShortcutTitle";
-import type { ShortcutModalProps } from "@/widgets/ui/types";
+import type { ShortcutModalProps } from "@/widgets/types";
 
 export default function ShortcutModal({
 	visible,

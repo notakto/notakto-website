@@ -1,4 +1,4 @@
-import type { PlayerNameFormProps } from "@/widgets/ui/types";
+import type { PlayerNameFormProps } from "@/widgets/types";
 
 export default function PlayerNameFormContainer({
 	children,

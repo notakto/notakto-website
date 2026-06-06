@@ -1,4 +1,4 @@
-import type { PlayerNameContainerProps } from "@/widgets/ui/types";
+import type { PlayerNameContainerProps } from "@/widgets/types";
 
 export default function PlayerNameModalContainer({
 	children,

@@ -1,4 +1,4 @@
-import type { DifficultyContainerProps } from "@/widgets/ui/types";
+import type { DifficultyContainerProps } from "@/widgets/types";
 
 export default function DifficultyContainer({
 	children,

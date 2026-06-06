@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import type { CellButtonProps } from "@/widgets/ui/types";
+import type { CellButtonProps } from "@/widgets/types";
 
 export default function CellButton({
 	children,

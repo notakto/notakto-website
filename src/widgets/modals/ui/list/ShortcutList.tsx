@@ -1,4 +1,4 @@
-import type { ShortcutListProps } from "@/widgets/ui/types";
+import type { ShortcutListProps } from "@/widgets/types";
 
 const ShortcutList = ({ shortcuts }: ShortcutListProps) => (
 	<section>
