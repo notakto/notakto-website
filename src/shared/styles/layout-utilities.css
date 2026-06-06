@@ -1,9 +1,3 @@
-/* ─── DYNAMIC VALUE BRIDGES (CSS custom properties) ─── */
-
-.progress-fill {
-	width: var(--progress-width, 0%);
-}
-
 .sidebar-tooltip-pos {
 	left: var(--tooltip-left);
 	top: var(--tooltip-top);

@@ -50,6 +50,5 @@
 	--animate-pulse-pixel: pulse-pixel 2s ease-in-out infinite;
 	--animate-slide-up: slideUp 0.3s ease-out;
 	--animate-boot-flicker: bootFlicker 0.8s ease-out;
-	--animate-marquee: marquee 12s linear infinite;
 	--animate-drop: drop 0.4s ease-out;
 }
