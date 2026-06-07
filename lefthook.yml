@@ -8,3 +8,5 @@ pre-commit:
       exclude: |
         - ^\.next/
         - ^dist/
+    dependency-cruiser:
+      run: pnpm check:deps
