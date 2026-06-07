@@ -47,6 +47,9 @@ jobs:
           pnpm exec biome ci .
           cd notakto-socket-server && pnpm exec biome ci .
 
+      - name: Check circular dependencies
+        run: pnpm check:deps
+
       - name: Run tests
         run: pnpm test
 
