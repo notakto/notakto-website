@@ -1,4 +1,4 @@
-import { DOWNLOAD_PLATFORMS } from "@/entities/download/model/platforms";
+import { DOWNLOAD_PLATFORMS } from "@/widgets/downloads-page/constants";
 import DownloadsPageFrame from "@/widgets/downloads-page-frame/ui/DownloadsPageFrame";
 import DownloadsPageHeading from "@/widgets/downloads-page-heading/ui/DownloadsPageHeading";
 import DownloadsPageSubtitle from "@/widgets/downloads-page-subtitle/ui/DownloadsPageSubtitle";
