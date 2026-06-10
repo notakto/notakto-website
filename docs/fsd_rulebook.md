@@ -29,6 +29,17 @@ layer or a child in a lower layer. Use `shared` only as the last option: if code
 cannot honestly fit in a route, widget, feature, or entity, then it may belong
 in `shared`.
 
+## Constants
+
+Keep constants in the highest layer that needs them. If a constant is only used
+by one widget, keep it inside that widget, such as
+`src/widgets/downloads-page/constants/index.ts`.
+
+If multiple widgets need the same constant and the constant represents entity
+data, move it down to the owning entity and place it near the interface or type
+it satisfies. Example: if `DOWNLOAD_PLATFORMS` is reused by multiple widgets,
+move it near `DownloadPlatform` in `src/entities/download/model/platforms.ts`.
+
 ## Widgets
 
 A widget is UI composition or UI display.
