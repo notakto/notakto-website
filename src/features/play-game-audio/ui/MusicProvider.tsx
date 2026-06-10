@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect } from "react";
-import { useSound } from "@/features/app-state/model/stores";
 import {
 	initBackgroundMusic,
 	playBackgroundMusic,
@@ -10,6 +9,7 @@ import {
 	setWinVolume,
 	stopBackgroundMusic,
 } from "@/features/play-game-audio/lib/sounds";
+import { useSound } from "@/features/play-game-audio/model/soundStore";
 
 export default function MusicProvider() {
 	const bgMute = useSound((state) => state.bgMute);

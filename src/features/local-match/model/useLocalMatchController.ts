@@ -9,12 +9,12 @@ import type {
 	BoardState,
 	MoveLogEntry,
 } from "@/entities/game/model/types";
-import { useSound } from "@/features/app-state/model/stores";
 import { useGlobalModal } from "@/features/manage-global-modal/model/globalModalStore";
 import {
 	playMoveSound,
 	playWinSound,
 } from "@/features/play-game-audio/lib/sounds";
+import { useSound } from "@/features/play-game-audio/model/soundStore";
 import { useShortcut } from "@/features/use-keyboard-shortcuts/model/useShortcut";
 import { formatElapsedTime } from "@/shared/lib/time";
 
@@ -125,8 +125,7 @@ export function useLocalMatchController() {
 		]);
 
 		if (newBoards.every((board) => isBoardDead(board, boardSize))) {
-			const loser = currentPlayer;
-			const winnerNum = loser === 1 ? 2 : 1;
+			const winnerNum = currentPlayer === 1 ? 2 : 1;
 			setWinner(winnerNum === 1 ? player1Name : player2Name);
 			openModal("winner");
 			playWinSound(sfxMute);

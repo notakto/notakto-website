@@ -1,5 +1,4 @@
 "use client";
-import { useSound } from "@/features/app-state/model/stores";
 import ModalOverlay from "@/widgets/modal-overlay/ui/ModalOverlay";
 import { SoundConfigButton } from "@/widgets/sound-config-button/ui/SoundConfigButton";
 import SoundConfigContainer from "@/widgets/sound-config-container/ui/SoundConfigContainer";
@@ -13,30 +12,30 @@ import { SoundMuteButton } from "@/widgets/sound-mute-button/ui/SoundMuteButton"
 interface SoundConfigModalProps {
 	visible: boolean;
 	onClose?: () => void;
+	bgMute: boolean;
+	bgVolume: number;
+	sfxMute: boolean;
+	sfxVolume: number;
+	onBgMuteChange: (mute: boolean) => void;
+	onBgVolumeChange: (volume: number) => void;
+	onSfxMuteChange: (mute: boolean) => void;
+	onSfxVolumeChange: (volume: number) => void;
+	onResetSounds: () => void;
 }
 
 export default function SoundConfigModal({
 	visible,
 	onClose,
+	bgMute,
+	bgVolume,
+	sfxMute,
+	sfxVolume,
+	onBgMuteChange,
+	onBgVolumeChange,
+	onSfxMuteChange,
+	onSfxVolumeChange,
+	onResetSounds,
 }: SoundConfigModalProps) {
-	const {
-		bgMute,
-		bgVolume,
-		setBgMute,
-		setBgVolume,
-		sfxMute,
-		sfxVolume,
-		setSfxMute,
-		setSfxVolume,
-	} = useSound();
-
-	const resetSounds = () => {
-		setBgVolume(0.3);
-		setSfxVolume(0.5);
-		// setBgMute(true); // incase reset sound is supposed to make it mute also
-		// setSfxMute(true);
-	};
-
 	if (!visible) return null;
 	return (
 		<ModalOverlay>
@@ -50,9 +49,9 @@ export default function SoundConfigModal({
 					<SoundConfigSlider
 						id="bg-music-slider"
 						value={Math.round(bgVolume * 100)}
-						onChange={(e) => setBgVolume(Number(e.target.value) / 100)}
+						onChange={(e) => onBgVolumeChange(Number(e.target.value) / 100)}
 					/>
-					<SoundMuteButton onClick={() => setBgMute(!bgMute)}>
+					<SoundMuteButton onClick={() => onBgMuteChange(!bgMute)}>
 						{bgMute ? "Unmute" : "Mute"}
 					</SoundMuteButton>
 				</SoundConfigSection>
@@ -65,16 +64,15 @@ export default function SoundConfigModal({
 					<SoundConfigSlider
 						id="player-move-slider"
 						value={Math.round(sfxVolume * 100)}
-						onChange={(e) => setSfxVolume(Number(e.target.value) / 100)}
+						onChange={(e) => onSfxVolumeChange(Number(e.target.value) / 100)}
 					/>
-					<SoundMuteButton onClick={() => setSfxMute(!sfxMute)}>
+					<SoundMuteButton onClick={() => onSfxMuteChange(!sfxMute)}>
 						{sfxMute ? "Unmute" : "Mute"}
 					</SoundMuteButton>
 				</SoundConfigSection>
 
-				{/* Controls */}
 				<SoundConfigControls>
-					<SoundConfigButton onClick={resetSounds}>
+					<SoundConfigButton onClick={onResetSounds}>
 						Reset Sounds
 					</SoundConfigButton>
 					<SoundConfigButton onClick={onClose}>Return</SoundConfigButton>

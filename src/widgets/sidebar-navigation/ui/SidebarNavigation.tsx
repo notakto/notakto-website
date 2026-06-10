@@ -1,12 +1,13 @@
 "use client";
 
 import { usePathname } from "next/navigation";
+import type React from "react";
 import { useEffect, useState } from "react";
-import { useUser } from "@/features/app-state/model/stores";
 import {
 	signInWithGoogle,
 	signOutUser,
 } from "@/features/authenticate-user/api/firebase";
+import { useUser } from "@/features/authenticate-user/model/userStore";
 import { useGlobalModal } from "@/features/manage-global-modal/model/globalModalStore";
 import { useSidebar } from "@/features/manage-sidebar-state/model/sidebarStore";
 import MobileBottomNav from "@/widgets/mobile-bottom-nav/ui/MobileBottomNav";
@@ -15,9 +16,13 @@ import SidebarAuthButton from "@/widgets/sidebar-auth-button/ui/SidebarAuthButto
 import SidebarCollapseButton from "@/widgets/sidebar-collapse-button/ui/SidebarCollapseButton";
 import SidebarDivider from "@/widgets/sidebar-divider/ui/SidebarDivider";
 import SidebarLogoLink from "@/widgets/sidebar-logo-link/ui/SidebarLogoLink";
-import SidebarNavLink, {
-	type SidebarNavItem,
-} from "@/widgets/sidebar-nav-link/ui/SidebarNavLink";
+import SidebarNavLink from "@/widgets/sidebar-nav-link/ui/SidebarNavLink";
+import {
+	GAME_BUTTONS,
+	GAME_PAGES,
+	MODAL_ITEMS,
+	NAV_ITEMS,
+} from "@/widgets/sidebar-navigation/constants";
 import SidebarSectionLabel from "@/widgets/sidebar-section-label/ui/SidebarSectionLabel";
 import SidebarTooltip from "@/widgets/sidebar-tooltip/ui/SidebarTooltip";
 
@@ -37,61 +42,6 @@ function useSidebarTooltip(isCollapsed: boolean) {
 
 	return { tooltip, showTooltip, hideTooltip };
 }
-
-const NAV_ITEMS: SidebarNavItem[] = [
-	{ href: "/vsComputer", label: "VS CPU", icon: ">" },
-	{ href: "/vsPlayer", label: "VS PLAYER", icon: "+" },
-	{ href: "/liveMatch", label: "LIVE", icon: "#" },
-	{ href: "/downloads", label: "DOWNLOADS", icon: "=" },
-	{
-		href: "https://github.com/notakto/notakto-website/issues",
-		label: "BUG REPORT",
-		icon: "!",
-		external: true,
-	},
-];
-
-type ModalAction = "tutorial" | "soundConfig" | "shortcut" | "profile";
-
-const MODAL_ITEMS: { label: string; icon: string; modal: ModalAction }[] = [
-	{ label: "TUTORIAL", icon: "?", modal: "tutorial" },
-	{ label: "SOUND", icon: "~", modal: "soundConfig" },
-	{ label: "SHORTCUTS", icon: "K", modal: "shortcut" },
-	{ label: "PROFILE", icon: "@", modal: "profile" },
-];
-
-const GAME_PAGES = ["/vsPlayer", "/vsComputer", "/liveMatch"];
-
-type GameModalAction =
-	| "resetConfirmation"
-	| "boardConfig"
-	| "difficulty"
-	| "names"
-	| "exitConfirmation";
-
-interface GameButton {
-	label: string;
-	icon: string;
-	modal: GameModalAction;
-}
-
-const GAME_BUTTONS: Record<string, GameButton[]> = {
-	"/vsPlayer": [
-		{ label: "RESET", icon: "R", modal: "resetConfirmation" },
-		{ label: "CONFIG", icon: "C", modal: "boardConfig" },
-		{ label: "NAMES", icon: "N", modal: "names" },
-		{ label: "EXIT TO MENU", icon: "X", modal: "exitConfirmation" },
-	],
-	"/vsComputer": [
-		{ label: "RESET", icon: "R", modal: "resetConfirmation" },
-		{ label: "CONFIG", icon: "C", modal: "boardConfig" },
-		{ label: "AI LEVEL", icon: "D", modal: "difficulty" },
-		{ label: "EXIT TO MENU", icon: "X", modal: "exitConfirmation" },
-	],
-	"/liveMatch": [
-		{ label: "EXIT TO MENU", icon: "X", modal: "exitConfirmation" },
-	],
-};
 
 export default function Sidebar() {
 	const { isCollapsed, toggle, setCollapsed } = useSidebar();

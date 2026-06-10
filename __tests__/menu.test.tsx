@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
-import type { UserStore } from "@/entities/game/model/types";
+import type { UserStore } from "@/features/authenticate-user/model/userStore";
 
 // Required mocks
 vi.mock("next/navigation", () => ({
@@ -13,7 +13,7 @@ vi.mock("@/features/authenticate-user/api/firebase", () => ({
 	signOutUser: vi.fn(),
 }));
 
-vi.mock("@/features/app-state/model/stores", () => ({
+vi.mock("@/features/authenticate-user/model/userStore", () => ({
 	useUser: <T,>(selector: (state: UserStore) => T) =>
 		selector({
 			user: null,
@@ -21,33 +21,6 @@ vi.mock("@/features/app-state/model/stores", () => ({
 			authReady: true,
 			setAuthReady: vi.fn(),
 		}),
-	useSound: () => ({
-		bgMute: false,
-		bgVolume: 0.5,
-		setBgMute: vi.fn(),
-		setBgVolume: vi.fn(),
-		sfxMute: false,
-		sfxVolume: 0.5,
-		setSfxMute: vi.fn(),
-		setSfxVolume: vi.fn(),
-	}),
-	useProfile: () => ({
-		name: "Test User",
-		email: "test@example.com",
-		profilePic: "https://example.com/avatar.png",
-		setName: vi.fn(),
-		setEmail: vi.fn(),
-		setProfilePic: vi.fn(),
-		resetProfile: vi.fn(),
-	}),
-	useCoins: () => ({
-		coins: 1000,
-		setCoins: vi.fn(),
-	}),
-	useXP: () => ({
-		xp: 1000,
-		setXP: vi.fn(),
-	}),
 }));
 
 vi.mock("@/features/show-toast-with-cooldown/model/useToastCooldown", () => ({

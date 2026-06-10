@@ -6,10 +6,10 @@ import "@/app/globals.css";
 import type React from "react";
 import InitializeClientSession from "@/features/initialize-client-session/ui/InitializeClientSession";
 import MusicProvider from "@/features/play-game-audio/ui/MusicProvider";
+import DismissibleSplashScreen from "@/widgets/dismissible-splash-screen/ui/DismissibleSplashScreen";
 import GlobalModalLayer from "@/widgets/global-modal-layer/ui/GlobalModalLayer";
 import SidebarMargin from "@/widgets/sidebar-navigation/ui/SidebarMargin";
 import SidebarNavigation from "@/widgets/sidebar-navigation/ui/SidebarNavigation";
-import SplashScreen from "@/widgets/splash-screen/ui/SplashScreen";
 import { CustomToastContainer } from "@/widgets/toast-surface/ui/ToastSurface";
 
 export const metadata: Metadata = {
@@ -86,7 +86,7 @@ export default function RootLayout({
 			</head>
 			<body className="bg-bg0 text-pixel-white">
 				<MusicProvider />
-				<SplashScreen />
+				<DismissibleSplashScreen />
 				<SidebarNavigation />
 				<SidebarMargin>{children}</SidebarMargin>
 				<GlobalModalLayer />

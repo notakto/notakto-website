@@ -1,13 +1,8 @@
 import axios from "axios";
-import { ZodError, z } from "zod";
 import {
 	CreateGameResponseSchema,
-	type GetWalletResponse,
-	GetWalletResponseSchema,
 	MakeMoveResponseSchema,
 	QuitGameResponseSchema,
-	type SignInResponse,
-	SignInResponseSchema,
 	SkipMoveResponseSchema,
 	UndoMoveResponseSchema,
 } from "@/entities/game/api/schema";
@@ -32,39 +27,6 @@ const apiClient = axios.create({
 	},
 	timeout: 10000, // 10 seconds default timeout
 });
-
-export async function signIn(idToken: string): Promise<SignInResponse> {
-	if (!API_URL) {
-		throw new Error("API URL is not defined");
-	}
-
-	try {
-		const { data } = await apiClient.post("/sign-in", null, {
-			headers: {
-				Authorization: `Bearer ${idToken}`,
-			},
-		});
-
-		return SignInResponseSchema.parse(data);
-	} catch (error) {
-		if (error instanceof ZodError) {
-			const tree = z.treeifyError(error);
-			console.error("Zod validation errors:", tree);
-			throw new Error("Invalid response format from server");
-		}
-
-		if (axios.isAxiosError(error)) {
-			const status = error.response?.status ?? "unknown";
-			const details =
-				error.response?.data?.message ??
-				JSON.stringify(error.response?.data) ??
-				error.message;
-			throw new Error(`Sign-in failed (${status}): ${details}`);
-		}
-
-		throw error;
-	}
-}
 
 export async function createGame(
 	numberOfBoards: number,
@@ -282,43 +244,5 @@ export async function skipMove(
 		}
 
 		return { success: false, error: "Failed to skip move" };
-	}
-}
-
-export async function getWallet(
-	idToken: string,
-): Promise<GetWalletResponse | ErrorResponse> {
-	if (!API_URL) {
-		return { success: false, error: "API_URL not defined" };
-	}
-
-	try {
-		const { data } = await apiClient.get("/get-wallet", {
-			headers: {
-				Authorization: `Bearer ${idToken}`,
-			},
-		});
-
-		const parsed = GetWalletResponseSchema.safeParse(data);
-		if (!parsed.success) {
-			return { success: false, error: "Invalid response format" };
-		}
-
-		return { ...parsed.data };
-	} catch (error) {
-		console.error("Get wallet error:", error);
-
-		if (axios.isAxiosError(error)) {
-			const status = error.response?.status ?? "unknown";
-			const statusText = error.response?.statusText ?? "";
-			const text =
-				typeof error.response?.data === "string" ? error.response.data : "";
-			return {
-				success: false,
-				error: `get-wallet failed: ${status} ${statusText} ${text}`,
-			};
-		}
-
-		return { success: false, error: "Failed to fetch wallet" };
 	}
 }

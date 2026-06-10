@@ -2,11 +2,11 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { useUser } from "@/features/app-state/model/stores";
 import {
 	signInWithGoogle,
 	signOutUser,
 } from "@/features/authenticate-user/api/firebase";
+import { useUser } from "@/features/authenticate-user/model/userStore";
 
 type ModalAction = "tutorial" | "soundConfig" | "shortcut" | "profile";
 

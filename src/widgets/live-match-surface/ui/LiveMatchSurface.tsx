@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { io } from "socket.io-client";
-import { useUser } from "@/features/app-state/model/stores";
+import { useUser } from "@/features/authenticate-user/model/userStore";
 import {
 	TOAST_DURATION,
 	TOAST_IDS,

@@ -22,25 +22,22 @@ import type {
 	MoveLogEntry,
 	NewGameResponse,
 } from "@/entities/game/model/types";
-import {
-	useCoins,
-	useSound,
-	useUser,
-	useXP,
-} from "@/features/app-state/model/stores";
+import { useUser } from "@/features/authenticate-user/model/userStore";
 import {
 	createGame,
-	getWallet,
 	makeMove,
 	quitGame,
 	skipMove,
 	undoMove,
 } from "@/features/backend-game/api/gameApis";
 import { useGlobalModal } from "@/features/manage-global-modal/model/globalModalStore";
+import { getWallet } from "@/features/manage-wallet/api/walletApis";
+import { useCoins, useXP } from "@/features/manage-wallet/model/walletStore";
 import {
 	playMoveSound,
 	playWinSound,
 } from "@/features/play-game-audio/lib/sounds";
+import { useSound } from "@/features/play-game-audio/model/soundStore";
 import { TOAST_IDS } from "@/features/show-toast-with-cooldown/model/toast";
 import { useShortcut } from "@/features/use-keyboard-shortcuts/model/useShortcut";
 import { formatElapsedTime } from "@/shared/lib/time";
@@ -170,7 +167,7 @@ export function useComputerMatchController() {
 			}
 
 			const data = await createGame(num, size, diff, await user.getIdToken());
-			if (!data || (data as ErrorResponse).success === false) {
+			if (!data || !(data as ErrorResponse).success) {
 				const err = (data as ErrorResponse) ?? {
 					success: false,
 					error: "Unknown error",
@@ -253,7 +250,7 @@ export function useComputerMatchController() {
 				cellIndex,
 				await user.getIdToken(),
 			);
-			if (!data || (data as ErrorResponse).success === false) {
+			if (!data || !(data as ErrorResponse).success) {
 				const err = (data as ErrorResponse) ?? {
 					success: false,
 					error: "Unknown error",
@@ -324,7 +321,7 @@ export function useComputerMatchController() {
 			if (resp.gameover) {
 				const token = await user.getIdToken();
 				await syncWallet(token);
-				setWinner(resp.winner === true ? "You" : "Computer");
+				setWinner(resp.winner ? "You" : "Computer");
 				openModal("winner");
 				playWinSound(sfxMute);
 			} else {
@@ -383,7 +380,7 @@ export function useComputerMatchController() {
 				sessionIdRef.current,
 				await user.getIdToken(),
 			);
-			if (!data || (data as ErrorResponse).success === false) {
+			if (!data || !(data as ErrorResponse).success) {
 				const err = (data as ErrorResponse) ?? {
 					success: false,
 					error: "Unknown error",
@@ -447,7 +444,7 @@ export function useComputerMatchController() {
 				sessionIdRef.current,
 				await user.getIdToken(),
 			);
-			if (!data || (data as ErrorResponse).success === false) {
+			if (!data || !(data as ErrorResponse).success) {
 				const err = (data as ErrorResponse) ?? {
 					success: false,
 					error: "Unknown error",
@@ -510,7 +507,7 @@ export function useComputerMatchController() {
 			await syncWallet(await user.getIdToken());
 
 			if (resp.gameover) {
-				setWinner(resp.winner === true ? "You" : "Computer");
+				setWinner(resp.winner ? "You" : "Computer");
 				openModal("winner");
 				playWinSound(sfxMute);
 			} else {

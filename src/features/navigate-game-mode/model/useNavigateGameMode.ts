@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
-import { useUser } from "@/features/app-state/model/stores";
+import { useUser } from "@/features/authenticate-user/model/userStore";
 import {
 	TOAST_DURATION,
 	TOAST_IDS,

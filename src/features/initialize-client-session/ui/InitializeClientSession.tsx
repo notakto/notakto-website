@@ -5,15 +5,13 @@
 import type { User } from "firebase/auth";
 import { useEffect, useRef } from "react";
 import { toast } from "react-toastify";
-import {
-	useCoins,
-	useProfile,
-	useUser,
-	useXP,
-} from "@/features/app-state/model/stores";
+import { signIn } from "@/features/authenticate-user/api/authApis";
 // Firebase module
 import { onAuthStateChangedListener } from "@/features/authenticate-user/api/firebase";
-import { getWallet, signIn } from "@/features/backend-game/api/gameApis";
+import { useUser } from "@/features/authenticate-user/model/userStore";
+import { useProfile } from "@/features/manage-user-profile/model/profileStore";
+import { getWallet } from "@/features/manage-wallet/api/walletApis";
+import { useCoins, useXP } from "@/features/manage-wallet/model/walletStore";
 
 const InitializeClientSession = (): null => {
 	const setUser = useUser(
