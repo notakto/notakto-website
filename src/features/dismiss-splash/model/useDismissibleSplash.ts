@@ -6,7 +6,7 @@ import { useSplash } from "@/features/dismiss-splash/model/splashStore";
 export function useDismissibleSplash() {
 	const { hasSeenSplash, setHasSeenSplash } = useSplash();
 	const [phase, setPhase] = useState(0);
-	const [visible, setVisible] = useState(true);
+	const [visible, setVisible] = useState(!hasSeenSplash);
 
 	useEffect(() => {
 		if (hasSeenSplash) {
