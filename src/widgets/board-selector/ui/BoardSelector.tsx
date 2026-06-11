@@ -18,7 +18,7 @@ export default function BoardSelector({
 	if (boards.length <= 1) return null;
 
 	return (
-		<div className="flex flex-row md:flex-1 md:flex-col items-center md:items-end justify-center gap-2.5 sm:gap-3 md:gap-2.5 overflow-x-auto md:overflow-x-visible px-2 sm:px-3 md:px-0">
+		<div className="w-full flex-wrap flex flex-row md:flex-1 md:flex-col items-center md:items-end justify-center gap-2.5 sm:gap-3 md:gap-2.5 overflow-x-auto md:overflow-x-visible px-2 sm:px-3 md:px-0">
 			{[...boards.entries()].map(([i, board]) => {
 				const dead = isBoardDead(board, boardSize);
 				const selected = i === selectedBoard;
