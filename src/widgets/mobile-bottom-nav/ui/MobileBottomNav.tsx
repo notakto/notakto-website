@@ -78,10 +78,10 @@ export default function MobileBottomNav({
 					<button
 						type="button"
 						aria-label="Close menu"
-						className="fixed inset-0 z-[998] md:hidden"
+						className="fixed inset-0 z-998 md:hidden"
 						onClick={() => setMoreOpen(false)}
 					/>
-					<div className="fixed bottom-14 right-2 z-[999] bg-bg1 border-3 border-border-pixel p-2 flex flex-col gap-1 md:hidden shadow-[3px_3px_0_var(--color-bg0)]">
+					<div className="fixed bottom-14 right-2 z-999 bg-bg1 border-3 border-border-pixel p-2 flex flex-col gap-1 md:hidden shadow-[3px_3px_0_var(--color-bg0)]">
 						{isGamePage &&
 							pageGameButtons.map((item) => (
 								<button
@@ -96,7 +96,7 @@ export default function MobileBottomNav({
 								</button>
 							))}
 						{isGamePage && pageGameButtons.length > 0 && (
-							<div className="h-[2px] bg-border-pixel my-1" />
+							<div className="h-0.5 bg-border-pixel my-1" />
 						)}
 						{modalItems.map((item) => (
 							<button
@@ -110,7 +110,7 @@ export default function MobileBottomNav({
 								{item.icon} {item.label}
 							</button>
 						))}
-						<div className="h-[2px] bg-border-pixel my-1" />
+						<div className="h-0.5 bg-border-pixel my-1" />
 						{navItems.slice(3).map((item) =>
 							"external" in item && item.external ? (
 								<a
@@ -132,7 +132,7 @@ export default function MobileBottomNav({
 								</Link>
 							),
 						)}
-						<div className="h-[2px] bg-border-pixel my-1" />
+						<div className="h-0.5 bg-border-pixel my-1" />
 						<button
 							type="button"
 							onClick={handleAuth}
