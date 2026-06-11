@@ -5,5 +5,9 @@ interface DownloadsPageSubtitleProps {
 export default function DownloadsPageSubtitle({
 	text,
 }: DownloadsPageSubtitleProps) {
-	return <p className="font-pixel text-[8px] text-cream-dim mb-8">{text}</p>;
+	return (
+		<p className="text-center font-pixel text-[8px] text-cream-dim md:mb-8 mb-10">
+			{text}
+		</p>
+	);
 }
