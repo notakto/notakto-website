@@ -33,22 +33,22 @@ describe("Toast Tests", () => {
 			toast.error("Error two: action B failed");
 		});
 
-		// Both toasts must be visible
+		// Wait for both toasts to appear in the DOM (works with portals)
 		const toastOne = await screen.findByText("Error one: action A failed");
 		const toastTwo = await screen.findByText("Error two: action B failed");
 		expect(toastOne).toBeInTheDocument();
 		expect(toastTwo).toBeInTheDocument();
 
-		// Must be exactly two toasts in the container
-		const allToasts = document.querySelectorAll(".Toastify__toast");
+		// role="alert" is assigned by react-toastify to every toast
+		const allToasts = await screen.findAllByRole("alert");
 		expect(allToasts).toHaveLength(2);
 
-		// Neither toast contains the other — they are stacked as siblings, not nested
-		const [first, second] = Array.from(allToasts);
+		// Neither toast contains the other — stacked as siblings, not nested
+		const [first, second] = allToasts;
 		expect(first).not.toContainElement(second as HTMLElement);
 		expect(second).not.toContainElement(first as HTMLElement);
 
-		// They must carry different content — truly distinct toasts
+		// Truly distinct — different text content
 		expect(first.textContent).not.toBe(second.textContent);
 	});
 });
