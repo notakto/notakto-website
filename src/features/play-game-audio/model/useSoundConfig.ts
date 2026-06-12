@@ -15,7 +15,9 @@ export function useSoundConfig() {
 	} = useSound();
 
 	const resetSounds = () => {
+		setBgMute(true);
 		setBgVolume(0.3);
+		setSfxMute(false);
 		setSfxVolume(0.5);
 	};
 
