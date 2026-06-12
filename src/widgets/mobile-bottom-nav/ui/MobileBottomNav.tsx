@@ -8,7 +8,12 @@ import {
 	signOutUser,
 } from "@/features/authenticate-user/api/firebase";
 
-type ModalAction = "tutorial" | "soundConfig" | "shortcut" | "profile";
+type ModalAction =
+	| "buyCoins"
+	| "tutorial"
+	| "soundConfig"
+	| "shortcut"
+	| "profile";
 
 type GameModalAction =
 	| "resetConfirmation"
@@ -37,6 +42,7 @@ interface MobileBottomNavProps {
 	pathname: string;
 	openModal: (modal: ModalAction | GameModalAction) => void;
 	navItems: MobileNavItem[];
+	walletItems: ModalItem[];
 	modalItems: ModalItem[];
 	gamePages: string[];
 	gameButtons: Record<string, GameButton[]>;
@@ -53,6 +59,7 @@ export default function MobileBottomNav({
 	pathname,
 	openModal,
 	navItems,
+	walletItems,
 	modalItems,
 	gamePages,
 	gameButtons,
@@ -78,10 +85,10 @@ export default function MobileBottomNav({
 					<button
 						type="button"
 						aria-label="Close menu"
-						className="fixed inset-0 z-[998] md:hidden"
+						className="fixed inset-0 z-998 md:hidden"
 						onClick={() => setMoreOpen(false)}
 					/>
-					<div className="fixed bottom-14 right-2 z-[999] bg-bg1 border-3 border-border-pixel p-2 flex flex-col gap-1 md:hidden shadow-[3px_3px_0_var(--color-bg0)]">
+					<div className="fixed bottom-14 right-2 z-999 bg-bg1 border-3 border-border-pixel p-2 flex flex-col gap-1 md:hidden shadow-[3px_3px_0_var(--color-bg0)]">
 						{isGamePage &&
 							pageGameButtons.map((item) => (
 								<button
@@ -96,7 +103,22 @@ export default function MobileBottomNav({
 								</button>
 							))}
 						{isGamePage && pageGameButtons.length > 0 && (
-							<div className="h-[2px] bg-border-pixel my-1" />
+							<div className="h-0.5 bg-border-pixel my-1" />
+						)}
+						{walletItems.map((item) => (
+							<button
+								type="button"
+								key={item.modal}
+								onClick={() => {
+									openModal(item.modal);
+									setMoreOpen(false);
+								}}
+								className="font-pixel text-[8px] text-accent hover:text-pixel-white hover:bg-bg2 px-3 py-2 text-left uppercase tracking-wider cursor-pointer whitespace-nowrap">
+								{item.icon} {item.label}
+							</button>
+						))}
+						{walletItems.length > 0 && (
+							<div className="h-0.5 bg-border-pixel my-1" />
 						)}
 						{modalItems.map((item) => (
 							<button
@@ -110,7 +132,7 @@ export default function MobileBottomNav({
 								{item.icon} {item.label}
 							</button>
 						))}
-						<div className="h-[2px] bg-border-pixel my-1" />
+						<div className="h-0.5 bg-border-pixel my-1" />
 						{navItems.slice(3).map((item) =>
 							"external" in item && item.external ? (
 								<a
@@ -132,7 +154,7 @@ export default function MobileBottomNav({
 								</Link>
 							),
 						)}
-						<div className="h-[2px] bg-border-pixel my-1" />
+						<div className="h-0.5 bg-border-pixel my-1" />
 						<button
 							type="button"
 							onClick={handleAuth}

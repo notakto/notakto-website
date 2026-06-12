@@ -51,7 +51,16 @@ const NAV_ITEMS: SidebarNavItem[] = [
 	},
 ];
 
-type ModalAction = "tutorial" | "soundConfig" | "shortcut" | "profile";
+type ModalAction =
+	| "buyCoins"
+	| "tutorial"
+	| "soundConfig"
+	| "shortcut"
+	| "profile";
+
+const WALLET_ITEMS: { label: string; icon: string; modal: ModalAction }[] = [
+	{ label: "BUY COINS", icon: "$", modal: "buyCoins" },
+];
 
 const MODAL_ITEMS: { label: string; icon: string; modal: ModalAction }[] = [
 	{ label: "TUTORIAL", icon: "?", modal: "tutorial" },
@@ -139,6 +148,24 @@ export default function Sidebar() {
 						))}
 					</div>
 
+					<SidebarDivider />
+
+					<div className="mb-2">
+						<SidebarSectionLabel label="Wallet" visible={!isCollapsed} />
+						{WALLET_ITEMS.map((item) => (
+							<SidebarActionButton
+								key={item.modal}
+								label={item.label}
+								icon={item.icon}
+								isCollapsed={isCollapsed}
+								onClick={() => openModal(item.modal)}
+								showTooltip={showTooltip}
+								hideTooltip={hideTooltip}
+								variant="accent"
+							/>
+						))}
+					</div>
+
 					{GAME_PAGES.includes(pathname) && GAME_BUTTONS[pathname] && (
 						<>
 							<SidebarDivider />
@@ -218,6 +245,7 @@ export default function Sidebar() {
 				pathname={pathname}
 				openModal={openModal}
 				navItems={NAV_ITEMS}
+				walletItems={WALLET_ITEMS}
 				modalItems={MODAL_ITEMS}
 				gamePages={GAME_PAGES}
 				gameButtons={GAME_BUTTONS}

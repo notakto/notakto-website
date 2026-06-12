@@ -73,7 +73,7 @@ This project combines third-party packages to add crucial features to the app:
 * :floppy_disk: [Zustand][4] handles state management.
 * :key: [Firebase Authentication][5] lets users sign in with their Google account.
 * :lock: [Cloud Firestore][6] saves users' coins and XP.
-* :money_with_wings: [Coinbase Commerce][7] accepts cryptocurrency payments so users can buy extra coins.
+* :money_with_wings: The Notakto Solo API uses [NOWPayments][7] to create crypto payment links for buying extra coins.
 
 ## :art: User interface and experience
 
@@ -178,7 +178,7 @@ To ask questions, offer suggestions, or provide feedback, [open an issue][11].
 [4]: https://github.com/pmndrs/zustand
 [5]: https://firebase.google.com/docs/auth
 [6]: https://firebase.google.com/products/firestore
-[7]: https://www.coinbase.com/commerce
+[7]: https://nowpayments.io/
 [8]: https://drive.google.com/file/d/1QHrSHDZumgNIxZhbl5kNWiP2y36SjO0U/view
 [9]: ./LICENSE
 [10]: https://socket.io/
@@ -198,4 +198,3 @@ To ask questions, offer suggestions, or provide feedback, [open an issue][11].
 [issues-url]: https://github.com/Rakshitg600/notakto-website/issues
 [license-shield]: https://img.shields.io/github/license/Rakshitg600/notakto-website.svg?style=for-the-badge
 [license-url]: https://github.com/Rakshitg600/notakto-website/blob/master/LICENSE
-

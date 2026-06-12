@@ -1,6 +1,7 @@
 "use client";
 
 import { useComputerMatchController } from "@/features/computer-match/model/useComputerMatchController";
+import { useGlobalModal } from "@/features/manage-global-modal/model/globalModalStore";
 import BoardConfigModal from "@/widgets/board-config-modal/ui/BoardConfigModal";
 import ConfirmationModal from "@/widgets/confirmation-modal/ui/ConfirmationModal";
 import DifficultyModal from "@/widgets/difficulty-modal/ui/DifficultyModal";
@@ -10,6 +11,7 @@ import WinnerModal from "@/widgets/winner-modal/ui/WinnerModal";
 
 export default function VsComputerGameScreen() {
 	const match = useComputerMatchController();
+	const { openModal } = useGlobalModal();
 
 	return (
 		<>
@@ -28,7 +30,13 @@ export default function VsComputerGameScreen() {
 				stats={match.stats}
 				actions={match.actions}
 				cellOwnersByBoard={match.cellOwnersByBoard}
-				walletSlot={<WalletBadge coins={match.coins} xp={match.xp} />}
+				walletSlot={
+					<WalletBadge
+						coins={match.coins}
+						xp={match.xp}
+						onBuyCoins={() => openModal("buyCoins")}
+					/>
+				}
 				onSelectBoard={match.setSelectedBoard}
 				onTogglePreviewBoard={match.onSelectPreviewBoard}
 				onMakeMove={match.handleMove}
