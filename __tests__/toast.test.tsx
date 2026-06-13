@@ -25,7 +25,7 @@ describe("Toast Tests", () => {
 		expect(screen.queryAllByText("Hello Toast Test")).toHaveLength(1);
 	});
 
-	it("T2 : two distinct toasts appear and stack properly when triggered in quick succession", async () => {
+	it("two distinct toasts appear and stack properly when triggered in quick succession", async () => {
 		render(<CustomToastContainer />);
 
 		act(() => {
