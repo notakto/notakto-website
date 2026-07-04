@@ -10,7 +10,7 @@ export default function BuyCoinsLoginPrompt({
 	onSignIn,
 }: BuyCoinsLoginPromptProps) {
 	return (
-		<div className="bg-bg2 p-5 text-center pixel-border">
+		<div className="bg-bg2 p-3 text-center pixel-border">
 			<p className="mb-5 font-pixel text-[9px] uppercase leading-6 text-muted">
 				{authReady ? "SIGN IN REQUIRED" : "LOADING ACCOUNT"}
 			</p>
@@ -18,7 +18,7 @@ export default function BuyCoinsLoginPrompt({
 				type="button"
 				disabled={!authReady}
 				onClick={onSignIn}
-				className="w-full border-3 border-border-light bg-primary px-5 py-3 font-pixel text-[9px] uppercase tracking-wider text-cream shadow-[3px_3px_0_var(--color-bg0)] hover:bg-primary-hover disabled:cursor-not-allowed disabled:opacity-60">
+				className="w-50 lg:w-100 border-3 border-border-light bg-primary px-5 py-3 font-pixel text-[9px] uppercase tracking-wider text-cream shadow-[3px_3px_0_var(--color-bg0)] hover:bg-primary-hover disabled:cursor-not-allowed disabled:opacity-60">
 				SIGN IN
 			</button>
 			{error && (

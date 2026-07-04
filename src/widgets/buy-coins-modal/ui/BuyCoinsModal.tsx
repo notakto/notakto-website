@@ -36,7 +36,7 @@ function BuyCoinsModalContent({ onClose }: { onClose?: () => void }) {
 				</div>
 
 				{buyCoins.user ? (
-					<div className="grid gap-5 lg:grid-cols-[1fr_290px]">
+					<div className="flex flex-col">
 						<div>
 							<div className="mb-4 grid gap-3 sm:grid-cols-3">
 								{buyCoins.packages.map((coinPackage) => (
