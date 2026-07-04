@@ -1,6 +1,7 @@
 import { create } from "zustand";
 
 type GlobalModalType =
+	| "buyCoins"
 	| "soundConfig"
 	| "shortcut"
 	| "tutorial"

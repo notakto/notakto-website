@@ -22,6 +22,7 @@ import {
 	GAME_PAGES,
 	MODAL_ITEMS,
 	NAV_ITEMS,
+	WALLET_ITEMS,
 } from "@/widgets/sidebar-navigation/constants";
 import SidebarSectionLabel from "@/widgets/sidebar-section-label/ui/SidebarSectionLabel";
 import SidebarTooltip from "@/widgets/sidebar-tooltip/ui/SidebarTooltip";
@@ -85,6 +86,24 @@ export default function Sidebar() {
 								isCollapsed={isCollapsed}
 								showTooltip={showTooltip}
 								hideTooltip={hideTooltip}
+							/>
+						))}
+					</div>
+
+					<SidebarDivider />
+
+					<div className="mb-2">
+						<SidebarSectionLabel label="Wallet" visible={!isCollapsed} />
+						{WALLET_ITEMS.map((item) => (
+							<SidebarActionButton
+								key={item.modal}
+								label={item.label}
+								icon={item.icon}
+								isCollapsed={isCollapsed}
+								onClick={() => openModal(item.modal)}
+								showTooltip={showTooltip}
+								hideTooltip={hideTooltip}
+								variant="accent"
 							/>
 						))}
 					</div>
@@ -168,6 +187,7 @@ export default function Sidebar() {
 				pathname={pathname}
 				openModal={openModal}
 				navItems={NAV_ITEMS}
+				walletItems={WALLET_ITEMS}
 				modalItems={MODAL_ITEMS}
 				gamePages={GAME_PAGES}
 				gameButtons={GAME_BUTTONS}

@@ -8,7 +8,12 @@ import {
 } from "@/features/authenticate-user/api/firebase";
 import { useUser } from "@/features/authenticate-user/model/userStore";
 
-type ModalAction = "tutorial" | "soundConfig" | "shortcut" | "profile";
+type ModalAction =
+	| "buyCoins"
+	| "tutorial"
+	| "soundConfig"
+	| "shortcut"
+	| "profile";
 
 type GameModalAction =
 	| "resetConfirmation"
@@ -37,6 +42,7 @@ interface MobileBottomNavProps {
 	pathname: string;
 	openModal: (modal: ModalAction | GameModalAction) => void;
 	navItems: MobileNavItem[];
+	walletItems: ModalItem[];
 	modalItems: ModalItem[];
 	gamePages: string[];
 	gameButtons: Record<string, GameButton[]>;
@@ -53,6 +59,7 @@ export default function MobileBottomNav({
 	pathname,
 	openModal,
 	navItems,
+	walletItems,
 	modalItems,
 	gamePages,
 	gameButtons,
@@ -96,6 +103,21 @@ export default function MobileBottomNav({
 								</button>
 							))}
 						{isGamePage && pageGameButtons.length > 0 && (
+							<div className="h-0.5 bg-border-pixel my-1" />
+						)}
+						{walletItems.map((item) => (
+							<button
+								type="button"
+								key={item.modal}
+								onClick={() => {
+									openModal(item.modal);
+									setMoreOpen(false);
+								}}
+								className="font-pixel text-[8px] text-accent hover:text-pixel-white hover:bg-bg2 px-3 py-2 text-left uppercase tracking-wider cursor-pointer whitespace-nowrap">
+								{item.icon} {item.label}
+							</button>
+						))}
+						{walletItems.length > 0 && (
 							<div className="h-0.5 bg-border-pixel my-1" />
 						)}
 						{modalItems.map((item) => (

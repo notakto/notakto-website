@@ -12,7 +12,18 @@ interface GameButton {
 	icon: string;
 	modal: GameModalAction;
 }
-type ModalAction = "tutorial" | "soundConfig" | "shortcut" | "profile";
+type ModalAction =
+	| "buyCoins"
+	| "tutorial"
+	| "soundConfig"
+	| "shortcut"
+	| "profile";
+
+export const WALLET_ITEMS: {
+	label: string;
+	icon: string;
+	modal: ModalAction;
+}[] = [{ label: "BUY COINS", icon: "$", modal: "buyCoins" }];
 
 export const GAME_BUTTONS: Record<string, GameButton[]> = {
 	"/vsPlayer": [
