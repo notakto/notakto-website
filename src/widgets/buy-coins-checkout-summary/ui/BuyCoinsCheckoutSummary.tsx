@@ -69,12 +69,12 @@ export default function BuyCoinsCheckoutSummary({
 				/>
 				<BuyCoinsCheckoutSummaryLabel
 					title={"Credit"}
-					content={`${selectedPackage.coins}$`}
+					content={`${selectedPackage.coins} Coins`}
 					textColor={"text-accent"}
 				/>
 				<BuyCoinsCheckoutSummaryLabel
 					title={"After"}
-					content={`${creditedTotal}$`}
+					content={`${creditedTotal} Coins`}
 					textColor={"text-pixel-white"}
 				/>
 				{flowStatus === "confirmed" && confirmedAmountCents !== null && (
