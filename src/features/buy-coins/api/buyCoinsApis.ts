@@ -4,6 +4,7 @@ import {
 	PaymentStatusResponseSchema,
 } from "@/features/buy-coins/api/schema";
 import type {
+	BuyCoinsErrorResponse,
 	CreateChargeResult,
 	PaymentStatusResult,
 } from "@/features/buy-coins/model/types";
@@ -17,6 +18,48 @@ const apiClient = axios.create({
 	},
 	timeout: 10000,
 });
+
+const messages = {
+	payment: {
+		errorLog: "Payment status API error",
+		axiosLog: "Payment status failed",
+		returnLog: "Failed to fetch payment status",
+	},
+	charge: {
+		errorLog: "Create charge API error",
+		axiosLog: "Create charge failed",
+		returnLog: "Failed to create charge",
+	},
+} as const;
+
+const formatApiError = (
+	error: unknown,
+	context: keyof typeof messages,
+): BuyCoinsErrorResponse => {
+	const { errorLog, axiosLog, returnLog } = messages[context];
+
+	console.error(
+		`${errorLog}:`,
+		axios.isAxiosError(error) ? error.message : error,
+	);
+
+	if (axios.isAxiosError(error)) {
+		const status = error.response?.status ?? "unknown";
+		const statusText = error.response?.statusText ?? "";
+		const text =
+			typeof error.response?.data === "string" ? error.response.data : "";
+
+		return {
+			success: false,
+			error: `${axiosLog}: ${status} ${statusText} ${text}`,
+		};
+	}
+
+	return {
+		success: false,
+		error: returnLog,
+	};
+};
 
 export async function createCharge(
 	packageId: string,
@@ -44,20 +87,7 @@ export async function createCharge(
 
 		return { success: true, ...parsed.data };
 	} catch (error) {
-		console.error("Create charge API error:", error);
-
-		if (axios.isAxiosError(error)) {
-			const status = error.response?.status ?? "unknown";
-			const statusText = error.response?.statusText ?? "";
-			const text =
-				typeof error.response?.data === "string" ? error.response.data : "";
-			return {
-				success: false,
-				error: `Create charge failed: ${status} ${statusText} ${text}`,
-			};
-		}
-
-		return { success: false, error: "Failed to create charge" };
+		return formatApiError(error, "charge");
 	}
 }
 
@@ -84,19 +114,6 @@ export async function getPaymentStatus(
 
 		return { success: true, ...parsed.data };
 	} catch (error) {
-		console.error("Payment status API error:", error);
-
-		if (axios.isAxiosError(error)) {
-			const status = error.response?.status ?? "unknown";
-			const statusText = error.response?.statusText ?? "";
-			const text =
-				typeof error.response?.data === "string" ? error.response.data : "";
-			return {
-				success: false,
-				error: `Payment status failed: ${status} ${statusText} ${text}`,
-			};
-		}
-
-		return { success: false, error: "Failed to fetch payment status" };
+		return formatApiError(error, "payment");
 	}
 }

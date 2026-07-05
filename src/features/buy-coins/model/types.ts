@@ -4,7 +4,7 @@ import type {
 	PaymentStatusResponse,
 } from "@/features/buy-coins/api/schema";
 
-interface BuyCoinsErrorResponse {
+export interface BuyCoinsErrorResponse {
 	success: false;
 	error: string;
 }
