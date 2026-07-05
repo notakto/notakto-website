@@ -22,6 +22,7 @@ export interface BuyCoinPackage {
 	name: string;
 	coins: number;
 	visualCoins: 2 | 3 | 4;
+	cost: number;
 }
 
 export type BuyCoinsFlowStatus =

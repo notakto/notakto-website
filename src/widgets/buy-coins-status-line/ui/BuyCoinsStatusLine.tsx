@@ -36,7 +36,7 @@ export default function BuyCoinsStatusLine({
 	return (
 		<div
 			className={clsx(
-				"mt-4 flex items-start gap-2 font-pixel text-[7px] uppercase leading-5",
+				"mt-4 flex items-start gap-2 font-pixel text-[8px] uppercase leading-5",
 				isSuccess && "text-success",
 				isFailure && "text-primary",
 				!isSuccess && !isFailure && "text-warning",

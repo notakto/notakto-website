@@ -32,16 +32,23 @@ export default function BuyCoinsPackageCard({
 				</span>
 			)}
 			<BuyCoinsCoinStack count={coinPackage.visualCoins} />
+
 			<span>
-				<span className="mb-3 block text-[7px] uppercase tracking-wider text-cream-dim">
+				<span className="mb-3 block text-sm uppercase tracking-wider text-cream-dim">
 					{coinPackage.name}
 				</span>
-				<span className="block text-[13px] uppercase leading-7 text-pixel-white">
-					{coinPackage.coins}
-					<br />
-					Coins
-				</span>
+				<div className="flex items-center justify-between">
+					<span className="block text-[13px] uppercase leading-7 text-pixel-white">
+						{coinPackage.coins}
+						<br />
+						Coins
+					</span>
+					<span className="mb-3 text-[13px] block uppercase tracking-wider text-cream-dim">
+						{coinPackage.cost}$
+					</span>
+				</div>
 			</span>
+
 			<span className="border-t-3 border-border-pixel pt-3 text-[8px] uppercase tracking-wider text-accent">
 				{coinPackage.id}
 			</span>

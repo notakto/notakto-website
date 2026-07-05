@@ -22,7 +22,7 @@ function BuyCoinsModalContent({ onClose }: { onClose?: () => void }) {
 						<h2 className="font-pixel text-sm uppercase tracking-widest text-accent md:text-base">
 							Buy Coins
 						</h2>
-						<p className="mt-2 font-pixel text-[8px] uppercase leading-5 text-cream-dim">
+						<p className="mt-2 font-pixel text-[9px] uppercase leading-5 text-cream-dim">
 							Wallet top up
 						</p>
 					</div>

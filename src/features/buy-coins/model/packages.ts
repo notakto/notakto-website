@@ -6,18 +6,21 @@ export const BUY_COIN_PACKAGES: BuyCoinPackage[] = [
 		name: "Starter Pack",
 		coins: 500,
 		visualCoins: 2,
+		cost: 1.99,
 	},
 	{
 		id: "pkg_1200",
 		name: "Tactical Pack",
 		coins: 1200,
 		visualCoins: 3,
+		cost: 2.99,
 	},
 	{
 		id: "pkg_3000",
 		name: "Champion Pack",
 		coins: 3000,
 		visualCoins: 4,
+		cost: 5.99,
 	},
 ];
 
