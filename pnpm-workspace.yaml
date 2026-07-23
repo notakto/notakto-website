@@ -1,3 +1,7 @@
+packages:
+  - .
+  - notakto-socket-server
+  
 ignoredBuiltDependencies: null
 
 onlyBuiltDependencies:
