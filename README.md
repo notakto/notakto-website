@@ -125,7 +125,7 @@ For local development without containerization:
     pnpm dev:local
     ```
     
-    This command will concurrently start both the web frontend development server.
+    This command will start the web frontend development server.
 
 The web application will be accessible at http://localhost:3000.
 ## :handshake: Contributions
