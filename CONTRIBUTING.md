@@ -28,10 +28,9 @@ pnpm dev:local
 ```
 
 This automatically:
-- Installs all dependencies for both main app and socket server
+- Installs all dependencies for main app
 - Starts Next.js development server (http://localhost:3000)
-- Starts Socket.IO server (http://localhost:8000)
-- Enables hot reload for both servers
+- Enables hot reload for the server
 
 **Alternative commands:**
 
@@ -40,11 +39,6 @@ This automatically:
 pnpm dev
 ```
 
-> If you're working on **Live Match** features, run the Socket.IO server separately:
-
-```bash
-cd notakto-socket-server && pnpm start
-```
 
 ## 🧪 Testing
 
@@ -103,8 +97,7 @@ To test your changes in a production-like environment:
     docker-compose up --build
     ```
 
-This builds both the web frontend and socket server, then starts the services on ports `3000` and `8000` respectively.
-
+This builds the web frontend, then start the services on port `3000`
 ## 📦 Project Structure Overview
 
 The project follows a modern Next.js architecture:
@@ -114,8 +107,6 @@ src/
 ├── app/                   # Next.js route-based pages (vsComputer, vsPlayer, liveMatch)
 ├── modals/                # Modal components for UI flows
 ├── services/              # Core logic, AI engine, Zustand store, Firebase, etc.
-notakto-socket-server/
-├── livematch.js           # Socket.IO live multiplayer server (Node.js)
 ```
 
 ## 💡 Contribution Ideas
