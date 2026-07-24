@@ -103,9 +103,9 @@ For a streamlined setup and to run the application in a containerized environmen
     ```bash
     docker-compose up --build
     ```
-    This command will build the Docker images for the web frontend and the socket server (if they don't exist or if Dockerfiles have changed) and then start the services.
+    This command will build the Docker images for the web frontend and then start the services.
 
-The web application will be accessible at http://localhost:3000 and the socket server will be running on port 8000.
+The web application will be accessible at http://localhost:3000.
 
 
 ## 💻 Running Locally
@@ -125,9 +125,9 @@ For local development without containerization:
     pnpm dev:local
     ```
     
-    This command will concurrently start both the web frontend development server and the socket server in local development mode.
+    This command will concurrently start both the web frontend development server.
 
-The web application will be accessible at http://localhost:3000 and the socket server will be running on port 8000.
+The web application will be accessible at http://localhost:3000.
 ## :handshake: Contributions
 
 The notakto project welcomes all contributions!
@@ -181,7 +181,6 @@ To ask questions, offer suggestions, or provide feedback, [open an issue][11].
 [7]: https://www.coinbase.com/commerce
 [8]: https://drive.google.com/file/d/1QHrSHDZumgNIxZhbl5kNWiP2y36SjO0U/view
 [9]: ./LICENSE
-[10]: https://socket.io/
 [11]: https://github.com/Rakshitg600/notakto-website/issues/new
 [12]: https://docs.docker.com/desktop/
 [13]: http://localhost:3000

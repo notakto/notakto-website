@@ -17,8 +17,8 @@
 		"test:ui": "vitest --ui",
 		"coverage": "vitest run --coverage",
 		"prepare": "pnpm exec lefthook install",
-		"dev:local": "concurrently --kill-others --prefix \"[{name}]\" --names \"NEXT.JS,SOCKET\" \"pnpm dev\" \"cd notakto-socket-server && pnpm start\"",
-		"install:all": "pnpm install && cd notakto-socket-server && pnpm install",
+		"dev:local": "concurrently --kill-others --prefix \"[{name}]\" --names \"NEXT.JS,SOCKET\" \"pnpm dev\"",
+		"install:all": "pnpm install",
 		"postinstall": "node -e \"const fs=require('fs'); if(!fs.existsSync('.env')) fs.copyFileSync('.env.example','.env');\"",
 		"env:check": "node -e \"const fs=require('fs'); const example=Object.keys(require('dotenv').config({path:'.env.example'}).parsed||{}); const current=Object.keys(require('dotenv').config({path:'.env'}).parsed||{}); const missing=example.filter(k=>!current.includes(k)); if(missing.length) {console.warn('⚠️  Missing env vars:',missing.join(', ')); process.exit(1);}\"",
 		"predev": "pnpm env:check"
