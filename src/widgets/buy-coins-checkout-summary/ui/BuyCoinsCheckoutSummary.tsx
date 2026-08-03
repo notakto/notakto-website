@@ -19,6 +19,10 @@ interface BuyCoinsCheckoutSummaryProps {
 	onStartCheckout: () => void;
 	providerStatus: BuyCoinsProviderStatus;
 	selectedPackage: BuyCoinPackage | undefined;
+	packagesError: string | null;
+	packagesLoading: boolean;
+	retryFetchPackages: () => void;
+	packages: BuyCoinPackage[] | undefined;
 }
 
 function getActionLabel(flowStatus: BuyCoinsFlowStatus) {
@@ -40,8 +44,12 @@ export default function BuyCoinsCheckoutSummary({
 	onStartCheckout,
 	providerStatus,
 	selectedPackage,
+	packagesError,
+	packagesLoading,
+	retryFetchPackages,
+	packages,
 }: BuyCoinsCheckoutSummaryProps) {
-	if (!selectedPackage) {
+	if (packagesLoading) {
 		return (
 			<aside className="bg-bg2 p-4 pixel-border">
 				<p className="font-pixel text-xs">
@@ -51,6 +59,26 @@ export default function BuyCoinsCheckoutSummary({
 			</aside>
 		);
 	}
+
+	if (packagesError) {
+		return (
+			<div>
+				<p className="text-sm">{packagesError}</p>
+				<button type="button" onClick={retryFetchPackages}>
+					Retry
+				</button>
+			</div>
+		);
+	}
+
+	if (packages && packages.length === 0) {
+		return <p>No coin packages are available.</p>;
+	}
+
+	if (!selectedPackage) {
+		return null;
+	}
+
 	const creditedTotal = currentCoins + selectedPackage.coins;
 
 	return (

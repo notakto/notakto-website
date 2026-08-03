@@ -65,6 +65,10 @@ function BuyCoinsModalContent({ onClose }: { onClose?: () => void }) {
 							onStartCheckout={buyCoins.startCheckout}
 							providerStatus={buyCoins.providerStatus}
 							selectedPackage={buyCoins.selectedPackage}
+							packagesError={buyCoins.packagesError}
+							packagesLoading={buyCoins.packagesLoading}
+							retryFetchPackages={buyCoins.retryFetchPackages}
+							packages={buyCoins.packages}
 						/>
 					</div>
 				) : (

@@ -1,6 +1,5 @@
 "use client";
 
-import axios from "axios";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { signInWithGoogle } from "@/features/authenticate-user/api/firebase";
 import { useUser } from "@/features/authenticate-user/model/userStore";
@@ -20,8 +19,6 @@ import { useCoins, useXP } from "@/features/manage-wallet/model/walletStore";
 const PAYMENT_POLL_INTERVAL_MS = 5000;
 const PAYMENT_POLL_TIMEOUT_MS = 5 * 60 * 1000;
 const DEFAULT_BUY_COIN_PACKAGE_ID = "pkg_1200";
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export function useBuyCoinsFlow() {
 	const user = useUser((state) => state.user);
@@ -44,6 +41,8 @@ export function useBuyCoinsFlow() {
 	>(null);
 	const [error, setError] = useState<string | null>(null);
 	const [packages, setPackages] = useState<BuyCoinPackage[]>([]);
+	const [packagesLoading, setPackagesLoading] = useState(false);
+	const [packagesError, setPackagesError] = useState<string | null>(null);
 
 	const pollingIntervalRef = useRef<number | null>(null);
 	const pollingDeadlineRef = useRef<number | null>(null);
@@ -55,29 +54,33 @@ export function useBuyCoinsFlow() {
 		[selectedPackageId, packages],
 	);
 
-	useEffect(() => {
+	const fetchPackages = useCallback(async () => {
 		if (!user) return;
 
-		const fetchPackages = async () => {
-			try {
-				const idToken = await user.getIdToken();
+		setPackagesLoading(true);
+		setPackagesError(null);
 
-				const result = await getCoinPackages(idToken);
+		try {
+			const idToken = await user.getIdToken();
+			const result = await getCoinPackages(idToken);
 
-				if (!result.success) {
-					setError(result.error);
-					return;
-				}
-
-				setPackages(result.coinPackages);
-			} catch (error) {
-				console.error("Could not fetch packages", error);
-				setError("Could not fetch packages");
+			if (!result.success) {
+				setPackagesError("Could not fetch packages");
+				return;
 			}
-		};
 
-		void fetchPackages();
+			setPackages(result.coinPackages);
+		} catch (error) {
+			console.error("Could not fetch packages", error);
+			setPackagesError("Could not fetch packages");
+		} finally {
+			setPackagesLoading(false);
+		}
 	}, [user]);
+
+	useEffect(() => {
+		void fetchPackages();
+	}, [fetchPackages]);
 
 	const stopPolling = useCallback(() => {
 		if (pollingIntervalRef.current !== null) {
@@ -257,7 +260,10 @@ export function useBuyCoinsFlow() {
 		hostedUrl,
 		isBusy: flowStatus === "creating" || flowStatus === "polling",
 		openHostedCheckout,
-		packages: packages,
+		packages,
+		packagesError,
+		packagesLoading,
+		retryFetchPackages: fetchPackages,
 		providerStatus,
 		resetPaymentState,
 		selectPackage,
