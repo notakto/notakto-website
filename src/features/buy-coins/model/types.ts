@@ -26,7 +26,7 @@ export interface BuyCoinPackage {
 	packageId: string;
 	packageName: string;
 	coins: number;
-	visualCoins: 2 | 3 | 4;
+	visualCoins: number;
 	amountCents: number;
 }
 

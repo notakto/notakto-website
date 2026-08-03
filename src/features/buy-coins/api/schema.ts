@@ -31,7 +31,7 @@ export const BuyCoinPackageSchema = z.object({
 	packageId: z.string(),
 	packageName: z.string(),
 	coins: z.number().int(),
-	visualCoins: z.union([z.literal(2), z.literal(3), z.literal(4)]),
+	visualCoins: z.number().int(),
 	amountCents: z.number().int(),
 	currency: z.string(),
 });
