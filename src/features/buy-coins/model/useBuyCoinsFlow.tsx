@@ -6,6 +6,7 @@ import { signInWithGoogle } from "@/features/authenticate-user/api/firebase";
 import { useUser } from "@/features/authenticate-user/model/userStore";
 import {
 	createCharge,
+	getCoinPackages,
 	getPaymentStatus,
 } from "@/features/buy-coins/api/buyCoinsApis";
 import type {
@@ -21,15 +22,6 @@ const PAYMENT_POLL_TIMEOUT_MS = 5 * 60 * 1000;
 const DEFAULT_BUY_COIN_PACKAGE_ID = "pkg_1200";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
-
-// Create axios instance with default config
-const apiClient = axios.create({
-	baseURL: API_URL,
-	headers: {
-		"Content-Type": "application/json",
-	},
-	timeout: 10000, // 10 seconds default timeout
-});
 
 export function useBuyCoinsFlow() {
 	const user = useUser((state) => state.user);
@@ -70,16 +62,17 @@ export function useBuyCoinsFlow() {
 			try {
 				const idToken = await user.getIdToken();
 
-				const { data } = await apiClient.get("/all-packages", {
-					headers: {
-						Authorization: `Bearer ${idToken}`,
-					},
-				});
-				console.log(data);
+				const result = await getCoinPackages(idToken);
 
-				setPackages(data.coinPackages);
+				if (!result.success) {
+					setError(result.error);
+					return;
+				}
+
+				setPackages(result.coinPackages);
 			} catch (error) {
 				console.error("Could not fetch packages", error);
+				setError("Could not fetch packages");
 			}
 		};
 

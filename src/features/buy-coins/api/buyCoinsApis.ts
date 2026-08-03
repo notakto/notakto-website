@@ -1,10 +1,12 @@
 import axios from "axios";
 import {
+	CoinPackagesResponseSchema,
 	CreateChargeResponseSchema,
 	PaymentStatusResponseSchema,
 } from "@/features/buy-coins/api/schema";
 import type {
 	BuyCoinsErrorResponse,
+	CoinPackagesResult,
 	CreateChargeResult,
 	PaymentStatusResult,
 } from "@/features/buy-coins/model/types";
@@ -29,6 +31,11 @@ const messages = {
 		errorLog: "Create charge API error",
 		axiosLog: "Create charge failed",
 		returnLog: "Failed to create charge",
+	},
+	package: {
+		errorLog: "Fetch Coin Packages API error",
+		axiosLog: "Fetch Coin Packages failed",
+		returnLog: "Failed to get the Coin Packages",
 	},
 } as const;
 
@@ -115,5 +122,26 @@ export async function getPaymentStatus(
 		return { success: true, ...parsed.data };
 	} catch (error) {
 		return formatApiError(error, "payment");
+	}
+}
+
+export async function getCoinPackages(
+	idToken: string,
+): Promise<CoinPackagesResult> {
+	try {
+		const { data } = await apiClient.get("/all-packages", {
+			headers: {
+				Authorization: `Bearer ${idToken}`,
+			},
+		});
+
+		const parsed = CoinPackagesResponseSchema.safeParse(data);
+
+		if (!parsed.success) {
+			return { success: false, error: "Invalid response format" };
+		}
+		return { success: true, coinPackages: parsed.data.coinPackages };
+	} catch (error) {
+		return formatApiError(error, "package");
 	}
 }

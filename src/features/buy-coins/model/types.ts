@@ -1,4 +1,5 @@
 import type {
+	CoinPackagesResponse,
 	CreateChargeResponse,
 	PaymentStatus,
 	PaymentStatusResponse,
@@ -15,6 +16,10 @@ export type CreateChargeResult =
 
 export type PaymentStatusResult =
 	| ({ success: true } & PaymentStatusResponse)
+	| BuyCoinsErrorResponse;
+
+export type CoinPackagesResult =
+	| ({ success: true } & CoinPackagesResponse)
 	| BuyCoinsErrorResponse;
 
 export interface BuyCoinPackage {
