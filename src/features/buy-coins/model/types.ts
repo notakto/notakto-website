@@ -18,11 +18,11 @@ export type PaymentStatusResult =
 	| BuyCoinsErrorResponse;
 
 export interface BuyCoinPackage {
-	id: string;
-	name: string;
+	packageId: string;
+	packageName: string;
 	coins: number;
 	visualCoins: 2 | 3 | 4;
-	cost: number;
+	amountCents: number;
 }
 
 export type BuyCoinsFlowStatus =

@@ -41,10 +41,12 @@ function BuyCoinsModalContent({ onClose }: { onClose?: () => void }) {
 							<div className="mb-4 grid gap-3 sm:grid-cols-3">
 								{buyCoins.packages.map((coinPackage) => (
 									<BuyCoinsPackageCard
-										key={coinPackage.id}
+										key={coinPackage.packageId}
 										coinPackage={coinPackage}
 										disabled={buyCoins.isBusy}
-										selected={coinPackage.id === buyCoins.selectedPackageId}
+										selected={
+											coinPackage.packageId === buyCoins.selectedPackageId
+										}
 										onSelect={buyCoins.selectPackage}
 									/>
 								))}

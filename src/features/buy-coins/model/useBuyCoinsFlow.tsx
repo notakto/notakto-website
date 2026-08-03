@@ -1,5 +1,6 @@
 "use client";
 
+import axios from "axios";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { signInWithGoogle } from "@/features/authenticate-user/api/firebase";
 import { useUser } from "@/features/authenticate-user/model/userStore";
@@ -7,11 +8,8 @@ import {
 	createCharge,
 	getPaymentStatus,
 } from "@/features/buy-coins/api/buyCoinsApis";
-import {
-	BUY_COIN_PACKAGES,
-	DEFAULT_BUY_COIN_PACKAGE_ID,
-} from "@/features/buy-coins/model/packages";
 import type {
+	BuyCoinPackage,
 	BuyCoinsFlowStatus,
 	BuyCoinsProviderStatus,
 } from "@/features/buy-coins/model/types";
@@ -20,6 +18,18 @@ import { useCoins, useXP } from "@/features/manage-wallet/model/walletStore";
 
 const PAYMENT_POLL_INTERVAL_MS = 5000;
 const PAYMENT_POLL_TIMEOUT_MS = 5 * 60 * 1000;
+const DEFAULT_BUY_COIN_PACKAGE_ID = "pkg_1200";
+
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
+// Create axios instance with default config
+const apiClient = axios.create({
+	baseURL: API_URL,
+	headers: {
+		"Content-Type": "application/json",
+	},
+	timeout: 10000, // 10 seconds default timeout
+});
 
 export function useBuyCoinsFlow() {
 	const user = useUser((state) => state.user);
@@ -41,16 +51,40 @@ export function useBuyCoinsFlow() {
 		number | null
 	>(null);
 	const [error, setError] = useState<string | null>(null);
+	const [packages, setPackages] = useState<BuyCoinPackage[]>([]);
 
 	const pollingIntervalRef = useRef<number | null>(null);
 	const pollingDeadlineRef = useRef<number | null>(null);
 
 	const selectedPackage = useMemo(
 		() =>
-			BUY_COIN_PACKAGES.find((item) => item.id === selectedPackageId) ??
-			BUY_COIN_PACKAGES[0],
-		[selectedPackageId],
+			packages.find((item) => item.packageId === selectedPackageId) ??
+			packages[0],
+		[selectedPackageId, packages],
 	);
+
+	useEffect(() => {
+		if (!user) return;
+
+		const fetchPackages = async () => {
+			try {
+				const idToken = await user.getIdToken();
+
+				const { data } = await apiClient.get("/all-packages", {
+					headers: {
+						Authorization: `Bearer ${idToken}`,
+					},
+				});
+				console.log(data);
+
+				setPackages(data.coinPackages);
+			} catch (error) {
+				console.error("Could not fetch packages", error);
+			}
+		};
+
+		void fetchPackages();
+	}, [user]);
 
 	const stopPolling = useCallback(() => {
 		if (pollingIntervalRef.current !== null) {
@@ -168,6 +202,11 @@ export function useBuyCoinsFlow() {
 			return;
 		}
 
+		if (!selectedPackage) {
+			setError("No coin package selected");
+			return;
+		}
+
 		stopPolling();
 		setFlowStatus("creating");
 		setProviderStatus(null);
@@ -179,7 +218,12 @@ export function useBuyCoinsFlow() {
 
 		try {
 			const idToken = await user.getIdToken();
-			const chargeResult = await createCharge(selectedPackage.id, idToken);
+
+			const chargeResult = await createCharge(
+				selectedPackage.packageId,
+				idToken,
+			);
+
 			if (!chargeResult.success) {
 				setFlowStatus("failed");
 				setError(chargeResult.error);
@@ -195,7 +239,7 @@ export function useBuyCoinsFlow() {
 			setFlowStatus("failed");
 			setError("Failed to start checkout");
 		}
-	}, [openHostedCheckout, selectedPackage.id, startPolling, stopPolling, user]);
+	}, [openHostedCheckout, selectedPackage, startPolling, stopPolling, user]);
 
 	const signIn = useCallback(async () => {
 		setError(null);
@@ -220,7 +264,7 @@ export function useBuyCoinsFlow() {
 		hostedUrl,
 		isBusy: flowStatus === "creating" || flowStatus === "polling",
 		openHostedCheckout,
-		packages: BUY_COIN_PACKAGES,
+		packages: packages,
 		providerStatus,
 		resetPaymentState,
 		selectPackage,

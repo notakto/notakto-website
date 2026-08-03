@@ -1,5 +1,6 @@
 import clsx from "clsx";
 import type { BuyCoinPackage } from "@/features/buy-coins/model/types";
+import { formatCents } from "@/shared/lib/formatCents";
 import BuyCoinsCoinStack from "@/widgets/buy-coins-coin-stack/ui/BuyCoinsCoinStack";
 
 interface BuyCoinsPackageCardProps {
@@ -19,7 +20,7 @@ export default function BuyCoinsPackageCard({
 		<button
 			type="button"
 			disabled={disabled}
-			onClick={() => onSelect(coinPackage.id)}
+			onClick={() => onSelect(coinPackage.packageId)}
 			className={clsx(
 				"relative grid min-h-56 grid-rows-[auto_1fr_auto] gap-3 bg-bg2 p-4 text-left font-pixel text-cream transition-colors duration-100",
 				selected ? "pixel-border-accent" : "pixel-border hover:border-accent",
@@ -35,7 +36,7 @@ export default function BuyCoinsPackageCard({
 
 			<span>
 				<span className="mb-3 block text-sm uppercase tracking-wider text-cream-dim">
-					{coinPackage.name}
+					{coinPackage.packageName}
 				</span>
 				<div className="flex items-center justify-between">
 					<span className="block text-[13px] uppercase leading-7 text-pixel-white">
@@ -44,13 +45,13 @@ export default function BuyCoinsPackageCard({
 						Coins
 					</span>
 					<span className="mb-3 text-[13px] block uppercase tracking-wider text-cream-dim">
-						{coinPackage.cost}$
+						{formatCents(coinPackage.amountCents)}
 					</span>
 				</div>
 			</span>
 
 			<span className="border-t-3 border-border-pixel pt-3 text-[8px] uppercase tracking-wider text-accent">
-				{coinPackage.id}
+				{coinPackage.packageId}
 			</span>
 		</button>
 	);

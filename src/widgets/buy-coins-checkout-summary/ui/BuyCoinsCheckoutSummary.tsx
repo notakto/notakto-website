@@ -3,6 +3,7 @@ import type {
 	BuyCoinsFlowStatus,
 	BuyCoinsProviderStatus,
 } from "@/features/buy-coins/model/types";
+import { formatCents } from "@/shared/lib/formatCents";
 import BuyCoinsCheckoutSummaryLabel from "@/widgets/buy-coins-checkout-summary-label/ui/BuyCoinsCheckoutSummaryLabel";
 import BuyCoinsStatusLine from "@/widgets/buy-coins-status-line/ui/BuyCoinsStatusLine";
 
@@ -17,11 +18,7 @@ interface BuyCoinsCheckoutSummaryProps {
 	onOpenCheckout: () => void;
 	onStartCheckout: () => void;
 	providerStatus: BuyCoinsProviderStatus;
-	selectedPackage: BuyCoinPackage;
-}
-
-function formatCents(amountCents: number) {
-	return `$${(amountCents / 100).toFixed(2)}`;
+	selectedPackage: BuyCoinPackage | undefined;
 }
 
 function getActionLabel(flowStatus: BuyCoinsFlowStatus) {
@@ -44,6 +41,16 @@ export default function BuyCoinsCheckoutSummary({
 	providerStatus,
 	selectedPackage,
 }: BuyCoinsCheckoutSummaryProps) {
+	if (!selectedPackage) {
+		return (
+			<aside className="bg-bg2 p-4 pixel-border">
+				<p className="font-pixel text-xs">
+					{/* Need to add the custom loader later... */}
+					Loading packages...
+				</p>
+			</aside>
+		);
+	}
 	const creditedTotal = currentCoins + selectedPackage.coins;
 
 	return (
@@ -54,7 +61,7 @@ export default function BuyCoinsCheckoutSummary({
 			<div className="space-y-0 border-t-3 border-border-pixel font-pixel">
 				<BuyCoinsCheckoutSummaryLabel
 					title={"Package"}
-					content={selectedPackage.name}
+					content={selectedPackage.packageName}
 					textColor={"text-pixel-white"}
 				/>
 				<BuyCoinsCheckoutSummaryLabel
@@ -64,7 +71,7 @@ export default function BuyCoinsCheckoutSummary({
 				/>
 				<BuyCoinsCheckoutSummaryLabel
 					title={"Total"}
-					content={`${selectedPackage.cost}$`}
+					content={`${formatCents(selectedPackage.amountCents)}`}
 					textColor={"text-accent"}
 				/>
 				<BuyCoinsCheckoutSummaryLabel
