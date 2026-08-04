@@ -18,7 +18,7 @@ import { useCoins, useXP } from "@/features/manage-wallet/model/walletStore";
 
 const PAYMENT_POLL_INTERVAL_MS = 5000;
 const PAYMENT_POLL_TIMEOUT_MS = 5 * 60 * 1000;
-const DEFAULT_BUY_COIN_PACKAGE_ID = "pkg_1200";
+// const DEFAULT_BUY_COIN_PACKAGE_ID = "pkg_1200";
 
 export function useBuyCoinsFlow() {
 	const user = useUser((state) => state.user);
@@ -27,9 +27,10 @@ export function useBuyCoinsFlow() {
 	const setCoins = useCoins((state) => state.setCoins);
 	const setXP = useXP((state) => state.setXP);
 
-	const [selectedPackageId, setSelectedPackageId] = useState(
-		DEFAULT_BUY_COIN_PACKAGE_ID,
+	const [selectedPackageId, setSelectedPackageId] = useState<string | null>(
+		null,
 	);
+
 	const [flowStatus, setFlowStatus] = useState<BuyCoinsFlowStatus>("idle");
 	const [providerStatus, setProviderStatus] =
 		useState<BuyCoinsProviderStatus>(null);
@@ -48,9 +49,7 @@ export function useBuyCoinsFlow() {
 	const pollingDeadlineRef = useRef<number | null>(null);
 
 	const selectedPackage = useMemo(
-		() =>
-			packages.find((item) => item.packageId === selectedPackageId) ??
-			packages[0],
+		() => packages.find((item) => item.packageId === selectedPackageId),
 		[selectedPackageId, packages],
 	);
 
@@ -69,7 +68,26 @@ export function useBuyCoinsFlow() {
 				return;
 			}
 
-			setPackages(result.coinPackages);
+			const coinPackages = result.coinPackages;
+
+			setPackages(coinPackages);
+
+			setSelectedPackageId((currentId) => {
+				if (
+					currentId &&
+					coinPackages.some(
+						(coinPackage) => coinPackage.packageId === currentId,
+					)
+				) {
+					return currentId;
+				}
+
+				const defaultPackage = coinPackages.find(
+					(coinPackage) => coinPackage.defaultPackage,
+				);
+
+				return defaultPackage?.packageId ?? coinPackages[0]?.packageId ?? null;
+			});
 		} catch (error) {
 			console.error("Could not fetch packages", error);
 			setPackagesError("Could not fetch packages");

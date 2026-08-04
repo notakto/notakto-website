@@ -34,6 +34,7 @@ export const BuyCoinPackageSchema = z.object({
 	visualCoins: z.number().int(),
 	amountCents: z.number().int(),
 	currency: z.string(),
+	defaultPackage: z.boolean(),
 });
 
 export const CoinPackagesResponseSchema = z.object({
