@@ -1,7 +1,7 @@
 import clsx from "clsx";
 
 interface BuyCoinsCoinStackProps {
-	count: 2 | 3 | 4;
+	count: number;
 }
 
 const COIN_POSITIONS = [
