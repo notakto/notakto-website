@@ -6,6 +6,7 @@ import type {
 import { formatCents } from "@/shared/lib/formatCents";
 import BuyCoinsCheckoutSummaryLabel from "@/widgets/buy-coins-checkout-summary-label/ui/BuyCoinsCheckoutSummaryLabel";
 import BuyCoinsStatusLine from "@/widgets/buy-coins-status-line/ui/BuyCoinsStatusLine";
+import PixelLoadingIndicator from "@/widgets/pixel-loading-indicator/PixelLoadingIndicator";
 
 interface BuyCoinsCheckoutSummaryProps {
 	checkoutOpenBlocked: boolean;
@@ -51,10 +52,10 @@ export default function BuyCoinsCheckoutSummary({
 }: BuyCoinsCheckoutSummaryProps) {
 	if (packagesLoading) {
 		return (
-			<aside className="bg-bg2 p-10 pixel-border">
+			<aside className="bg-bg2 p-10 pixel-border flex items-center justify-center">
 				<p className="font-pixel text-xs">
 					{/* Need to add the custom loader later... */}
-					Loading packages...
+					<PixelLoadingIndicator />
 				</p>
 			</aside>
 		);
