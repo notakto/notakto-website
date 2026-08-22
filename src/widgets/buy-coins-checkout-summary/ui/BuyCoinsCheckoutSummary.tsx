@@ -53,10 +53,9 @@ export default function BuyCoinsCheckoutSummary({
 	if (packagesLoading) {
 		return (
 			<aside className="bg-bg2 p-10 pixel-border flex items-center justify-center">
-				<p className="font-pixel text-xs">
-					{/* Need to add the custom loader later... */}
+				<div className="font-pixel text-xs">
 					<PixelLoadingIndicator />
-				</p>
+				</div>
 			</aside>
 		);
 	}
