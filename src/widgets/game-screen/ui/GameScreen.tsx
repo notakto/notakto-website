@@ -50,7 +50,7 @@ export interface GameScreenProps {
 	actions: GameAction[];
 	cellOwnersByBoard?: Record<number, Record<number, 1 | 2>>;
 	walletSlot?: ReactNode;
-	isProcessing: boolean;
+	isProcessing?: boolean;
 	onSelectBoard: (index: number) => void;
 	onTogglePreviewBoard: (index: number) => void;
 	onMakeMove: (boardIndex: number, cellIndex: number) => void;
@@ -72,7 +72,7 @@ export default function GameScreen({
 	actions,
 	cellOwnersByBoard = {},
 	walletSlot,
-	isProcessing,
+	isProcessing = false,
 	onSelectBoard,
 	onTogglePreviewBoard,
 	onMakeMove,
