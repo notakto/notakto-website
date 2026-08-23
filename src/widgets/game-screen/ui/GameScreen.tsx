@@ -22,6 +22,7 @@ import GameLeftPanel from "@/widgets/game-left-panel/ui/GameLeftPanel";
 import GameStatsPanel from "@/widgets/game-stats-panel/ui/GameStatsPanel";
 import GameStatusBar from "@/widgets/game-status-bar/ui/GameStatusBar";
 import GameTopBar from "@/widgets/game-top-bar/ui/GameTopBar";
+import PixelLoadingIndicator from "@/widgets/pixel-loading-indicator/PixelLoadingIndicator";
 
 interface PlayerPanel {
 	name: string;
@@ -49,6 +50,7 @@ export interface GameScreenProps {
 	actions: GameAction[];
 	cellOwnersByBoard?: Record<number, Record<number, 1 | 2>>;
 	walletSlot?: ReactNode;
+	isProcessing: boolean;
 	onSelectBoard: (index: number) => void;
 	onTogglePreviewBoard: (index: number) => void;
 	onMakeMove: (boardIndex: number, cellIndex: number) => void;
@@ -70,6 +72,7 @@ export default function GameScreen({
 	actions,
 	cellOwnersByBoard = {},
 	walletSlot,
+	isProcessing,
 	onSelectBoard,
 	onTogglePreviewBoard,
 	onMakeMove,
@@ -150,6 +153,11 @@ export default function GameScreen({
 			</GameContentArea>
 
 			<GameActionBar actions={actions} />
+			{isProcessing && (
+				<div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black/60">
+					<PixelLoadingIndicator title="Thinking...	" />
+				</div>
+			)}
 		</GameLayout>
 	);
 }

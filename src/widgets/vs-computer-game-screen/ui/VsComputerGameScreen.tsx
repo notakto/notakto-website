@@ -30,6 +30,7 @@ export default function VsComputerGameScreen() {
 				stats={match.stats}
 				actions={match.actions}
 				cellOwnersByBoard={match.cellOwnersByBoard}
+				isProcessing={match.isProcessing}
 				walletSlot={
 					<WalletBadge
 						coins={match.coins}

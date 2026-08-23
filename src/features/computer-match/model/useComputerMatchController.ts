@@ -657,6 +657,7 @@ export function useComputerMatchController() {
 		coins,
 		xp,
 		actions,
+		isProcessing,
 		stats: [
 			{ label: "TOTAL MOVES", value: totalMoves },
 			{ label: "BOARDS ALIVE", value: aliveCount },
