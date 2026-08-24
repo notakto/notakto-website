@@ -644,7 +644,10 @@ export function useComputerMatchController() {
 		},
 		{
 			label: "RESIGN",
-			onClick: () => openModal("exitConfirmation"),
+			onClick: () => {
+				if (blockedByPendingOperation()) return;
+				openModal("exitConfirmation");
+			},
 			variant: "danger",
 		},
 	];
@@ -702,6 +705,7 @@ export function useComputerMatchController() {
 			closeModal();
 		},
 		confirmExit: () => {
+			if (blockedByPendingOperation()) return;
 			router.push("/");
 		},
 	};
