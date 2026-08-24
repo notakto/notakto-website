@@ -106,38 +106,46 @@ export function useComputerMatchController() {
 	useShortcut(
 		{
 			escape: () => {
+				if (isProcessing) return;
 				if (activeModal === "winner") return;
 				if (activeModal) return closeModal();
 			},
 			m: () => {
+				if (isProcessing) return;
 				if (activeModal === "winner") return;
 				activeModal === "exitConfirmation"
 					? closeModal()
 					: openModal("exitConfirmation");
 			},
 			r: () => {
+				if (isProcessing) return;
 				if (activeModal === "winner" || !hasMoveHappened) return;
 				activeModal === "resetConfirmation"
 					? closeModal()
 					: openModal("resetConfirmation");
 			},
 			c: () => {
+				if (isProcessing) return;
 				if (activeModal === "winner") return;
 				activeModal === "boardConfig" ? closeModal() : openModal("boardConfig");
 			},
 			s: () => {
+				if (isProcessing) return;
 				if (activeModal === "winner") return;
 				activeModal === "soundConfig" ? closeModal() : openModal("soundConfig");
 			},
 			d: () => {
+				if (isProcessing) return;
 				if (activeModal === "winner") return;
 				activeModal === "difficulty" ? closeModal() : openModal("difficulty");
 			},
 			q: () => {
+				if (isProcessing) return;
 				if (activeModal === "winner") return;
 				activeModal === "shortcut" ? closeModal() : openModal("shortcut");
 			},
 			p: () => {
+				if (isProcessing) return;
 				if (activeModal === "winner") return;
 				activeModal === "profile" ? closeModal() : openModal("profile");
 			},

@@ -2,7 +2,9 @@ interface PixelLoadingIndicatorProps {
 	title?: string;
 }
 
-const PixelLoadingIndicator = ({ title = "" }: PixelLoadingIndicatorProps) => {
+const PixelLoadingIndicator = ({
+	title = "Loading...",
+}: PixelLoadingIndicatorProps) => {
 	const blocks = [0, 1, 2, 3, 4];
 
 	return (
@@ -29,7 +31,7 @@ const PixelLoadingIndicator = ({ title = "" }: PixelLoadingIndicatorProps) => {
 				))}
 			</div>
 
-			<p className="text-xs">{title}</p>
+			{title && <p className="text-xs">{title}</p>}
 		</div>
 	);
 };
