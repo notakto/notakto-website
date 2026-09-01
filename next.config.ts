@@ -25,6 +25,11 @@ const nextConfig: NextConfig = {
 				hostname: "ik.imagekit.io",
 				pathname: "/notakto/**",
 			},
+			{
+				protocol: "https",
+				hostname: "ik.imagekit.io",
+				pathname: "/notaktoStage/**",
+			},
 		],
 	},
 	compiler: {
