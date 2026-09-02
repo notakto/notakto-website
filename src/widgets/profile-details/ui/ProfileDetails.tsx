@@ -1,4 +1,5 @@
 import ProfileDetailRow from "@/widgets/profile-detail-row/ui/ProfileDetailRow";
+import ProfileNameRow from "@/widgets/profile-name-row/ui/ProfileNameRow";
 
 interface ProfileDetailsProps {
 	name: string;
@@ -15,7 +16,7 @@ export default function ProfileDetails({
 }: ProfileDetailsProps) {
 	return (
 		<div className="space-y-2 my-4">
-			<ProfileDetailRow label="NAME" value={name} />
+			<ProfileNameRow value={name} />
 			<ProfileDetailRow label="EMAIL" value={email} />
 			<ProfileDetailRow label="COINS" value={coins} variant="accent" />
 			<ProfileDetailRow label="XP" value={xp} variant="accent" />

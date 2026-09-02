@@ -13,9 +13,11 @@ export default function ProfileDetailRow({
 	variant,
 }: ProfileDetailRowProps) {
 	return (
-		<div className="font-pixel text-[8px] text-cream-dim text-center">
-			<ProfileDetailLabel label={label} />
-			<ProfileDetailValue value={value} variant={variant} />
+		<div className="flex items-center justify-between text-center">
+			<div className="font-pixel text-[8px] text-cream-dim">
+				<ProfileDetailLabel label={label} />
+				<ProfileDetailValue value={value} variant={variant} />
+			</div>
 		</div>
 	);
 }
