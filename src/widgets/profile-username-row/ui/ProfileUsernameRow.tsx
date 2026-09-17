@@ -2,20 +2,20 @@ import { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
 import { useUser } from "@/features/authenticate-user/model/userStore";
 import { useProfile } from "@/features/manage-user-profile/model/profileStore";
-import updateName from "@/features/update-name/api/updateNameApis";
+import updateUsername from "@/features/update-username/api/updateUsernameApis";
 import ProfileDetailLabel from "@/widgets/profile-detail-label/ui/ProfileDetailLabel";
 
 interface ProfileNameRowProps {
 	value: string;
 }
 
-export default function ProfileNameRow({ value }: ProfileNameRowProps) {
+export default function ProfileUsernameRow({ value }: ProfileNameRowProps) {
 	const [editing, setEditing] = useState(false);
-	const [name, setName] = useState(value);
+	const [username, setUsername] = useState(value);
 	const [loading, setLoading] = useState(false);
 
 	const user = useUser((state) => state.user);
-	const setProfileName = useProfile((state) => state.setName);
+	const setProfileUsername = useProfile((state) => state.setUsername);
 
 	const inputRef = useRef<HTMLInputElement>(null);
 
@@ -27,20 +27,20 @@ export default function ProfileNameRow({ value }: ProfileNameRowProps) {
 	}, [editing]);
 
 	const handleCancel = () => {
-		setName(value);
+		setUsername(value);
 		setEditing(false);
 	};
 
 	const handleUpdate = async () => {
-		const trimmedName = name.trim();
+		const trimmedUsername = username.trim();
 
-		if (!trimmedName) {
-			toast.error("Name cannot be empty");
+		if (!trimmedUsername) {
+			toast.error("Username cannot be empty");
 			return;
 		}
 
-		if (trimmedName === value) {
-			toast.error("Name cannot be same as before");
+		if (trimmedUsername === value) {
+			toast.error("Username cannot be same as before");
 			return;
 		}
 
@@ -53,18 +53,18 @@ export default function ProfileNameRow({ value }: ProfileNameRowProps) {
 				throw new Error("User is not authenticated");
 			}
 
-			await updateName(idToken, trimmedName);
+			await updateUsername(idToken, trimmedUsername);
 
-			setName(trimmedName);
-			setProfileName(trimmedName);
+			setUsername(trimmedUsername);
+			setProfileUsername(trimmedUsername);
 			setEditing(false);
 
-			toast.success("Name updated successfully!");
+			toast.success("Username updated!");
 		} catch (error) {
 			console.error(error);
 
 			toast.error(
-				error instanceof Error ? error.message : "Failed to update name",
+				error instanceof Error ? error.message : "Failed to update username",
 			);
 		} finally {
 			setLoading(false);
@@ -84,18 +84,18 @@ export default function ProfileNameRow({ value }: ProfileNameRowProps) {
 	return (
 		<div className="flex items-center justify-between gap-4">
 			<div className="flex min-w-0 items-center gap-3 font-pixel text-[12px] text-cream-dim">
-				<ProfileDetailLabel label="NAME" />
+				<ProfileDetailLabel label="Username" />
 
 				{editing ? (
 					<input
 						ref={inputRef}
 						type="text"
-						value={name}
+						value={username}
 						disabled={loading}
-						onChange={(e) => setName(e.target.value)}
+						onChange={(e) => setUsername(e.target.value)}
 						onKeyDown={handleKeyDown}
 						className="
-							h-8 w-60
+							h-8 w-48
 							border border-cream
 							bg-bg0
 							px-2
@@ -105,7 +105,7 @@ export default function ProfileNameRow({ value }: ProfileNameRowProps) {
 						"
 					/>
 				) : (
-					<span className="truncate text-cream">{name}</span>
+					<span className="truncate text-cream">{username}</span>
 				)}
 			</div>
 
@@ -162,10 +162,9 @@ export default function ProfileNameRow({ value }: ProfileNameRowProps) {
 				<button
 					type="button"
 					onClick={() => setEditing(true)}
-					aria-label="Edit name"
+					aria-label="Edit username"
 					className="
 						flex size-8 shrink-0
-						cursor-pointer
 						items-center justify-center
 						border border-border-light
 						bg-bg2
@@ -179,7 +178,7 @@ export default function ProfileNameRow({ value }: ProfileNameRowProps) {
 						aria-hidden="true">
 						<path
 							fill="#e4d8c0"
-							d="M5 19h1.425L16.2 9.225L14.775 7.8L5 17.575zm-2 2v-4.25L17.625 2.175L21.8 6.45L7.25 21z"
+							d="M5 19h1.425L16.2 9.225L14.775 7.8L5 17.575zm-2 2v-4.25L17.625 2.175L21.8 6.45l-14.55 14.55z"
 						/>
 					</svg>
 				</button>

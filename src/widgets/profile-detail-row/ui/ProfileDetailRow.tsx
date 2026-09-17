@@ -14,7 +14,7 @@ export default function ProfileDetailRow({
 }: ProfileDetailRowProps) {
 	return (
 		<div className="flex items-center justify-between text-center">
-			<div className="font-pixel text-[8px] text-cream-dim">
+			<div className="font-pixel text-[12px] text-cream-dim">
 				<ProfileDetailLabel label={label} />
 				<ProfileDetailValue value={value} variant={variant} />
 			</div>

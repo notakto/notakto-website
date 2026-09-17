@@ -16,6 +16,7 @@ interface ProfileModalProps {
 }
 
 const ProfileModal = ({ visible, onClose }: ProfileModalProps) => {
+	const username = useProfile((state) => state.username);
 	const name = useProfile((state) => state.name);
 	const email = useProfile((state) => state.email);
 	const pic = useProfile((state) => state.pic);
@@ -34,7 +35,13 @@ const ProfileModal = ({ visible, onClose }: ProfileModalProps) => {
 				{authReady && user ? (
 					<>
 						{isValidPic ? <ProfileAvatar src={pic} /> : <ProfileImageError />}
-						<ProfileDetails name={name} email={email} coins={coins} xp={xp} />
+						<ProfileDetails
+							name={name}
+							username={username}
+							email={email}
+							coins={coins}
+							xp={xp}
+						/>
 					</>
 				) : (
 					<ProfileLoginPrompt />
