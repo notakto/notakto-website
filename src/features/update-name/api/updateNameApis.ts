@@ -36,7 +36,7 @@ const updateName = async (idToken: string, name: string) => {
 				error.response?.data?.message ??
 				JSON.stringify(error.response?.data) ??
 				error.message;
-			throw new Error(`Update username failed (${status}): ${details}`);
+			throw new Error(`Update name failed (${status}): ${details}`);
 		}
 
 		throw error;
