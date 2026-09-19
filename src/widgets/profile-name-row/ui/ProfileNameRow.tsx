@@ -1,3 +1,4 @@
+import { Check, Pencil, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
 import { useUser } from "@/features/authenticate-user/model/userStore";
@@ -71,19 +72,9 @@ export default function ProfileNameRow({ value }: ProfileNameRowProps) {
 		}
 	};
 
-	const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-		if (e.key === "Enter") {
-			handleUpdate();
-		}
-
-		if (e.key === "Escape") {
-			handleCancel();
-		}
-	};
-
 	return (
 		<div className="flex items-center justify-between gap-4">
-			<div className="flex min-w-0 items-center gap-3 font-pixel text-[12px] text-cream-dim">
+			<div className="flex min-w-0 items-center gap-0.5 font-pixel md:text-[12px] text-[10px] text-cream-dim">
 				<ProfileDetailLabel label="NAME" />
 
 				{editing ? (
@@ -93,9 +84,8 @@ export default function ProfileNameRow({ value }: ProfileNameRowProps) {
 						value={name}
 						disabled={loading}
 						onChange={(e) => setName(e.target.value)}
-						onKeyDown={handleKeyDown}
 						className="
-							h-8 w-60
+							h-8 w-[85%] md:w-80
 							border border-cream
 							bg-bg0
 							px-2
@@ -116,14 +106,18 @@ export default function ProfileNameRow({ value }: ProfileNameRowProps) {
 						type="button"
 						onClick={handleUpdate}
 						disabled={loading}
+						aria-label="Save name"
+						title="Save"
 						className="
-							flex h-8 min-w-14.5
+							flex size-8 shrink-0
+							cursor-pointer
 							items-center justify-center
 							border border-primary
 							bg-[#c43c3c]
-							px-2
-							font-pixel text-[8px] text-cream
+							text-cream
 							shadow-[2px_2px_0_var(--color-bg0)]
+							transition-colors
+							hover:bg-[#d44a4a]
 							disabled:cursor-not-allowed
 							disabled:opacity-70
 						">
@@ -134,7 +128,7 @@ export default function ProfileNameRow({ value }: ProfileNameRowProps) {
 								<span className="size-1 animate-bounce bg-cream [animation-delay:200ms]" />
 							</div>
 						) : (
-							"SAVE"
+							<Check size={16} strokeWidth={2.5} />
 						)}
 					</button>
 
@@ -143,18 +137,22 @@ export default function ProfileNameRow({ value }: ProfileNameRowProps) {
 						type="button"
 						onClick={handleCancel}
 						disabled={loading}
+						aria-label="Cancel editing"
+						title="Cancel"
 						className="
-							h-8
+							flex size-8 shrink-0
+							cursor-pointer
+							items-center justify-center
 							border border-border-light
 							bg-bg2
-							px-2
-							font-pixel text-[8px] text-cream-dim
+							text-cream-dim
 							shadow-[2px_2px_0_var(--color-bg0)]
+							transition-colors
 							hover:text-cream
 							disabled:cursor-not-allowed
 							disabled:opacity-50
 						">
-						CANCEL
+						<X size={16} strokeWidth={2.5} />
 					</button>
 				</div>
 			) : (
@@ -163,25 +161,19 @@ export default function ProfileNameRow({ value }: ProfileNameRowProps) {
 					type="button"
 					onClick={() => setEditing(true)}
 					aria-label="Edit name"
+					title="Edit name"
 					className="
 						flex size-8 shrink-0
 						cursor-pointer
 						items-center justify-center
 						border border-border-light
 						bg-bg2
+						text-cream
 						shadow-[2px_2px_0_var(--color-bg0)]
+						transition-colors
+						hover:text-primary
 					">
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						width="16"
-						height="16"
-						viewBox="0 0 24 24"
-						aria-hidden="true">
-						<path
-							fill="#e4d8c0"
-							d="M5 19h1.425L16.2 9.225L14.775 7.8L5 17.575zm-2 2v-4.25L17.625 2.175L21.8 6.45L7.25 21z"
-						/>
-					</svg>
+					<Pencil size={16} strokeWidth={2} />
 				</button>
 			)}
 		</div>
