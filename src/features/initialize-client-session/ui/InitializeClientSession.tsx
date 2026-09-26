@@ -24,6 +24,7 @@ const InitializeClientSession = (): null => {
 		(state): ((newCoins: number) => void) => state.setCoins,
 	);
 	const setXP = useXP((state): ((newXP: number) => void) => state.setXP);
+	const setUsername = useProfile((state) => state.setUsername);
 	const setName = useProfile((state) => state.setName);
 	const setEmail = useProfile((state) => state.setEmail);
 	const setPic = useProfile((state) => state.setPic);
@@ -40,6 +41,7 @@ const InitializeClientSession = (): null => {
 					setUser(null);
 					setAuthReady(true);
 					setName("player");
+					setUsername("player");
 					setEmail("empty@empty.empty");
 					setPic("empty.empty");
 					return;
@@ -62,6 +64,7 @@ const InitializeClientSession = (): null => {
 
 					// Step 3: Update user state
 					setUser(firebaseUser);
+					setUsername(backendUser.username);
 					setName(backendUser.name);
 					setEmail(backendUser.email);
 					setPic(backendUser.profile_pic);
@@ -87,7 +90,16 @@ const InitializeClientSession = (): null => {
 		);
 
 		return (): void => unsubscribe();
-	}, [setUser, setAuthReady, setCoins, setXP, setName, setEmail, setPic]);
+	}, [
+		setUser,
+		setAuthReady,
+		setCoins,
+		setXP,
+		setName,
+		setEmail,
+		setPic,
+		setUsername,
+	]);
 
 	return null;
 };

@@ -3,6 +3,7 @@ import { z } from "zod";
 export const SignInResponseSchema = z.object({
 	uid: z.string(),
 	name: z.string(),
+	username: z.string(),
 	email: z.email(),
 	profile_pic: z.url(),
 	new_account: z.boolean(),
