@@ -39,10 +39,10 @@ const PlayerNamesModal = ({
 	}, [initialNames]);
 
 	const handleSubmit = () => {
-		const trimmedPlayer1 = player1.trim();
-		const trimmedPlayer2 = player2.trim();
+		const trimmedPlayer1Name = player1.trim();
+		const trimmedPlayer2Name = player2.trim();
 
-		if (!trimmedPlayer1 || !trimmedPlayer2) {
+		if (!trimmedPlayer1Name || !trimmedPlayer2Name) {
 			if (canShowToast()) {
 				toast.error("Player name cannot be empty.", {
 					toastId: TOAST_IDS.PlayerNames.Empty,
@@ -55,8 +55,8 @@ const PlayerNamesModal = ({
 				return;
 			}
 		}
-		const finalPlayer1 = trimmedPlayer1 || "Player 1";
-		const finalPlayer2 = trimmedPlayer2 || "Player 2";
+		const finalPlayer1 = trimmedPlayer1Name || "Player 1";
+		const finalPlayer2 = trimmedPlayer2Name || "Player 2";
 		setPlayer1(finalPlayer1);
 		setPlayer2(finalPlayer2);
 
