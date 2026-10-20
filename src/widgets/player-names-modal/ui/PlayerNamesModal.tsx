@@ -50,10 +50,8 @@ const PlayerNamesModal = ({
 					onClose: resetCooldown,
 				});
 				triggerToastCooldown();
-				setPlayer1("Player 1");
-				setPlayer2("Player 2");
-				return;
 			}
+			return;
 		}
 		const finalPlayer1 = trimmedPlayer1Name || "Player 1";
 		const finalPlayer2 = trimmedPlayer2Name || "Player 2";
