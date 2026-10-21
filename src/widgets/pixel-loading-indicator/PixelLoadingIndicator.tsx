@@ -8,7 +8,7 @@ const PixelLoadingIndicator = ({
 	const blocks = [0, 1, 2, 3, 4];
 
 	return (
-		<div className="inline-flex flex-col items-center gap-5 bg-bg2 px-4 py-3">
+		<div className="inline-flex flex-col items-center gap-5 bg-transparent px-4 py-3">
 			<style>{`
         @keyframes pixel-bounce {
           0%, 60%, 100% { transform: translateY(0); }
