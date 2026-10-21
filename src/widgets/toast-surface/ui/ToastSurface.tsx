@@ -1,8 +1,8 @@
 "use client";
 
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+// import "react-toastify/dist/ReactToastify.css";
 import type { ToastContainerProps } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import { TOAST_DURATION } from "@/features/show-toast-with-cooldown/model/toast";
 import ToastCloseButton from "@/widgets/toast-close-button/ui/ToastCloseButton";
 
@@ -40,7 +40,7 @@ export function CustomToastContainer({
 			toastClassName={
 				toastClassName ||
 				(() =>
-					"flex items-center justify-center relative mt-10 sm:mt-0 text-[10px] font-pixel text-center w-[calc(100vw-2rem)] max-w-[400px] bg-panel text-cream border-3 border-border-pixel px-4 py-3 shadow-[3px_3px_0_var(--color-bg0)] tracking-wider mb-3")
+					"px-10 flex items-center justify-center relative mt-10 sm:mt-0 text-[10px] font-pixel text-center w-[calc(100vw-2rem)] max-w-[400px] bg-panel text-cream border-3 border-border-pixel px-4 py-3 shadow-[3px_3px_0_var(--color-bg0)] tracking-wider mb-3")
 			}
 			className="pb-2"
 			{...rest}
