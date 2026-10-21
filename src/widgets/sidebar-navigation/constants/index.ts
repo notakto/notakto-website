@@ -17,7 +17,8 @@ type ModalAction =
 	| "tutorial"
 	| "soundConfig"
 	| "shortcut"
-	| "profile";
+	| "profile"
+	| "leaderboard";
 
 export const WALLET_ITEMS: {
 	label: string;
@@ -65,6 +66,7 @@ export const MODAL_ITEMS: {
 	{ label: "SOUND", icon: "~", modal: "soundConfig" },
 	{ label: "SHORTCUTS", icon: "K", modal: "shortcut" },
 	{ label: "PROFILE", icon: "@", modal: "profile" },
+	{ label: "LEADERBOARD", icon: "§", modal: "leaderboard" },
 ];
 
 export const GAME_PAGES = ["/vsPlayer", "/vsComputer", "/liveMatch"];

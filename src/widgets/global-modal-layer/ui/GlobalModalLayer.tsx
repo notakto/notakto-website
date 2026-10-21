@@ -3,6 +3,7 @@
 import { useGlobalModal } from "@/features/manage-global-modal/model/globalModalStore";
 import { useSoundConfig } from "@/features/play-game-audio/model/useSoundConfig";
 import BuyCoinsModal from "@/widgets/buy-coins-modal/ui/BuyCoinsModal";
+import LeaderboardModal from "@/widgets/leaderboard-modal/ui/LeaderboardModal";
 import ProfileModal from "@/widgets/profile-modal/ui/ProfileModal";
 import ShortcutModal from "@/widgets/shortcut-modal/ui/ShortcutModal";
 import SoundConfigModal from "@/widgets/sound-config-modal/ui/SoundConfigModal";
@@ -32,6 +33,10 @@ export default function GlobalModals() {
 				onClose={closeModal}
 			/>
 			<ProfileModal visible={activeModal === "profile"} onClose={closeModal} />
+			<LeaderboardModal
+				visible={activeModal === "leaderboard"}
+				onClose={closeModal}
+			/>
 		</>
 	);
 }

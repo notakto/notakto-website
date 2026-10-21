@@ -12,6 +12,7 @@ type GlobalModalType =
 	| "difficulty"
 	| "names"
 	| "winner"
+	| "leaderboard"
 	| null;
 
 interface GlobalModalStore {
