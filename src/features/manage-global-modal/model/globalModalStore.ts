@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-type GlobalModalType =
+export type GlobalModalType =
 	| "buyCoins"
 	| "soundConfig"
 	| "shortcut"
@@ -14,6 +14,8 @@ type GlobalModalType =
 	| "winner"
 	| "leaderboard"
 	| null;
+
+export type ModalAction = NonNullable<GlobalModalType>;
 
 interface GlobalModalStore {
 	activeModal: GlobalModalType;

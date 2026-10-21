@@ -7,20 +7,7 @@ import {
 	signOutUser,
 } from "@/features/authenticate-user/api/firebase";
 import { useUser } from "@/features/authenticate-user/model/userStore";
-
-type ModalAction =
-	| "buyCoins"
-	| "tutorial"
-	| "soundConfig"
-	| "shortcut"
-	| "profile";
-
-type GameModalAction =
-	| "resetConfirmation"
-	| "boardConfig"
-	| "difficulty"
-	| "names"
-	| "exitConfirmation";
+import type { ModalAction } from "@/features/manage-global-modal/model/globalModalStore";
 
 type MobileNavItem =
 	| { href: string; label: string; icon: string }
@@ -35,12 +22,12 @@ interface ModalItem {
 interface GameButton {
 	label: string;
 	icon: string;
-	modal: GameModalAction;
+	modal: ModalAction;
 }
 
 interface MobileBottomNavProps {
 	pathname: string;
-	openModal: (modal: ModalAction | GameModalAction) => void;
+	openModal: (modal: ModalAction) => void;
 	navItems: MobileNavItem[];
 	walletItems: ModalItem[];
 	modalItems: ModalItem[];
