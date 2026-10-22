@@ -6,4 +6,4 @@ Allow: /
 Disallow: /api/
 
 # Point crawlers to your sitemap for better indexing
-Sitemap: https://notakto-website.vercel.app/sitemap.ts
+Sitemap: https://www.notakto.xyz/sitemap.xml
