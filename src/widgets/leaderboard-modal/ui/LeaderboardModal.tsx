@@ -76,9 +76,9 @@ export default function LeaderboardModal({
 				<LeaderboardTitle />
 
 				{loading && (
-					<p className="font-pixel text-xs text-cream/70 uppercase tracking-widest animate-pulse">
+					<div className="font-pixel text-xs text-cream/70 uppercase tracking-widest animate-pulse">
 						<PixelLoadingIndicator title="Loading Leaderboard..." />
-					</p>
+					</div>
 				)}
 
 				{error && (

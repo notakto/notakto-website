@@ -1,10 +1,18 @@
 import clsx from "clsx";
 import { CircleHelp } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { useShortcut } from "@/features/use-keyboard-shortcuts/model/useShortcut";
 
 export function LeaderboardInfo() {
 	const [open, setOpen] = useState(false);
 	const ref = useRef<HTMLDivElement>(null);
+
+	useShortcut(
+		{
+			escape: () => setOpen(false),
+		},
+		!open,
+	);
 
 	useEffect(() => {
 		if (!open) return;
@@ -14,16 +22,11 @@ export function LeaderboardInfo() {
 				setOpen(false);
 			}
 		};
-		const handleKey = (e: KeyboardEvent) => {
-			if (e.key === "Escape") setOpen(false);
-		};
 
 		document.addEventListener("pointerdown", handlePointer);
-		document.addEventListener("keydown", handleKey);
 
 		return () => {
 			document.removeEventListener("pointerdown", handlePointer);
-			document.removeEventListener("keydown", handleKey);
 		};
 	}, [open]);
 
@@ -48,6 +51,7 @@ export function LeaderboardInfo() {
 					<p className="uppercase tracking-widest text-accent mb-2">
 						How ranking works
 					</p>
+
 					<ul className="space-y-2 list-disc pl-4 text-cream/80">
 						<li>
 							Ties share the same rank and the next rank is skipped (1, 1, 3).
