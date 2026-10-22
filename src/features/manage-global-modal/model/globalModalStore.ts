@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-export type GlobalModalType =
+type GlobalModalType =
 	| "buyCoins"
 	| "soundConfig"
 	| "shortcut"
