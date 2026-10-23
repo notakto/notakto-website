@@ -11,7 +11,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
 	return [
 		{ url: BASE_URL, changeFrequency: "weekly", priority: 1 },
-		{ url: `${BASE_URL}/vsComputer`, changeFrequency: "monthly", priority: 0.8 },
+		{
+			url: `${BASE_URL}/vsComputer`,
+			changeFrequency: "monthly",
+			priority: 0.8,
+		},
 		{ url: `${BASE_URL}/vsPlayer`, changeFrequency: "monthly", priority: 0.8 },
 		{ url: `${BASE_URL}/liveMatch`, changeFrequency: "weekly", priority: 0.7 },
 		{ url: `${BASE_URL}/downloads`, changeFrequency: "monthly", priority: 0.5 },
