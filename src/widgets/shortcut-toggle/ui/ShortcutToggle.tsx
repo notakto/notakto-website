@@ -15,8 +15,7 @@ export default function ShortcutToggle() {
 		<div className="flex items-center justify-center gap-3 mt-4 mb-2">
 			<span
 				id="enable-shortcuts-label"
-				className="text-primary font-pixel uppercase tracking-wider text-[10px]"
-			>
+				className="text-primary font-pixel uppercase tracking-wider text-[10px]">
 				Enable Shortcuts
 			</span>
 			<button
@@ -25,8 +24,7 @@ export default function ShortcutToggle() {
 				aria-checked={enabled}
 				aria-labelledby="enable-shortcuts-label"
 				onClick={() => setShortcutsEnabled(!enabled)}
-				className="relative inline-flex items-center h-6 w-12 bg-bg0 border-3 border-border-light cursor-pointer transition-colors"
-			>
+				className="relative inline-flex items-center h-6 w-12 bg-bg0 border-3 border-border-light cursor-pointer transition-colors">
 				<span
 					className={`absolute top-0.5 h-4 w-4 bg-primary border-2 border-border-light transition-transform ${
 						enabled ? "translate-x-6" : "translate-x-0.5"
