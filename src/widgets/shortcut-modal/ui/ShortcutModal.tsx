@@ -7,6 +7,7 @@ import ShortcutContainer from "@/widgets/shortcut-container/ui/ShortcutContainer
 import ShortcutList from "@/widgets/shortcut-list/ui/ShortcutList";
 import { pageShortcuts } from "@/widgets/shortcut-modal/constants";
 import ShortcutTitle from "@/widgets/shortcut-title/ui/ShortcutTitle";
+import ShortcutToggle from "@/widgets/shortcut-toggle/ui/ShortcutToggle";
 
 interface ShortcutModalProps {
 	visible: boolean;
@@ -26,6 +27,8 @@ export default function ShortcutModal({
 		<ModalOverlay>
 			<ShortcutContainer>
 				<ShortcutTitle text="Keyboard Shortcuts" />
+
+				<ShortcutToggle />
 
 				<ShortcutList shortcuts={shortcuts} />
 
