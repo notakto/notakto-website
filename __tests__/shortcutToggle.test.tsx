@@ -14,20 +14,21 @@ describe("shortcut toggle (#457)", () => {
 		cleanup();
 	});
 
-	it("shows the switch, on by default", () => {
+	it("shows the switch in the header, on by default", () => {
 		render(<ShortcutModal visible={true} />);
 
-		const label = screen.getByText("Enable Shortcuts");
-		expect(label).toBeTruthy();
-
-		const toggle = screen.getByRole("switch", { name: "Enable Shortcuts" });
+		const toggle = screen.getByRole("switch", {
+			name: "Turn keyboard shortcuts on or off",
+		});
 		expect(toggle.getAttribute("aria-checked")).toBe("true");
 	});
 
 	it("turning it off updates the store every useShortcut call site reads", () => {
 		render(<ShortcutModal visible={true} />);
 
-		const toggle = screen.getByRole("switch", { name: "Enable Shortcuts" });
+		const toggle = screen.getByRole("switch", {
+			name: "Turn keyboard shortcuts on or off",
+		});
 		fireEvent.click(toggle);
 
 		expect(toggle.getAttribute("aria-checked")).toBe("false");

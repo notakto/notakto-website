@@ -26,9 +26,10 @@ export default function ShortcutModal({
 	return (
 		<ModalOverlay>
 			<ShortcutContainer>
-				<ShortcutTitle text="Keyboard Shortcuts" />
-
-				<ShortcutToggle />
+				<div className="flex items-center justify-between mb-2">
+					<ShortcutTitle text="Keyboard Shortcuts" />
+					<ShortcutToggle />
+				</div>
 
 				<ShortcutList shortcuts={shortcuts} />
 
