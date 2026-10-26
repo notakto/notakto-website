@@ -40,7 +40,7 @@ export default function LeaderboardModal({
 				const idToken = await user?.getIdToken();
 
 				if (!idToken) {
-					throw new Error("User is not authenticated");
+					throw new Error("You need to be logged in to view the leaderboard");
 				}
 
 				const response = await getLeaderboard(idToken);
