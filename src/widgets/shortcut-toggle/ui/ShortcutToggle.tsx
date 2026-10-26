@@ -7,7 +7,7 @@ import { useShortcutsEnabled } from "@/features/use-keyboard-shortcuts/model/sho
 import { useShortcut } from "@/features/use-keyboard-shortcuts/model/useShortcut";
 
 /**
- * The "Enable Shortcuts" switch of the shortcut modal (#457).
+ * The "Enable Shortcuts" switch of the shortcut modal.
  * Shown in the modal header with a CircleHelp popover.
  */
 export default function ShortcutToggle() {

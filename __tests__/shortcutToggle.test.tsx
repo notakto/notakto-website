@@ -7,7 +7,7 @@ vi.mock("next/navigation", () => ({
 	usePathname: () => "/",
 }));
 
-describe("shortcut toggle (#457)", () => {
+describe("shortcut toggle", () => {
 	beforeEach(() => {
 		window.localStorage.clear();
 		useShortcutsEnabled.setState({ enabled: true });
