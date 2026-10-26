@@ -48,4 +48,32 @@ describe("shortcut toggle (#457)", () => {
 
 		expect(useShortcutsEnabled.getState().enabled).toBe(false);
 	});
+
+	it("shows a CircleHelp icon that opens a popover", () => {
+		render(<ShortcutModal visible={true} />);
+
+		const helpBtn = screen.getByRole("button", {
+			name: "How keyboard shortcuts work",
+		});
+		expect(helpBtn).toBeDefined();
+		expect(helpBtn.getAttribute("aria-expanded")).toBe("false");
+
+		fireEvent.click(helpBtn);
+		expect(helpBtn.getAttribute("aria-expanded")).toBe("true");
+		expect(screen.getByRole("tooltip")).toBeDefined();
+	});
+
+	it("closes the CircleHelp popover on Escape", () => {
+		render(<ShortcutModal visible={true} />);
+
+		const helpBtn = screen.getByRole("button", {
+			name: "How keyboard shortcuts work",
+		});
+		fireEvent.click(helpBtn);
+		expect(screen.getByRole("tooltip")).toBeDefined();
+
+		fireEvent.keyDown(window, { key: "Escape" });
+		expect(helpBtn.getAttribute("aria-expanded")).toBe("false");
+		expect(screen.queryByRole("tooltip")).toBeNull();
+	});
 });
