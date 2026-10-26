@@ -1,19 +1,20 @@
-import type { LeaderboardEntry } from "@/features/get-leaderboard/api/schema";
+import type {
+	CurrentUser,
+	LeaderboardEntry,
+} from "@/features/get-leaderboard/api/schema";
 import { LeaderboardHeader } from "@/widgets/leaderboard-header/ui/LeaderboardHeader";
 import { LeaderboardRow } from "@/widgets/leaderboard-row/ui/LeaderboardRow";
 
 export function LeaderboardList({
 	leaderboard,
+	currentUser,
 }: {
 	leaderboard: LeaderboardEntry[];
+	currentUser: CurrentUser;
 }) {
-	if (leaderboard.length === 0) {
-		return (
-			<p className="font-pixel text-center text-xs text-cream/70 uppercase tracking-widest py-4">
-				No entries yet
-			</p>
-		);
-	}
+	const isCurrentUserInLeaderboard = leaderboard.some(
+		(player) => player.username === currentUser.username,
+	);
 
 	return (
 		<div className="max-h-[50dvh] sm:max-h-[60dvh] overflow-y-auto">
@@ -24,11 +25,27 @@ export function LeaderboardList({
 					{leaderboard.map((player) => (
 						<LeaderboardRow
 							key={`${player.rank}-${player.username}`}
-							rank={player.rank}
-							username={player.username}
-							xp={player.xp}
+							{...player}
+							isCurrentUser={player.username === currentUser.username}
 						/>
 					))}
+
+					{!isCurrentUserInLeaderboard && (
+						<>
+							<tr>
+								<td colSpan={3} className="py-2 text-center text-cream/40">
+									...
+								</td>
+							</tr>
+
+							<LeaderboardRow
+								rank={currentUser.rank}
+								username={currentUser.username}
+								xp={currentUser.xp}
+								isCurrentUser={true}
+							/>
+						</>
+					)}
 				</tbody>
 			</table>
 		</div>
