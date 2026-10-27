@@ -36,7 +36,7 @@ const PlayerNamesModal = ({
 	useEffect(() => {
 		setPlayer1(initialNames[0] || "Player 1");
 		setPlayer2(initialNames[1] || "Player 2");
-	}, [initialNames]);
+	}, [initialNames[0], initialNames[1]]);
 
 	const handleSubmit = () => {
 		const trimmedPlayer1Name = player1.trim();

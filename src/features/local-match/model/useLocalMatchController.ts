@@ -25,8 +25,19 @@ interface MatchAction {
 	variant?: "primary" | "default" | "danger";
 }
 
-export function useLocalMatchController() {
-	const [boards, setBoards] = useState<BoardState[]>([]);
+interface UseLocalMatchControllerOptions {
+	isPaused?: boolean;
+}
+
+export function useLocalMatchController(
+	options?: UseLocalMatchControllerOptions,
+) {
+	const isPaused = options?.isPaused ?? false;
+	const [boards, setBoards] = useState<BoardState[]>(() =>
+		Array(3)
+			.fill(null)
+			.map(() => Array(9).fill("")),
+	);
 	const [boardSize, setBoardSize] = useState<BoardSize>(3);
 	const [currentPlayer, setCurrentPlayer] = useState<1 | 2>(1);
 	const [player1Name, setPlayer1Name] = useState("Player 1");
@@ -40,6 +51,7 @@ export function useLocalMatchController() {
 	const [showPreview, setShowPreview] = useState(false);
 	const [moveLog, setMoveLog] = useState<MoveLogEntry[]>([]);
 	const startTimeRef = useRef(Date.now());
+	const pauseStartTimeRef = useRef<number | null>(null);
 	const [elapsed, setElapsed] = useState(0);
 
 	const { activeModal, openModal, closeModal } = useGlobalModal();
@@ -48,15 +60,31 @@ export function useLocalMatchController() {
 
 	useEffect(() => {
 		openModal("names");
-	}, [openModal]);
+		return () => {
+			closeModal();
+		};
+	}, [openModal, closeModal]);
 
 	useEffect(() => {
-		if (!gameStarted) return;
+		if (isPaused) {
+			if (pauseStartTimeRef.current === null) {
+				pauseStartTimeRef.current = Date.now();
+			}
+			return;
+		}
+
+		if (pauseStartTimeRef.current !== null) {
+			const pausedDuration = Date.now() - pauseStartTimeRef.current;
+			startTimeRef.current += pausedDuration;
+			pauseStartTimeRef.current = null;
+		}
+
+		if (!gameStarted || !!winner) return;
 		const interval = setInterval(() => {
 			setElapsed(Math.floor((Date.now() - startTimeRef.current) / 1000));
 		}, 1000);
 		return () => clearInterval(interval);
-	}, [gameStarted]);
+	}, [gameStarted, winner, isPaused]);
 
 	useShortcut(
 		{
@@ -101,11 +129,13 @@ export function useLocalMatchController() {
 	);
 
 	const makeMove = (boardIndex: number, cellIndex: number) => {
+		if (winner || activeModal === "winner") return;
 		setShowPreview(false);
 		if (!hasMoveHappened) {
 			setHasMoveHappened(true);
 		}
 		if (
+			!boards[boardIndex] ||
 			boards[boardIndex][cellIndex] !== "" ||
 			isBoardDead(boards[boardIndex], boardSize)
 		) {
@@ -147,6 +177,7 @@ export function useLocalMatchController() {
 		setShowPreview(false);
 		setMoveLog([]);
 		startTimeRef.current = Date.now();
+		pauseStartTimeRef.current = null;
 		setElapsed(0);
 	};
 
@@ -251,6 +282,7 @@ export function useLocalMatchController() {
 			closeModal();
 		},
 		confirmExit: () => {
+			closeModal();
 			router.push("/");
 		},
 	};
