@@ -5,6 +5,7 @@ import { CircleHelp } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { useShortcutsEnabled } from "@/features/use-keyboard-shortcuts/model/shortcutsEnabledStore";
 import { useShortcut } from "@/features/use-keyboard-shortcuts/model/useShortcut";
+import { ToggleButton } from "@/widgets/toggle-button/ui/ToggleButton";
 
 /**
  * The "Enable Shortcuts" switch of the shortcut modal.
@@ -42,22 +43,13 @@ export default function ShortcutToggle() {
 
 	return (
 		<div className="flex items-center gap-2">
-			<button
-				type="button"
-				role="switch"
-				aria-checked={enabled}
-				aria-label="Turn keyboard shortcuts on or off"
-				onClick={() => setShortcutsEnabled(!enabled)}
-				className="relative inline-flex items-center h-6 w-12 bg-bg0 border-3 border-border-light cursor-pointer transition-colors">
-				<span
-					className={`absolute top-0.5 h-4 w-4 bg-primary border-2 border-border-light transition-transform ${
-						enabled ? "translate-x-6" : "translate-x-0.5"
-					}`}
-				/>
-				<span className="sr-only">
-					{enabled ? "Shortcuts are on" : "Shortcuts are off"}
-				</span>
-			</button>
+			<ToggleButton
+				checked={enabled}
+				onChange={setShortcutsEnabled}
+				label="Turn keyboard shortcuts on or off"
+				onLabel="Shortcuts are on"
+				offLabel="Shortcuts are off"
+			/>
 
 			<div ref={infoRef} className="relative inline-flex">
 				<button
