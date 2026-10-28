@@ -1,13 +1,12 @@
-import { useUser } from "@/features/authenticate-user/model/userStore";
-import { useProfile } from "@/features/manage-user-profile/model/profileStore";
 import { useCoins, useXP } from "@/features/manage-wallet/model/walletStore";
+import useUserProfile from "@/hooks/queries/useUserProfile";
+import { useAuthToken } from "@/hooks/useAuthToken";
+
 import ModalOverlay from "@/widgets/modal-overlay/ui/ModalOverlay";
-import ProfileAvatar from "@/widgets/profile-avatar/ui/ProfileAvatar";
+import PixelLoadingIndicator from "@/widgets/pixel-loading-indicator/PixelLoadingIndicator";
 import { ProfileButton } from "@/widgets/profile-button/ui/ProfileButton";
 import ProfileContainer from "@/widgets/profile-container/ui/ProfileContainer";
-import ProfileDetails from "@/widgets/profile-details/ui/ProfileDetails";
-import ProfileImageError from "@/widgets/profile-image-error/ui/ProfileImageError";
-import ProfileLoginPrompt from "@/widgets/profile-login-prompt/ui/ProfileLoginPrompt";
+import ProfileContent from "@/widgets/profile-modal/ui/ProfileContent";
 import ProfileTitle from "@/widgets/profile-title/ui/ProfileTitle";
 
 interface ProfileModalProps {
@@ -16,36 +15,33 @@ interface ProfileModalProps {
 }
 
 const ProfileModal = ({ visible, onClose }: ProfileModalProps) => {
-	const username = useProfile((state) => state.username);
-	const name = useProfile((state) => state.name);
-	const email = useProfile((state) => state.email);
-	const pic = useProfile((state) => state.pic);
 	const coins = useCoins((state) => state.coins);
 	const xp = useXP((state) => state.XP);
 
-	const authReady = useUser((state) => state.authReady);
-	const user = useUser((state) => state.user);
-	const isValidPic = pic && pic !== "empty.empty";
+	const { isAuthenticated, isAuthLoading } = useAuthToken();
+
+	const { data: profile, isPending, isError, error } = useUserProfile();
+
 	if (!visible) return null;
+
+	if (isAuthLoading) {
+		return <PixelLoadingIndicator />;
+	}
+
 	return (
 		<ModalOverlay>
 			<ProfileContainer>
 				<ProfileTitle text="Profile" />
 
-				{authReady && user ? (
-					<>
-						{isValidPic ? <ProfileAvatar src={pic} /> : <ProfileImageError />}
-						<ProfileDetails
-							name={name}
-							username={username}
-							email={email}
-							coins={coins}
-							xp={xp}
-						/>
-					</>
-				) : (
-					<ProfileLoginPrompt />
-				)}
+				<ProfileContent
+					isAuthenticated={isAuthenticated}
+					isPending={isPending}
+					isError={isError}
+					error={error}
+					profile={profile}
+					coins={coins}
+					xp={xp}
+				/>
 
 				<ProfileButton onClick={onClose}>Close&nbsp;Profile</ProfileButton>
 			</ProfileContainer>

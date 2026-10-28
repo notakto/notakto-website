@@ -5,23 +5,9 @@ import {
 	SignInResponseSchema,
 } from "@/features/authenticate-user/api/schema";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
-if (!API_URL) {
-	throw new Error("NEXT_PUBLIC_API_URL is not defined");
-}
-const apiClient = axios.create({
-	baseURL: API_URL,
-	headers: {
-		"Content-Type": "application/json",
-	},
-	timeout: 10000,
-});
+import apiClient from "@/lib/apiClient";
 
 export async function signIn(idToken: string): Promise<SignInResponse> {
-	if (!API_URL) {
-		throw new Error("API URL is not defined");
-	}
-
 	try {
 		const { data } = await apiClient.post("/sign-in", null, {
 			headers: {

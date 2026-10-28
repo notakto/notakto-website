@@ -2,15 +2,7 @@ import axios from "axios";
 import z, { ZodError } from "zod";
 import { LeaderBoardResponseSchema } from "@/features/get-leaderboard/api/schema";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
-
-const apiClient = axios.create({
-	baseURL: API_URL,
-	headers: {
-		"Content-Type": "application/json",
-	},
-	timeout: 10000,
-});
+import apiClient from "@/lib/apiClient";
 
 const getLeaderboard = async (idToken: string) => {
 	try {
