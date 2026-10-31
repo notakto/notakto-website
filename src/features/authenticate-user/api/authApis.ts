@@ -29,7 +29,7 @@ export async function signIn(idToken: string): Promise<SignInResponse> {
 				error.response?.data?.message ??
 				JSON.stringify(error.response?.data) ??
 				error.message;
-			throw new Error(`Sign-in failed (${status}): ${details}`);
+			throw error;
 		}
 
 		throw error;
