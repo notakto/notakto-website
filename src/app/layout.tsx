@@ -7,6 +7,7 @@ import "@/app/globals.css";
 import type React from "react";
 import InitializeClientSession from "@/features/initialize-client-session/ui/InitializeClientSession";
 import MusicProvider from "@/features/play-game-audio/ui/MusicProvider";
+import AuthLoadingBoundary from "@/widgets/auth-loading-screen/ui/AuthLoadingBoundary";
 import DismissibleSplashScreen from "@/widgets/dismissible-splash-screen/ui/DismissibleSplashScreen";
 import GlobalModalLayer from "@/widgets/global-modal-layer/ui/GlobalModalLayer";
 import SidebarMargin from "@/widgets/sidebar-navigation/ui/SidebarMargin";
@@ -87,10 +88,12 @@ export default function RootLayout({
 					crossOrigin="anonymous"
 				/>
 				<MusicProvider />
-				<DismissibleSplashScreen />
-				<SidebarNavigation />
-				<SidebarMargin>{children}</SidebarMargin>
-				<GlobalModalLayer />
+				<AuthLoadingBoundary>
+					<DismissibleSplashScreen />
+					<SidebarNavigation />
+					<SidebarMargin>{children}</SidebarMargin>
+					<GlobalModalLayer />
+				</AuthLoadingBoundary>
 				<CustomToastContainer />
 				<Analytics />
 				<SpeedInsights />
