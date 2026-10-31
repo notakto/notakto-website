@@ -17,16 +17,7 @@ import type {
 	UndoMoveResult,
 } from "@/entities/game/model/types";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
-
-// Create axios instance with default config
-const apiClient = axios.create({
-	baseURL: API_URL,
-	headers: {
-		"Content-Type": "application/json",
-	},
-	timeout: 10000, // 10 seconds default timeout
-});
+import apiClient from "@/lib/apiClient";
 
 export async function createGame(
 	numberOfBoards: number,
@@ -34,10 +25,6 @@ export async function createGame(
 	difficulty: DifficultyLevel,
 	idToken: string,
 ): Promise<NewGameResponse | ErrorResponse> {
-	if (!API_URL) {
-		return { success: false, error: "API_URL not defined" };
-	}
-
 	try {
 		const { data } = await apiClient.post(
 			"/create-game",
@@ -79,10 +66,6 @@ export async function makeMove(
 	cellIndex: number,
 	idToken: string,
 ): Promise<MakeMoveResult> {
-	if (!API_URL) {
-		return { success: false, error: "API_URL not defined" };
-	}
-
 	try {
 		const { data } = await apiClient.post(
 			"/make-move",
@@ -122,10 +105,6 @@ export async function quitGame(
 	sessionId: string,
 	idToken: string,
 ): Promise<QuitGameResponse | ErrorResponse> {
-	if (!API_URL) {
-		return { success: false, error: "API_URL not defined" };
-	}
-
 	try {
 		const { data } = await apiClient.post(
 			"/quit-game",
@@ -165,10 +144,6 @@ export async function undoMove(
 	sessionId: string,
 	idToken: string,
 ): Promise<UndoMoveResult> {
-	if (!API_URL) {
-		return { success: false, error: "API_URL not defined" };
-	}
-
 	try {
 		const { data } = await apiClient.post(
 			"/undo-move",
@@ -208,10 +183,6 @@ export async function skipMove(
 	sessionId: string,
 	idToken: string,
 ): Promise<SkipMoveResult> {
-	if (!API_URL) {
-		return { success: false, error: "API_URL not defined" };
-	}
-
 	try {
 		const { data } = await apiClient.post(
 			"/skip-move",

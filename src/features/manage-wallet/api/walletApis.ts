@@ -5,23 +5,11 @@ import {
 	GetWalletResponseSchema,
 } from "@/features/manage-wallet/api/schema";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
-
-const apiClient = axios.create({
-	baseURL: API_URL,
-	headers: {
-		"Content-Type": "application/json",
-	},
-	timeout: 10000,
-});
+import apiClient from "@/lib/apiClient";
 
 export async function getWallet(
 	idToken: string,
 ): Promise<GetWalletResponse | ErrorResponse> {
-	if (!API_URL) {
-		return { success: false, error: "API_URL not defined" };
-	}
-
 	try {
 		const { data } = await apiClient.get("/get-wallet", {
 			headers: {

@@ -11,15 +11,7 @@ import type {
 	PaymentStatusResult,
 } from "@/features/buy-coins/model/types";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
-
-const apiClient = axios.create({
-	baseURL: API_URL,
-	headers: {
-		"Content-Type": "application/json",
-	},
-	timeout: 10000,
-});
+import apiClient from "@/lib/apiClient";
 
 const messages = {
 	payment: {
@@ -72,10 +64,6 @@ export async function createCharge(
 	packageId: string,
 	idToken: string,
 ): Promise<CreateChargeResult> {
-	if (!API_URL) {
-		return { success: false, error: "API_URL not defined" };
-	}
-
 	try {
 		const { data } = await apiClient.post(
 			"/create-charge",
@@ -102,10 +90,6 @@ export async function getPaymentStatus(
 	chargeId: string,
 	idToken: string,
 ): Promise<PaymentStatusResult> {
-	if (!API_URL) {
-		return { success: false, error: "API_URL not defined" };
-	}
-
 	try {
 		const { data } = await apiClient.get("/payment-status", {
 			params: { chargeId },

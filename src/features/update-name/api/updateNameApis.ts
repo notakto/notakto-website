@@ -2,14 +2,8 @@ import axios from "axios";
 import z, { ZodError } from "zod";
 import { UpdateNameResponseSchema } from "@/features/update-name/api/schema";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
-const apiClient = axios.create({
-	baseURL: API_URL,
-	headers: {
-		"Content-Type": "application/json",
-	},
-	timeout: 10000,
-});
+import apiClient from "@/lib/apiClient";
+
 const updateName = async (idToken: string, name: string) => {
 	try {
 		const { data } = await apiClient.post(
