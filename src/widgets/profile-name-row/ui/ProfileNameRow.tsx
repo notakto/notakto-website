@@ -1,9 +1,11 @@
+import { useQueryClient } from "@tanstack/react-query";
 import { Check, Pencil, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
 import { useUser } from "@/features/authenticate-user/model/userStore";
-import { useProfile } from "@/features/manage-user-profile/model/profileStore";
 import updateName from "@/features/update-name/api/updateNameApis";
+import { useAuthToken } from "@/hooks/useAuthToken";
+import { queryKeys } from "@/lib/queryKeys";
 import ProfileDetailLabel from "@/widgets/profile-detail-label/ui/ProfileDetailLabel";
 
 interface ProfileNameRowProps {
@@ -16,7 +18,8 @@ export default function ProfileNameRow({ value }: ProfileNameRowProps) {
 	const [loading, setLoading] = useState(false);
 
 	const user = useUser((state) => state.user);
-	const setProfileName = useProfile((state) => state.setName);
+	const { userId } = useAuthToken();
+	const queryClient = useQueryClient();
 
 	const inputRef = useRef<HTMLInputElement>(null);
 
@@ -57,8 +60,13 @@ export default function ProfileNameRow({ value }: ProfileNameRowProps) {
 			await updateName(idToken, trimmedName);
 
 			setName(trimmedName);
-			setProfileName(trimmedName);
 			setEditing(false);
+
+			if (userId) {
+				await queryClient.invalidateQueries({
+					queryKey: queryKeys.user(userId),
+				});
+			}
 
 			toast.success("Name updated successfully!");
 		} catch (error) {
