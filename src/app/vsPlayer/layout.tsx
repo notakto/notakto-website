@@ -8,5 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default function vsPlayerLayout({ children }: { children: ReactNode }) {
-	return <>{children}</>;
+	return children;
 }

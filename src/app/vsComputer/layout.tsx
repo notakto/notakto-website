@@ -12,5 +12,5 @@ export default function vsComputerLayout({
 }: {
 	children: ReactNode;
 }) {
-	return <>{children}</>;
+	return children;
 }

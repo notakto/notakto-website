@@ -2,6 +2,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
 import { Press_Start_2P } from "next/font/google";
+import Script from "next/script";
 import "@/app/globals.css";
 import type React from "react";
 import InitializeClientSession from "@/features/initialize-client-session/ui/InitializeClientSession";
@@ -28,6 +29,12 @@ export const metadata: Metadata = {
 	],
 	authors: [{ name: "Notakto Team" }],
 	creator: "Notakto Team",
+	verification: {
+		google: "lxHtpLX2cDKFEAAabqQ3-9IY-ckiw3KvqM3Z1kNPxRo",
+	},
+	other: {
+		monetag: "31cbc3974b21341db36f756db33d15d6",
+	},
 
 	openGraph: {
 		title: "Notakto - Misère Tic Tac Toe",
@@ -73,18 +80,12 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en" className={pressStart2P.className}>
-			<head>
-				<script
-					async
-					src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4854199776978392"
-					crossOrigin="anonymous"></script>
-				<meta
-					name="google-site-verification"
-					content="lxHtpLX2cDKFEAAabqQ3-9IY-ckiw3KvqM3Z1kNPxRo"
-				/>
-				<meta name="monetag" content="31cbc3974b21341db36f756db33d15d6"></meta>
-			</head>
 			<body className="bg-bg0 text-pixel-white">
+				<Script
+					src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4854199776978392"
+					strategy="afterInteractive"
+					crossOrigin="anonymous"
+				/>
 				<MusicProvider />
 				<DismissibleSplashScreen />
 				<SidebarNavigation />
