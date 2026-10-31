@@ -5,7 +5,5 @@ interface DownloadPlatformNameProps {
 export default function DownloadPlatformName({
 	name,
 }: DownloadPlatformNameProps) {
-	return (
-		<div className="font-pixel text-[10px] text-cream uppercase">{name}</div>
-	);
+	return <div className=" text-[10px] text-stone-300 uppercase">{name}</div>;
 }

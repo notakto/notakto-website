@@ -7,7 +7,7 @@ interface ProfileContainerProps {
 
 export default function ProfileContainer({ children }: ProfileContainerProps) {
 	return (
-		<div className="bg-panel pixel-border p-4 md:p-6 w-full md:w-[80%] max-w-lg">
+		<div className="bg-gray-800 pixel-border p-4 md:p-6 w-full md:w-[80%] max-w-lg">
 			{children}
 		</div>
 	);

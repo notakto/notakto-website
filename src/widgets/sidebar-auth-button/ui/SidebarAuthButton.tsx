@@ -25,10 +25,10 @@ export default function SidebarAuthButton({
 			onClick={onClick}
 			onMouseEnter={(event) => showTooltip(event, label)}
 			onMouseLeave={hideTooltip}
-			className={`px-4 py-3 border-t-3 border-border-pixel font-pixel text-[8px] cursor-pointer transition-colors flex items-center gap-3 uppercase tracking-wider ${
+			className={`px-4 py-3 border-t-3 border-gray-700  text-[8px] cursor-pointer transition-colors flex items-center gap-3 uppercase tracking-wider ${
 				isSignedIn
-					? "text-cream-dim hover:text-cream hover:bg-bg2"
-					: "bg-primary text-cream hover:bg-primary-hover"
+					? "text-stone-400 hover:text-stone-300 hover:bg-slate-800"
+					: "bg-rose-700 text-stone-300 hover:bg-rose-600"
 			}`}>
 			<SidebarNavIcon icon={isSignedIn ? "<" : ">"} />
 			<SidebarNavLabel label={label} visible={!isCollapsed} />

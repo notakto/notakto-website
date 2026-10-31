@@ -13,7 +13,7 @@ export default function LeaderboardContainer({
 	return (
 		<div
 			className={clsx(
-				"bg-panel pixel-border p-4 sm:p-8 w-[95%] max-w-3xl space-y-4 sm:space-y-6 text-center text-cream",
+				"bg-gray-800 pixel-border p-4 sm:p-8 w-[95%] max-w-3xl space-y-4 sm:space-y-6 text-center text-stone-300",
 				className,
 			)}>
 			{children}

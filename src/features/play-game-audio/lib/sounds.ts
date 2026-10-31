@@ -41,7 +41,7 @@ export const initBackgroundMusic = () => {
 	backgroundAudio.loop = true;
 	backgroundAudio.volume = 0.3;
 
-	// This doesnt autoplay .. jus intialises itself
+	// This doesnt autoplay, just initialises itself
 };
 
 export const playBackgroundMusic = () => {

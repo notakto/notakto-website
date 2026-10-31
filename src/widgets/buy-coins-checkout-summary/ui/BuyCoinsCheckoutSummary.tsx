@@ -52,8 +52,8 @@ export default function BuyCoinsCheckoutSummary({
 }: BuyCoinsCheckoutSummaryProps) {
 	if (packagesLoading) {
 		return (
-			<aside className="bg-bg2 p-10 pixel-border flex items-center justify-center">
-				<div className="font-pixel text-xs">
+			<aside className="bg-slate-800 p-10 pixel-border flex items-center justify-center">
+				<div className=" text-xs">
 					<PixelLoadingIndicator />
 				</div>
 			</aside>
@@ -85,40 +85,40 @@ export default function BuyCoinsCheckoutSummary({
 	const creditedTotal = currentCoins + selectedPackage.coins;
 
 	return (
-		<aside className="bg-bg2 p-4 pixel-border" aria-label="Order summary">
-			<h3 className="mb-4 font-pixel text-sm uppercase tracking-widest text-primary">
+		<aside className="bg-slate-800 p-4 pixel-border" aria-label="Order summary">
+			<h3 className="mb-4  text-sm uppercase tracking-widest text-rose-700">
 				Checkout
 			</h3>
-			<div className="space-y-0 border-t-3 border-border-pixel font-pixel">
+			<div className="space-y-0 border-t-3 border-gray-700 ">
 				<BuyCoinsCheckoutSummaryLabel
 					title={"Package"}
 					content={selectedPackage.packageName}
-					textColor={"text-pixel-white"}
+					textColor={"text-orange-50"}
 				/>
 				<BuyCoinsCheckoutSummaryLabel
 					title={"Wallet"}
 					content={`${currentCoins} Coins`}
-					textColor={"text-accent"}
+					textColor={"text-yellow-500"}
 				/>
 				<BuyCoinsCheckoutSummaryLabel
 					title={"Total"}
 					content={`${formatCents(selectedPackage.amountCents)}`}
-					textColor={"text-accent"}
+					textColor={"text-yellow-500"}
 				/>
 				<BuyCoinsCheckoutSummaryLabel
 					title={"Credit"}
 					content={`${selectedPackage.coins} Coins`}
-					textColor={"text-accent"}
+					textColor={"text-yellow-500"}
 				/>
 				<BuyCoinsCheckoutSummaryLabel
 					title={"After"}
 					content={`${creditedTotal} Coins`}
-					textColor={"text-pixel-white"}
+					textColor={"text-orange-50"}
 				/>
 				{flowStatus === "confirmed" && confirmedAmountCents !== null && (
-					<div className="flex justify-between gap-4 border-t-3 border-border-pixel py-3 text-[7px] uppercase leading-5 text-cream-dim">
+					<div className="flex justify-between gap-4 border-t-3 border-gray-700 py-3 text-[7px] uppercase leading-5 text-stone-400">
 						<span>Paid</span>
-						<strong className="text-right font-normal text-success">
+						<strong className="text-right font-normal text-green-700">
 							{formatCents(confirmedAmountCents)}
 						</strong>
 					</div>
@@ -129,7 +129,7 @@ export default function BuyCoinsCheckoutSummary({
 				type="button"
 				disabled={isBusy || flowStatus === "confirmed"}
 				onClick={onStartCheckout}
-				className="mt-4 w-full border-3 border-border-light bg-primary px-4 py-3 font-pixel text-xs uppercase tracking-wider text-cream shadow-[3px_3px_0_var(--color-bg0)] hover:bg-primary-hover disabled:cursor-not-allowed disabled:opacity-60">
+				className="mt-4 w-full border-3 border-zinc-600 bg-rose-700 px-4 py-3  text-xs uppercase tracking-wider text-stone-300 shadow-[3px_3px_0_var(--color-slate-950)] hover:bg-rose-600 disabled:cursor-not-allowed disabled:opacity-60">
 				{getActionLabel(flowStatus)}
 			</button>
 
@@ -137,7 +137,7 @@ export default function BuyCoinsCheckoutSummary({
 				<button
 					type="button"
 					onClick={onOpenCheckout}
-					className="mt-3 w-full border-3 border-border-pixel bg-bg3 px-4 py-3 font-pixel text-[8px] uppercase tracking-wider text-cream-dim shadow-[3px_3px_0_var(--color-bg0)] hover:text-cream">
+					className="mt-3 w-full border-3 border-gray-700 bg-slate-800 px-4 py-3  text-[8px] uppercase tracking-wider text-stone-400 shadow-[3px_3px_0_var(--color-slate-950)] hover:text-stone-300">
 					OPEN CHECKOUT
 				</button>
 			)}

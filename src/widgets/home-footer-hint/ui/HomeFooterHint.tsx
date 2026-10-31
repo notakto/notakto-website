@@ -3,7 +3,7 @@ import HomeFooterMobileHint from "@/widgets/home-footer-mobile-hint/ui/HomeFoote
 
 export default function HomeFooterHint() {
 	return (
-		<div className="mt-8 md:mt-12 font-pixel text-[7px] text-muted animate-pulse-pixel text-center">
+		<div className="mt-8 md:mt-12  text-[7px] text-gray-500 animate-pulse-pixel text-center">
 			<HomeFooterDesktopHint />
 			<HomeFooterMobileHint />
 		</div>

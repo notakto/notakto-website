@@ -18,7 +18,7 @@ export default function PlayerPanel({
 	return (
 		<div
 			className={`flex items-center gap-3 px-3 py-2.5 sm:px-4 sm:py-3 md:px-5 md:py-3.5 pixel-border flex-1 min-w-0 transition-colors ${
-				active ? "border-accent" : ""
+				active ? "border-yellow-500" : ""
 			}`}>
 			{side === 1 && active && <CurrentPlayerMarker />}
 			<div className={`min-w-0 flex-1 ${side === 2 ? "text-right" : ""}`}>

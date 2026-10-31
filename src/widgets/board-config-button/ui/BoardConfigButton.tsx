@@ -17,10 +17,10 @@ export const BoardConfigButton = ({
 			type="button"
 			onClick={onClick}
 			className={clsx(
-				"min-w-15 px-4 py-2 text-cream text-[9px] font-pixel uppercase tracking-wider border-3 shadow-[3px_3px_0_var(--color-bg0)] cursor-pointer",
+				"min-w-15 px-4 py-2 text-stone-300 text-[9px]  uppercase tracking-wider border-3 shadow-[3px_3px_0_var(--color-slate-950)] cursor-pointer",
 				isActive
-					? "bg-primary border-primary"
-					: "bg-bg2 border-border-pixel hover:bg-bg3",
+					? "bg-rose-700 border-rose-700"
+					: "bg-slate-800 border-gray-700 hover:bg-slate-800",
 			)}>
 			{label}
 		</button>

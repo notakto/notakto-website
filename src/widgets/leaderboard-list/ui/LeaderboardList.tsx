@@ -18,7 +18,7 @@ export function LeaderboardList({
 
 	return (
 		<div className="max-h-[50dvh] sm:max-h-[60dvh] overflow-y-auto">
-			<table className="w-full table-fixed font-pixel text-xs sm:text-sm uppercase tracking-wide sm:tracking-wider border-collapse">
+			<table className="w-full table-fixed  text-xs sm:text-sm uppercase tracking-wide sm:tracking-wider border-collapse">
 				<LeaderboardHeader />
 
 				<tbody>
@@ -33,7 +33,7 @@ export function LeaderboardList({
 					{!isCurrentUserInLeaderboard && (
 						<>
 							<tr>
-								<td colSpan={3} className="py-2 text-center text-cream/40">
+								<td colSpan={3} className="py-2 text-center text-stone-300/40">
 									...
 								</td>
 							</tr>

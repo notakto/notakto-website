@@ -12,7 +12,7 @@ export default function PlayerMoveCount({
 			className={`flex items-center gap-2 mt-1 ${
 				align === "right" ? "justify-end" : ""
 			}`}>
-			<span className="font-pixel text-[8px] md:text-[9px] text-cream-dim">
+			<span className=" text-[8px] md:text-[9px] text-stone-400">
 				{moveCount} MOVES
 			</span>
 		</div>

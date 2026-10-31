@@ -4,7 +4,7 @@ interface GameModeTitleProps {
 
 export default function GameModeTitle({ title }: GameModeTitleProps) {
 	return (
-		<div className="font-pixel text-sm text-cream uppercase tracking-wider group-hover:text-pixel-white transition-colors">
+		<div className=" text-sm text-stone-300 uppercase tracking-wider group-hover:text-orange-50 transition-colors">
 			{title}
 		</div>
 	);

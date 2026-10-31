@@ -22,10 +22,10 @@ export default function SidebarNavLink({
 	showTooltip,
 	hideTooltip,
 }: SidebarNavLinkProps) {
-	const className = `flex items-center gap-3 px-4 py-3 font-pixel text-[8px] uppercase tracking-wider transition-colors duration-100 ${
+	const className = `flex items-center gap-3 px-4 py-3  text-[8px] uppercase tracking-wider transition-colors duration-100 ${
 		isActive
-			? "bg-bg3 text-accent border-l-3 border-accent"
-			: "text-cream-dim hover:text-cream hover:bg-bg2 border-l-3 border-transparent"
+			? "bg-slate-800 text-yellow-500 border-l-3 border-yellow-500"
+			: "text-stone-400 hover:text-stone-300 hover:bg-slate-800 border-l-3 border-transparent"
 	}`;
 	const content = (
 		<>

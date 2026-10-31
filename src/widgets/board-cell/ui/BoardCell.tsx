@@ -11,8 +11,8 @@ const BoardCell = ({ value, onClick, disabled }: BoardCellProps) => (
 		type="button"
 		onClick={onClick}
 		disabled={disabled}
-		className="w-1/3 h-1/3 border border-bg3 flex items-center justify-center bg-board-bg cursor-pointer">
-		<span className="text-2xl text-x font-pixel">{value}</span>
+		className="w-1/3 h-1/3 border border-slate-800 flex items-center justify-center bg-slate-950 cursor-pointer">
+		<span className="text-2xl text-rose-700 ">{value}</span>
 	</button>
 );
 

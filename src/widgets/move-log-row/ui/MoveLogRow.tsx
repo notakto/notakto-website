@@ -23,8 +23,8 @@ export default function MoveLogRow({
 	return (
 		<div
 			className={`flex items-center gap-2 px-4 py-1.5 border-l-[3px] ${
-				entry.player === 1 ? "border-l-primary" : "border-l-accent"
-			} ${isLatest ? "bg-accent/5 animate-slide-up" : ""}`}>
+				entry.player === 1 ? "border-l-rose-700" : "border-l-yellow-500"
+			} ${isLatest ? "bg-yellow-500/5 animate-slide-up" : ""}`}>
 			<MoveLogRowNumber index={index} />
 			<MoveLogPlayerTag player={entry.player} />
 			<MoveLogBoardLabel board={entry.board} />

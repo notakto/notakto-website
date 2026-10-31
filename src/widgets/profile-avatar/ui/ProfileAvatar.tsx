@@ -11,7 +11,7 @@ export default function ProfileAvatar({ src }: ProfileAvatarProps) {
 			alt="profile"
 			width={80}
 			height={80}
-			className="mx-auto border-border-pixel border-3"
+			className="mx-auto border-gray-700 border-3"
 		/>
 	);
 }

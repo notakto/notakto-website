@@ -10,7 +10,7 @@ const BuyCoinsCheckoutSummaryLabel = ({
 	textColor,
 }: BuyCoinsCheckoutSummaryLabelProps) => {
 	return (
-		<div className="flex justify-between gap-4 border-b-3 border-border-pixel py-3 uppercase leading-5 text-cream-dim">
+		<div className="flex justify-between gap-4 border-b-3 border-gray-700 py-3 uppercase leading-5 text-stone-400">
 			<span className="text-xs">{title}</span>
 			<strong className={`text-right text-xs font-normal ${textColor}`}>
 				{content}

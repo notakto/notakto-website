@@ -12,7 +12,7 @@ export default function DownloadPlatformCard({
 	platform,
 }: DownloadPlatformCardProps) {
 	return (
-		<div className="bg-panel p-6 flex items-center justify-between pixel-border">
+		<div className="bg-gray-800 p-6 flex items-center justify-between pixel-border">
 			<div className="flex items-center gap-4">
 				<DownloadPlatformIcon icon={platform.icon} />
 				<div>

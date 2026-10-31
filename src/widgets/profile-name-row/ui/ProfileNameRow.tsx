@@ -74,7 +74,7 @@ export default function ProfileNameRow({ value }: ProfileNameRowProps) {
 
 	return (
 		<div className="flex items-center justify-between gap-4">
-			<div className="flex min-w-0 items-center gap-0.5 font-pixel md:text-[12px] text-[10px] text-cream-dim">
+			<div className="flex min-w-0 items-center gap-0.5  md:text-[12px] text-[10px] text-stone-400">
 				<ProfileDetailLabel label="NAME" />
 
 				{editing ? (
@@ -86,16 +86,16 @@ export default function ProfileNameRow({ value }: ProfileNameRowProps) {
 						onChange={(e) => setName(e.target.value)}
 						className="
 							h-8 w-[85%] md:w-80
-							border border-cream
-							bg-bg0
+							border border-stone-300
+							bg-slate-950
 							px-2
-							font-pixel text-[11px] text-cream
+							 text-[11px] text-stone-300
 							outline-none
-							focus:border-primary
+							focus:border-rose-700
 						"
 					/>
 				) : (
-					<span className="truncate text-cream">{name}</span>
+					<span className="truncate text-stone-300">{name}</span>
 				)}
 			</div>
 
@@ -112,10 +112,10 @@ export default function ProfileNameRow({ value }: ProfileNameRowProps) {
 							flex size-8 shrink-0
 							cursor-pointer
 							items-center justify-center
-							border border-primary
+							border border-rose-700
 							bg-[#c43c3c]
-							text-cream
-							shadow-[2px_2px_0_var(--color-bg0)]
+							text-stone-300
+							shadow-[2px_2px_0_var(--color-slate-950)]
 							transition-colors
 							hover:bg-[#d44a4a]
 							disabled:cursor-not-allowed
@@ -123,9 +123,9 @@ export default function ProfileNameRow({ value }: ProfileNameRowProps) {
 						">
 						{loading ? (
 							<div className="flex items-end gap-0.75">
-								<span className="size-1 animate-bounce bg-cream" />
-								<span className="size-1 animate-bounce bg-cream [animation-delay:100ms]" />
-								<span className="size-1 animate-bounce bg-cream [animation-delay:200ms]" />
+								<span className="size-1 animate-bounce bg-stone-300" />
+								<span className="size-1 animate-bounce bg-stone-300 [animation-delay:100ms]" />
+								<span className="size-1 animate-bounce bg-stone-300 [animation-delay:200ms]" />
 							</div>
 						) : (
 							<Check size={16} strokeWidth={2.5} />
@@ -143,12 +143,12 @@ export default function ProfileNameRow({ value }: ProfileNameRowProps) {
 							flex size-8 shrink-0
 							cursor-pointer
 							items-center justify-center
-							border border-border-light
-							bg-bg2
-							text-cream-dim
-							shadow-[2px_2px_0_var(--color-bg0)]
+							border border-zinc-600
+							bg-slate-800
+							text-stone-400
+							shadow-[2px_2px_0_var(--color-slate-950)]
 							transition-colors
-							hover:text-cream
+							hover:text-stone-300
 							disabled:cursor-not-allowed
 							disabled:opacity-50
 						">
@@ -166,12 +166,12 @@ export default function ProfileNameRow({ value }: ProfileNameRowProps) {
 						flex size-8 shrink-0
 						cursor-pointer
 						items-center justify-center
-						border border-border-light
-						bg-bg2
-						text-cream
-						shadow-[2px_2px_0_var(--color-bg0)]
+						border border-zinc-600
+						bg-slate-800
+						text-stone-300
+						shadow-[2px_2px_0_var(--color-slate-950)]
 						transition-colors
-						hover:text-primary
+						hover:text-rose-700
 					">
 					<Pencil size={16} strokeWidth={2} />
 				</button>

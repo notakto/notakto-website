@@ -24,7 +24,7 @@ export default function GameModeCard({
 		<button
 			type="button"
 			onClick={() => onSelect(mode, requiresAuth)}
-			className="group bg-panel pixel-border p-4 md:p-6 text-left cursor-pointer hover:bg-bg2 transition-colors duration-150 flex items-center gap-4 md:gap-6">
+			className="group bg-gray-800 pixel-border p-4 md:p-6 text-left cursor-pointer hover:bg-slate-800 transition-colors duration-150 flex items-center gap-4 md:gap-6">
 			<GameModeIcon icon={icon} />
 			<GameModeText title={title} description={description} />
 			<GameModeArrow />

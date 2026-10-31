@@ -35,12 +35,12 @@ export function ToggleButton({
 			aria-label={label}
 			onClick={() => onChange(!checked)}
 			className={clsx(
-				"relative inline-flex items-center h-6 w-12 bg-bg0 border-3 border-border-light cursor-pointer transition-colors",
+				"relative inline-flex items-center h-6 w-12 bg-slate-950 border-3 border-zinc-600 cursor-pointer transition-colors",
 				className,
 			)}>
 			<span
 				className={clsx(
-					"absolute top-0.5 h-4 w-4 bg-primary border-2 border-border-light transition-transform",
+					"absolute top-0.5 h-4 w-4 bg-rose-700 border-2 border-zinc-600 transition-transform",
 					checked ? "translate-x-6" : "translate-x-0.5",
 				)}
 			/>

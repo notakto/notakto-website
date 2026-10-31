@@ -3,9 +3,5 @@ interface HomeMenuSubtitleProps {
 }
 
 export default function HomeMenuSubtitle({ text }: HomeMenuSubtitleProps) {
-	return (
-		<p className="font-pixel text-[8px] text-cream-dim tracking-wider">
-			{text}
-		</p>
-	);
+	return <p className=" text-[8px] text-stone-400 tracking-wider">{text}</p>;
 }

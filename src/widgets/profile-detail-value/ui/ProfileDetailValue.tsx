@@ -8,7 +8,8 @@ export default function ProfileDetailValue({
 	variant = "default",
 }: ProfileDetailValueProps) {
 	return (
-		<span className={variant === "accent" ? "text-accent" : "text-cream"}>
+		<span
+			className={variant === "accent" ? "text-yellow-500" : "text-stone-300"}>
 			{value}
 		</span>
 	);

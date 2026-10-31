@@ -58,8 +58,8 @@ export default function ShortcutToggle() {
 					aria-label="How keyboard shortcuts work"
 					aria-expanded={infoOpen}
 					className={clsx(
-						"p-2 -m-2 text-cream/70 hover:text-accent transition-colors cursor-pointer",
-						infoOpen && "text-accent",
+						"p-2 -m-2 text-stone-300/70 hover:text-yellow-500 transition-colors cursor-pointer",
+						infoOpen && "text-yellow-500",
 					)}>
 					<CircleHelp size={18} />
 				</button>
@@ -67,11 +67,11 @@ export default function ShortcutToggle() {
 				{infoOpen && (
 					<div
 						role="tooltip"
-						className="absolute right-0 top-full mt-3 w-[min(20rem,80vw)] z-20 bg-panel pixel-border p-3 sm:p-4 text-left font-pixel text-xs normal-case tracking-normal leading-relaxed text-cream">
-						<p className="uppercase tracking-widest text-accent mb-2">
+						className="absolute right-0 top-full mt-3 w-[min(20rem,80vw)] z-20 bg-gray-800 pixel-border p-3 sm:p-4 text-left  text-xs normal-case tracking-normal leading-relaxed text-stone-300">
+						<p className="uppercase tracking-widest text-yellow-500 mb-2">
 							Keyboard Shortcuts
 						</p>
-						<p className="text-cream/80">
+						<p className="text-stone-300/80">
 							Turn keyboard shortcuts on or off. When disabled, only the Escape
 							key remains active.
 						</p>

@@ -1,5 +1,5 @@
 const WinnerTitle = ({ text }: { text: string }) => (
-	<h2 className="text-base text-accent font-pixel uppercase tracking-widest mb-3 pixel-text-shadow">
+	<h2 className="text-base text-yellow-500  uppercase tracking-widest mb-3 pixel-text-shadow">
 		{text}
 	</h2>
 );
