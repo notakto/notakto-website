@@ -13,7 +13,7 @@ import SidebarNavigation from "@/widgets/sidebar-navigation/ui/SidebarNavigation
 import { CustomToastContainer } from "@/widgets/toast-surface/ui/ToastSurface";
 
 export const metadata: Metadata = {
-	metadataBase: new URL("https://www.notakto.xyz"),
+	metadataBase: new URL("https://www.notakto.online"),
 	title: "Notakto - Misère Tic Tac Toe",
 	description:
 		"Notakto is a misère and impartial form of tic-tac-toe. No ties, Always a winner. Play against AI or Friends.",
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
 		title: "Notakto - Misère Tic Tac Toe",
 		description:
 			"Notakto is a misère and impartial form of tic-tac-toe. No ties, Always a winner. Play against AI or Friends.",
-		url: "https://www.notakto.xyz",
+		url: "https://www.notakto.online",
 		siteName: "Notakto",
 		type: "website",
 		images: [
