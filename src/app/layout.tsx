@@ -83,7 +83,7 @@ export default function RootLayout({
 			<body className="bg-bg0 text-pixel-white">
 				<Script
 					src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4854199776978392"
-					strategy="afterInteractive"
+					strategy="beforeInteractive"
 					crossOrigin="anonymous"
 				/>
 				<MusicProvider />
