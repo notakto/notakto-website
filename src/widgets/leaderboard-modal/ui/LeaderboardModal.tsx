@@ -78,13 +78,13 @@ export default function LeaderboardModal({
 				<LeaderboardTitle />
 
 				{loading && (
-					<div className="font-pixel text-xs text-cream/70 uppercase tracking-widest animate-pulse">
+					<div className=" text-xs text-stone-300/70 uppercase tracking-widest animate-pulse">
 						<PixelLoadingIndicator title="Loading Leaderboard..." />
 					</div>
 				)}
 
 				{error && (
-					<p className="font-pixel text-xs text-red-400 uppercase tracking-widest">
+					<p className=" text-xs text-red-400 uppercase tracking-widest">
 						{error}
 					</p>
 				)}

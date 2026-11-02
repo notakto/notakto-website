@@ -5,7 +5,7 @@ interface MoveLogCellLabelProps {
 
 export default function MoveLogCellLabel({ row, col }: MoveLogCellLabelProps) {
 	return (
-		<span className="font-pixel text-[7px] text-muted">
+		<span className=" text-[7px] text-gray-500">
 			[{row},{col}]
 		</span>
 	);

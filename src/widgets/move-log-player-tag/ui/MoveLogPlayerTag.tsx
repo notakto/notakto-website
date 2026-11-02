@@ -5,8 +5,8 @@ interface MoveLogPlayerTagProps {
 export default function MoveLogPlayerTag({ player }: MoveLogPlayerTagProps) {
 	return (
 		<span
-			className={`font-pixel text-[8px] w-7 ${
-				player === 1 ? "text-primary" : "text-accent"
+			className={` text-[8px] w-7 ${
+				player === 1 ? "text-rose-700" : "text-yellow-500"
 			}`}>
 			{player === 1 ? "P1" : "P2"}
 		</span>

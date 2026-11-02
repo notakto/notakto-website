@@ -1,3 +1,3 @@
 export default function WalletDivider() {
-	return <span className="font-pixel text-[7px] text-border-pixel">|</span>;
+	return <span className=" text-[7px] text-gray-700">|</span>;
 }

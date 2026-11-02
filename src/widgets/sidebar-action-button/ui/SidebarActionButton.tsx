@@ -29,10 +29,10 @@ export default function SidebarActionButton({
 			onMouseEnter={(event) => showTooltip(event, label)}
 			onMouseLeave={hideTooltip}
 			className={clsx(
-				"w-full flex items-center gap-3 px-4 py-3 font-pixel text-[8px] uppercase tracking-wider hover:bg-bg2 border-l-3 border-transparent transition-colors duration-100 cursor-pointer",
+				"w-full flex items-center gap-3 px-4 py-3  text-[8px] uppercase tracking-wider hover:bg-slate-800 border-l-3 border-transparent transition-colors duration-100 cursor-pointer",
 				variant === "accent"
-					? "text-accent hover:text-pixel-white hover:border-accent"
-					: "text-cream-dim hover:text-cream",
+					? "text-yellow-500 hover:text-orange-50 hover:border-yellow-500"
+					: "text-stone-400 hover:text-stone-300",
 			)}>
 			<SidebarNavIcon icon={icon} />
 			<SidebarNavLabel label={label} visible={!isCollapsed} />

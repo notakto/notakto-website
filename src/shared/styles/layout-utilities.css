@@ -10,9 +10,9 @@
 	width: 8px;
 }
 ::-webkit-scrollbar-track {
-	background: var(--color-bg1);
+	background: var(--color-slate-900);
 }
 ::-webkit-scrollbar-thumb {
-	background: var(--color-border-pixel);
-	border: 2px solid var(--color-bg1);
+	background: var(--color-gray-700);
+	border: 2px solid var(--color-slate-900);
 }

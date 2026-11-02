@@ -4,8 +4,6 @@ interface GameStatLabelProps {
 
 export default function GameStatLabel({ label }: GameStatLabelProps) {
 	return (
-		<div className="font-pixel text-[7px] text-muted uppercase mt-0.5">
-			{label}
-		</div>
+		<div className=" text-[7px] text-gray-500 uppercase mt-0.5">{label}</div>
 	);
 }

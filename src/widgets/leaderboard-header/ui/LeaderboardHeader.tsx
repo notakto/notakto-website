@@ -1,7 +1,7 @@
 export function LeaderboardHeader() {
 	return (
-		<thead className="sticky top-0 bg-panel">
-			<tr className="border-b-2 border-cream/40 text-cream/70">
+		<thead className="sticky top-0 bg-gray-800">
+			<tr className="border-b-2 border-stone-300/40 text-stone-300/70">
 				<th className="py-2 sm:py-3 px-2 sm:px-3 text-left w-14 sm:w-20">
 					Rank
 				</th>

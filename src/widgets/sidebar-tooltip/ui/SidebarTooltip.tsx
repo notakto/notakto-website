@@ -15,7 +15,7 @@ export default function SidebarTooltip({
 
 	return (
 		<div
-			className="fixed z-9999 whitespace-nowrap bg-panel border-2 border-border-pixel px-3 py-2 font-pixel text-[7px] text-cream shadow-[2px_2px_0_var(--color-bg0)] pointer-events-none animate-slide-up sidebar-tooltip-pos"
+			className="fixed z-9999 whitespace-nowrap bg-gray-800 border-2 border-gray-700 px-3 py-2  text-[7px] text-stone-300 shadow-[2px_2px_0_var(--color-slate-950)] pointer-events-none animate-slide-up sidebar-tooltip-pos"
 			style={
 				{
 					"--tooltip-left": `${anchorRect.right + 8}px`,

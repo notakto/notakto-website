@@ -3,5 +3,5 @@ interface NotFoundSubtitleProps {
 }
 
 export default function NotFoundSubtitle({ text }: NotFoundSubtitleProps) {
-	return <p className="text-sm font-pixel text-cream mb-6">{text}</p>;
+	return <p className="text-sm  text-stone-300 mb-6">{text}</p>;
 }

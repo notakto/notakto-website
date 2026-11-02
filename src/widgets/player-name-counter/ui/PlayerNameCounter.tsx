@@ -8,7 +8,7 @@ export default function PlayerNameCounter({
 	maxLength,
 }: PlayerNameCounterProps) {
 	return (
-		<div className="text-[8px] text-cream-dim font-pixel mt-1 text-right">
+		<div className="text-[8px] text-stone-400  mt-1 text-right">
 			{length}/{maxLength}
 		</div>
 	);

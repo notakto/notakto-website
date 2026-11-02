@@ -3,5 +3,5 @@ interface GameStatValueProps {
 }
 
 export default function GameStatValue({ value }: GameStatValueProps) {
-	return <div className="font-pixel text-[14px] text-cream">{value}</div>;
+	return <div className=" text-[14px] text-stone-300">{value}</div>;
 }

@@ -6,7 +6,7 @@ export function TutorialButton({
 	return (
 		<button
 			{...props}
-			className="bg-primary text-cream text-[9px] font-pixel uppercase tracking-wider px-6 py-2 text-center w-full border-3 border-border-light shadow-[3px_3px_0_var(--color-bg0)] cursor-pointer hover:bg-primary-hover"
+			className="bg-rose-700 text-stone-300 text-[9px]  uppercase tracking-wider px-6 py-2 text-center w-full border-3 border-zinc-600 shadow-[3px_3px_0_var(--color-slate-950)] cursor-pointer hover:bg-rose-600"
 		/>
 	);
 }

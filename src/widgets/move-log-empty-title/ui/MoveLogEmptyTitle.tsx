@@ -1,5 +1,3 @@
 export default function MoveLogEmptyTitle() {
-	return (
-		<div className="font-pixel text-[9px] text-border-pixel">NO MOVES YET</div>
-	);
+	return <div className=" text-[9px] text-gray-700">NO MOVES YET</div>;
 }

@@ -6,7 +6,7 @@ export default function GameModeDescription({
 	description,
 }: GameModeDescriptionProps) {
 	return (
-		<div className="font-pixel text-[7px] text-muted mt-2 leading-relaxed">
+		<div className=" text-[7px] text-gray-500 mt-2 leading-relaxed">
 			{description}
 		</div>
 	);

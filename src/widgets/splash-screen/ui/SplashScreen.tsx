@@ -17,7 +17,7 @@ export default function SplashScreen({
 	if (!visible) return null;
 
 	return (
-		<div className="fixed inset-0 z-9999 bg-bg0 flex flex-col items-center justify-center">
+		<div className="fixed inset-0 z-9999 bg-slate-950 flex flex-col items-center justify-center">
 			<SplashBootText dimmed={phase > 0} />
 			{phase >= 1 && <SplashSystemCheck dimmed={phase > 1} />}
 			{phase >= 2 && <SplashTitleBlock />}

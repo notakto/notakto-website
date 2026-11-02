@@ -68,7 +68,7 @@ export default function Sidebar() {
 	return (
 		<>
 			<nav
-				className={`fixed left-0 top-0 h-full bg-bg1 border-r-3 border-border-pixel z-50 hidden md:flex flex-col transition-all duration-200 overflow-hidden ${isCollapsed ? "w-14" : "w-56"}`}>
+				className={`fixed left-0 top-0 h-full bg-slate-900 border-r-3 border-gray-700 z-50 hidden md:flex flex-col transition-all duration-200 overflow-hidden ${isCollapsed ? "w-14" : "w-56"}`}>
 				<SidebarLogoLink
 					isCollapsed={isCollapsed}
 					showTooltip={showTooltip}

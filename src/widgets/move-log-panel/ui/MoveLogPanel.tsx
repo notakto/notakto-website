@@ -16,7 +16,7 @@ export default function MoveLogPanel({
 	logEndRef,
 }: MoveLogPanelProps) {
 	return (
-		<div className="pixel-border bg-bg2 p-0 flex-1 flex flex-col min-h-0 overflow-hidden">
+		<div className="pixel-border bg-slate-800 p-0 flex-1 flex flex-col min-h-0 overflow-hidden">
 			<MoveLogHeader count={moveLog.length} />
 			<div className="flex-1 overflow-y-auto py-1.5 min-h-0">
 				{moveLog.length === 0 && <MoveLogEmptyState />}

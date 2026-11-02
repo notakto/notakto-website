@@ -34,7 +34,7 @@ export default function BoardPreviewCard({
 			onClick={() => onSelectBoard(boardIndex)}
 			className={clsx(
 				"flex flex-col items-center gap-2 p-3 border-2 cursor-pointer transition-all",
-				"bg-bg2 border-border-pixel hover:border-accent hover:shadow-[2px_2px_0_var(--color-accent)]",
+				"bg-slate-800 border-gray-700 hover:border-yellow-500 hover:shadow-[2px_2px_0_var(--color-yellow-500)]",
 				dead && "opacity-60",
 			)}>
 			<div className="flex items-center gap-2">

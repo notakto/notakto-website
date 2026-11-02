@@ -15,10 +15,10 @@ export default function SidebarLogoLink({
 	return (
 		<Link
 			href="/"
-			className="block p-4 border-b-3 border-border-pixel"
+			className="block p-4 border-b-3 border-gray-700"
 			onMouseEnter={(event) => showTooltip(event, "HOME")}
 			onMouseLeave={hideTooltip}>
-			<div className="font-pixel text-primary text-[10px] pixel-text-shadow">
+			<div className=" text-rose-700 text-[10px] pixel-text-shadow">
 				{isCollapsed ? "N" : "NOTAKTO"}
 			</div>
 		</Link>

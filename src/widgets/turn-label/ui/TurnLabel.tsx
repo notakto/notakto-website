@@ -6,8 +6,8 @@ interface TurnLabelProps {
 export default function TurnLabel({ currentPlayer, label }: TurnLabelProps) {
 	return (
 		<div
-			className={`font-pixel text-[16px] sm:text-[20px] md:text-[28px] mt-0.5 md:mt-1 animate-pulse-pixel pixel-text-shadow ${
-				currentPlayer === 1 ? "text-primary" : "text-accent"
+			className={` text-[16px] sm:text-[20px] md:text-[28px] mt-0.5 md:mt-1 animate-pulse-pixel pixel-text-shadow ${
+				currentPlayer === 1 ? "text-rose-700" : "text-yellow-500"
 			}`}>
 			{currentPlayer === 1 ? "\u25C0 " : ""}
 			{label}

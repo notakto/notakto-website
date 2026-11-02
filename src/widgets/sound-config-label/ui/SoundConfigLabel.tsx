@@ -6,7 +6,7 @@ interface SoundConfigLabelProps {
 const SoundConfigLabel = ({ label, htmlFor }: SoundConfigLabelProps) => (
 	<label
 		htmlFor={htmlFor}
-		className="text-cream font-pixel uppercase tracking-wider text-[8px] flex-1 text-left">
+		className="text-stone-300  uppercase tracking-wider text-[8px] flex-1 text-left">
 		{label}
 	</label>
 );

@@ -15,7 +15,7 @@ interface GameActionBarProps {
 
 export default function GameActionBar({ actions }: GameActionBarProps) {
 	return (
-		<div className="flex flex-wrap justify-center gap-2.5 px-3 py-2.5 sm:gap-3 sm:px-4 sm:py-3 md:gap-4 md:px-4 md:py-3.5 border-t-2 border-border-pixel bg-bg1 shrink-0">
+		<div className="flex flex-wrap justify-center gap-2.5 px-3 py-2.5 sm:gap-3 sm:px-4 sm:py-3 md:gap-4 md:px-4 md:py-3.5 border-t-2 border-gray-700 bg-slate-900 shrink-0">
 			{actions.map((action) => (
 				<GameActionButton
 					key={action.label}

@@ -1,7 +1,5 @@
 export default function ProfileImageError() {
 	return (
-		<div className="mx-auto font-pixel text-[8px] text-muted">
-			IMAGE LOAD ERROR
-		</div>
+		<div className="mx-auto  text-[8px] text-gray-500">IMAGE LOAD ERROR</div>
 	);
 }

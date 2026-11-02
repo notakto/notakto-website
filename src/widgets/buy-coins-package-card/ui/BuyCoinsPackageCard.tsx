@@ -22,35 +22,37 @@ export default function BuyCoinsPackageCard({
 			disabled={disabled}
 			onClick={() => onSelect(coinPackage.packageId)}
 			className={clsx(
-				"relative grid min-h-56 grid-rows-[auto_1fr_auto] gap-3 bg-bg2 p-4 text-left font-pixel text-cream transition-colors duration-100",
-				selected ? "pixel-border-accent" : "pixel-border hover:border-accent",
+				"relative grid min-h-56 grid-rows-[auto_1fr_auto] gap-3 bg-slate-800 p-4 text-left  text-stone-300 transition-colors duration-100",
+				selected
+					? "pixel-border-accent"
+					: "pixel-border hover:border-yellow-500",
 				disabled ? "cursor-not-allowed opacity-60" : "cursor-pointer",
 			)}
 			aria-pressed={selected}>
 			{selected && (
-				<span className="absolute right-2 top-2 bg-accent px-2 py-1 text-[6px] text-bg0">
+				<span className="absolute right-2 top-2 bg-yellow-500 px-2 py-1 text-[6px] text-slate-950">
 					SELECTED
 				</span>
 			)}
 			<BuyCoinsCoinStack count={coinPackage.visualCoins} />
 
 			<span>
-				<span className="mb-3 block text-sm uppercase tracking-wider text-cream-dim">
+				<span className="mb-3 block text-sm uppercase tracking-wider text-stone-400">
 					{coinPackage.packageName}
 				</span>
 				<div className="flex items-center justify-between">
-					<span className="block text-[13px] uppercase leading-7 text-pixel-white">
+					<span className="block text-[13px] uppercase leading-7 text-orange-50">
 						{coinPackage.coins}
 						<br />
 						Coins
 					</span>
-					<span className="mb-3 text-[13px] block uppercase tracking-wider text-cream-dim">
+					<span className="mb-3 text-[13px] block uppercase tracking-wider text-stone-400">
 						{formatCents(coinPackage.amountCents)}
 					</span>
 				</div>
 			</span>
 
-			<span className="border-t-3 border-border-pixel pt-3 text-[8px] uppercase tracking-wider text-accent">
+			<span className="border-t-3 border-gray-700 pt-3 text-[8px] uppercase tracking-wider text-yellow-500">
 				{coinPackage.packageId}
 			</span>
 		</button>

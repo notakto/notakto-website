@@ -5,7 +5,7 @@ interface SplashBootTextProps {
 export default function SplashBootText({ dimmed }: SplashBootTextProps) {
 	return (
 		<div
-			className={`font-pixel text-[8px] text-muted mb-8 animate-boot-flicker ${dimmed ? "opacity-40" : ""}`}>
+			className={` text-[8px] text-gray-500 mb-8 animate-boot-flicker ${dimmed ? "opacity-40" : ""}`}>
 			NOTAKTO SYSTEMS v2.1
 		</div>
 	);

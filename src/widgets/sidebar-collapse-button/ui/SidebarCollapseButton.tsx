@@ -21,7 +21,7 @@ export default function SidebarCollapseButton({
 				showTooltip(event, isCollapsed ? "EXPAND" : "COLLAPSE")
 			}
 			onMouseLeave={hideTooltip}
-			className="px-4 py-3 border-t-3 border-border-pixel font-pixel text-[10px] text-muted hover:text-cream cursor-pointer transition-colors">
+			className="px-4 py-3 border-t-3 border-gray-700  text-[10px] text-gray-500 hover:text-stone-300 cursor-pointer transition-colors">
 			{isCollapsed ? ">>" : "<< HIDE"}
 		</button>
 	);

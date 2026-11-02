@@ -10,7 +10,7 @@ export default function SidebarSectionLabel({
 	if (!visible) return null;
 
 	return (
-		<div className="px-4 py-2 font-pixel text-[6px] text-muted uppercase tracking-widest">
+		<div className="px-4 py-2  text-[6px] text-gray-500 uppercase tracking-widest">
 			{label}
 		</div>
 	);
