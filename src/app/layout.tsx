@@ -7,6 +7,7 @@ import "@/app/globals.css";
 import type React from "react";
 import InitializeClientSession from "@/features/initialize-client-session/ui/InitializeClientSession";
 import MusicProvider from "@/features/play-game-audio/ui/MusicProvider";
+import QueryProvider from "@/shared/ui/QueryProvider";
 import DismissibleSplashScreen from "@/widgets/dismissible-splash-screen/ui/DismissibleSplashScreen";
 import GlobalModalLayer from "@/widgets/global-modal-layer/ui/GlobalModalLayer";
 import SidebarMargin from "@/widgets/sidebar-navigation/ui/SidebarMargin";
@@ -86,15 +87,17 @@ export default function RootLayout({
 					strategy="beforeInteractive"
 					crossOrigin="anonymous"
 				/>
-				<MusicProvider />
-				<DismissibleSplashScreen />
-				<SidebarNavigation />
-				<SidebarMargin>{children}</SidebarMargin>
-				<GlobalModalLayer />
-				<CustomToastContainer />
-				<Analytics />
-				<SpeedInsights />
-				<InitializeClientSession />
+				<QueryProvider>
+					<MusicProvider />
+					<DismissibleSplashScreen />
+					<SidebarNavigation />
+					<SidebarMargin>{children}</SidebarMargin>
+					<GlobalModalLayer />
+					<CustomToastContainer />
+					<Analytics />
+					<SpeedInsights />
+					<InitializeClientSession />
+				</QueryProvider>
 			</body>
 		</html>
 	);
