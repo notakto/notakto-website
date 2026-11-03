@@ -15,7 +15,7 @@ interface ProfileContentProps {
 	isPending: boolean;
 	isError: boolean;
 	error: Error | null;
-	profile: UserProfile | null;
+	profile: UserProfile | null | undefined;
 	coins: number;
 	xp: number;
 }
