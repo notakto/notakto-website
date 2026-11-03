@@ -53,6 +53,7 @@ const InitializeClientSession = (): null => {
 					return; // Already processing
 				}
 
+				setAuthReady(false);
 				pendingSignInRef.current.set(userId, true);
 				try {
 					// Step 1: Get Firebase token
