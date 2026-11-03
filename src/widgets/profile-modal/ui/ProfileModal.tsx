@@ -1,6 +1,6 @@
+import { useAuthToken } from "@/features/authenticate-user/hooks/useAuthToken";
+import useUserProfile from "@/features/manage-user-profile/api/useUserProfile";
 import { useCoins, useXP } from "@/features/manage-wallet/model/walletStore";
-import useUserProfile from "@/hooks/queries/useUserProfile";
-import { useAuthToken } from "@/hooks/useAuthToken";
 
 import ModalOverlay from "@/widgets/modal-overlay/ui/ModalOverlay";
 import PixelLoadingIndicator from "@/widgets/pixel-loading-indicator/PixelLoadingIndicator";

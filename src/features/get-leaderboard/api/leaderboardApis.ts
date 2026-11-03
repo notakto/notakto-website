@@ -2,7 +2,7 @@ import axios from "axios";
 import z, { ZodError } from "zod";
 import { LeaderBoardResponseSchema } from "@/features/get-leaderboard/api/schema";
 
-import apiClient from "@/lib/apiClient";
+import apiClient from "@/shared/api/apiClient";
 
 const getLeaderboard = async (idToken: string) => {
 	try {

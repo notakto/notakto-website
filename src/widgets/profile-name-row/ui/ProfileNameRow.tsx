@@ -2,10 +2,10 @@ import { useQueryClient } from "@tanstack/react-query";
 import { Check, Pencil, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
+import { useAuthToken } from "@/features/authenticate-user/hooks/useAuthToken";
 import { useUser } from "@/features/authenticate-user/model/userStore";
 import updateName from "@/features/update-name/api/updateNameApis";
-import { useAuthToken } from "@/hooks/useAuthToken";
-import { queryKeys } from "@/lib/queryKeys";
+import { queryKeys } from "@/shared/api/queryKeys";
 import ProfileDetailLabel from "@/widgets/profile-detail-label/ui/ProfileDetailLabel";
 
 interface ProfileNameRowProps {

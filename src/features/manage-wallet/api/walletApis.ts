@@ -5,7 +5,7 @@ import {
 	GetWalletResponseSchema,
 } from "@/features/manage-wallet/api/schema";
 
-import apiClient from "@/lib/apiClient";
+import apiClient from "@/shared/api/apiClient";
 
 export async function getWallet(
 	idToken: string,

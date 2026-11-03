@@ -2,7 +2,7 @@ import axios from "axios";
 import z, { ZodError } from "zod";
 import { UpdateUsernameResponseSchema } from "@/features/update-username/api/schema";
 
-import apiClient from "@/lib/apiClient";
+import apiClient from "@/shared/api/apiClient";
 
 const updateUsername = async (idToken: string, username: string) => {
 	try {

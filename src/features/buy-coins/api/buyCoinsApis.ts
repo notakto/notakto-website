@@ -11,7 +11,7 @@ import type {
 	PaymentStatusResult,
 } from "@/features/buy-coins/model/types";
 
-import apiClient from "@/lib/apiClient";
+import apiClient from "@/shared/api/apiClient";
 
 const messages = {
 	payment: {

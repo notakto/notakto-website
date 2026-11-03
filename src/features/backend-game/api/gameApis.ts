@@ -17,7 +17,7 @@ import type {
 	UndoMoveResult,
 } from "@/entities/game/model/types";
 
-import apiClient from "@/lib/apiClient";
+import apiClient from "@/shared/api/apiClient";
 
 export async function createGame(
 	numberOfBoards: number,
