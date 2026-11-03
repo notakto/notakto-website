@@ -1,22 +1,21 @@
+import type { SignInResponse } from "@/features/authenticate-user/api/schema";
 import PixelLoadingIndicator from "@/widgets/pixel-loading-indicator/PixelLoadingIndicator";
 import ProfileAvatar from "@/widgets/profile-avatar/ui/ProfileAvatar";
 import ProfileDetails from "@/widgets/profile-details/ui/ProfileDetails";
 import ProfileImageError from "@/widgets/profile-image-error/ui/ProfileImageError";
 import ProfileLoginPrompt from "@/widgets/profile-login-prompt/ui/ProfileLoginPrompt";
 
+type UserProfile = Pick<
+	SignInResponse,
+	"name" | "username" | "email" | "profile_pic"
+>;
+
 interface ProfileContentProps {
 	isAuthenticated: boolean;
 	isPending: boolean;
 	isError: boolean;
 	error: Error | null;
-	profile:
-		| {
-				name: string;
-				username: string;
-				email: string;
-				profile_pic: string;
-		  }
-		| undefined;
+	profile: UserProfile | null;
 	coins: number;
 	xp: number;
 }
